@@ -1,7 +1,7 @@
 """Interfaz de linea de comandos del motor: `build`, `resolve` y `backtest`.
 
-Este PR solo implementa `resolve`; `build` y `backtest` llegan en los PR
-siguientes, segun la seccion 5.3 del diseno.
+Este PR agrega `build`; `backtest` llega en el PR 4, segun la seccion
+5.3 del diseno.
 """
 
 from __future__ import annotations
@@ -14,10 +14,13 @@ from pathlib import Path
 import pandas as pd
 
 from worky_engine.identity_resolution import resolve_identity
+from worky_engine.master_dataset import assemble_master_dataset, open_connection
+from worky_engine.quality import ContractViolation, run_contracts
 from worky_engine.sources import REQUIRED_DB_FILES, load_raw_tables
 from worky_engine.writers import write_csv
 
 ZIP_NAME = "dataset_caso_v3.zip"
+DEFAULT_DB_PATH = Path(".build") / "worky.duckdb"
 
 
 def _reconfigure_streams_to_utf8() -> None:
@@ -51,9 +54,11 @@ def _resolve_data_dir(data_dir: Path) -> Path:
         if all((extract_dir / name).is_file() for name in REQUIRED_DB_FILES):
             return extract_dir
 
-    raise SystemExit(
-        f"no se encontraron las tres bases SQLite en {data_dir} ni un {ZIP_NAME} para extraer"
+    print(
+        f"no se encontraron las tres bases SQLite en {data_dir} ni un {ZIP_NAME} para extraer",
+        file=sys.stderr,
     )
+    raise SystemExit(2)
 
 
 def _load_existing_crosswalk(out_dir: Path) -> pd.DataFrame | None:
@@ -84,6 +89,50 @@ def cmd_resolve(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_build(args: argparse.Namespace) -> int:
+    """Corre `resolve` y despues el ensamblaje: escribe las salidas de identidad mas este PR.
+
+    `master_dataset.csv` y `exceptions_log.csv` solo se escriben cuando
+    los seis contratos de `worky_engine.quality.contracts` pasan; una
+    violacion detiene el build con codigo de salida 1 y nombra el
+    contrato en el mensaje, segun el requisito de mensajes claros de
+    `build-cli`. `coverage_report.md` llega en el siguiente PR.
+    """
+    data_dir = _resolve_data_dir(Path(args.data_dir))
+    out_dir = Path(args.out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    raw_tables = load_raw_tables(data_dir)
+    existing_crosswalk = _load_existing_crosswalk(out_dir)
+    identity_outputs = resolve_identity(
+        raw_tables, existing_crosswalk, reuse_crosswalk=not args.no_reuse_crosswalk
+    )
+    for name, frame in identity_outputs.items():
+        write_csv(frame, out_dir / f"{name}.csv")
+
+    con = open_connection(args.db_path)
+    try:
+        assembly_outputs = assemble_master_dataset(con, raw_tables, identity_outputs)
+    finally:
+        con.close()
+
+    try:
+        run_contracts(
+            assembly_outputs["master_dataset"],
+            identity_outputs["identity_crosswalk"],
+            assembly_outputs["exceptions_log"],
+        )
+    except ContractViolation as error:
+        print(f"build: {error}", file=sys.stderr)
+        return 1
+
+    write_csv(assembly_outputs["master_dataset"], out_dir / "master_dataset.csv")
+    write_csv(assembly_outputs["exceptions_log"], out_dir / "exceptions_log.csv")
+
+    print(f"build: {len(assembly_outputs['master_dataset'])} empresas ensambladas en {out_dir}")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="worky_engine")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -97,6 +146,17 @@ def build_parser() -> argparse.ArgumentParser:
         help="Ignora el identity_crosswalk.csv existente y regenera todos los master_id por hash.",
     )
     resolve_parser.set_defaults(func=cmd_resolve)
+
+    build_subparser = subparsers.add_parser("build", help="Corre resolve y el ensamblaje del dataset maestro.")
+    build_subparser.add_argument("--data-dir", required=True)
+    build_subparser.add_argument("--out-dir", required=True)
+    build_subparser.add_argument("--db-path", default=str(DEFAULT_DB_PATH))
+    build_subparser.add_argument(
+        "--no-reuse-crosswalk",
+        action="store_true",
+        help="Ignora el identity_crosswalk.csv existente y regenera todos los master_id por hash.",
+    )
+    build_subparser.set_defaults(func=cmd_build)
 
     return parser
 
