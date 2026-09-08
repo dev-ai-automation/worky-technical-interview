@@ -77,7 +77,9 @@ def con_remap(tmp_path_factory) -> dict[str, pd.DataFrame]:
     }
     outputs, identity_outputs = _assemble(raw_tables, tmp_path_factory)
     assert len(identity_outputs["quarantine_companies"]) == 1
-    return outputs
+    # Se fusionan las salidas de identidad (incluye quarantine_deals) con
+    # las de master_dataset para que las pruebas puedan revisar ambas.
+    return {**identity_outputs, **outputs}
 
 
 @pytest.fixture(scope="module")
@@ -111,9 +113,8 @@ def test_deal_de_clon_se_remapea_al_master_id_del_sobreviviente(con_remap: dict[
 
 def test_deal_remapeado_no_queda_en_quarantine_deals(con_remap: dict[str, pd.DataFrame]) -> None:
     # El remapeo no es un huerfano: no debe aparecer en quarantine_deals.
-    quarantine_deals = con_remap.get("quarantine_deals")
-    if quarantine_deals is not None:
-        assert (quarantine_deals["deal_id"] == "D-6001").sum() == 0
+    quarantine_deals = con_remap["quarantine_deals"]
+    assert (quarantine_deals["deal_id"] == "D-6001").sum() == 0
 
 
 def test_exceptions_log_trae_exactamente_una_fila_de_remapeo(con_remap: dict[str, pd.DataFrame]) -> None:
