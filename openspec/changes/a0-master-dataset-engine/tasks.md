@@ -106,6 +106,8 @@ Estado en PR 3b: `coverage_report.md` generado y commiteado (nuevo golden). `mas
 
 Rama base: rama del PR 3. Entrega `trend_usage`, los agregados de soporte y comercial, y el harness del ADR-003.
 
+Corte confirmado por el usuario el 2026-09-08: el PR 4 se entrega en dos unidades apiladas. PR 4a (rama `feat/a0-pr4a-usage`, sobre `feat/a0-pr3b-coverage`): tareas 4.1, la parte de 4.4 que incorpora las columnas de uso, 4.9 y 4.10. PR 4b (rama `feat/a0-pr4b-support-commercial-harness`): 4.2, 4.3, el resto de 4.4, 4.5 a 4.8, 4.11 a 4.14 y los goldens finales.
+
 - [ ] 4.1 Crear `worky_engine/sql/marts/mart_usage.sql` con el mes de referencia, `trend_asof_month`, la forma cerrada del EWMA (span 3 y span 9), `trend_usage`, `trend_status`, el resguardo contra fuga de datos (`month <= trend_asof_month`), `usage_months`, `active_users_latest` y `active_users_avg`. Aproximadamente 65 líneas. Spec: master-dataset-assembly, requisitos mes de referencia, cálculo de trend_usage y resguardo contra fuga de datos. Prueba: `python -m pytest -q tests/test_usage_trend.py`.
 - [ ] 4.2 Crear `worky_engine/sql/marts/mart_support.sql` con `tickets_total`, `tickets_urgent` y `csat_avg` por empresa. Aproximadamente 30 líneas. Spec: master-dataset-assembly, requisito columnas mínimas del dataset maestro. Prueba: `python -m pytest -q tests/test_support_commercial.py`.
 - [ ] 4.3 Crear `worky_engine/sql/marts/mart_commercial.sql` con `acquisition_channel` (primer touch por fecha y `touch_id`, respaldo de `lead_source`, `unknown`) y `closed_revenue_mxn` (excluyendo la cuarentena). Aproximadamente 40 líneas. Spec: master-dataset-assembly, requisitos canal de adquisición y revenue cerrado. Prueba: `python -m pytest -q tests/test_support_commercial.py`.
