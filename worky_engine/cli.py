@@ -1,7 +1,11 @@
 """Interfaz de linea de comandos del motor: `build`, `resolve` y `backtest`.
 
 Este PR agrega `build`; `backtest` llega en el PR 4, segun la seccion
-5.3 del diseno.
+5.3 del diseno. `resolve_identity`, `assemble_master_dataset` y
+`open_connection` se importan de forma diferida, en el primer uso dentro
+de cada comando, para poder capturar la falta de `rapidfuzz` o `duckdb`
+como un mensaje claro en espanol en vez de un traceback al cargar el
+modulo (requisito de mensajes claros de build-cli).
 """
 
 from __future__ import annotations
@@ -13,14 +17,41 @@ from pathlib import Path
 
 import pandas as pd
 
-from worky_engine.identity_resolution import resolve_identity
-from worky_engine.master_dataset import assemble_master_dataset, open_connection
-from worky_engine.quality import ContractViolation, run_contracts
+from worky_engine.quality import ContractViolation, generate_coverage_report, run_contracts
 from worky_engine.sources import REQUIRED_DB_FILES, load_raw_tables
-from worky_engine.writers import write_csv
+from worky_engine.writers import write_csv, write_markdown
 
 ZIP_NAME = "dataset_caso_v3.zip"
 DEFAULT_DB_PATH = Path(".build") / "worky.duckdb"
+
+
+def _exit_missing_dependency(error: ImportError) -> None:
+    """Termina con codigo 2 y un mensaje en espanol que nombra la dependencia y como instalarla."""
+    missing = error.name or "una dependencia"
+    print(
+        f"worky_engine: falta instalar la dependencia '{missing}'. Corre: pip install {missing}",
+        file=sys.stderr,
+    )
+    raise SystemExit(2)
+
+
+def _import_resolve_dependency():
+    """Importa `resolve_identity` en el primer uso; solo `resolve` y `build` lo necesitan."""
+    try:
+        from worky_engine.identity_resolution import resolve_identity
+    except ImportError as error:
+        _exit_missing_dependency(error)
+    return resolve_identity
+
+
+def _import_build_dependencies():
+    """Importa `resolve_identity` y las piezas de DuckDB en el primer uso, solo para `build`."""
+    try:
+        from worky_engine.identity_resolution import resolve_identity
+        from worky_engine.master_dataset import assemble_master_dataset, open_connection
+    except ImportError as error:
+        _exit_missing_dependency(error)
+    return resolve_identity, assemble_master_dataset, open_connection
 
 
 def _reconfigure_streams_to_utf8() -> None:
@@ -70,6 +101,7 @@ def _load_existing_crosswalk(out_dir: Path) -> pd.DataFrame | None:
 
 def cmd_resolve(args: argparse.Namespace) -> int:
     """Corre solo la capa de identidad y escribe sus cuatro salidas en `--out-dir`."""
+    resolve_identity = _import_resolve_dependency()
     data_dir = _resolve_data_dir(Path(args.data_dir))
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -93,11 +125,13 @@ def cmd_build(args: argparse.Namespace) -> int:
     """Corre `resolve` y despues el ensamblaje: escribe las salidas de identidad mas este PR.
 
     `master_dataset.csv` y `exceptions_log.csv` solo se escriben cuando
-    los seis contratos de `worky_engine.quality.contracts` pasan; una
+    los contratos de `worky_engine.quality.contracts` pasan; una
     violacion detiene el build con codigo de salida 1 y nombra el
     contrato en el mensaje, segun el requisito de mensajes claros de
-    `build-cli`. `coverage_report.md` llega en el siguiente PR.
+    `build-cli`. `coverage_report.md` se genera al final, a partir de las
+    mismas salidas ya materializadas.
     """
+    resolve_identity, assemble_master_dataset, open_connection = _import_build_dependencies()
     data_dir = _resolve_data_dir(Path(args.data_dir))
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -121,6 +155,8 @@ def cmd_build(args: argparse.Namespace) -> int:
             assembly_outputs["master_dataset"],
             identity_outputs["identity_crosswalk"],
             assembly_outputs["exceptions_log"],
+            identity_outputs["match_audit"],
+            raw_tables,
         )
     except ContractViolation as error:
         print(f"build: {error}", file=sys.stderr)
@@ -128,6 +164,9 @@ def cmd_build(args: argparse.Namespace) -> int:
 
     write_csv(assembly_outputs["master_dataset"], out_dir / "master_dataset.csv")
     write_csv(assembly_outputs["exceptions_log"], out_dir / "exceptions_log.csv")
+
+    report_text = generate_coverage_report(identity_outputs, assembly_outputs)
+    write_markdown(report_text, out_dir / "coverage_report.md")
 
     print(f"build: {len(assembly_outputs['master_dataset'])} empresas ensambladas en {out_dir}")
     return 0

@@ -34,6 +34,7 @@ MART_FILES = [
     "marts/mart_company_core.sql",
     "marts/mart_mrr.sql",
     "marts/mart_master_dataset.sql",
+    "marts/mart_coverage.sql",
 ]
 
 # Columnas de fecha que llegan en DD/MM/YYYY o ISO mezclados, segun la
@@ -97,7 +98,12 @@ def assemble_master_dataset(
     raw_tables: dict[str, pd.DataFrame],
     identity_tables: dict[str, pd.DataFrame],
 ) -> dict[str, pd.DataFrame]:
-    """Registra las tablas, corre staging y marts, y entrega master_dataset y exceptions_log."""
+    """Registra las tablas, corre staging y marts, y entrega master_dataset, exceptions_log y cobertura.
+
+    Las cuatro tablas `coverage_*` vienen de `mart_coverage.sql` (tarea 3.8):
+    se materializan aqui, junto al resto, para que `worky_engine.quality.coverage`
+    solo formatee texto y nunca vuelva a tocar la conexion de DuckDB.
+    """
     register_tables(con, _with_iso_dates(raw_tables))
     register_tables(con, identity_tables)
     run_sql_files(con, STAGING_FILES)
@@ -107,4 +113,8 @@ def assemble_master_dataset(
         "exceptions_log": con.execute(
             "SELECT * FROM exceptions_log ORDER BY exception_code, source_id"
         ).df(),
+        "coverage_by_system": con.execute("SELECT * FROM mart_coverage_by_system").df(),
+        "coverage_by_tier": con.execute("SELECT * FROM mart_coverage_by_tier").df(),
+        "coverage_manual_queue": con.execute("SELECT * FROM mart_coverage_manual_queue").df(),
+        "coverage_quarantine": con.execute("SELECT * FROM mart_coverage_quarantine").df(),
     }

@@ -24,7 +24,7 @@ company_min AS (
     GROUP BY master_id
 ),
 normalized_deals AS (
-    SELECT p.master_id, p.deal_id, p.stage,
+    SELECT p.master_id, p.deal_id, p.stage, p.amount_mxn AS original_amount,
            CASE WHEN p.amount_mxn = m.min_amount * 12 THEN m.min_amount ELSE p.amount_mxn END AS normalized_amount
     FROM deal_pool p
     JOIN company_min m USING (master_id)
@@ -37,11 +37,24 @@ company_deals AS (
     FROM normalized_deals
     GROUP BY master_id
 ),
+-- El deal de evidencia (evidence_ref) prefiere, entre los que calzan con
+-- el monto imputado, el que ya trae ese monto crudo (sin haber pasado
+-- por la normalizacion 12x): en los tres casos anuales (HS-100337,
+-- HS-100500, HS-100585) evidence_ref queda apuntando al deal mensual y
+-- no al anual, para que quien audite la fila vea el monto que coincide
+-- con applied_value sin tener que rehacer la normalizacion.
 candidate_deal AS (
-    SELECT n.master_id, MIN(n.deal_id) AS candidate_deal_id
-    FROM normalized_deals n
-    JOIN company_deals c ON c.master_id = n.master_id AND n.normalized_amount = c.candidate_mrr_mxn
-    GROUP BY n.master_id
+    SELECT master_id, deal_id AS candidate_deal_id
+    FROM (
+        SELECT n.master_id, n.deal_id,
+               ROW_NUMBER() OVER (
+                   PARTITION BY n.master_id
+                   ORDER BY (n.original_amount <> c.candidate_mrr_mxn), n.deal_id
+               ) AS rn
+        FROM normalized_deals n
+        JOIN company_deals c ON c.master_id = n.master_id AND n.normalized_amount = c.candidate_mrr_mxn
+    ) ranked
+    WHERE rn = 1
 )
 SELECT
     c.master_id,

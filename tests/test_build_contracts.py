@@ -12,10 +12,14 @@ uso, soporte y comercial.
 
 from __future__ import annotations
 
+import builtins
+import sys
+
 import pandas as pd
 import pytest
 
 from tests.fixtures.mini_dataset import build_mini_dataset
+from worky_engine.cli import main as cli_main
 from worky_engine.identity_resolution import resolve_identity
 from worky_engine.master_dataset import assemble_master_dataset, open_connection
 from worky_engine.quality import ContractViolation, run_contracts
@@ -100,3 +104,50 @@ def test_mrr_confidence_none_fuera_de_unresolved_viola_el_contrato(assembled: di
     broken.loc[broken.index[0], "mrr_confidence"] = "none"
     with pytest.raises(ContractViolation, match="mrr_confidence_matches_source"):
         run_contracts(broken, assembled["identity_crosswalk"], assembled["exceptions_log"])
+
+
+def test_build_con_data_dir_inexistente_termina_con_codigo_2(tmp_path, capsys) -> None:
+    """Tarea 3.18: falta una de las tres bases SQLite, mensaje en espanol y sin salidas parciales."""
+    with pytest.raises(SystemExit) as exit_info:
+        cli_main(["build", "--data-dir", str(tmp_path / "no-existe"), "--out-dir", str(tmp_path / "out")])
+    assert exit_info.value.code == 2
+    assert "no se encontraron las tres bases SQLite" in capsys.readouterr().err
+    assert not (tmp_path / "out" / "master_dataset.csv").exists()
+
+
+@pytest.mark.dataset
+def test_build_con_contrato_violado_termina_con_codigo_1(
+    monkeypatch: pytest.MonkeyPatch, data_dir, tmp_path, capsys
+) -> None:
+    """Tarea 3.18: una violacion forzada de contrato detiene el build con codigo 1 y nombra el contrato."""
+
+    def _siempre_viola(*_args, **_kwargs) -> None:
+        raise ContractViolation("contrato forzado_para_la_prueba: violacion simulada")
+
+    monkeypatch.setattr("worky_engine.quality.contracts.assert_unique_master_id", _siempre_viola)
+    exit_code = cli_main(
+        ["build", "--data-dir", str(data_dir), "--out-dir", str(tmp_path / "out")]
+    )
+    assert exit_code == 1
+    assert "forzado_para_la_prueba" in capsys.readouterr().err
+
+
+def test_build_con_duckdb_faltante_termina_con_codigo_2(monkeypatch: pytest.MonkeyPatch, tmp_path, capsys) -> None:
+    """Tarea 3.18: ImportError de duckdb en el primer uso, mensaje en espanol con el pip install."""
+    real_import = builtins.__import__
+
+    def _fake_import(name: str, *args, **kwargs):
+        if name == "duckdb":
+            raise ImportError(name="duckdb")
+        return real_import(name, *args, **kwargs)
+
+    for cached in ("duckdb", "worky_engine.master_dataset", "worky_engine.master_dataset.assemble"):
+        monkeypatch.delitem(sys.modules, cached, raising=False)
+    monkeypatch.setattr(builtins, "__import__", _fake_import)
+
+    with pytest.raises(SystemExit) as exit_info:
+        cli_main(["build", "--data-dir", str(tmp_path / "no-existe"), "--out-dir", str(tmp_path / "out")])
+    assert exit_info.value.code == 2
+    stderr = capsys.readouterr().err
+    assert "duckdb" in stderr
+    assert "pip install duckdb" in stderr

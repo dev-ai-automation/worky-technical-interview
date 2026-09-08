@@ -109,6 +109,50 @@ def assert_mrr_confidence_matches_source(master_dataset: pd.DataFrame) -> None:
         )
 
 
+_ORIGIN_TABLE_BY_SOURCE_SYSTEM = {
+    "crm_hubspot": ("raw_companies", "hubspot_id"),
+    "product_db": ("raw_accounts", "account_id"),
+    "vitally": ("raw_customers", "vitally_id"),
+}
+
+
+def assert_source_id_in_origin_table(match_audit: pd.DataFrame, raw_tables: dict[str, pd.DataFrame]) -> None:
+    """Cada `source_id` de match_audit existe en la tabla cruda de su propio sistema de origen."""
+    for source_system, (table_name, id_column) in _ORIGIN_TABLE_BY_SOURCE_SYSTEM.items():
+        known_ids = set(raw_tables[table_name][id_column].dropna())
+        observed_ids = set(match_audit.loc[match_audit["source_system"] == source_system, "source_id"])
+        missing = observed_ids - known_ids
+        if missing:
+            raise ContractViolation(
+                f"contrato source_id_in_origin_table: {len(missing)} source_id de '{source_system}' "
+                f"ausentes en {table_name}.{id_column}"
+            )
+
+
+TICKETS_PRIORITY_VALUES = {"Low", "Medium", "High", "Urgent"}
+
+
+def assert_tickets_priority_domain(raw_tickets: pd.DataFrame) -> None:
+    """`tickets.priority`, sobre la tabla cruda, solo trae los cuatro valores del dominio conocido."""
+    observed = set(raw_tickets["priority"].dropna())
+    invalid = observed - TICKETS_PRIORITY_VALUES
+    if invalid:
+        raise ContractViolation(f"contrato tickets_priority_domain: valores no permitidos {sorted(invalid)}")
+
+
+def assert_usage_months_no_internal_gaps(raw_product_usage: pd.DataFrame) -> None:
+    """Por cada cuenta con uso, los meses observados son consecutivos entre el minimo y el maximo."""
+    for account_id, group in raw_product_usage.groupby("account_id"):
+        months = sorted({pd.Period(str(month), freq="M") for month in group["month"].dropna()})
+        if not months:
+            continue
+        expected_span = (months[-1] - months[0]).n + 1
+        if len(months) != expected_span:
+            raise ContractViolation(
+                f"contrato usage_months_no_internal_gaps: la cuenta '{account_id}' tiene huecos en su serie de uso"
+            )
+
+
 def count_unresolved(master_dataset: pd.DataFrame) -> int:
     """Cuenta filas `mrr_source = 'unresolved'`: estado legitimo, nunca hace fallar el build por si solo."""
     return int((master_dataset["mrr_source"] == "unresolved").sum())
@@ -127,8 +171,18 @@ def run_contracts(
     master_dataset: pd.DataFrame,
     crosswalk: pd.DataFrame,
     exceptions_log: pd.DataFrame,
+    match_audit: pd.DataFrame | None = None,
+    raw_tables: dict[str, pd.DataFrame] | None = None,
 ) -> None:
-    """Corre los siete contratos disponibles en este PR, en orden fijo, y reporta las filas unresolved."""
+    """Corre todos los contratos disponibles en tiempo de build, en orden fijo (seccion 6 del diseno).
+
+    `match_audit` y `raw_tables` son opcionales para no romper las pruebas
+    existentes que solo ejercitan `master_dataset`/`crosswalk`/`exceptions_log`
+    (por ejemplo sobre copias rotas de una sola tabla); `cmd_build` los pasa
+    siempre, asi que en un build real los tres contratos de la tarea 3.12
+    (`source_id` de match_audit, `tickets.priority`, series de uso sin
+    huecos) tambien corren y pueden terminar el build con codigo 1.
+    """
     assert_row_count_matches_crosswalk(master_dataset, crosswalk)
     assert_unique_master_id(master_dataset)
     assert_required_columns_not_null(master_dataset)
@@ -136,6 +190,10 @@ def run_contracts(
     assert_exceptions_master_id_in_dataset(exceptions_log, master_dataset)
     assert_value_domains(master_dataset)
     assert_mrr_confidence_matches_source(master_dataset)
+    if match_audit is not None and raw_tables is not None:
+        assert_source_id_in_origin_table(match_audit, raw_tables)
+        assert_tickets_priority_domain(raw_tables["raw_tickets"])
+        assert_usage_months_no_internal_gaps(raw_tables["raw_product_usage"])
 
     unresolved_count = count_unresolved(master_dataset)
     if unresolved_count:

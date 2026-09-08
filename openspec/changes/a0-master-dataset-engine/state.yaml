@@ -22,7 +22,7 @@ phases:
   specs: done
   design: done
   tasks: done
-  apply: in_progress (PR 1 y PR 2 revisados y reconocidos; PR 3a implementado, validado y corregido, commit 20fc647; PR 3b y PR 4 pendientes)
+  apply: in_progress (PR 1, PR 2 y PR 3 (3a y 3b) implementados y validados; PR 3b en revision RDD; PR 4 pendiente)
   verify: pending
   archive: pending
 next_recommended: sdd-apply PR 1 (tras aprobacion del usuario; acquire de sdd-attempt antes del lanzamiento)
