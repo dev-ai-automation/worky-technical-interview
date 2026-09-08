@@ -33,6 +33,7 @@ STAGING_FILES = [
 MART_FILES = [
     "marts/mart_company_core.sql",
     "marts/mart_mrr.sql",
+    "marts/mart_usage.sql",
     "marts/mart_master_dataset.sql",
     "marts/mart_coverage.sql",
 ]

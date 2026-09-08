@@ -27,6 +27,8 @@ REQUIRED_MASTER_DATASET_COLUMNS = (
     "mrr_source",
     "mrr_confidence",
     "currency_original",
+    "trend_status",
+    "trend_asof_month",
 )
 # `confidence_tier` no entra aqui a proposito: el diseno lo marca "no
 # nulable" porque el dataset real tiene cobertura total de Vitally
@@ -39,6 +41,7 @@ REQUIRED_MASTER_DATASET_COLUMNS = (
 MRR_SOURCE_VALUES = {"crm", "imputed_from_deal", "unresolved"}
 MRR_CONFIDENCE_VALUES = {"high", "medium", "none"}
 CHURN_STATUS_VALUES = {"active", "churned"}
+TREND_STATUS_VALUES = {"computed", "insufficient_history", "no_usage"}
 
 
 class ContractViolation(Exception):
@@ -92,6 +95,31 @@ def assert_value_domains(master_dataset: pd.DataFrame) -> None:
     _assert_domain(master_dataset, "mrr_source", MRR_SOURCE_VALUES)
     _assert_domain(master_dataset, "mrr_confidence", MRR_CONFIDENCE_VALUES)
     _assert_domain(master_dataset, "churn_status", CHURN_STATUS_VALUES)
+    _assert_domain(master_dataset, "trend_status", TREND_STATUS_VALUES)
+
+
+def assert_trend_usage_matches_status(master_dataset: pd.DataFrame) -> None:
+    """`trend_usage` tiene valor si y solo si `trend_status` es 'computed' (ADR-003), nunca un nulo silencioso."""
+    is_computed = master_dataset["trend_status"] == "computed"
+    trend_usage_present = master_dataset["trend_usage"].notna()
+    if (is_computed != trend_usage_present).any():
+        raise ContractViolation(
+            "contrato trend_usage_matches_status: trend_usage debe tener valor "
+            "unicamente cuando trend_status es 'computed'"
+        )
+
+
+def assert_trend_asof_month_is_reference_minus_two(master_dataset: pd.DataFrame) -> None:
+    """`trend_asof_month` es el mes de referencia menos 2 meses (k = 2), en todas las filas (ADR-003)."""
+    expected = (
+        pd.to_datetime(master_dataset["reference_month"] + "-01") - pd.DateOffset(months=2)
+    ).dt.strftime("%Y-%m")
+    mismatched = master_dataset["trend_asof_month"] != expected
+    if mismatched.any():
+        raise ContractViolation(
+            f"contrato trend_asof_month_reference_minus_two: {int(mismatched.sum())} filas "
+            "con trend_asof_month distinto de reference_month menos 2 meses"
+        )
 
 
 def assert_mrr_confidence_matches_source(master_dataset: pd.DataFrame) -> None:
@@ -190,6 +218,8 @@ def run_contracts(
     assert_exceptions_master_id_in_dataset(exceptions_log, master_dataset)
     assert_value_domains(master_dataset)
     assert_mrr_confidence_matches_source(master_dataset)
+    assert_trend_usage_matches_status(master_dataset)
+    assert_trend_asof_month_is_reference_minus_two(master_dataset)
     if match_audit is not None and raw_tables is not None:
         assert_source_id_in_origin_table(match_audit, raw_tables)
         assert_tickets_priority_domain(raw_tables["raw_tickets"])

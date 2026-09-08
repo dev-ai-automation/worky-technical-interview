@@ -1,8 +1,9 @@
 -- Ensambla las columnas disponibles en este PR: identidad, atributos
--- comerciales, MRR con su trazabilidad y el estatus de baja. Las
--- columnas de uso, soporte y comercial llegan en el PR 4 (seccion 8 del
--- diseno); este SELECT queda listo para agregarlas con un JOIN mas,
--- sin tocar ninguna de las columnas que ya arma este PR.
+-- comerciales, MRR con su trazabilidad, el estatus de baja y, desde el
+-- PR 4a, la tendencia de uso (`mart_usage`, seccion 4.4 del diseno).
+-- Soporte y comercial llegan en el PR 4b; este SELECT queda listo para
+-- agregarlos con un JOIN mas, sin tocar ninguna columna que ya arma
+-- este PR.
 --
 -- Fechas y montos salen como texto ya formateado (`strftime`, `printf`)
 -- para que el CSV nunca dependa de como pandas imprima un Timestamp o
@@ -30,6 +31,13 @@ SELECT
     strftime(c.churn_date, '%Y-%m-%d')                                        AS churn_date,
     c.churn_status,
     CASE WHEN c.churn_date IS NOT NULL THEN strftime(c.churn_date, '%Y-%m')
-         ELSE (SELECT MAX(month) FROM stg_product_usage) END                  AS reference_month
+         ELSE (SELECT MAX(month) FROM stg_product_usage) END                  AS reference_month,
+    u.active_users_latest,
+    u.active_users_avg,
+    u.usage_months,
+    u.trend_usage,
+    u.trend_asof_month,
+    u.trend_status
 FROM mart_company_core c
-JOIN mart_mrr m ON m.master_id = c.master_id;
+JOIN mart_mrr m ON m.master_id = c.master_id
+JOIN mart_usage u ON u.master_id = c.master_id;
