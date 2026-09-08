@@ -22,7 +22,7 @@ phases:
   specs: done
   design: done
   tasks: done
-  apply: in_progress (PR 1 commit b950e13 en feat/a0-pr1-normalization sobre main f09d03d; libro nativo: intento 1 passed con 801 lineas contadas vs 800, requiere reset del maintainer antes del PR 2)
+  apply: in_progress (PR 1 commit b950e13; PR 2 implementado, 1,208 lineas con size:exception aceptada por el usuario el 2026-09-08, validacion y commit pendientes)
   verify: pending
   archive: pending
 next_recommended: sdd-apply PR 1 (tras aprobacion del usuario; acquire de sdd-attempt antes del lanzamiento)

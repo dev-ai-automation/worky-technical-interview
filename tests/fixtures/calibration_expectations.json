@@ -1,0 +1,15 @@
+{
+  "ruleset_version": "1.0.0",
+  "labeled_pairs": 596,
+  "top1_correct_with_wratio": 590,
+  "top1_accuracy_pct": 99.0,
+  "min_correct_score": 83.33,
+  "score_percentile_5": 92.84,
+  "coverage_by_tier": {
+    "T0": 596,
+    "T1": 650,
+    "T2": 54,
+    "T3": 0,
+    "M": 0
+  }
+}
