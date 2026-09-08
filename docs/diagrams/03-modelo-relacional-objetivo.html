@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modelo relacional objetivo de A0</title>
+<style>
+  :root { color-scheme: light; }
+  body {
+    margin: 0;
+    padding: 32px 24px 56px;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: #FFFFFF;
+    color: #27272A;
+    line-height: 1.55;
+  }
+  main { max-width: 1200px; margin: 0 auto; }
+  h1 { font-size: 1.5rem; margin-bottom: 0.25rem; }
+  .subtitle { color: #52525B; font-size: 0.95rem; margin-top: 0; margin-bottom: 1.25rem; }
+  p.context { max-width: 900px; }
+  .diagram-wrap {
+    margin: 28px 0;
+    padding: 16px;
+    border: 1px solid #E4E4E7;
+    border-radius: 8px;
+    overflow-x: auto;
+    background: #FAFAFA;
+  }
+  .diagram-wrap svg { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+  table { border-collapse: collapse; width: 100%; margin: 20px 0; font-size: 0.9rem; }
+  caption { text-align: left; font-weight: 600; margin-bottom: 6px; }
+  th, td { border: 1px solid #E4E4E7; padding: 6px 10px; text-align: left; }
+  th { background: #F4F4F5; }
+  footer { margin-top: 32px; font-size: 0.8rem; color: #71717A; }
+  a { color: #2563EB; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Modelo relacional objetivo de A0</h1>
+  <p class="subtitle">
+    Fuente: <code>openspec/changes/a0-master-dataset-engine/design.md</code> (sección 2, contratos de datos)
+    y <code>docs/decisions/ADR-001-identity-resolution-scorecard.md</code>
+  </p>
+
+  <p class="context">
+    Este diagrama muestra el modelo relacional que produce el motor <code>worky_engine</code>, la respuesta
+    a la pregunta A4 del caso. Al centro está <code>MASTER_DATASET</code>, la tabla de una fila por empresa
+    real (650 filas). <code>IDENTITY_CROSSWALK</code> mapea el <code>master_id</code> a los tres id de
+    origen. <code>MATCH_AUDIT</code> guarda una fila por registro de origen procesado con el nivel de
+    confianza, el puntaje y la evidencia de cada decisión de cruce. <code>QUARANTINE_COMPANIES</code>,
+    <code>QUARANTINE_DEALS</code> y <code>EXCEPTIONS_LOG</code> guardan lo que el motor aparta o corrige, sin
+    eliminarlo nunca. <code>COMPANIES</code>, <code>ACCOUNTS</code> y <code>CUSTOMERS</code> aparecen como
+    tablas de entrada, con solo su llave primaria; su esquema completo está en el diagrama
+    <code>02-erd-as-is-tres-sistemas</code>.
+  </p>
+
+  <p class="context">
+    El diseño de A0 no usa la nomenclatura <code>fact_</code> / <code>dim_</code>: esa convención pertenece
+    a la recomendación de arquitectura de bodega para A4 en <code>docs/research/01-bi-revops-data-architecture.md</code>,
+    un cambio posterior y todavía sin construir. Este diagrama usa los nombres exactos que el diseño de A0
+    ya implementó: <code>MASTER_DATASET</code> hace el papel de tabla de hechos por empresa, e
+    <code>IDENTITY_CROSSWALK</code> hace el papel de la dimensión de identidad conformada que menciona la
+    investigación.
+  </p>
+
+  <div class="diagram-wrap">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1954.626 1578.8" width="1954.626" height="1578.8" style="--bg:#FFFFFF;--fg:#27272A;background:var(--bg)">
+<style>
+  text { font-family: 'Inter', system-ui, sans-serif; }
+  .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', ui-monospace, monospace; }
+  svg {
+    /* Derived from --bg and --fg (overridable via --line, --accent, etc.) */
+    --_text:          var(--fg);
+    --_text-sec:      var(--muted, color-mix(in srgb, var(--fg) 60%, var(--bg)));
+    --_text-muted:    var(--muted, color-mix(in srgb, var(--fg) 40%, var(--bg)));
+    --_text-faint:    color-mix(in srgb, var(--fg) 25%, var(--bg));
+    --_line:          var(--line, color-mix(in srgb, var(--fg) 50%, var(--bg)));
+    --_arrow:         var(--accent, color-mix(in srgb, var(--fg) 85%, var(--bg)));
+    --_node-fill:     var(--surface, color-mix(in srgb, var(--fg) 3%, var(--bg)));
+    --_node-stroke:   var(--border, color-mix(in srgb, var(--fg) 20%, var(--bg)));
+    --_group-fill:    var(--bg);
+    --_group-hdr:     color-mix(in srgb, var(--fg) 5%, var(--bg));
+    --_inner-stroke:  color-mix(in srgb, var(--fg) 12%, var(--bg));
+    --_key-badge:     color-mix(in srgb, var(--fg) 10%, var(--bg));
+  }
+</style>
+<defs>
+</defs>
+<polyline class="er-relationship" data-entity1="IDENTITY_CROSSWALK" data-entity2="MASTER_DATASET" data-cardinality1="one" data-cardinality2="one" data-identifying="true" data-label="master_id, 1 a 1" points="792.068,976.5 1174.768,976.5" fill="none" stroke="var(--_line)" stroke-width="1" />
+<polyline class="er-relationship" data-entity1="COMPANIES" data-entity2="IDENTITY_CROSSWALK" data-cardinality1="one" data-cardinality2="one" data-identifying="true" data-label="hubspot_id, obligatorio en las 650 filas" points="219.79999999999998,976.4999999999999 585.8679999999999,976.5" fill="none" stroke="var(--_line)" stroke-width="1" />
+<polyline class="er-relationship" data-entity1="IDENTITY_CROSSWALK" data-entity2="ACCOUNTS" data-cardinality1="zero-one" data-cardinality2="zero-one" data-identifying="true" data-label="account_id, nulo en 82 de 650" points="792.068,1034.5 802.068,1034.5 802.068,1476.5 1191.268,1476.5" fill="none" stroke="var(--_line)" stroke-width="1" />
+<polyline class="er-relationship" data-entity1="IDENTITY_CROSSWALK" data-entity2="CUSTOMERS" data-cardinality1="zero-one" data-cardinality2="zero-one" data-identifying="true" data-label="vitally_id, nulo sin cliente Vitally vinculado" points="792.068,918.5 802.068,918.5 802.068,476.5 1191.268,476.5" fill="none" stroke="var(--_line)" stroke-width="1" />
+<polyline class="er-relationship" data-entity1="COMPANIES" data-entity2="MATCH_AUDIT" data-cardinality1="one" data-cardinality2="zero-many" data-identifying="true" data-label="source_system = crm_hubspot" points="219.79999999999998,995.1666666666666 229.79999999999998,995.1666666666666 229.79999999999998,1514.5 1645.026,1514.5 1645.026,669.5 1715.026,669.5" fill="none" stroke="var(--_line)" stroke-width="1" />
+<polyline class="er-relationship" data-entity1="ACCOUNTS" data-entity2="MATCH_AUDIT" data-cardinality1="one" data-cardinality2="zero-many" data-identifying="true" data-label="source_system = product_db" points="1371.068,1476.5 1635.026,1476.5 1635.026,573 1715.026,573" fill="none" stroke="var(--_line)" stroke-width="1" />
+<polyline class="er-relationship" data-entity1="CUSTOMERS" data-entity2="MATCH_AUDIT" data-cardinality1="one" data-cardinality2="zero-many" data-identifying="true" data-label="source_system = vitally" points="1371.068,476.5 1715.026,476.5" fill="none" stroke="var(--_line)" stroke-width="1" />
+<g class="entity" data-id="MASTER_DATASET" data-label="MASTER_DATASET">
+  <rect x="1174.768" y="574.5" width="212.79999999999998" height="804" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="1174.768" y="574.5" width="212.79999999999998" height="34" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="1281.1680000000001" y="591.5" text-anchor="middle" font-size="13" font-weight="700" fill="var(--_text)" dy="4.55">MASTER_DATASET</text>
+  <line x1="1174.768" y1="608.5" x2="1387.568" y2="608.5" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <rect x="1180.768" y="612.5" width="22.31" height="14" rx="2" ry="2" fill="var(--_key-badge)" />
+  <text x="1191.923" y="619.5" text-anchor="middle" dy="0.35em" font-size="9" font-weight="600" fill="var(--_text-sec)">PK</text>
+  <text x="1211.078" y="619.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR(12)</tspan></text>
+  <text x="1379.568" y="619.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">master_id</tspan></text>
+  <text x="1182.768" y="641.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="1379.568" y="641.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">hubspot_id</tspan></text>
+  <text x="1182.768" y="663.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="1379.568" y="663.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">account_id</tspan></text>
+  <text x="1182.768" y="685.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="1379.568" y="685.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">vitally_id</tspan></text>
+  <text x="1182.768" y="707.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="1379.568" y="707.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">company_name</tspan></text>
+  <text x="1182.768" y="729.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="1379.568" y="729.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">domain</tspan></text>
+  <text x="1182.768" y="751.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="1379.568" y="751.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">domain_label</tspan></text>
+  <text x="1182.768" y="773.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="1379.568" y="773.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">segment</tspan></text>
+  <text x="1182.768" y="795.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="1379.568" y="795.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">plan</tspan></text>
+  <text x="1182.768" y="817.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="1379.568" y="817.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">industry</tspan></text>
+  <text x="1182.768" y="839.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="1379.568" y="839.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">state</tspan></text>
+  <text x="1182.768" y="861.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="1379.568" y="861.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">csm_owner</tspan></text>
+  <text x="1182.768" y="883.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">DATE</tspan></text>
+  <text x="1379.568" y="883.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">signup_date</tspan></text>
+  <text x="1182.768" y="905.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">DATE</tspan></text>
+  <text x="1379.568" y="905.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">churn_date</tspan></text>
+  <text x="1182.768" y="927.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="1379.568" y="927.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">churn_status</tspan></text>
+  <text x="1182.768" y="949.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="1379.568" y="949.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">reference_month</tspan></text>
+  <text x="1182.768" y="971.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="1379.568" y="971.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">confidence_tier</tspan></text>
+  <text x="1182.768" y="993.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">DECIMAL</tspan></text>
+  <text x="1379.568" y="993.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">mrr_mxn</tspan></text>
+  <text x="1182.768" y="1015.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="1379.568" y="1015.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">mrr_source</tspan></text>
+  <text x="1182.768" y="1037.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="1379.568" y="1037.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">mrr_confidence</tspan></text>
+  <text x="1182.768" y="1059.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">DECIMAL</tspan></text>
+  <text x="1379.568" y="1059.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">mrr_original</tspan></text>
+  <text x="1182.768" y="1081.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="1379.568" y="1081.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">currency_original</tspan></text>
+  <text x="1182.768" y="1103.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">DECIMAL</tspan></text>
+  <text x="1379.568" y="1103.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">trend_usage</tspan></text>
+  <text x="1182.768" y="1125.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="1379.568" y="1125.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">trend_asof_month</tspan></text>
+  <text x="1182.768" y="1147.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="1379.568" y="1147.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">trend_status</tspan></text>
+  <text x="1182.768" y="1169.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">INTEGER</tspan></text>
+  <text x="1379.568" y="1169.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">usage_months</tspan></text>
+  <text x="1182.768" y="1191.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">INTEGER</tspan></text>
+  <text x="1379.568" y="1191.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">active_users_latest</tspan></text>
+  <text x="1182.768" y="1213.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">DECIMAL</tspan></text>
+  <text x="1379.568" y="1213.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">active_users_avg</tspan></text>
+  <text x="1182.768" y="1235.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">INTEGER</tspan></text>
+  <text x="1379.568" y="1235.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">tickets_total</tspan></text>
+  <text x="1182.768" y="1257.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">INTEGER</tspan></text>
+  <text x="1379.568" y="1257.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">tickets_urgent</tspan></text>
+  <text x="1182.768" y="1279.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">DECIMAL</tspan></text>
+  <text x="1379.568" y="1279.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">csat_avg</tspan></text>
+  <text x="1182.768" y="1301.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="1379.568" y="1301.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">acquisition_channel</tspan></text>
+  <text x="1182.768" y="1323.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">DECIMAL</tspan></text>
+  <text x="1379.568" y="1323.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">closed_revenue_mxn</tspan></text>
+  <text x="1182.768" y="1345.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="1379.568" y="1345.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">ruleset_version</tspan></text>
+  <text x="1182.768" y="1367.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">DATE</tspan></text>
+  <text x="1379.568" y="1367.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">dataset_asof</tspan></text>
+</g>
+<g class="entity" data-id="IDENTITY_CROSSWALK" data-label="IDENTITY_CROSSWALK">
+  <rect x="585.8679999999999" y="860.5" width="206.2" height="232" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="585.8679999999999" y="860.5" width="206.2" height="34" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="688.968" y="877.5" text-anchor="middle" font-size="13" font-weight="700" fill="var(--_text)" dy="4.55">IDENTITY_CROSSWALK</text>
+  <line x1="585.8679999999999" y1="894.5" x2="792.068" y2="894.5" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <rect x="591.8679999999999" y="898.5" width="22.31" height="14" rx="2" ry="2" fill="var(--_key-badge)" />
+  <text x="603.0229999999999" y="905.5" text-anchor="middle" dy="0.35em" font-size="9" font-weight="600" fill="var(--_text-sec)">PK</text>
+  <text x="622.1779999999999" y="905.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR(12)</tspan></text>
+  <text x="784.068" y="905.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">master_id</tspan></text>
+  <text x="593.8679999999999" y="927.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="784.068" y="927.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">hubspot_id</tspan></text>
+  <text x="593.8679999999999" y="949.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="784.068" y="949.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">account_id</tspan></text>
+  <text x="593.8679999999999" y="971.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="784.068" y="971.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">vitally_id</tspan></text>
+  <text x="593.8679999999999" y="993.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="784.068" y="993.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">account_match_tier</tspan></text>
+  <text x="593.8679999999999" y="1015.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="784.068" y="1015.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">vitally_match_tier</tspan></text>
+  <text x="593.8679999999999" y="1037.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="784.068" y="1037.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">confidence_tier</tspan></text>
+  <text x="593.8679999999999" y="1059.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">DATE</tspan></text>
+  <text x="784.068" y="1059.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">resolved_at</tspan></text>
+  <text x="593.8679999999999" y="1081.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="784.068" y="1081.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">ruleset_version</tspan></text>
+</g>
+<g class="entity" data-id="MATCH_AUDIT" data-label="MATCH_AUDIT">
+  <rect x="1715.026" y="380" width="199.6" height="386" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="1715.026" y="380" width="199.6" height="34" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="1814.826" y="397" text-anchor="middle" font-size="13" font-weight="700" fill="var(--_text)" dy="4.55">MATCH_AUDIT</text>
+  <line x1="1715.026" y1="414" x2="1914.626" y2="414" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1723.026" y="425" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="1906.626" y="425" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">source_system</tspan></text>
+  <text x="1723.026" y="447" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="1906.626" y="447" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">source_id</tspan></text>
+  <rect x="1721.026" y="462" width="22.31" height="14" rx="2" ry="2" fill="var(--_key-badge)" />
+  <text x="1732.181" y="469" text-anchor="middle" dy="0.35em" font-size="9" font-weight="600" fill="var(--_text-sec)">FK</text>
+  <text x="1751.336" y="469" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR(12)</tspan></text>
+  <text x="1906.626" y="469" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">master_id</tspan></text>
+  <text x="1723.026" y="491" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="1906.626" y="491" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">tier</tspan></text>
+  <text x="1723.026" y="513" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">DECIMAL</tspan></text>
+  <text x="1906.626" y="513" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">score</tspan></text>
+  <text x="1723.026" y="535" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">DECIMAL</tspan></text>
+  <text x="1906.626" y="535" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">score_runner_up</tspan></text>
+  <text x="1723.026" y="557" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">DECIMAL</tspan></text>
+  <text x="1906.626" y="557" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">score_margin</tspan></text>
+  <text x="1723.026" y="579" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">INTEGER</tspan></text>
+  <text x="1906.626" y="579" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">candidate_count</tspan></text>
+  <text x="1723.026" y="601" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="1906.626" y="601" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">blocking_rule</tspan></text>
+  <text x="1723.026" y="623" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="1906.626" y="623" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">evidence_json</tspan></text>
+  <text x="1723.026" y="645" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">BOOLEAN</tspan></text>
+  <text x="1906.626" y="645" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">veto_applied</tspan></text>
+  <text x="1723.026" y="667" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="1906.626" y="667" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">veto_reason</tspan></text>
+  <text x="1723.026" y="689" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">BOOLEAN</tspan></text>
+  <text x="1906.626" y="689" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">needs_review</tspan></text>
+  <text x="1723.026" y="711" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="1906.626" y="711" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">ruleset_version</tspan></text>
+  <text x="1723.026" y="733" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="1906.626" y="733" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">decided_by</tspan></text>
+  <text x="1723.026" y="755" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">DATE</tspan></text>
+  <text x="1906.626" y="755" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">decided_at</tspan></text>
+</g>
+<g class="entity" data-id="QUARANTINE_COMPANIES" data-label="QUARANTINE_COMPANIES">
+  <rect x="485.8" y="40" width="259" height="320" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="485.8" y="40" width="259" height="34" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="615.3" y="57" text-anchor="middle" font-size="13" font-weight="700" fill="var(--_text)" dy="4.55">QUARANTINE_COMPANIES</text>
+  <line x1="485.8" y1="74" x2="744.8" y2="74" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <rect x="491.8" y="78" width="22.31" height="14" rx="2" ry="2" fill="var(--_key-badge)" />
+  <text x="502.955" y="85" text-anchor="middle" dy="0.35em" font-size="9" font-weight="600" fill="var(--_text-sec)">PK</text>
+  <text x="522.11" y="85" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="736.8" y="85" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">hubspot_id</tspan></text>
+  <text x="493.8" y="107" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="736.8" y="107" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">company_name</tspan></text>
+  <text x="493.8" y="129" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="736.8" y="129" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">domain</tspan></text>
+  <text x="493.8" y="151" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">DECIMAL</tspan></text>
+  <text x="736.8" y="151" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">mrr</tspan></text>
+  <text x="493.8" y="173" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="736.8" y="173" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">currency</tspan></text>
+  <text x="493.8" y="195" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">DATE</tspan></text>
+  <text x="736.8" y="195" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">signup_date</tspan></text>
+  <text x="493.8" y="217" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">DATE</tspan></text>
+  <text x="736.8" y="217" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">churn_date</tspan></text>
+  <text x="493.8" y="239" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="736.8" y="239" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">reason_code</tspan></text>
+  <text x="493.8" y="261" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="736.8" y="261" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">survivor_hubspot_id</tspan></text>
+  <rect x="491.8" y="276" width="22.31" height="14" rx="2" ry="2" fill="var(--_key-badge)" />
+  <text x="502.955" y="283" text-anchor="middle" dy="0.35em" font-size="9" font-weight="600" fill="var(--_text-sec)">FK</text>
+  <text x="522.11" y="283" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR(12)</tspan></text>
+  <text x="736.8" y="283" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">survivor_master_id</tspan></text>
+  <text x="493.8" y="305" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="736.8" y="305" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">evidence_json</tspan></text>
+  <text x="493.8" y="327" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="736.8" y="327" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">ruleset_version</tspan></text>
+  <text x="493.8" y="349" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">DATE</tspan></text>
+  <text x="736.8" y="349" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">decided_at</tspan></text>
+</g>
+<g class="entity" data-id="QUARANTINE_DEALS" data-label="QUARANTINE_DEALS">
+  <rect x="40" y="40" width="186.4" height="276" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="40" y="40" width="186.4" height="34" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="133.2" y="57" text-anchor="middle" font-size="13" font-weight="700" fill="var(--_text)" dy="4.55">QUARANTINE_DEALS</text>
+  <line x1="40" y1="74" x2="226.4" y2="74" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <rect x="46" y="78" width="22.31" height="14" rx="2" ry="2" fill="var(--_key-badge)" />
+  <text x="57.155" y="85" text-anchor="middle" dy="0.35em" font-size="9" font-weight="600" fill="var(--_text-sec)">PK</text>
+  <text x="76.31" y="85" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="218.4" y="85" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">deal_id</tspan></text>
+  <text x="48" y="107" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="218.4" y="107" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">hubspot_id</tspan></text>
+  <text x="48" y="129" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="218.4" y="129" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">stage</tspan></text>
+  <text x="48" y="151" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">DECIMAL</tspan></text>
+  <text x="218.4" y="151" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">amount</tspan></text>
+  <text x="48" y="173" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">DATE</tspan></text>
+  <text x="218.4" y="173" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">created_date</tspan></text>
+  <text x="48" y="195" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">DATE</tspan></text>
+  <text x="218.4" y="195" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">close_date</tspan></text>
+  <text x="48" y="217" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="218.4" y="217" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">pipeline</tspan></text>
+  <text x="48" y="239" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="218.4" y="239" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">lead_source</tspan></text>
+  <text x="48" y="261" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="218.4" y="261" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">reason_code</tspan></text>
+  <text x="48" y="283" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="218.4" y="283" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">ruleset_version</tspan></text>
+  <text x="48" y="305" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">DATE</tspan></text>
+  <text x="218.4" y="305" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">decided_at</tspan></text>
+</g>
+<g class="entity" data-id="EXCEPTIONS_LOG" data-label="EXCEPTIONS_LOG">
+  <rect x="246.4" y="40" width="219.4" height="276" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="246.4" y="40" width="219.4" height="34" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="356.1" y="57" text-anchor="middle" font-size="13" font-weight="700" fill="var(--_text)" dy="4.55">EXCEPTIONS_LOG</text>
+  <line x1="246.4" y1="74" x2="465.8" y2="74" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <rect x="252.4" y="78" width="22.31" height="14" rx="2" ry="2" fill="var(--_key-badge)" />
+  <text x="263.555" y="85" text-anchor="middle" dy="0.35em" font-size="9" font-weight="600" fill="var(--_text-sec)">PK</text>
+  <text x="282.71" y="85" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR(12)</tspan></text>
+  <text x="457.8" y="85" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">exception_id</tspan></text>
+  <text x="254.4" y="107" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="457.8" y="107" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">exception_code</tspan></text>
+  <text x="254.4" y="129" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="457.8" y="129" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">source_system</tspan></text>
+  <text x="254.4" y="151" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="457.8" y="151" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">source_id</tspan></text>
+  <rect x="252.4" y="166" width="22.31" height="14" rx="2" ry="2" fill="var(--_key-badge)" />
+  <text x="263.555" y="173" text-anchor="middle" dy="0.35em" font-size="9" font-weight="600" fill="var(--_text-sec)">FK</text>
+  <text x="282.71" y="173" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR(12)</tspan></text>
+  <text x="457.8" y="173" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">master_id</tspan></text>
+  <text x="254.4" y="195" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="457.8" y="195" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">field_name</tspan></text>
+  <text x="254.4" y="217" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="457.8" y="217" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">original_value</tspan></text>
+  <text x="254.4" y="239" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="457.8" y="239" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">applied_value</tspan></text>
+  <text x="254.4" y="261" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="457.8" y="261" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">evidence_ref</tspan></text>
+  <text x="254.4" y="283" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="457.8" y="283" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">ruleset_version</tspan></text>
+  <text x="254.4" y="305" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">DATE</tspan></text>
+  <text x="457.8" y="305" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">decided_at</tspan></text>
+</g>
+<g class="entity" data-id="COMPANIES" data-label="COMPANIES">
+  <rect x="40" y="957.8333333333333" width="179.79999999999998" height="56" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="40" y="957.8333333333333" width="179.79999999999998" height="34" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="129.89999999999998" y="974.8333333333333" text-anchor="middle" font-size="13" font-weight="700" fill="var(--_text)" dy="4.55">COMPANIES</text>
+  <line x1="40" y1="991.8333333333333" x2="219.79999999999998" y2="991.8333333333333" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <rect x="46" y="995.8333333333333" width="22.31" height="14" rx="2" ry="2" fill="var(--_key-badge)" />
+  <text x="57.155" y="1002.8333333333333" text-anchor="middle" dy="0.35em" font-size="9" font-weight="600" fill="var(--_text-sec)">PK</text>
+  <text x="76.31" y="1002.8333333333333" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="211.79999999999998" y="1002.8333333333333" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">hubspot_id</tspan></text>
+</g>
+<g class="entity" data-id="ACCOUNTS" data-label="ACCOUNTS">
+  <rect x="1191.268" y="1448.5" width="179.79999999999998" height="56" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="1191.268" y="1448.5" width="179.79999999999998" height="34" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="1281.1680000000001" y="1465.5" text-anchor="middle" font-size="13" font-weight="700" fill="var(--_text)" dy="4.55">ACCOUNTS</text>
+  <line x1="1191.268" y1="1482.5" x2="1371.068" y2="1482.5" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <rect x="1197.268" y="1486.5" width="22.31" height="14" rx="2" ry="2" fill="var(--_key-badge)" />
+  <text x="1208.423" y="1493.5" text-anchor="middle" dy="0.35em" font-size="9" font-weight="600" fill="var(--_text-sec)">PK</text>
+  <text x="1227.578" y="1493.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="1363.068" y="1493.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">account_id</tspan></text>
+</g>
+<g class="entity" data-id="CUSTOMERS" data-label="CUSTOMERS">
+  <rect x="1191.268" y="448.5" width="179.79999999999998" height="56" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="1191.268" y="448.5" width="179.79999999999998" height="34" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="1281.1680000000001" y="465.5" text-anchor="middle" font-size="13" font-weight="700" fill="var(--_text)" dy="4.55">CUSTOMERS</text>
+  <line x1="1191.268" y1="482.5" x2="1371.068" y2="482.5" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <rect x="1197.268" y="486.5" width="22.31" height="14" rx="2" ry="2" fill="var(--_key-badge)" />
+  <text x="1208.423" y="493.5" text-anchor="middle" dy="0.35em" font-size="9" font-weight="600" fill="var(--_text-sec)">PK</text>
+  <text x="1227.578" y="493.5" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">VARCHAR</tspan></text>
+  <text x="1363.068" y="493.5" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">vitally_id</tspan></text>
+</g>
+<line x1="796.068" y1="970.5" x2="796.068" y2="982.5" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="800.068" y1="970.5" x2="800.068" y2="982.5" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="1170.768" y1="982.5" x2="1170.768" y2="970.5" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="1166.768" y1="982.5" x2="1166.768" y2="970.5" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="223.79999999999998" y1="970.4999999999999" x2="223.79999999999998" y2="982.4999999999999" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="227.79999999999998" y1="970.4999999999999" x2="227.79999999999998" y2="982.4999999999999" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="581.8679999999999" y1="982.5" x2="581.8679999999999" y2="970.5" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="577.8679999999999" y1="982.5" x2="577.8679999999999" y2="970.5" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="796.068" y1="1028.5" x2="796.068" y2="1040.5" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="800.068" y1="1028.5" x2="800.068" y2="1040.5" stroke="var(--_line)" stroke-width="1.25" />
+<circle cx="804.068" cy="1034.5" r="4" fill="var(--bg)" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="1187.268" y1="1482.5" x2="1187.268" y2="1470.5" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="1183.268" y1="1482.5" x2="1183.268" y2="1470.5" stroke="var(--_line)" stroke-width="1.25" />
+<circle cx="1179.268" cy="1476.5" r="4" fill="var(--bg)" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="796.068" y1="912.5" x2="796.068" y2="924.5" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="800.068" y1="912.5" x2="800.068" y2="924.5" stroke="var(--_line)" stroke-width="1.25" />
+<circle cx="804.068" cy="918.5" r="4" fill="var(--bg)" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="1187.268" y1="482.5" x2="1187.268" y2="470.5" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="1183.268" y1="482.5" x2="1183.268" y2="470.5" stroke="var(--_line)" stroke-width="1.25" />
+<circle cx="1179.268" cy="476.5" r="4" fill="var(--bg)" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="223.79999999999998" y1="989.1666666666666" x2="223.79999999999998" y2="1001.1666666666666" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="227.79999999999998" y1="989.1666666666666" x2="227.79999999999998" y2="1001.1666666666666" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="1711.026" y1="676.5" x2="1699.026" y2="669.5" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="1711.026" y1="669.5" x2="1699.026" y2="669.5" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="1711.026" y1="662.5" x2="1699.026" y2="669.5" stroke="var(--_line)" stroke-width="1.25" />
+<circle cx="1695.026" cy="669.5" r="4" fill="var(--bg)" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="1375.068" y1="1470.5" x2="1375.068" y2="1482.5" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="1379.068" y1="1470.5" x2="1379.068" y2="1482.5" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="1711.026" y1="580" x2="1699.026" y2="573" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="1711.026" y1="573" x2="1699.026" y2="573" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="1711.026" y1="566" x2="1699.026" y2="573" stroke="var(--_line)" stroke-width="1.25" />
+<circle cx="1695.026" cy="573" r="4" fill="var(--bg)" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="1375.068" y1="470.5" x2="1375.068" y2="482.5" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="1379.068" y1="470.5" x2="1379.068" y2="482.5" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="1711.026" y1="483.5" x2="1699.026" y2="476.5" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="1711.026" y1="476.5" x2="1699.026" y2="476.5" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="1711.026" y1="469.5" x2="1699.026" y2="476.5" stroke="var(--_line)" stroke-width="1.25" />
+<circle cx="1695.026" cy="476.5" r="4" fill="var(--bg)" stroke="var(--_line)" stroke-width="1.25" />
+<rect x="946.22" y="966.35" width="74.39600000000002" height="20.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="0.5" />
+<text x="983.418" y="976.5" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">master_id, 1 a 1</text>
+<rect x="309.79999999999995" y="966.35" width="186.068" height="20.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="0.5" />
+<text x="402.83399999999995" y="976.5" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">hubspot_id, obligatorio en las 650 filas</text>
+<rect x="728.636" y="1434.9499999999998" width="146.86400000000003" height="20.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="0.5" />
+<text x="802.068" y="1445.1" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">account_id, nulo en 82 de 650</text>
+<rect x="700.718" y="497.75" width="202.7" height="20.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="0.5" />
+<text x="802.068" y="507.9" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">vitally_id, nulo sin cliente Vitally vinculado</text>
+<rect x="1052.9533333333331" y="1504.35" width="154.58600000000004" height="20.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="0.5" />
+<text x="1130.2463333333333" y="1514.5" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">source_system = crm_hubspot</text>
+<rect x="1561.297" y="1106.579" width="147.45800000000003" height="20.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="0.5" />
+<text x="1635.026" y="1116.729" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">source_system = product_db</text>
+<rect x="1482.98" y="466.35" width="120.13400000000003" height="20.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="0.5" />
+<text x="1543.047" y="476.5" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">source_system = vitally</text>
+</svg>
+  </div>
+
+  <table>
+    <caption>Filas por tabla, según el diseño</caption>
+    <thead>
+      <tr><th>Tabla</th><th>Filas esperadas</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>master_dataset</code></td><td>650</td></tr>
+      <tr><td><code>identity_crosswalk</code></td><td>650</td></tr>
+      <tr><td><code>match_audit</code></td><td>1,978 (678 + 650 + 650)</td></tr>
+      <tr><td><code>quarantine_companies</code></td><td>28</td></tr>
+      <tr><td><code>quarantine_deals</code></td><td>35</td></tr>
+      <tr><td><code>exceptions_log</code></td><td>28 exactas con <code>exception_code = mrr_imputed_from_deal</code>, más las demás filas de excepción</td></tr>
+    </tbody>
+  </table>
+
+  <p class="context">
+    Nota de lectura: <code>QUARANTINE_DEALS</code> queda sin línea de relación en el diagrama a propósito.
+    Sus 35 filas tienen un <code>hubspot_id</code> que no existe en ninguna empresa real, así que no hay
+    ninguna llave que unirlas a <code>MASTER_DATASET</code>; el diseño las conserva con su monto para que
+    el reporte de cobertura declare el total excluido (667,251), sin fusionarlas ni inventarles un vínculo.
+  </p>
+
+  <footer>
+    Generado con la skill <code>pretty-mermaid</code> (tema <code>zinc-light</code>) a partir de
+    <code>docs/diagrams/src/03-modelo-relacional-objetivo.mmd</code>. Para regenerar:
+    <code>node scripts/render.mjs --input docs/diagrams/src/03-modelo-relacional-objetivo.mmd --output docs/diagrams/03-modelo-relacional-objetivo.svg --theme zinc-light --node-spacing 60 --layer-spacing 80</code>
+    desde la raíz de la skill, y quitar a mano las dos líneas <code>@import</code> antes de incrustar el SVG.
+  </footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,136 @@
+erDiagram
+    MASTER_DATASET {
+        VARCHAR(12) master_id PK
+        VARCHAR hubspot_id
+        VARCHAR account_id
+        VARCHAR vitally_id
+        VARCHAR company_name
+        VARCHAR domain
+        VARCHAR domain_label
+        VARCHAR segment
+        VARCHAR plan
+        VARCHAR industry
+        VARCHAR state
+        VARCHAR csm_owner
+        DATE signup_date
+        DATE churn_date
+        VARCHAR churn_status
+        VARCHAR reference_month
+        VARCHAR confidence_tier
+        DECIMAL mrr_mxn
+        VARCHAR mrr_source
+        VARCHAR mrr_confidence
+        DECIMAL mrr_original
+        VARCHAR currency_original
+        DECIMAL trend_usage
+        VARCHAR trend_asof_month
+        VARCHAR trend_status
+        INTEGER usage_months
+        INTEGER active_users_latest
+        DECIMAL active_users_avg
+        INTEGER tickets_total
+        INTEGER tickets_urgent
+        DECIMAL csat_avg
+        VARCHAR acquisition_channel
+        DECIMAL closed_revenue_mxn
+        VARCHAR ruleset_version
+        DATE dataset_asof
+    }
+
+    IDENTITY_CROSSWALK {
+        VARCHAR(12) master_id PK
+        VARCHAR hubspot_id
+        VARCHAR account_id
+        VARCHAR vitally_id
+        VARCHAR account_match_tier
+        VARCHAR vitally_match_tier
+        VARCHAR confidence_tier
+        DATE resolved_at
+        VARCHAR ruleset_version
+    }
+
+    MATCH_AUDIT {
+        VARCHAR source_system
+        VARCHAR source_id
+        VARCHAR(12) master_id FK
+        VARCHAR tier
+        DECIMAL score
+        DECIMAL score_runner_up
+        DECIMAL score_margin
+        INTEGER candidate_count
+        VARCHAR blocking_rule
+        VARCHAR evidence_json
+        BOOLEAN veto_applied
+        VARCHAR veto_reason
+        BOOLEAN needs_review
+        VARCHAR ruleset_version
+        VARCHAR decided_by
+        DATE decided_at
+    }
+
+    QUARANTINE_COMPANIES {
+        VARCHAR hubspot_id PK
+        VARCHAR company_name
+        VARCHAR domain
+        DECIMAL mrr
+        VARCHAR currency
+        DATE signup_date
+        DATE churn_date
+        VARCHAR reason_code
+        VARCHAR survivor_hubspot_id
+        VARCHAR(12) survivor_master_id FK
+        VARCHAR evidence_json
+        VARCHAR ruleset_version
+        DATE decided_at
+    }
+
+    QUARANTINE_DEALS {
+        VARCHAR deal_id PK
+        VARCHAR hubspot_id
+        VARCHAR stage
+        DECIMAL amount
+        DATE created_date
+        DATE close_date
+        VARCHAR pipeline
+        VARCHAR lead_source
+        VARCHAR reason_code
+        VARCHAR ruleset_version
+        DATE decided_at
+    }
+
+    EXCEPTIONS_LOG {
+        VARCHAR(12) exception_id PK
+        VARCHAR exception_code
+        VARCHAR source_system
+        VARCHAR source_id
+        VARCHAR(12) master_id FK
+        VARCHAR field_name
+        VARCHAR original_value
+        VARCHAR applied_value
+        VARCHAR evidence_ref
+        VARCHAR ruleset_version
+        DATE decided_at
+    }
+
+    COMPANIES {
+        VARCHAR hubspot_id PK
+    }
+
+    ACCOUNTS {
+        VARCHAR account_id PK
+    }
+
+    CUSTOMERS {
+        VARCHAR vitally_id PK
+    }
+
+    IDENTITY_CROSSWALK ||--|| MASTER_DATASET : "master_id, 1 a 1"
+    COMPANIES ||--|| IDENTITY_CROSSWALK : "hubspot_id, obligatorio en las 650 filas"
+    IDENTITY_CROSSWALK |o--o| ACCOUNTS : "account_id, nulo en 82 de 650"
+    IDENTITY_CROSSWALK |o--o| CUSTOMERS : "vitally_id, nulo sin cliente Vitally vinculado"
+    COMPANIES ||--o{ MATCH_AUDIT : "source_system = crm_hubspot"
+    ACCOUNTS ||--o{ MATCH_AUDIT : "source_system = product_db"
+    CUSTOMERS ||--o{ MATCH_AUDIT : "source_system = vitally"
+    MATCH_AUDIT }o--o| MASTER_DATASET : "master_id, nulo en tier Q"
+    QUARANTINE_COMPANIES }o--|| MASTER_DATASET : "survivor_master_id"
+    EXCEPTIONS_LOG }o--o| MASTER_DATASET : "master_id, nulo segun exception_code"

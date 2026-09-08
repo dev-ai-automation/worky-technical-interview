@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ciclo de vida de una cuenta</title>
+<style>
+  :root { color-scheme: light; }
+  body {
+    margin: 0;
+    padding: 32px 24px 56px;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: #FFFFFF;
+    color: #27272A;
+    line-height: 1.55;
+  }
+  main { max-width: 1100px; margin: 0 auto; }
+  h1 { font-size: 1.5rem; margin-bottom: 0.25rem; }
+  .subtitle { color: #52525B; font-size: 0.95rem; margin-top: 0; margin-bottom: 1.25rem; }
+  p.context { max-width: 900px; }
+  .diagram-wrap {
+    margin: 28px 0;
+    padding: 16px;
+    border: 1px solid #E4E4E7;
+    border-radius: 8px;
+    overflow-x: auto;
+    background: #FAFAFA;
+  }
+  .diagram-wrap svg { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+  table { border-collapse: collapse; width: 100%; margin: 20px 0; font-size: 0.9rem; }
+  caption { text-align: left; font-weight: 600; margin-bottom: 6px; }
+  th, td { border: 1px solid #E4E4E7; padding: 6px 10px; text-align: left; }
+  th { background: #F4F4F5; }
+  footer { margin-top: 32px; font-size: 0.8rem; color: #71717A; }
+  a { color: #2563EB; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Ciclo de vida de una cuenta, óptica del motor de tendencia</h1>
+  <p class="subtitle">Fuente: <code>docs/decisions/ADR-003-usage-trend-and-leakage-guard.md</code></p>
+
+  <p class="context">
+    Este diagrama sigue el estado de <code>trend_status</code> de una cuenta a lo largo del tiempo, según la
+    fórmula de momentum del ADR-003. Al dar de alta (<code>signup_date</code>), la cuenta entra en
+    <code>insufficient_history</code> mientras tiene menos de tres meses de uso hasta el mes de corte
+    (<code>trend_asof_month</code>). Al llegar a tres meses pasa a <code>computed</code>, donde
+    <code>trend_usage</code> se calcula como el promedio móvil exponencialmente ponderado (EWMA) de tres
+    meses entre el de nueve meses, menos uno, usando solo meses anteriores o iguales al mes de corte. El
+    resguardo contra fuga de datos (leakage guard) es justo esa restricción: ninguna fila posterior al mes de
+    corte entra al cálculo.
+  </p>
+
+  <p class="context">
+    El estado <code>at_risk</code> es una lectura editorial de este diagrama, no una columna del dataset: el
+    ADR-003 fija el horizonte k = 2 para el health score, así que una cuenta con <code>trend_usage</code>
+    negativo dos meses antes del mes de referencia se dibuja aquí como "en riesgo" para dar contexto de
+    negocio, aunque <code>trend_status</code> en la tabla <code>master_dataset</code> solo toma los valores
+    <code>computed</code>, <code>insufficient_history</code> y <code>no_usage</code>. Cuando el mes de
+    referencia coincide con el mes de <code>churn_date</code>, la cuenta llega al estado final
+    <code>churn</code>, sin importar si venía de <code>computed</code>, de <code>at_risk</code> o de
+    <code>no_usage</code> (cuentas sin ninguna fila de <code>product_usage</code>).
+  </p>
+
+  <div class="diagram-wrap">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1551.6339999999998 868.8" width="1551.6339999999998" height="868.8" style="--bg:#FFFFFF;--fg:#27272A;background:var(--bg)">
+<style>
+  text { font-family: 'Inter', system-ui, sans-serif; }
+  svg {
+    /* Derived from --bg and --fg (overridable via --line, --accent, etc.) */
+    --_text:          var(--fg);
+    --_text-sec:      var(--muted, color-mix(in srgb, var(--fg) 60%, var(--bg)));
+    --_text-muted:    var(--muted, color-mix(in srgb, var(--fg) 40%, var(--bg)));
+    --_text-faint:    color-mix(in srgb, var(--fg) 25%, var(--bg));
+    --_line:          var(--line, color-mix(in srgb, var(--fg) 50%, var(--bg)));
+    --_arrow:         var(--accent, color-mix(in srgb, var(--fg) 85%, var(--bg)));
+    --_node-fill:     var(--surface, color-mix(in srgb, var(--fg) 3%, var(--bg)));
+    --_node-stroke:   var(--border, color-mix(in srgb, var(--fg) 20%, var(--bg)));
+    --_group-fill:    var(--bg);
+    --_group-hdr:     color-mix(in srgb, var(--fg) 5%, var(--bg));
+    --_inner-stroke:  color-mix(in srgb, var(--fg) 12%, var(--bg));
+    --_key-badge:     color-mix(in srgb, var(--fg) 10%, var(--bg));
+  }
+</style>
+<defs>
+  <marker id="arrowhead" markerWidth="8" markerHeight="5" refX="7" refY="2.5" orient="auto">
+    <polygon points="0 0, 8 2.5, 0 5" fill="var(--_arrow)" stroke="var(--_arrow)" stroke-width="0.75" stroke-linejoin="round" />
+  </marker>
+  <marker id="arrowhead-start" markerWidth="8" markerHeight="5" refX="1" refY="2.5" orient="auto-start-reverse">
+    <polygon points="8 0, 0 2.5, 8 5" fill="var(--_arrow)" stroke="var(--_arrow)" stroke-width="0.75" stroke-linejoin="round" />
+  </marker>
+</defs>
+<polyline class="edge" data-from="_start" data-to="signup" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="alta de la cuenta (signup_date)" points="321.48574999999994,68 321.48574999999994,208.3" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="signup" data-to="insufficient_history" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="menos de 3 meses de uso hasta el mes de corte" points="335.1464166666666,245.2 335.1464166666666,257.2 529.9940000000001,257.2 529.9939999999999,349.5" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="insufficient_history" data-to="insufficient_history" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="sigue sin llegar a 3 meses" points="453.44399999999996,361.8 443.44399999999996,361.80000000000007 443.44399999999996,374.1000000000001 453.44399999999996,374.1" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="insufficient_history" data-to="computed" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="alcanza 3 meses de uso hasta el mes de corte" points="555.5106666666667,386.4 555.5106666666667,434.40000000000003 651.79,434.40000000000003 651.79,527 904.7434999999999,527 904.7434999999999,526.7" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="computed" data-to="computed" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="EWMA span 3 / EWMA span 9 - 1, solo con meses &lt;= trend_asof_month" points="880.1769999999999,539.0000000000001 870.1769999999999,539 870.1769999999999,551.3000000000001 880.1769999999999,551.3000000000001" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="computed" data-to="at_risk" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="momentum negativo dos meses antes del mes de referencia (k = 2)" points="929.31,526.7 929.31,434.40000000000003 1156.493,434.40000000000003 1156.493,422.4" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="at_risk" data-to="computed" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="el momentum vuelve a positivo antes del mes de referencia" points="1177.3545,422.4 1177.3545,470.40000000000003 1235.6179999999997,470.40000000000003 1235.6179999999997,514.7 953.8765,514.7 953.8765,526.7" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="at_risk" data-to="churn" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="el mes de referencia es el mes de churn (churn_date)" points="1198.216,422.4 1198.216,458.40000000000003 1384.1619999999998,458.40000000000003 1384.1619999999998,691.9 948.6895,691.9 948.6895,703.9" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="computed" data-to="churn" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="el mes de referencia es el mes de churn, sin pasar por at_risk" points="929.31,563.6 929.31,703.9" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="signup" data-to="no_usage" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="la cuenta no tiene ninguna fila de product_usage" points="307.8250833333333,245.2 307.8250833333333,337.5 156.4999999999999,337.5 156.4999999999999,550.7 195.57641666666666,550.7 195.57641666666666,562.7" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="insufficient_history" data-to="no_usage" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="deja de tener filas de uso antes de llegar a 3 meses" points="504.47733333333326,386.4 504.47733333333326,434.40000000000003 408.1980000000001,434.40000000000003 408.1980000000001,550.7 229.31975,550.7 229.31975,562.7" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="no_usage" data-to="churn" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="el mes de referencia es el mes de churn, sin uso registrado" points="212.44808333333333,599.6 212.44808333333322,691.9 909.9304999999999,691.9 909.9304999999999,703.9" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="churn" data-to="_end" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="929.31,740.8 929.31,800.8" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<g class="edge-label" data-from="_start" data-to="signup" data-label="alta de la cuenta (signup_date)">
+  <rect x="242.48574999999994" y="123" width="157.83400000000003" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="321.40274999999997" y="138.15" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">alta de la cuenta (signup_date)</text>
+</g>
+<g class="edge-label" data-from="signup" data-to="insufficient_history" data-label="menos de 3 meses de uso hasta el mes de corte">
+  <rect x="411.9940000000002" y="264.2" width="235.05399999999997" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="529.5210000000002" y="279.34999999999997" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">menos de 3 meses de uso hasta el mes de corte</text>
+</g>
+<g class="edge-label" data-from="insufficient_history" data-to="insufficient_history" data-label="sigue sin llegar a 3 meses">
+  <rect x="308.39999999999986" y="352.8" width="137.04400000000004" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="376.9219999999999" y="367.95" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">sigue sin llegar a 3 meses</text>
+</g>
+<g class="edge-label" data-from="insufficient_history" data-to="computed" data-label="alcanza 3 meses de uso hasta el mes de corte">
+  <rect x="537.29" y="441.40000000000003" width="228.51999999999998" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="651.55" y="456.55" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">alcanza 3 meses de uso hasta el mes de corte</text>
+</g>
+<g class="edge-label" data-from="computed" data-to="computed" data-label="EWMA span 3 / EWMA span 9 - 1, solo con meses &lt;= trend_asof_month">
+  <rect x="531.9850000000001" y="530" width="340.1919999999999" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="702.0810000000001" y="545.15" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">EWMA span 3 / EWMA span 9 - 1, solo con meses &lt;= trend_asof_month</text>
+</g>
+<g class="edge-label" data-from="computed" data-to="at_risk" data-label="momentum negativo dos meses antes del mes de referencia (k = 2)">
+  <rect x="769.81" y="441.40000000000003" width="318.8079999999999" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="929.2139999999999" y="456.55" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">momentum negativo dos meses antes del mes de referencia (k = 2)</text>
+</g>
+<g class="edge-label" data-from="at_risk" data-to="computed" data-label="el momentum vuelve a positivo antes del mes de referencia">
+  <rect x="1092.6179999999997" y="477.40000000000003" width="285.5439999999999" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="1235.3899999999996" y="492.55" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">el momentum vuelve a positivo antes del mes de referencia</text>
+</g>
+<g class="edge-label" data-from="at_risk" data-to="churn" data-label="el mes de referencia es el mes de churn (churn_date)">
+  <rect x="1252.6619999999998" y="654.6" width="262.9720000000001" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="1384.148" y="669.75" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">el mes de referencia es el mes de churn (churn_date)</text>
+</g>
+<g class="edge-label" data-from="computed" data-to="churn" data-label="el mes de referencia es el mes de churn, sin pasar por at_risk">
+  <rect x="777.81" y="618.6" width="302.76999999999987" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="929.1949999999999" y="633.75" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">el mes de referencia es el mes de churn, sin pasar por at_risk</text>
+</g>
+<g class="edge-label" data-from="signup" data-to="no_usage" data-label="la cuenta no tiene ninguna fila de product_usage">
+  <rect x="36" y="477.40000000000003" width="240.40000000000003" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="156.20000000000002" y="492.55" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">la cuenta no tiene ninguna fila de product_usage</text>
+</g>
+<g class="edge-label" data-from="insufficient_history" data-to="no_usage" data-label="deja de tener filas de uso antes de llegar a 3 meses">
+  <rect x="282.1980000000001" y="441.40000000000003" width="251.09199999999998" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="407.7440000000001" y="456.55" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">deja de tener filas de uso antes de llegar a 3 meses</text>
+</g>
+<g class="edge-label" data-from="no_usage" data-to="churn" data-label="el mes de referencia es el mes de churn, sin uso registrado">
+  <rect x="66.94808333333322" y="654.6" width="290.2959999999999" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="212.09608333333315" y="669.75" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">el mes de referencia es el mes de churn, sin uso registrado</text>
+</g>
+<g class="node" data-id="_start" data-label="" data-shape="state-start">
+  <circle cx="321.48574999999994" cy="54" r="12" fill="var(--_text)" stroke="none" />
+</g>
+<g class="node" data-id="signup" data-label="signup" data-shape="rounded">
+  <rect x="280.50374999999997" y="208.3" width="81.964" height="36.900000000000006" rx="6" ry="6" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="321.48574999999994" y="226.75" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">signup</text>
+</g>
+<g class="node" data-id="insufficient_history" data-label="insufficient_history" data-shape="rounded">
+  <rect x="453.44399999999996" y="349.5" width="153.10000000000002" height="36.900000000000006" rx="6" ry="6" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="529.9939999999999" y="367.95" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">insufficient_history</text>
+</g>
+<g class="node" data-id="computed" data-label="computed" data-shape="rounded">
+  <rect x="880.1769999999999" y="526.7" width="98.266" height="36.900000000000006" rx="6" ry="6" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="929.31" y="545.1500000000001" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">computed</text>
+</g>
+<g class="node" data-id="at_risk" data-label="at_risk" data-shape="rounded">
+  <rect x="1135.6315" y="385.5" width="83.446" height="36.900000000000006" rx="6" ry="6" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1177.3545" y="403.95" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">at_risk</text>
+</g>
+<g class="node" data-id="churn" data-label="churn" data-shape="rounded">
+  <rect x="890.5509999999999" y="703.9" width="77.518" height="36.900000000000006" rx="6" ry="6" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="929.31" y="722.35" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">churn</text>
+</g>
+<g class="node" data-id="no_usage" data-label="no_usage" data-shape="rounded">
+  <rect x="161.83308333333332" y="562.7" width="101.22999999999999" height="36.900000000000006" rx="6" ry="6" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="212.44808333333333" y="581.1500000000001" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">no_usage</text>
+</g>
+<g class="node" data-id="_end" data-label="" data-shape="state-end">
+  <circle cx="929.31" cy="814.8" r="12" fill="none" stroke="var(--_text)" stroke-width="1.5" />
+  <circle cx="929.31" cy="814.8" r="8" fill="var(--_text)" stroke="none" />
+</g>
+</svg>
+  </div>
+
+  <table>
+    <caption>Estados de <code>trend_status</code> en <code>master_dataset</code></caption>
+    <thead>
+      <tr><th>Estado</th><th>Condición</th><th><code>trend_usage</code></th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>no_usage</code></td><td>sin cuenta de producto, o sin ninguna fila de uso hasta el mes de corte</td><td>nulo</td></tr>
+      <tr><td><code>insufficient_history</code></td><td>menos de 3 meses de uso hasta el mes de corte</td><td>nulo</td></tr>
+      <tr><td><code>computed</code></td><td>3 meses o más de uso hasta el mes de corte</td><td>EWMA span 3 / EWMA span 9, menos 1</td></tr>
+    </tbody>
+  </table>
+
+  <footer>
+    Generado con la skill <code>pretty-mermaid</code> (tema <code>zinc-light</code>) a partir de
+    <code>docs/diagrams/src/06-estados-cuenta.mmd</code>. Para regenerar:
+    <code>node scripts/render.mjs --input docs/diagrams/src/06-estados-cuenta.mmd --output docs/diagrams/06-estados-cuenta.svg --theme zinc-light --node-spacing 40 --layer-spacing 60</code>
+    desde la raíz de la skill, y quitar a mano las dos líneas <code>@import</code> antes de incrustar el SVG.
+    Nota: el renderizador de <code>pretty-mermaid</code> descarta en silencio los bloques
+    <code>note right of ... end note</code> de <code>stateDiagram-v2</code>; ese contenido se documenta en
+    el texto de esta página en lugar de perderse.
+  </footer>
+</main>
+</body>
+</html>

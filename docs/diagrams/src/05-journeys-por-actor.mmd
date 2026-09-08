@@ -1,0 +1,79 @@
+%% Seis diagramas journey de Mermaid, uno por actor, para el escenario de la Parte B del caso
+%% (lunes por la manana: retencion baja 8 puntos, MQL suben 25%, Sales dice que los leads ya no
+%% son tan buenos, CS apaga incendios sin visibilidad de riesgo, sin Health Score ni dashboard
+%% compartido). Cada actor tiene dos secciones: "Hoy (sin Health Score)" y "Con el motor A0 y el
+%% Health Score". pretty-mermaid no renderiza journey; estos bloques se renderizan en el navegador
+%% con mermaid.min.js cargado desde docs/diagrams/assets/. Ver docs/diagrams/05-journeys-por-actor.html
+
+%% ===== 1. VP de Customer Success =====
+journey
+    title VP de Customer Success
+    section Hoy (sin Health Score)
+      Recibe el reporte de Finanzas: retencion bajo 8 puntos: 1: VP CS
+      Pregunta a CS por que, y CS responde que apaga incendios sin visibilidad de riesgo: 2: VP CS
+      Confirma que no existe Health Score formal ni dashboard compartido: 1: VP CS
+      Decide con base en anecdotas de los CSM, no en datos: 2: VP CS
+    section Con el motor A0 y el Health Score
+      Abre el dashboard ejecutivo con la matriz de riesgo por MRR: 4: VP CS
+      Ve el ingreso en riesgo como un solo KPI destacado: 5: VP CS
+      Prioriza las cuentas de alto MRR y alto riesgo primero: 5: VP CS
+      Reporta a Direccion General con cifras concretas de su propio analisis: 4: VP CS
+
+%% ===== 2. CSM =====
+journey
+    title CSM
+    section Hoy (sin Health Score)
+      Se entera de que un cliente se va hasta que el cliente ya aviso: 1: CSM
+      No tiene ninguna senal temprana de caida de uso: 2: CSM
+      Reacciona tarde, sin tiempo real para retener a la cuenta: 1: CSM
+    section Con el motor A0 y el Health Score
+      Recibe una alerta cuando el Health Score cruza el umbral de riesgo: 4: CSM
+      Ve el desglose de subpuntajes de uso y soporte detras del puntaje: 5: CSM
+      Actua con dias o semanas de anticipacion (lead time medido): 5: CSM
+
+%% ===== 3. Head of RevOps =====
+journey
+    title Head of RevOps
+    section Hoy (sin Health Score)
+      Escucha versiones distintas de Finanzas, Marketing, Sales y CS sobre el mismo trimestre: 1: Head of RevOps
+      No puede conciliar hubspot_id, account_id y vitally_id entre los tres sistemas: 2: Head of RevOps
+      Cada equipo mide algo distinto sobre el mismo cliente: 2: Head of RevOps
+    section Con el motor A0 y el Health Score
+      Usa master_dataset, una fila por empresa real resuelta por el motor A0: 4: Head of RevOps
+      Tiene identity_crosswalk y match_audit como evidencia auditable de cada cruce: 5: Head of RevOps
+      Explica a Direccion de donde sale cada cifra con el reporte de cobertura: 5: Head of RevOps
+
+%% ===== 4. Marketing =====
+journey
+    title Marketing
+    section Hoy (sin Health Score)
+      Reporta que los MQL crecieron 25% en el trimestre: 4: Marketing
+      Escucha a Sales decir que los leads ya no son tan buenos: 2: Marketing
+      No tiene visibilidad de que pasa con esos leads despues de convertirse en clientes: 2: Marketing
+    section Con el motor A0 y el Health Score
+      Ve la tasa de conversion a closedwon por primer touch y por ultimo touch: 4: Marketing
+      Compara con Sales si el canal ganador cambia segun el modelo de atribucion: 4: Marketing
+      Acuerda con Sales un cambio de proceso apoyado en datos compartidos: 4: Marketing
+
+%% ===== 5. Sales =====
+journey
+    title Sales
+    section Hoy (sin Health Score)
+      Dice que los leads ya no son tan buenos, sin poder probarlo con datos: 2: Sales
+      No sabe si el problema esta en Marketing, en la calificacion del lead o en otra causa: 2: Sales
+    section Con el motor A0 y el Health Score
+      Consulta el mismo master_dataset y el mismo reporte de atribucion que usa Marketing: 4: Sales
+      Senala con evidencia en que etapa del funnel se pierde calidad: 4: Sales
+      Acuerda con Marketing un cambio de proceso para que el problema no se repita: 4: Sales
+
+%% ===== 6. Especialista de Business Operations y Datos =====
+journey
+    title Especialista de Business Operations y Datos
+    section Hoy (sin Health Score)
+      Recibe la pregunta de Direccion sin un dataset confiable entre tres sistemas desincronizados: 1: Especialista
+      Reconcilia identidad a mano cada vez que alguien pide un numero: 1: Especialista
+      Le preocupa que el Health Score no tenga dueno despues del onboarding de 2 meses: 2: Especialista
+    section Con el motor A0 y el Health Score
+      Construye el motor A0 una sola vez, reproducible con un solo comando de build: 4: Especialista
+      Entrega el Health Score validado con precision y recall contra churn_date real: 5: Especialista
+      Deja gobernanza clara: dueno por fuente, bitacora de excepciones y documentacion: 4: Especialista

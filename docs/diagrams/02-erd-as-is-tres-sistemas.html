@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ERD tal cual: los tres sistemas de Worky sin sincronizar</title>
+<style>
+  :root { color-scheme: light; }
+  body {
+    margin: 0;
+    padding: 32px 24px 56px;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: #FFFFFF;
+    color: #27272A;
+    line-height: 1.55;
+  }
+  main { max-width: 1200px; margin: 0 auto; }
+  h1 { font-size: 1.5rem; margin-bottom: 0.25rem; }
+  .subtitle { color: #52525B; font-size: 0.95rem; margin-top: 0; margin-bottom: 1.25rem; }
+  p.context { max-width: 900px; }
+  .diagram-wrap {
+    margin: 28px 0;
+    padding: 16px;
+    border: 1px solid #E4E4E7;
+    border-radius: 8px;
+    overflow-x: auto;
+    background: #FAFAFA;
+  }
+  .diagram-wrap svg { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+  table { border-collapse: collapse; width: 100%; margin: 20px 0; font-size: 0.9rem; }
+  caption { text-align: left; font-weight: 600; margin-bottom: 6px; }
+  th, td { border: 1px solid #E4E4E7; padding: 6px 10px; text-align: left; }
+  th { background: #F4F4F5; }
+  .legend { font-size: 0.85rem; color: #52525B; }
+  .legend span.solid { border-bottom: 2px solid #52525B; padding-bottom: 1px; }
+  .legend span.dashed { border-bottom: 2px dashed #52525B; padding-bottom: 1px; }
+  footer { margin-top: 32px; font-size: 0.8rem; color: #71717A; }
+  a { color: #2563EB; }
+</style>
+</head>
+<body>
+<main>
+  <h1>ERD tal cual: los tres sistemas de Worky sin sincronizar</h1>
+  <p class="subtitle">Fuente: <code>docs/data-model/00-as-is-schema-profile.md</code></p>
+
+  <p class="context">
+    Este diagrama muestra las siete tablas de los tres sistemas de origen exactamente como existen hoy,
+    antes de cualquier limpieza o cruce: el CRM de HubSpot (<code>companies</code>, <code>deals</code>,
+    <code>marketing_touches</code>), la base de datos de producto (<code>accounts</code>,
+    <code>product_usage</code>) y Vitally (<code>customers</code>, <code>tickets</code>). Ninguna tabla
+    declara una llave primaria ni una llave foránea en el motor de base de datos; todas las llaves marcadas
+    aquí son implícitas y se infieren del perfil de datos. Las líneas continuas marcan una relación con
+    llave foránea consistente aunque no declarada; las líneas punteadas marcan las dos uniones débiles entre
+    sistemas, donde la llave falta o no existe.
+  </p>
+
+  <p class="legend">
+    Línea <span class="solid">continua</span>: relación determinista por id, aunque no declarada como llave
+    foránea en la base. Línea <span class="dashed">punteada</span>: relación débil o difusa, con su cobertura
+    medida escrita sobre la línea.
+  </p>
+
+  <div class="diagram-wrap">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1362.117 954" width="1362.117" height="954" style="--bg:#FFFFFF;--fg:#27272A;background:var(--bg)">
+<style>
+  text { font-family: 'Inter', system-ui, sans-serif; }
+  .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', ui-monospace, monospace; }
+  svg {
+    /* Derived from --bg and --fg (overridable via --line, --accent, etc.) */
+    --_text:          var(--fg);
+    --_text-sec:      var(--muted, color-mix(in srgb, var(--fg) 60%, var(--bg)));
+    --_text-muted:    var(--muted, color-mix(in srgb, var(--fg) 40%, var(--bg)));
+    --_text-faint:    color-mix(in srgb, var(--fg) 25%, var(--bg));
+    --_line:          var(--line, color-mix(in srgb, var(--fg) 50%, var(--bg)));
+    --_arrow:         var(--accent, color-mix(in srgb, var(--fg) 85%, var(--bg)));
+    --_node-fill:     var(--surface, color-mix(in srgb, var(--fg) 3%, var(--bg)));
+    --_node-stroke:   var(--border, color-mix(in srgb, var(--fg) 20%, var(--bg)));
+    --_group-fill:    var(--bg);
+    --_group-hdr:     color-mix(in srgb, var(--fg) 5%, var(--bg));
+    --_inner-stroke:  color-mix(in srgb, var(--fg) 12%, var(--bg));
+    --_key-badge:     color-mix(in srgb, var(--fg) 10%, var(--bg));
+  }
+</style>
+<defs>
+</defs>
+<polyline class="er-relationship" data-entity1="COMPANIES" data-entity2="DEALS" data-cardinality1="one" data-cardinality2="zero-many" data-identifying="true" data-label="FK no declarada, 35 huerfanos" points="213.2,231.20000000000002 233.2,231.20000000000002 233.2,562 597.088,562" fill="none" stroke="var(--_line)" stroke-width="1" />
+<polyline class="er-relationship" data-entity1="COMPANIES" data-entity2="MARKETING_TOUCHES" data-cardinality1="one" data-cardinality2="zero-many" data-identifying="true" data-label="FK no declarada, cobertura 100%" points="213.2,112 597.088,112" fill="none" stroke="var(--_line)" stroke-width="1" />
+<polyline class="er-relationship" data-entity1="COMPANIES" data-entity2="ACCOUNTS" data-cardinality1="zero-one" data-cardinality2="zero-many" data-identifying="false" data-label="FK debil, 54 vacios de 650" points="213.2,171.6 243.2,171.6 243.2,315 598.4514999999999,315" fill="none" stroke="var(--_line)" stroke-width="1" stroke-dasharray="6 4" />
+<polyline class="er-relationship" data-entity1="ACCOUNTS" data-entity2="PRODUCT_USAGE" data-cardinality1="one" data-cardinality2="zero-many" data-identifying="true" data-label="FK no declarada, cobertura 100%" points="771.6514999999999,315 1115.917,315" fill="none" stroke="var(--_line)" stroke-width="1" />
+<polyline class="er-relationship" data-entity1="COMPANIES" data-entity2="CUSTOMERS" data-cardinality1="zero-one" data-cardinality2="zero-many" data-identifying="false" data-label="sin FK, cruce difuso por dominio y nombre" points="213.2,290.8 223.2,290.8 223.2,809 598.4514999999999,809" fill="none" stroke="var(--_line)" stroke-width="1" stroke-dasharray="6 4" />
+<polyline class="er-relationship" data-entity1="CUSTOMERS" data-entity2="TICKETS" data-cardinality1="one" data-cardinality2="zero-many" data-identifying="true" data-label="FK no declarada, cobertura 100%" points="771.6514999999999,809 1115.917,809" fill="none" stroke="var(--_line)" stroke-width="1" />
+<g class="entity" data-id="COMPANIES" data-label="COMPANIES">
+  <rect x="40" y="52.4" width="173.2" height="298" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="40" y="52.4" width="173.2" height="34" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="126.6" y="69.4" text-anchor="middle" font-size="13" font-weight="700" fill="var(--_text)" dy="4.55">COMPANIES</text>
+  <line x1="40" y1="86.4" x2="213.2" y2="86.4" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <rect x="46" y="90.4" width="22.31" height="14" rx="2" ry="2" fill="var(--_key-badge)" />
+  <text x="57.155" y="97.4" text-anchor="middle" dy="0.35em" font-size="9" font-weight="600" fill="var(--_text-sec)">PK</text>
+  <text x="76.31" y="97.4" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
+  <text x="205.2" y="97.4" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">hubspot_id</tspan></text>
+  <text x="48" y="119.4" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
+  <text x="205.2" y="119.4" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">name</tspan></text>
+  <text x="48" y="141.4" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
+  <text x="205.2" y="141.4" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">domain</tspan></text>
+  <text x="48" y="163.4" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
+  <text x="205.2" y="163.4" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">segment</tspan></text>
+  <text x="48" y="185.4" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
+  <text x="205.2" y="185.4" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">industry</tspan></text>
+  <text x="48" y="207.4" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">decimal</tspan></text>
+  <text x="205.2" y="207.4" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">mrr</tspan></text>
+  <text x="48" y="229.4" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
+  <text x="205.2" y="229.4" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">currency</tspan></text>
+  <text x="48" y="251.4" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">date</tspan></text>
+  <text x="205.2" y="251.4" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">signup_date</tspan></text>
+  <text x="48" y="273.4" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
+  <text x="205.2" y="273.4" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">csm_owner</tspan></text>
+  <text x="48" y="295.4" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
+  <text x="205.2" y="295.4" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">plan</tspan></text>
+  <text x="48" y="317.4" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
+  <text x="205.2" y="317.4" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">state</tspan></text>
+  <text x="48" y="339.4" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">date</tspan></text>
+  <text x="205.2" y="339.4" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">churn_date</tspan></text>
+</g>
+<g class="entity" data-id="DEALS" data-label="DEALS">
+  <rect x="597.088" y="446" width="173.2" height="232" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="597.088" y="446" width="173.2" height="34" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="683.688" y="463" text-anchor="middle" font-size="13" font-weight="700" fill="var(--_text)" dy="4.55">DEALS</text>
+  <line x1="597.088" y1="480" x2="770.288" y2="480" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <rect x="603.088" y="484" width="22.31" height="14" rx="2" ry="2" fill="var(--_key-badge)" />
+  <text x="614.2429999999999" y="491" text-anchor="middle" dy="0.35em" font-size="9" font-weight="600" fill="var(--_text-sec)">PK</text>
+  <text x="633.3979999999999" y="491" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
+  <text x="762.288" y="491" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">deal_id</tspan></text>
+  <rect x="603.088" y="506" width="22.31" height="14" rx="2" ry="2" fill="var(--_key-badge)" />
+  <text x="614.2429999999999" y="513" text-anchor="middle" dy="0.35em" font-size="9" font-weight="600" fill="var(--_text-sec)">FK</text>
+  <text x="633.3979999999999" y="513" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
+  <text x="762.288" y="513" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">hubspot_id</tspan></text>
+  <text x="605.088" y="535" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
+  <text x="762.288" y="535" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">stage</tspan></text>
+  <text x="605.088" y="557" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">decimal</tspan></text>
+  <text x="762.288" y="557" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">amount</tspan></text>
+  <text x="605.088" y="579" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">date</tspan></text>
+  <text x="762.288" y="579" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">created_date</tspan></text>
+  <text x="605.088" y="601" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">date</tspan></text>
+  <text x="762.288" y="601" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">close_date</tspan></text>
+  <text x="605.088" y="623" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
+  <text x="762.288" y="623" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">owner</tspan></text>
+  <text x="605.088" y="645" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
+  <text x="762.288" y="645" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">pipeline</tspan></text>
+  <text x="605.088" y="667" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
+  <text x="762.288" y="667" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">lead_source</tspan></text>
+</g>
+<g class="entity" data-id="MARKETING_TOUCHES" data-label="MARKETING_TOUCHES">
+  <rect x="597.088" y="40" width="175.92699999999996" height="144" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="597.088" y="40" width="175.92699999999996" height="34" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="685.0514999999999" y="57" text-anchor="middle" font-size="13" font-weight="700" fill="var(--_text)" dy="4.55">MARKETING_TOUCHES</text>
+  <line x1="597.088" y1="74" x2="773.0149999999999" y2="74" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <rect x="603.088" y="78" width="22.31" height="14" rx="2" ry="2" fill="var(--_key-badge)" />
+  <text x="614.2429999999999" y="85" text-anchor="middle" dy="0.35em" font-size="9" font-weight="600" fill="var(--_text-sec)">PK</text>
+  <text x="633.3979999999999" y="85" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
+  <text x="765.0149999999999" y="85" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">touch_id</tspan></text>
+  <rect x="603.088" y="100" width="22.31" height="14" rx="2" ry="2" fill="var(--_key-badge)" />
+  <text x="614.2429999999999" y="107" text-anchor="middle" dy="0.35em" font-size="9" font-weight="600" fill="var(--_text-sec)">FK</text>
+  <text x="633.3979999999999" y="107" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
+  <text x="765.0149999999999" y="107" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">hubspot_id</tspan></text>
+  <text x="605.088" y="129" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
+  <text x="765.0149999999999" y="129" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">channel</tspan></text>
+  <text x="605.088" y="151" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">date</tspan></text>
+  <text x="765.0149999999999" y="151" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">touch_date</tspan></text>
+  <text x="605.088" y="173" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
+  <text x="765.0149999999999" y="173" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">campaign</tspan></text>
+</g>
+<g class="entity" data-id="ACCOUNTS" data-label="ACCOUNTS">
+  <rect x="598.4514999999999" y="254" width="173.2" height="122" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="598.4514999999999" y="254" width="173.2" height="34" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="685.0514999999999" y="271" text-anchor="middle" font-size="13" font-weight="700" fill="var(--_text)" dy="4.55">ACCOUNTS</text>
+  <line x1="598.4514999999999" y1="288" x2="771.6514999999999" y2="288" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <rect x="604.4514999999999" y="292" width="22.31" height="14" rx="2" ry="2" fill="var(--_key-badge)" />
+  <text x="615.6064999999999" y="299" text-anchor="middle" dy="0.35em" font-size="9" font-weight="600" fill="var(--_text-sec)">PK</text>
+  <text x="634.7614999999998" y="299" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
+  <text x="763.6514999999999" y="299" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">account_id</tspan></text>
+  <rect x="604.4514999999999" y="314" width="22.31" height="14" rx="2" ry="2" fill="var(--_key-badge)" />
+  <text x="615.6064999999999" y="321" text-anchor="middle" dy="0.35em" font-size="9" font-weight="600" fill="var(--_text-sec)">FK</text>
+  <text x="634.7614999999998" y="321" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
+  <text x="763.6514999999999" y="321" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">hubspot_id</tspan></text>
+  <text x="606.4514999999999" y="343" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
+  <text x="763.6514999999999" y="343" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">account_name</tspan></text>
+  <text x="606.4514999999999" y="365" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">date</tspan></text>
+  <text x="763.6514999999999" y="365" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">created_at</tspan></text>
+</g>
+<g class="entity" data-id="PRODUCT_USAGE" data-label="PRODUCT_USAGE">
+  <rect x="1115.917" y="221" width="206.2" height="188" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="1115.917" y="221" width="206.2" height="34" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="1219.0169999999998" y="238" text-anchor="middle" font-size="13" font-weight="700" fill="var(--_text)" dy="4.55">PRODUCT_USAGE</text>
+  <line x1="1115.917" y1="255" x2="1322.117" y2="255" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <rect x="1121.917" y="259" width="22.31" height="14" rx="2" ry="2" fill="var(--_key-badge)" />
+  <text x="1133.072" y="266" text-anchor="middle" dy="0.35em" font-size="9" font-weight="600" fill="var(--_text-sec)">FK</text>
+  <text x="1152.2269999999999" y="266" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
+  <text x="1314.117" y="266" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">account_id</tspan></text>
+  <rect x="1121.917" y="281" width="22.31" height="14" rx="2" ry="2" fill="var(--_key-badge)" />
+  <text x="1133.072" y="288" text-anchor="middle" dy="0.35em" font-size="9" font-weight="600" fill="var(--_text-sec)">PK</text>
+  <text x="1152.2269999999999" y="288" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
+  <text x="1314.117" y="288" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">month</tspan></text>
+  <text x="1123.917" y="310" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">int</tspan></text>
+  <text x="1314.117" y="310" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">active_users</tspan></text>
+  <text x="1123.917" y="332" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">int</tspan></text>
+  <text x="1314.117" y="332" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">logins</tspan></text>
+  <text x="1123.917" y="354" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">int</tspan></text>
+  <text x="1314.117" y="354" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">payroll_runs_completed</tspan></text>
+  <text x="1123.917" y="376" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">int</tspan></text>
+  <text x="1314.117" y="376" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">features_used</tspan></text>
+  <text x="1123.917" y="398" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">int</tspan></text>
+  <text x="1314.117" y="398" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">api_calls</tspan></text>
+</g>
+<g class="entity" data-id="CUSTOMERS" data-label="CUSTOMERS">
+  <rect x="598.4514999999999" y="748" width="173.2" height="122" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="598.4514999999999" y="748" width="173.2" height="34" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="685.0514999999999" y="765" text-anchor="middle" font-size="13" font-weight="700" fill="var(--_text)" dy="4.55">CUSTOMERS</text>
+  <line x1="598.4514999999999" y1="782" x2="771.6514999999999" y2="782" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <rect x="604.4514999999999" y="786" width="22.31" height="14" rx="2" ry="2" fill="var(--_key-badge)" />
+  <text x="615.6064999999999" y="793" text-anchor="middle" dy="0.35em" font-size="9" font-weight="600" fill="var(--_text-sec)">PK</text>
+  <text x="634.7614999999998" y="793" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
+  <text x="763.6514999999999" y="793" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">vitally_id</tspan></text>
+  <text x="606.4514999999999" y="815" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
+  <text x="763.6514999999999" y="815" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">domain</tspan></text>
+  <text x="606.4514999999999" y="837" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
+  <text x="763.6514999999999" y="837" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">company_name</tspan></text>
+  <text x="606.4514999999999" y="859" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
+  <text x="763.6514999999999" y="859" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">csm_email</tspan></text>
+</g>
+<g class="entity" data-id="TICKETS" data-label="TICKETS">
+  <rect x="1115.917" y="704" width="193" height="210" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="1115.917" y="704" width="193" height="34" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="1212.417" y="721" text-anchor="middle" font-size="13" font-weight="700" fill="var(--_text)" dy="4.55">TICKETS</text>
+  <line x1="1115.917" y1="738" x2="1308.917" y2="738" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <rect x="1121.917" y="742" width="22.31" height="14" rx="2" ry="2" fill="var(--_key-badge)" />
+  <text x="1133.072" y="749" text-anchor="middle" dy="0.35em" font-size="9" font-weight="600" fill="var(--_text-sec)">PK</text>
+  <text x="1152.2269999999999" y="749" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
+  <text x="1300.917" y="749" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">ticket_id</tspan></text>
+  <rect x="1121.917" y="764" width="22.31" height="14" rx="2" ry="2" fill="var(--_key-badge)" />
+  <text x="1133.072" y="771" text-anchor="middle" dy="0.35em" font-size="9" font-weight="600" fill="var(--_text-sec)">FK</text>
+  <text x="1152.2269999999999" y="771" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
+  <text x="1300.917" y="771" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">vitally_id</tspan></text>
+  <text x="1123.917" y="793" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">date</tspan></text>
+  <text x="1300.917" y="793" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">created_date</tspan></text>
+  <text x="1123.917" y="815" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
+  <text x="1300.917" y="815" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">priority</tspan></text>
+  <text x="1123.917" y="837" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
+  <text x="1300.917" y="837" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">category</tspan></text>
+  <text x="1123.917" y="859" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">decimal</tspan></text>
+  <text x="1300.917" y="859" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">resolution_hours</tspan></text>
+  <text x="1123.917" y="881" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">decimal</tspan></text>
+  <text x="1300.917" y="881" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">csat_score</tspan></text>
+</g>
+<line x1="217.2" y1="225.20000000000002" x2="217.2" y2="237.20000000000002" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="221.2" y1="225.20000000000002" x2="221.2" y2="237.20000000000002" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="593.088" y1="569" x2="581.088" y2="562" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="593.088" y1="562" x2="581.088" y2="562" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="593.088" y1="555" x2="581.088" y2="562" stroke="var(--_line)" stroke-width="1.25" />
+<circle cx="577.088" cy="562" r="4" fill="var(--bg)" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="217.2" y1="106" x2="217.2" y2="118" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="221.2" y1="106" x2="221.2" y2="118" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="593.088" y1="119" x2="581.088" y2="112" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="593.088" y1="112" x2="581.088" y2="112" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="593.088" y1="105" x2="581.088" y2="112" stroke="var(--_line)" stroke-width="1.25" />
+<circle cx="577.088" cy="112" r="4" fill="var(--bg)" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="217.2" y1="165.6" x2="217.2" y2="177.6" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="221.2" y1="165.6" x2="221.2" y2="177.6" stroke="var(--_line)" stroke-width="1.25" />
+<circle cx="225.2" cy="171.6" r="4" fill="var(--bg)" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="594.4514999999999" y1="322" x2="582.4514999999999" y2="315" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="594.4514999999999" y1="315" x2="582.4514999999999" y2="315" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="594.4514999999999" y1="308" x2="582.4514999999999" y2="315" stroke="var(--_line)" stroke-width="1.25" />
+<circle cx="578.4514999999999" cy="315" r="4" fill="var(--bg)" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="775.6514999999999" y1="309" x2="775.6514999999999" y2="321" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="779.6514999999999" y1="309" x2="779.6514999999999" y2="321" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="1111.917" y1="322" x2="1099.917" y2="315" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="1111.917" y1="315" x2="1099.917" y2="315" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="1111.917" y1="308" x2="1099.917" y2="315" stroke="var(--_line)" stroke-width="1.25" />
+<circle cx="1095.917" cy="315" r="4" fill="var(--bg)" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="217.2" y1="284.8" x2="217.2" y2="296.8" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="221.2" y1="284.8" x2="221.2" y2="296.8" stroke="var(--_line)" stroke-width="1.25" />
+<circle cx="225.2" cy="290.8" r="4" fill="var(--bg)" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="594.4514999999999" y1="816" x2="582.4514999999999" y2="809" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="594.4514999999999" y1="809" x2="582.4514999999999" y2="809" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="594.4514999999999" y1="802" x2="582.4514999999999" y2="809" stroke="var(--_line)" stroke-width="1.25" />
+<circle cx="578.4514999999999" cy="809" r="4" fill="var(--bg)" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="775.6514999999999" y1="803" x2="775.6514999999999" y2="815" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="779.6514999999999" y1="803" x2="779.6514999999999" y2="815" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="1111.917" y1="816" x2="1099.917" y2="809" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="1111.917" y1="809" x2="1099.917" y2="809" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="1111.917" y1="802" x2="1099.917" y2="809" stroke="var(--_line)" stroke-width="1.25" />
+<circle cx="1095.917" cy="809" r="4" fill="var(--bg)" stroke="var(--_line)" stroke-width="1.25" />
+<rect x="162.45099999999996" y="551.85" width="154.586" height="20.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="0.5" />
+<text x="239.74399999999997" y="562" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">FK no declarada, 35 huerfanos</text>
+<rect x="323.693" y="101.85" width="162.902" height="20.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="0.5" />
+<text x="405.144" y="112" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">FK no declarada, cobertura 100%</text>
+<rect x="268.41575" y="304.85" width="131.42000000000002" height="20.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="0.5" />
+<text x="334.12575" y="315" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">FK debil, 54 vacios de 650</text>
+<rect x="862.3332499999999" y="304.85" width="162.902" height="20.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="0.5" />
+<text x="943.7842499999999" y="315" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">FK no declarada, cobertura 100%</text>
+<rect x="121.25599999999997" y="722.37575" width="203.88800000000003" height="20.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="0.5" />
+<text x="223.2" y="732.52575" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">sin FK, cruce difuso por dominio y nombre</text>
+<rect x="862.3332499999999" y="798.85" width="162.902" height="20.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="0.5" />
+<text x="943.7842499999999" y="809" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">FK no declarada, cobertura 100%</text>
+</svg>
+  </div>
+
+  <table>
+    <caption>Filas por tabla, medidas en el perfil del esquema</caption>
+    <thead>
+      <tr><th>Sistema</th><th>Tabla</th><th>Filas</th><th>PK implícita</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>HubSpot CRM</td><td><code>companies</code></td><td>678</td><td><code>hubspot_id</code></td></tr>
+      <tr><td>HubSpot CRM</td><td><code>deals</code></td><td>997</td><td><code>deal_id</code></td></tr>
+      <tr><td>HubSpot CRM</td><td><code>marketing_touches</code></td><td>1,635</td><td><code>touch_id</code></td></tr>
+      <tr><td>Product DB</td><td><code>accounts</code></td><td>650</td><td><code>account_id</code></td></tr>
+      <tr><td>Product DB</td><td><code>product_usage</code></td><td>9,793</td><td><code>(account_id, month)</code></td></tr>
+      <tr><td>Vitally</td><td><code>customers</code></td><td>650</td><td><code>vitally_id</code></td></tr>
+      <tr><td>Vitally</td><td><code>tickets</code></td><td>1,888</td><td><code>ticket_id</code></td></tr>
+    </tbody>
+  </table>
+
+  <p class="context">
+    Nota de lectura: el renderizador de <code>pretty-mermaid</code> no soporta notas ni alias de texto dentro
+    del propio diagrama entidad relación, así que los conteos de filas se documentan en la tabla de arriba
+    en lugar de escribirse sobre cada entidad. En <code>PRODUCT_USAGE</code>, la llave primaria real es
+    compuesta (<code>account_id</code>, <code>month</code>); el renderizador solo puede mostrar una etiqueta
+    de llave por columna, así que <code>account_id</code> se marca como FK y <code>month</code> como PK.
+  </p>
+
+  <footer>
+    Generado con la skill <code>pretty-mermaid</code> (tema <code>zinc-light</code>) a partir de
+    <code>docs/diagrams/src/02-erd-as-is-tres-sistemas.mmd</code>. Para regenerar:
+    <code>node scripts/render.mjs --input docs/diagrams/src/02-erd-as-is-tres-sistemas.mmd --output docs/diagrams/02-erd-as-is-tres-sistemas.svg --theme zinc-light</code>
+    desde la raíz de la skill, y quitar a mano las dos líneas <code>@import</code> antes de incrustar el SVG.
+  </footer>
+</main>
+</body>
+</html>

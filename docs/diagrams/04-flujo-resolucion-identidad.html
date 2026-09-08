@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cascada de resolución de identidad</title>
+<style>
+  :root { color-scheme: light; }
+  body {
+    margin: 0;
+    padding: 32px 24px 56px;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: #FFFFFF;
+    color: #27272A;
+    line-height: 1.55;
+  }
+  main { max-width: 1100px; margin: 0 auto; }
+  h1 { font-size: 1.5rem; margin-bottom: 0.25rem; }
+  .subtitle { color: #52525B; font-size: 0.95rem; margin-top: 0; margin-bottom: 1.25rem; }
+  p.context { max-width: 900px; }
+  .diagram-wrap {
+    margin: 28px 0;
+    padding: 16px;
+    border: 1px solid #E4E4E7;
+    border-radius: 8px;
+    overflow-x: auto;
+    background: #FAFAFA;
+  }
+  .diagram-wrap svg { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+  table { border-collapse: collapse; width: 100%; margin: 20px 0; font-size: 0.9rem; }
+  caption { text-align: left; font-weight: 600; margin-bottom: 6px; }
+  th, td { border: 1px solid #E4E4E7; padding: 6px 10px; text-align: left; }
+  th { background: #F4F4F5; }
+  footer { margin-top: 32px; font-size: 0.8rem; color: #71717A; }
+  a { color: #2563EB; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Cascada de resolución de identidad (ADR-001)</h1>
+  <p class="subtitle">
+    Fuente: <code>docs/decisions/ADR-001-identity-resolution-scorecard.md</code> y
+    <code>openspec/changes/a0-master-dataset-engine/specs/identity-resolution/spec.md</code>
+  </p>
+
+  <p class="context">
+    Este diagrama sigue el proceso que decide cuáles registros de HubSpot, Product DB y Vitally describen a
+    la misma empresa real. Antes de cualquier comparación corre la normalización de fechas, dominio, nombre
+    y moneda. Luego se aísla a las 28 filas clon <code>HS-9000xx</code> en cuarentena, sin fusionarlas ni
+    eliminarlas. El registro que queda recorre los niveles T0 a T3 en orden fijo y se detiene en el primero
+    donde coincide exactamente un candidato. El veto se evalúa antes de aceptar un cruce que solo se apoya en
+    el dominio compartido (T1): si dos empresas comparten dominio pero su similitud de nombre es baja, sus
+    fechas de alta son distintas y ambas tienen MRR, el proceso las trata como empresas distintas en lugar de
+    fusionarlas.
+  </p>
+
+  <div class="diagram-wrap">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1728.7447833333326 3986.6269999999995" width="1728.7447833333326" height="3986.6269999999995" style="--bg:#FFFFFF;--fg:#27272A;background:var(--bg)">
+<style>
+  text { font-family: 'Inter', system-ui, sans-serif; }
+  svg {
+    /* Derived from --bg and --fg (overridable via --line, --accent, etc.) */
+    --_text:          var(--fg);
+    --_text-sec:      var(--muted, color-mix(in srgb, var(--fg) 60%, var(--bg)));
+    --_text-muted:    var(--muted, color-mix(in srgb, var(--fg) 40%, var(--bg)));
+    --_text-faint:    color-mix(in srgb, var(--fg) 25%, var(--bg));
+    --_line:          var(--line, color-mix(in srgb, var(--fg) 50%, var(--bg)));
+    --_arrow:         var(--accent, color-mix(in srgb, var(--fg) 85%, var(--bg)));
+    --_node-fill:     var(--surface, color-mix(in srgb, var(--fg) 3%, var(--bg)));
+    --_node-stroke:   var(--border, color-mix(in srgb, var(--fg) 20%, var(--bg)));
+    --_group-fill:    var(--bg);
+    --_group-hdr:     color-mix(in srgb, var(--fg) 5%, var(--bg));
+    --_inner-stroke:  color-mix(in srgb, var(--fg) 12%, var(--bg));
+    --_key-badge:     color-mix(in srgb, var(--fg) 10%, var(--bg));
+  }
+</style>
+<defs>
+  <marker id="arrowhead" markerWidth="8" markerHeight="5" refX="7" refY="2.5" orient="auto">
+    <polygon points="0 0, 8 2.5, 0 5" fill="var(--_arrow)" stroke="var(--_arrow)" stroke-width="0.75" stroke-linejoin="round" />
+  </marker>
+  <marker id="arrowhead-start" markerWidth="8" markerHeight="5" refX="1" refY="2.5" orient="auto-start-reverse">
+    <polygon points="8 0, 0 2.5, 8 5" fill="var(--_arrow)" stroke="var(--_arrow)" stroke-width="0.75" stroke-linejoin="round" />
+  </marker>
+</defs>
+<polyline class="edge" data-from="START" data-to="NORM" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="762.0732499999997,76.9 762.0732499999997,136.9" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="NORM" data-to="DEDUP" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="762.0732499999997,173.8 762.0732499999997,233.8" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="DEDUP" data-to="QCOMP" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="Si: nombre y dominio iguales a otra fila, mrr nulo, sin cuenta que lo referencie (28 filas)" points="728.3575833333331,402.3783333333334 728.3575833333331,3526.726999999999 240.5,3526.726999999999 240.5000000000001,3619.026999999999" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="DEDUP" data-to="T0" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="No" points="795.7889166666664,402.3783333333333 795.7889166666664,448.094 1094.0771166666664,448.094 1094.0771166666664,540.394" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="T0" data-to="ASSIGN" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="Si (596 cuentas de producto)" points="1023.9289499999996,891.1348333333332 1023.9289499999996,1590.4789999999996 785.4162499999999,1590.4789999999996 785.4162499999999,3703.926999999999 834.3595666666665,3703.926999999999 834.3595666666665,3715.926999999999" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="T0" data-to="T1" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="No" points="1164.225283333333,891.1348333333333 1164.225283333333,1009.2829999999999 1269.6986999999997,1009.2829999999999 1269.6986999999995,1101.5829999999999" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="T1" data-to="VETO" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="Si (650 clientes de Vitally)" points="1196.216033333333,1468.996333333333 1196.216033333333,1590.4789999999996 1068.02715,1590.4789999999996 1068.02715,1682.7789999999995" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="T1" data-to="T2" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="No" points="1343.1813666666662,1468.9963333333328 1343.1813666666662,2264.2999999999993 1475.1156499999997,2264.2999999999993 1475.1156499999997,2441.4999999999995 1430.3588166666664,2441.4999999999995 1430.3588166666664,2544.2726666666663" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="VETO" data-to="VETOLOG" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="Si: se tratan como empresas distintas" points="1156.9473166666664,2127.3798333333325 1156.9473166666664,2264.2999999999993 1204.0566499999998,2264.2999999999993 1204.0566499999998,2356.5999999999995" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="VETOLOG" data-to="T2" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="1204.0566499999998,2393.4999999999995 1204.0566499999998,2441.4999999999995 1248.813483333333,2441.4999999999995 1248.813483333333,2544.2726666666663" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="VETO" data-to="ASSIGN" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="No" points="979.1069833333331,2127.3798333333325 979.1069833333331,2344.5999999999995 931.9976499999998,2344.5999999999995 931.9976499999998,3703.926999999999 956.4189666666664,3703.926999999999 956.4189666666664,3715.926999999999" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="T2" data-to="ASSIGN" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="Si, candidato unico (54 cuentas restantes)" points="1203.4271499999998,2861.9769999999994 1203.4271499999998,3623.626999999999 1099.4659499999996,3623.626999999999 1099.4659499999996,3703.926999999999 1078.4783666666663,3703.926999999999 1078.4783666666663,3715.926999999999" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="T2" data-to="T3" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="Mas de un candidato en el bloque de fecha" points="1339.5861499999996,2998.1359999999995 1339.5861499999996,3046.135999999999 1380.1614499999994,3046.135999999999 1380.1614499999994,3126.4359999999992 1387.084283333333,3126.4359999999992 1387.084283333333,3211.3011666666657" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="T2" data-to="T3" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="No hay candidato" points="1475.7451499999995,2861.9769999999994 1475.7451499999995,3046.135999999999 1539.7374499999994,3046.135999999999 1539.7374499999994,3126.4359999999992 1532.814616666666,3126.4359999999992 1532.814616666666,3211.3011666666657" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="T3" data-to="ASSIGN" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="Si (0 esperadas en este dataset)" points="1387.084283333333,3502.7618333333326 1387.084283333333,3623.626999999999 1373.5774499999993,3623.626999999999 1373.5774499999993,3703.926999999999 1200.5377666666664,3703.926999999999 1200.5377666666664,3715.926999999999" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="T3" data-to="MANUAL" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="No (0 esperadas en este dataset)" points="1532.814616666666,3502.7618333333326 1532.814616666666,3659.626999999999 1546.3214499999995,3659.626999999999 1546.3214499999995,3751.926999999999" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="ASSIGN" data-to="XWALK" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="1017.4486666666664,3752.8269999999993 1017.4486666666664,3782.8269999999993 915.7324999999998,3782.8269999999993 915.7324999999998,3812.8269999999993" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="ASSIGN" data-to="AUDIT" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="1017.4486666666664,3752.8269999999993 1017.4486666666664,3782.8269999999993 1475.1097833333329,3782.8269999999993 1475.1097833333329,3848.8269999999993" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="MANUAL" data-to="AUDIT" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="1546.3214499999995,3788.8269999999993 1546.3214499999995,3848.8269999999993" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="DEALORPHAN" data-to="QDEALS" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="435.8655000000001,3752.8269999999993 435.8655,3812.8269999999993" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="XWALK" data-to="COVERAGE" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="915.7324999999998,3849.7269999999994 915.7324999999998,3897.7269999999994 667.9258166666666,3897.7269999999994 667.9258166666666,3909.7269999999994" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="AUDIT" data-to="COVERAGE" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="1475.1097833333329,3885.7269999999994 1475.1097833333329,3897.7269999999994 667.9258166666666,3897.7269999999994 667.9258166666666,3909.7269999999994" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="QCOMP" data-to="COVERAGE" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="240.50000000000014,3655.926999999999 240.50000000000014,3897.7269999999994 667.9258166666666,3897.7269999999994 667.9258166666666,3909.7269999999994" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="QDEALS" data-to="COVERAGE" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="435.8655,3849.7269999999994 435.8655,3897.7269999999994 667.9258166666666,3897.7269999999994 667.9258166666666,3909.7269999999994" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<g class="edge-label" data-from="DEDUP" data-to="QCOMP" data-label="Si: nombre y dominio iguales a otra fila, mrr nulo, sin cuenta que lo referencie (28 filas)">
+  <rect x="36" y="3533.726999999999" width="408.5019999999997" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="240.25099999999986" y="3548.876999999999" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">Si: nombre y dominio iguales a otra fila, mrr nulo, sin cuenta que lo referencie (28 filas)</text>
+</g>
+<g class="edge-label" data-from="DEDUP" data-to="T0" data-label="No">
+  <rect x="1078.5771166666664" y="455.094" width="30.718000000000004" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="1093.9361166666663" y="470.24399999999997" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">No</text>
+</g>
+<g class="edge-label" data-from="T0" data-to="ASSIGN" data-label="Si (596 cuentas de producto)">
+  <rect x="709.9162499999999" y="3630.626999999999" width="150.706" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="785.2692499999998" y="3645.776999999999" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">Si (596 cuentas de producto)</text>
+</g>
+<g class="edge-label" data-from="T0" data-to="T1" data-label="No">
+  <rect x="1254.1986999999997" y="1016.283" width="30.718000000000004" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="1269.5576999999996" y="1031.433" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">No</text>
+</g>
+<g class="edge-label" data-from="T1" data-to="VETO" data-label="Si (650 clientes de Vitally)">
+  <rect x="1000.0271499999998" y="1597.4789999999996" width="135.262" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="1067.6581499999998" y="1612.6289999999997" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">Si (650 clientes de Vitally)</text>
+</g>
+<g class="edge-label" data-from="T1" data-to="T2" data-label="No">
+  <rect x="1459.6156499999997" y="2271.2999999999993" width="30.718000000000004" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="1474.9746499999997" y="2286.4499999999994" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">No</text>
+</g>
+<g class="edge-label" data-from="VETO" data-to="VETOLOG" data-label="Si: se tratan como empresas distintas">
+  <rect x="1109.0566499999998" y="2271.2999999999993" width="189.31599999999997" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="1203.7146499999997" y="2286.4499999999994" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">Si: se tratan como empresas distintas</text>
+</g>
+<g class="edge-label" data-from="VETO" data-to="ASSIGN" data-label="No">
+  <rect x="916.4976499999998" y="3630.626999999999" width="30.718000000000004" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="931.8566499999998" y="3645.776999999999" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">No</text>
+</g>
+<g class="edge-label" data-from="T2" data-to="ASSIGN" data-label="Si, candidato unico (54 cuentas restantes)">
+  <rect x="993.4659499999996" y="3630.626999999999" width="211.88800000000003" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="1099.4099499999995" y="3645.776999999999" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">Si, candidato unico (54 cuentas restantes)</text>
+</g>
+<g class="edge-label" data-from="T2" data-to="T3" data-label="Mas de un candidato en el bloque de fecha">
+  <rect x="1273.1614499999994" y="3053.135999999999" width="213.07600000000008" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="1379.6994499999994" y="3068.285999999999" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">Mas de un candidato en el bloque de fecha</text>
+</g>
+<g class="edge-label" data-from="T2" data-to="T3" data-label="No hay candidato">
+  <rect x="1490.2374499999994" y="3053.135999999999" width="98.43400000000003" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="1539.4544499999995" y="3068.285999999999" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">No hay candidato</text>
+</g>
+<g class="edge-label" data-from="T3" data-to="ASSIGN" data-label="Si (0 esperadas en este dataset)">
+  <rect x="1290.0774499999993" y="3630.626999999999" width="166.744" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="1373.4494499999994" y="3645.776999999999" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">Si (0 esperadas en este dataset)</text>
+</g>
+<g class="edge-label" data-from="T3" data-to="MANUAL" data-label="No (0 esperadas en este dataset)">
+  <rect x="1460.8214499999995" y="3666.626999999999" width="170.30800000000002" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="1545.9754499999995" y="3681.776999999999" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">No (0 esperadas en este dataset)</text>
+</g>
+<g class="node" data-id="START" data-label="Registro de origen: companies, accounts o customers" data-shape="stadium">
+  <rect x="585.4882499999998" y="40" width="353.1699999999999" height="36.900000000000006" rx="18.450000000000003" ry="18.450000000000003" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="762.0732499999997" y="58.45" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Registro de origen: companies, accounts o customers</text>
+</g>
+<g class="node" data-id="NORM" data-label="Normalizacion: fechas a ISO, etiqueta de dominio, nombre de empresa, moneda a MXN" data-shape="rectangle">
+  <rect x="496.1977499999998" y="136.9" width="531.7509999999997" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="762.0732499999997" y="155.35000000000002" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Normalizacion: fechas a ISO, etiqueta de dominio, nombre de empresa, moneda a MXN</text>
+</g>
+<g class="node" data-id="DEDUP" data-label="Es un clon HS-9000xx?" data-shape="diamond">
+  <polygon points="762.0732499999997,233.8 863.2202499999996,334.947 762.0732499999997,436.094 660.9262499999998,334.947" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="762.0732499999997" y="334.947" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Es un clon HS-9000xx?</text>
+</g>
+<g class="node" data-id="QCOMP" data-label="quarantine_companies: 28 filas clon, sin fusionar ni eliminar" data-shape="subroutine">
+  <rect x="47.98350000000028" y="3619.026999999999" width="385.03299999999973" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <line x1="55.98350000000028" y1="3619.026999999999" x2="55.98350000000028" y2="3655.926999999999" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <line x1="425.0165" y1="3619.026999999999" x2="425.0165" y2="3655.926999999999" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="240.50000000000014" y="3637.476999999999" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">quarantine_companies: 28 filas clon, sin fusionar ni eliminar</text>
+</g>
+<g class="node" data-id="T0" data-label="T0: hubspot_id presente y existe en companies deduplicada?" data-shape="diamond">
+  <polygon points="1094.0771166666664,540.394 1304.5216166666664,750.8385 1094.0771166666664,961.2829999999999 883.6326166666664,750.8385" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1094.0771166666664" y="750.8385" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">T0: hubspot_id presente y existe en companies deduplicada?</text>
+</g>
+<g class="node" data-id="ASSIGN" data-label="Asignar master_id: reutilizar del crosswalk o generar sha256 domain_label + nombre normalizado" data-shape="rectangle">
+  <rect x="712.3001666666665" y="3715.926999999999" width="610.2969999999998" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1017.4486666666664" y="3734.376999999999" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Asignar master_id: reutilizar del crosswalk o generar sha256 domain_label + nombre normalizado</text>
+</g>
+<g class="node" data-id="T1" data-label="T1: mismo domain_label y token_set_ratio &gt;= 90, candidato unico?" data-shape="diamond">
+  <polygon points="1269.6986999999995,1101.5829999999999 1490.1466999999993,1322.0309999999997 1269.6986999999995,1542.4789999999996 1049.2506999999996,1322.0309999999997" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1269.6986999999995" y="1322.0309999999997" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">T1: mismo domain_label y token_set_ratio &gt;= 90, candidato unico?</text>
+</g>
+<g class="node" data-id="VETO" data-label="Veto: mismo domain_label, similitud &lt; 70, fechas de alta distintas, ambos con MRR?" data-shape="diamond">
+  <polygon points="1068.02715,1682.7789999999995 1334.7876499999998,1949.5394999999994 1068.02715,2216.2999999999993 801.26665,1949.5394999999994" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1068.02715" y="1949.5394999999994" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Veto: mismo domain_label, similitud &lt; 70, fechas de alta distintas, ambos con MRR?</text>
+</g>
+<g class="node" data-id="T2" data-label="T2: signup_date = created_at, candidato unico en el bloque con partial_ratio &gt;= 90?" data-shape="diamond">
+  <polygon points="1339.5861499999996,2453.4999999999995 1611.9041499999994,2725.8179999999993 1339.5861499999996,2998.135999999999 1067.2681499999999,2725.8179999999993" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1339.5861499999996" y="2725.8179999999993" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">T2: signup_date = created_at, candidato unico en el bloque con partial_ratio &gt;= 90?</text>
+</g>
+<g class="node" data-id="VETOLOG" data-label="match_audit: veto_applied = true, veto_reason = shared_domain_distinct_company" data-shape="subroutine">
+  <rect x="942.9976499999998" y="2356.5999999999995" width="522.1179999999998" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <line x1="950.9976499999998" y1="2356.5999999999995" x2="950.9976499999998" y2="2393.4999999999995" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <line x1="1457.1156499999997" y1="2356.5999999999995" x2="1457.1156499999997" y2="2393.4999999999995" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1204.0566499999998" y="2375.0499999999993" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">match_audit: veto_applied = true, veto_reason = shared_domain_distinct_company</text>
+</g>
+<g class="node" data-id="T3" data-label="T3: WRatio &gt;= 94 y margen &gt;= 10 puntos sobre el segundo mejor?" data-shape="diamond">
+  <polygon points="1459.9494499999994,3138.4359999999992 1678.5449499999993,3357.031499999999 1459.9494499999994,3575.626999999999 1241.3539499999995,3357.031499999999" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1459.9494499999994" y="3357.031499999999" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">T3: WRatio &gt;= 94 y margen &gt;= 10 puntos sobre el segundo mejor?</text>
+</g>
+<g class="node" data-id="MANUAL" data-label="Revision manual: confianza baja" data-shape="rectangle">
+  <rect x="1432.3509499999996" y="3751.926999999999" width="227.94099999999995" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1546.3214499999995" y="3770.376999999999" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Revision manual: confianza baja</text>
+</g>
+<g class="node" data-id="XWALK" data-label="identity_crosswalk: master_id, hubspot_id, account_id, vitally_id, confidence_tier" data-shape="subroutine">
+  <rect x="660.231" y="3812.8269999999993" width="511.00299999999976" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <line x1="668.231" y1="3812.8269999999993" x2="668.231" y2="3849.7269999999994" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <line x1="1163.2339999999997" y1="3812.8269999999993" x2="1163.2339999999997" y2="3849.7269999999994" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="915.7324999999998" y="3831.276999999999" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">identity_crosswalk: master_id, hubspot_id, account_id, vitally_id, confidence_tier</text>
+</g>
+<g class="node" data-id="AUDIT" data-label="match_audit: una fila por registro origen con tier, score y evidencia" data-shape="subroutine">
+  <rect x="1261.4747833333329" y="3848.8269999999993" width="427.2699999999998" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <line x1="1269.4747833333329" y1="3848.8269999999993" x2="1269.4747833333329" y2="3885.7269999999994" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <line x1="1680.7447833333326" y1="3848.8269999999993" x2="1680.7447833333326" y2="3885.7269999999994" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1475.1097833333329" y="3867.276999999999" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">match_audit: una fila por registro origen con tier, score y evidencia</text>
+</g>
+<g class="node" data-id="DEALORPHAN" data-label="deal con hubspot_id inexistente en companies" data-shape="stadium">
+  <rect x="281.8810000000001" y="3715.926999999999" width="307.96899999999994" height="36.900000000000006" rx="18.450000000000003" ry="18.450000000000003" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="435.86550000000005" y="3734.376999999999" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">deal con hubspot_id inexistente en companies</text>
+</g>
+<g class="node" data-id="QDEALS" data-label="quarantine_deals: 35 deals huerfanos, 667251 excluidos" data-shape="subroutine">
+  <rect x="251.5" y="3812.8269999999993" width="368.73099999999994" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <line x1="259.5" y1="3812.8269999999993" x2="259.5" y2="3849.7269999999994" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <line x1="612.231" y1="3812.8269999999993" x2="612.231" y2="3849.7269999999994" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="435.8655" y="3831.276999999999" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">quarantine_deals: 35 deals huerfanos, 667251 excluidos</text>
+</g>
+<g class="node" data-id="COVERAGE" data-label="coverage_report.md: 596 T0, 650 T1, 54 T2, 0 T3, 0 M" data-shape="rectangle">
+  <rect x="494.6753166666666" y="3909.7269999999994" width="346.50099999999986" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="667.9258166666666" y="3928.176999999999" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">coverage_report.md: 596 T0, 650 T1, 54 T2, 0 T3, 0 M</text>
+</g>
+</svg>
+  </div>
+
+  <table>
+    <caption>Cobertura medida por nivel</caption>
+    <thead>
+      <tr><th>Nivel</th><th>Cobertura esperada</th><th>Confianza</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>T0</td><td>596 cuentas de producto</td><td>alta</td></tr>
+      <tr><td>T1</td><td>650 clientes de Vitally</td><td>alta</td></tr>
+      <tr><td>T2</td><td>54 cuentas restantes</td><td>alta</td></tr>
+      <tr><td>T3</td><td>0 en este dataset</td><td>media</td></tr>
+      <tr><td>M (revisión manual)</td><td>0 en este dataset</td><td>baja</td></tr>
+    </tbody>
+  </table>
+
+  <footer>
+    Generado con la skill <code>pretty-mermaid</code> (tema <code>zinc-light</code>) a partir de
+    <code>docs/diagrams/src/04-flujo-resolucion-identidad.mmd</code>. Para regenerar:
+    <code>node scripts/render.mjs --input docs/diagrams/src/04-flujo-resolucion-identidad.mmd --output docs/diagrams/04-flujo-resolucion-identidad.svg --theme zinc-light --node-spacing 40 --layer-spacing 60</code>
+    desde la raíz de la skill, y quitar a mano las dos líneas <code>@import</code> antes de incrustar el SVG.
+  </footer>
+</main>
+</body>
+</html>

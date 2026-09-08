@@ -1,0 +1,20 @@
+stateDiagram-v2
+    [*] --> signup: alta de la cuenta (signup_date)
+
+    signup --> insufficient_history: menos de 3 meses de uso hasta el mes de corte
+
+    insufficient_history --> insufficient_history: sigue sin llegar a 3 meses
+    insufficient_history --> computed: alcanza 3 meses de uso hasta el mes de corte
+
+    computed --> computed: EWMA span 3 / EWMA span 9 - 1, solo con meses <= trend_asof_month
+    computed --> at_risk: momentum negativo dos meses antes del mes de referencia (k = 2)
+    at_risk --> computed: el momentum vuelve a positivo antes del mes de referencia
+
+    at_risk --> churn: el mes de referencia es el mes de churn (churn_date)
+    computed --> churn: el mes de referencia es el mes de churn, sin pasar por at_risk
+
+    signup --> no_usage: la cuenta no tiene ninguna fila de product_usage
+    insufficient_history --> no_usage: deja de tener filas de uso antes de llegar a 3 meses
+    no_usage --> churn: el mes de referencia es el mes de churn, sin uso registrado
+
+    churn --> [*]

@@ -1,0 +1,77 @@
+erDiagram
+    COMPANIES {
+        string hubspot_id PK
+        string name
+        string domain
+        string segment
+        string industry
+        decimal mrr
+        string currency
+        date signup_date
+        string csm_owner
+        string plan
+        string state
+        date churn_date
+    }
+
+    DEALS {
+        string deal_id PK
+        string hubspot_id FK
+        string stage
+        decimal amount
+        date created_date
+        date close_date
+        string owner
+        string pipeline
+        string lead_source
+    }
+
+    MARKETING_TOUCHES {
+        string touch_id PK
+        string hubspot_id FK
+        string channel
+        date touch_date
+        string campaign
+    }
+
+    ACCOUNTS {
+        string account_id PK
+        string hubspot_id FK
+        string account_name
+        date created_at
+    }
+
+    PRODUCT_USAGE {
+        string account_id PK, FK
+        string month PK
+        int active_users
+        int logins
+        int payroll_runs_completed
+        int features_used
+        int api_calls
+    }
+
+    CUSTOMERS {
+        string vitally_id PK
+        string domain
+        string company_name
+        string csm_email
+    }
+
+    TICKETS {
+        string ticket_id PK
+        string vitally_id FK
+        date created_date
+        string priority
+        string status
+        string category
+        decimal resolution_hours
+        decimal csat_score
+    }
+
+    COMPANIES ||--o{ DEALS : "FK no declarada, 35 huerfanos"
+    COMPANIES ||--o{ MARKETING_TOUCHES : "FK no declarada, cobertura 100%"
+    COMPANIES |o..o{ ACCOUNTS : "FK debil, 54 vacios de 650"
+    ACCOUNTS ||--o{ PRODUCT_USAGE : "FK no declarada, cobertura 100%"
+    COMPANIES |o..o{ CUSTOMERS : "sin FK, cruce difuso por dominio y nombre"
+    CUSTOMERS ||--o{ TICKETS : "FK no declarada, cobertura 100%"

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Journeys por actor, lunes de crisis</title>
+<style>
+  :root { color-scheme: light; }
+  body {
+    margin: 0;
+    padding: 32px 24px 56px;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: #FFFFFF;
+    color: #27272A;
+    line-height: 1.55;
+  }
+  main { max-width: 1100px; margin: 0 auto; }
+  h1 { font-size: 1.5rem; margin-bottom: 0.25rem; }
+  h2 { font-size: 1.15rem; margin-top: 2.5rem; border-top: 1px solid #E4E4E7; padding-top: 1.5rem; }
+  .subtitle { color: #52525B; font-size: 0.95rem; margin-top: 0; margin-bottom: 1.25rem; }
+  p.context { max-width: 900px; }
+  .diagram-wrap {
+    margin: 16px 0 28px;
+    padding: 16px;
+    border: 1px solid #E4E4E7;
+    border-radius: 8px;
+    overflow-x: auto;
+    background: #FAFAFA;
+  }
+  .diagram-wrap svg { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+  footer { margin-top: 32px; font-size: 0.8rem; color: #71717A; }
+  a { color: #2563EB; }
+  code { background: #F4F4F5; padding: 1px 4px; border-radius: 3px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Journeys por actor: el lunes en que la retención bajó 8 puntos</h1>
+  <p class="subtitle">
+    Fuente: caso de negocio, Parte B (<code>fundation-docs/Caso de Negocio - Business Operations &amp; Data Specialist.pdf</code>),
+    <code>openspec/changes/a0-master-dataset-engine/proposal.md</code> y
+    <code>docs/research/01-bi-revops-data-architecture.md</code> (carriles 4 y 5)
+  </p>
+
+  <p class="context">
+    Cada journey compara el mismo lunes por la mañana descrito en la Parte B del caso: Finanzas reporta que
+    la retención bajó 8 puntos contra el trimestre anterior, Marketing dice que los MQL crecieron 25%, Sales
+    dice que los leads ya no son tan buenos, y CS dice que apaga incendios sin visibilidad de riesgo hasta
+    que el cliente ya avisó que se va, sin un Health Score formal ni un dashboard compartido entre los tres
+    equipos. La sección "Hoy" describe esa mañana sin el motor A0; la sección "Con el motor A0 y el Health
+    Score" describe el mismo lunes una vez que el master dataset, el crosswalk de identidad y el dashboard
+    ejecutivo de la sección 5 de la investigación existen. Los puntajes de satisfacción van de 1 (muy
+    insatisfecho) a 5 (muy satisfecho).
+  </p>
+
+  <p class="context">
+    El encargo nombra seis actores en la lista ("VP de Customer Success, CSM, Head of RevOps, Marketing y
+    Sales, uno cada uno, y el especialista de Business Operations y Datos"), aunque la instrucción sobre
+    dónde ubicarlos dice "cinco journeys en la misma página". Esta página incluye los seis, uno por cada
+    actor nombrado explícitamente, porque la lista de actores es más específica que el conteo.
+  </p>
+
+  <h2>1. VP de Customer Success</h2>
+  <div class="diagram-wrap"><pre class="mermaid">
+journey
+    title VP de Customer Success
+    section Hoy (sin Health Score)
+      Recibe el reporte de Finanzas: retencion bajo 8 puntos: 1: VP CS
+      Pregunta a CS por que, y CS responde que apaga incendios sin visibilidad de riesgo: 2: VP CS
+      Confirma que no existe Health Score formal ni dashboard compartido: 1: VP CS
+      Decide con base en anecdotas de los CSM, no en datos: 2: VP CS
+    section Con el motor A0 y el Health Score
+      Abre el dashboard ejecutivo con la matriz de riesgo por MRR: 4: VP CS
+      Ve el ingreso en riesgo como un solo KPI destacado: 5: VP CS
+      Prioriza las cuentas de alto MRR y alto riesgo primero: 5: VP CS
+      Reporta a Direccion General con cifras concretas de su propio analisis: 4: VP CS
+  </pre></div>
+
+  <h2>2. CSM</h2>
+  <div class="diagram-wrap"><pre class="mermaid">
+journey
+    title CSM
+    section Hoy (sin Health Score)
+      Se entera de que un cliente se va hasta que el cliente ya aviso: 1: CSM
+      No tiene ninguna senal temprana de caida de uso: 2: CSM
+      Reacciona tarde, sin tiempo real para retener a la cuenta: 1: CSM
+    section Con el motor A0 y el Health Score
+      Recibe una alerta cuando el Health Score cruza el umbral de riesgo: 4: CSM
+      Ve el desglose de subpuntajes de uso y soporte detras del puntaje: 5: CSM
+      Actua con dias o semanas de anticipacion (lead time medido): 5: CSM
+  </pre></div>
+
+  <h2>3. Head of RevOps</h2>
+  <div class="diagram-wrap"><pre class="mermaid">
+journey
+    title Head of RevOps
+    section Hoy (sin Health Score)
+      Escucha versiones distintas de Finanzas, Marketing, Sales y CS sobre el mismo trimestre: 1: Head of RevOps
+      No puede conciliar hubspot_id, account_id y vitally_id entre los tres sistemas: 2: Head of RevOps
+      Cada equipo mide algo distinto sobre el mismo cliente: 2: Head of RevOps
+    section Con el motor A0 y el Health Score
+      Usa master_dataset, una fila por empresa real resuelta por el motor A0: 4: Head of RevOps
+      Tiene identity_crosswalk y match_audit como evidencia auditable de cada cruce: 5: Head of RevOps
+      Explica a Direccion de donde sale cada cifra con el reporte de cobertura: 5: Head of RevOps
+  </pre></div>
+
+  <h2>4. Marketing</h2>
+  <div class="diagram-wrap"><pre class="mermaid">
+journey
+    title Marketing
+    section Hoy (sin Health Score)
+      Reporta que los MQL crecieron 25% en el trimestre: 4: Marketing
+      Escucha a Sales decir que los leads ya no son tan buenos: 2: Marketing
+      No tiene visibilidad de que pasa con esos leads despues de convertirse en clientes: 2: Marketing
+    section Con el motor A0 y el Health Score
+      Ve la tasa de conversion a closedwon por primer touch y por ultimo touch: 4: Marketing
+      Compara con Sales si el canal ganador cambia segun el modelo de atribucion: 4: Marketing
+      Acuerda con Sales un cambio de proceso apoyado en datos compartidos: 4: Marketing
+  </pre></div>
+
+  <h2>5. Sales</h2>
+  <div class="diagram-wrap"><pre class="mermaid">
+journey
+    title Sales
+    section Hoy (sin Health Score)
+      Dice que los leads ya no son tan buenos, sin poder probarlo con datos: 2: Sales
+      No sabe si el problema esta en Marketing, en la calificacion del lead o en otra causa: 2: Sales
+    section Con el motor A0 y el Health Score
+      Consulta el mismo master_dataset y el mismo reporte de atribucion que usa Marketing: 4: Sales
+      Senala con evidencia en que etapa del funnel se pierde calidad: 4: Sales
+      Acuerda con Marketing un cambio de proceso para que el problema no se repita: 4: Sales
+  </pre></div>
+
+  <h2>6. Especialista de Business Operations y Datos</h2>
+  <div class="diagram-wrap"><pre class="mermaid">
+journey
+    title Especialista de Business Operations y Datos
+    section Hoy (sin Health Score)
+      Recibe la pregunta de Direccion sin un dataset confiable entre tres sistemas desincronizados: 1: Especialista
+      Reconcilia identidad a mano cada vez que alguien pide un numero: 1: Especialista
+      Le preocupa que el Health Score no tenga dueno despues del onboarding de 2 meses: 2: Especialista
+    section Con el motor A0 y el Health Score
+      Construye el motor A0 una sola vez, reproducible con un solo comando de build: 4: Especialista
+      Entrega el Health Score validado con precision y recall contra churn_date real: 5: Especialista
+      Deja gobernanza clara: dueno por fuente, bitacora de excepciones y documentacion: 4: Especialista
+  </pre></div>
+
+  <footer>
+    Renderizado en el navegador con Mermaid 11.4.1 (licencia MIT), cargado desde
+    <code>docs/diagrams/assets/mermaid.min.js</code> por ruta relativa, sin CDN. Fuente de los seis diagramas:
+    <code>docs/diagrams/src/05-journeys-por-actor.mmd</code>. <code>pretty-mermaid</code> no soporta el tipo
+    <code>journey</code>, por eso este archivo es el único del set que depende de JavaScript en el navegador
+    en lugar de un SVG ya renderizado. Para regenerar el archivo de la librería, ver
+    <code>docs/diagrams/assets/README.md</code>.
+  </footer>
+</main>
+<script src="assets/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({ startOnLoad: true, securityLevel: "strict", theme: "neutral" });
+</script>
+</body>
+</html>
