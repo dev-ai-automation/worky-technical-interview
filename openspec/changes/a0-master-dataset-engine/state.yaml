@@ -22,10 +22,10 @@ phases:
   specs: done
   design: done
   tasks: done
-  apply: in_progress (PR 1 a PR 4a cerrados; PR 4b implementado y validado con size:exception aceptada, en revision RDD; motor A0 completo pendiente de verify)
+  apply: done (PR 1, 2, 3a, 3b, 4a y 4b implementados; motor A0 completo con 35 columnas, 128 pruebas y 8 goldens; pendiente sdd-verify)
   verify: pending
   archive: pending
-next_recommended: sdd-apply PR 1 (tras aprobacion del usuario; acquire de sdd-attempt antes del lanzamiento)
+next_recommended: sdd-verify del cambio completo, luego Judgment Day sobre el motor, sdd-archive y merge apilado a main
 review_receipts:
   mode: receipt-driven development activado (global) el 2026-09-08 por el usuario
   pr1:
@@ -58,3 +58,9 @@ review_receipts:
     lineage: review-0443de485b83128c
     lens: review-reliability
     result: approved y acknowledged en primera pasada
+  pr4b:
+    branch: feat/a0-pr4b-support-commercial-harness
+    commit: 7c09e27
+    lineage: review-7512f1ca45b3c689
+    lens: review-reliability
+    result: approved y acknowledged (la primera captura fue rechazada por JSON incompleto del proveedor, misma clase que la issue 3942; el relanzamiento del mismo slot fue admitido)

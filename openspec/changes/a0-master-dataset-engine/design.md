@@ -252,6 +252,21 @@ Los 48 valores negativos de `resolution_hours` no generan filas aquí. A0 no pub
 | 34 | ruleset_version | VARCHAR | no | `1.0.0` |
 | 35 | dataset_asof | DATE | no | `2024-08-31` |
 
+Lo que el contrato fija es el conjunto de las 35 columnas, no la posición de cada una. Los contratos de build y las pruebas verifican presencia, tipo, nulabilidad y dominio; ninguno afirma un índice de columna. El orden físico de `outputs/master_dataset.csv` lo decide el `SELECT` de `mart_master_dataset.sql`, que agrupa por bloque para que la tabla se lea de corrido:
+
+| Bloque | Columnas, en el orden del archivo |
+|---|---|
+| Identidad | master_id, hubspot_id, account_id, vitally_id, confidence_tier |
+| Atributos de empresa | company_name, domain, domain_label, segment, industry, plan, state, csm_owner, signup_date |
+| MRR | mrr_mxn, mrr_source, mrr_confidence, mrr_original, currency_original |
+| Baja y mes de referencia | churn_date, churn_status, reference_month |
+| Uso | active_users_latest, active_users_avg, usage_months, trend_usage, trend_asof_month, trend_status |
+| Soporte | tickets_total, tickets_urgent, csat_avg |
+| Comercial | acquisition_channel, closed_revenue_mxn |
+| Metadatos | ruleset_version, dataset_asof |
+
+`domain_label` viaja con los atributos de empresa, junto a `domain`, y no en el bloque de metadatos: es un valor derivado del dominio y se lee mejor al lado de su origen.
+
 Dominios de valores: `churn_status` en {`active`, `churned`}; `mrr_source` en {`crm`, `imputed_from_deal`, `unresolved`}; `mrr_confidence` en {`high`, `medium`, `none`}; `confidence_tier` en {`T0`, `T1`, `T2`, `T3`, `M`}; `trend_status` en {`computed`, `insufficient_history`, `no_usage`}.
 
 `mrr_confidence` vale `high` para toda fila con valor del CRM. Para una fila imputada vale `high` cuando la empresa tiene un deal en `closedwon` (4 de 28) y `medium` cuando solo tiene deals abiertos o perdidos (24 de 28). Vale `none` cuando la fila quedó en `unresolved`, porque ahí no hay ningún MRR en el que confiar. La columna que separa un monto confirmado de una estimación es `mrr_source`; `mrr_confidence` gradúa qué tan sólida es la evidencia dentro de cada caso.
@@ -420,14 +435,31 @@ Cuando `--data-dir` no contiene los tres archivos `.db` pero sí contiene `datas
 | Capa | Archivos | Qué hace | Qué no hace |
 |---|---|---|---|
 | staging | `stg_companies`, `stg_deals`, `stg_marketing_touches`, `stg_accounts`, `stg_product_usage`, `stg_customers`, `stg_tickets` | Tipar columnas, tomar las fechas ya normalizadas, convertir montos a MXN, recortar espacios | Ningún join entre sistemas |
-| marts | `mart_company_core`, `mart_mrr`, `mart_usage`, `mart_support`, `mart_commercial`, `mart_master_dataset`, `mart_coverage` | Supervivencia, imputación, agregados, ensamblaje final y conteos de cobertura | Ninguna regla de cruce, que vive en Python |
+| marts | `mart_company_core`, `mart_deal_normalized`, `mart_mrr`, `mart_usage`, `mart_support`, `mart_commercial`, `mart_master_dataset`, `mart_coverage` | Supervivencia, normalización de unidad de los montos, imputación, agregados, ensamblaje final y conteos de cobertura | Ninguna regla de cruce, que vive en Python |
 
-`assemble.py` ejecuta los archivos en orden fijo declarado en una lista, no por orden alfabético del directorio, para que el orden de dependencias sea explícito y revisable.
+`assemble.py` ejecuta los archivos en orden fijo declarado en una lista, no por orden alfabético del directorio, para que el orden de dependencias sea explícito y revisable. `MART_FILES` quedó así:
+
+```python
+MART_FILES = [
+    "marts/mart_company_core.sql",
+    "marts/mart_deal_normalized.sql",
+    "marts/mart_mrr.sql",
+    "marts/mart_usage.sql",
+    "marts/mart_support.sql",
+    "marts/mart_commercial.sql",
+    "marts/mart_master_dataset.sql",
+    "marts/mart_coverage.sql",
+]
+```
+
+`mart_deal_normalized` entra en segundo lugar porque tanto `mart_mrr` (imputación) como `mart_commercial` (`closed_revenue_mxn`) necesitan los montos ya normalizados a valor mensual. Vive en su propio archivo para que la regla de la unidad exista una sola vez; tenerla copiada en dos marts habría dejado dos verdades que se pueden desincronizar sin que ninguna prueba lo note.
 
 ### 4.3 Imputación de MRR (ADR-002)
 
 ```sql
--- worky_engine/sql/marts/mart_mrr.sql, cadena de CTE tal como quedo implementada
+-- worky_engine/sql/marts/mart_deal_normalized.sql: la regla de unidad, en un
+-- solo lugar, compartida por mart_mrr y mart_commercial
+CREATE OR REPLACE VIEW mart_deal_normalized AS
 WITH deal_pool AS (
     SELECT master_id, deal_id, amount_mxn, stage
     FROM stg_deals
@@ -437,15 +469,18 @@ company_min AS (
     SELECT master_id, MIN(amount_mxn) AS min_amount
     FROM deal_pool
     GROUP BY master_id
-),
-normalized_deals AS (
-    -- normalizacion de unidad: el monto que es exactamente 12 veces el minimo
-    -- de su empresa esta cotizado al ano y se lleva a ese minimo (el mensual)
-    SELECT p.master_id, p.deal_id, p.stage, p.amount_mxn AS original_amount,
-           CASE WHEN p.amount_mxn = m.min_amount * 12
-                THEN m.min_amount ELSE p.amount_mxn END AS normalized_amount
-    FROM deal_pool p
-    JOIN company_min m USING (master_id)
+)
+SELECT p.master_id, p.deal_id, p.stage,
+       p.amount_mxn AS original_amount,
+       CASE WHEN p.amount_mxn = m.min_amount * 12
+            THEN m.min_amount ELSE p.amount_mxn END AS normalized_amount
+FROM deal_pool p
+JOIN company_min m USING (master_id);
+
+-- worky_engine/sql/marts/mart_mrr.sql, cadena de CTE tal como quedo implementada
+WITH normalized_deals AS (
+    SELECT master_id, deal_id, stage, original_amount, normalized_amount
+    FROM mart_deal_normalized
 ),
 company_deals AS (
     SELECT master_id,
@@ -576,7 +611,9 @@ python -m worky_engine resolve  --data-dir <ruta> --out-dir outputs
 python -m worky_engine backtest --data-dir <ruta> --out-dir outputs [--k 0 2 3]
 ```
 
-`build` es el único comando que produce las siete salidas y corre `resolve` internamente. `resolve` existe para depurar la capa de identidad sin ensamblar. `backtest` reproduce el ADR-003.
+`build` es el único comando que produce las siete salidas y corre `resolve` internamente. `resolve` existe para depurar la capa de identidad sin ensamblar.
+
+`backtest` queda como comando aparte, fuera de `build`. Reproduce la comparación de fórmulas del ADR-003 en k = 0, 2 y 3 y escribe `outputs/backtest_report.md`, que también es un golden versionado y entra en la comparación byte a byte. Separarlo del build tiene una razón: el backtest responde por qué la fórmula de tendencia es la elegida, mientras que el build produce el dataset. Son preguntas distintas y cadencias distintas, porque el backtest solo se vuelve a correr cuando cambia una fórmula o un parámetro, tal como lo pide el ADR-003. Meterlo en `build` obligaría a pagar su costo en cada corrida y mezclaría un artefacto de evidencia con los entregables del caso.
 
 Códigos de salida: 0 correcto, 1 contrato de datos violado con el contrato nombrado en el mensaje, 2 argumentos o archivos de entrada faltantes.
 
@@ -613,12 +650,15 @@ El fixture sintético de `tests/fixtures/mini_dataset.py` tiene 12 empresas y tr
 |---|---|
 | Versiones de dependencias | `pyproject.toml` con `==` exacto: `rapidfuzz==3.14.6`, `duckdb==1.5.5`, `pandas==3.0.5` y `pytest==9.1.1`. `requires-python = ">=3.12"`, con Python 3.14.7 como entorno verificado |
 | Orden de filas | Cada salida lleva un `ORDER BY` explícito: `master_dataset` e `identity_crosswalk` por `master_id`; `match_audit` por `source_system, source_id`; `quarantine_companies` por `hubspot_id`; `quarantine_deals` por `deal_id`; `exceptions_log` por `exception_code, source_id` |
+| Orden de filas en las vistas de cobertura | Cada vista `mart_coverage_*` lleva también su propio `ORDER BY`, aunque su resultado sean unas cuantas filas agregadas |
 | Formato de CSV | UTF-8 sin marca de orden de bytes, `\n`, coma, sin índice, nulo como campo vacío. El archivo se abre con `open(path, "w", encoding="utf-8", newline="")` y se pasa el descriptor a `to_csv(..., lineterminator="\n", index=False)` |
 | Representación de flotantes | Dinero con `printf('%.2f', x)` y razones con `printf('%.6f', x)` en SQL, de modo que el CSV nunca depende de cómo imprima un flotante la versión de numpy en turno |
 | Orden de llaves en JSON | `json.dumps(..., sort_keys=True, separators=(",", ":"), ensure_ascii=False)` |
 | Marca temporal | `decided_at`, `resolved_at` y `dataset_asof` toman todos el mismo valor: la fecha máxima presente en los datos, calculada sobre `companies.signup_date`, `companies.churn_date`, `deals.created_date`, `deals.close_date`, `tickets.created_date` y el último día del último mes de `product_usage` |
 | Versión de reglas | `ruleset_version = 1.0.0`, escrito en las cinco tablas que registran decisiones y en el reporte |
 | Estado residual entre corridas | `.build/worky.duckdb` se borra al inicio de cada `build` |
+
+Las vistas de cobertura merecen su propia línea porque ahí apareció un hallazgo del PR 4b: un `GROUP BY` de DuckDB no garantiza un orden estable de filas entre corridas, así que dos builds sobre la misma entrada pueden emitir los mismos grupos en distinta secuencia. Con la comparación byte a byte como criterio de éxito, eso es una falla, y la prueba de idempotencia fue la que lo detectó. Cada `mart_coverage_*` lleva desde entonces un `ORDER BY` explícito sobre su llave de agrupación. Confiar en el orden que salga de una agregación es apoyarse en un detalle de implementación del motor, no en una garantía del lenguaje.
 
 Sobre la marca temporal se consideraron tres opciones. Una hora de reloj rompe la comparación byte a byte, que es justamente el criterio de éxito de la propuesta. Una constante escrita en el código deja de decir la verdad en cuanto cambian los datos. La fecha derivada de los datos cumple las dos cosas: dos corridas sobre la misma entrada dan un resultado idéntico, y el valor cambia solo cuando cambia la entrada, que es cuando debe cambiar. La hora de reloj de la corrida se imprime en la consola, donde no contamina ninguna salida.
 
