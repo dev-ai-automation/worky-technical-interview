@@ -1,0 +1,30 @@
+[project]
+name = "worky-engine"
+version = "0.1.0"
+description = "Motor del dataset maestro de A0: normalizacion, resolucion de identidad y ensamblaje reproducible."
+requires-python = ">=3.12"
+dependencies = [
+    "duckdb==1.5.5",
+    "rapidfuzz==3.14.6",
+    "pandas==3.0.5",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==9.1.1",
+]
+
+[project.scripts]
+worky-engine = "worky_engine.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["worky_engine*"]
+
+[tool.pytest.ini_options]
+markers = [
+    "dataset: pruebas que requieren las tres bases SQLite reales del caso",
+]
