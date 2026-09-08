@@ -4,8 +4,8 @@ Trae, a proposito, un nombre acentuado, una fecha en formato DD/MM/YYYY,
 un clon de empresa, un deal huerfano, un par con dominio compartido que
 debe vetarse, un nombre truncado y una cuenta con solo dos meses de uso
 para forzar `insufficient_history`, tal como fija la seccion 7 del
-diseno. El PR 2 lo consume en `tests/test_identity_resolution.py`; este
-PR solo lo deja preparado junto con el resto del paquete.
+diseno. El PR 2 lo consume en `tests/test_identity_resolution.py`; el
+PR 3a agrego dos empresas mas que quedan `unresolved` en `mart_mrr`.
 """
 
 from __future__ import annotations
@@ -13,7 +13,7 @@ from __future__ import annotations
 import pandas as pd
 
 # 11 empresas reales (HS-200001 a HS-200011) mas un clon (HS-900010) de
-# HS-200001, para las 12 filas que pide la seccion 7 del diseno.
+# HS-200001, mas dos empresas del PR 3a que quedan `unresolved`.
 _COMPANIES_ROWS = [
     {"hubspot_id": "HS-200001", "name": "Sanchez y Asociados SA de CV", "domain": "sanchez201.com.mx", "segment": "SMB", "industry": "Retail", "mrr": 5000.0, "currency": "MXN", "signup_date": "2022-05-10", "csm_owner": "Ana Ruiz", "plan": "Basico", "state": "Jalisco", "churn_date": None},
     {"hubspot_id": "HS-200002", "name": "Gaitán Comercial", "domain": "gaitán202.com.mx", "segment": "SMB", "industry": "Retail", "mrr": 3200.0, "currency": "MXN", "signup_date": "10/05/2022", "csm_owner": "Ana Ruiz", "plan": "Basico", "state": "Jalisco", "churn_date": None},
@@ -27,6 +27,10 @@ _COMPANIES_ROWS = [
     {"hubspot_id": "HS-200010", "name": "Camacho e Hijos", "domain": "camacho210.com.mx", "segment": "SMB", "industry": "Alimentos", "mrr": 1900.0, "currency": "MXN", "signup_date": "2023-01-04", "csm_owner": "Carla Nunez", "plan": "Basico", "state": "Jalisco", "churn_date": None},
     {"hubspot_id": "HS-200011", "name": "Solis Financiera SA", "domain": "solis211.com.mx", "segment": "Enterprise", "industry": "Finanzas", "mrr": 21000.0, "currency": "USD", "signup_date": "2020-10-30", "csm_owner": "Diego Ortega", "plan": "Premium", "state": "Queretaro", "churn_date": None},
     {"hubspot_id": "HS-900010", "name": "SANCHEZ Y ASOCIADOS, S.A. DE C.V.", "domain": "sanchez201.com.mx", "segment": "SMB", "industry": "Retail", "mrr": None, "currency": "MXN", "signup_date": "2022-05-10", "csm_owner": "Ana Ruiz", "plan": "Basico", "state": "Jalisco", "churn_date": None},
+    # Sin MRR y con dos deals de monto distinto (no multiplo de 12): queda `unresolved`.
+    {"hubspot_id": "HS-200012", "name": "Rivas Ambiguo SA de CV", "domain": "rivas212.com.mx", "segment": "SMB", "industry": "Retail", "mrr": None, "currency": "MXN", "signup_date": "2022-08-15", "csm_owner": "Ana Ruiz", "plan": "Basico", "state": "Jalisco", "churn_date": None},
+    # Sin MRR y sin ningun deal: tambien queda `unresolved`.
+    {"hubspot_id": "HS-200013", "name": "Salas Sin Deals SA de CV", "domain": "salas213.com.mx", "segment": "SMB", "industry": "Retail", "mrr": None, "currency": "MXN", "signup_date": "2022-09-20", "csm_owner": "Ana Ruiz", "plan": "Basico", "state": "Jalisco", "churn_date": None},
 ]
 
 _ACCOUNTS_ROWS = [
@@ -56,6 +60,8 @@ _TICKETS_ROWS = [
 _DEALS_ROWS = [
     {"deal_id": "D-9001", "hubspot_id": "HS-200001", "stage": "closedwon", "amount": 5000.0, "created_date": "2022-05-01", "close_date": "2022-05-10", "owner": "Ana Ruiz", "pipeline": "New Business", "lead_source": "Referral"},
     {"deal_id": "D-9002", "hubspot_id": "HS-999999", "stage": "closedwon", "amount": 3000.0, "created_date": "2023-02-01", "close_date": "2023-02-14", "owner": "Luis Pena", "pipeline": "New Business", "lead_source": "Web"},
+    {"deal_id": "D-9003", "hubspot_id": "HS-200012", "stage": "qualifiedtobuy", "amount": 1500.0, "created_date": "2022-08-20", "close_date": None, "owner": "Ana Ruiz", "pipeline": "New Business", "lead_source": "Referral"},
+    {"deal_id": "D-9004", "hubspot_id": "HS-200012", "stage": "appointmentscheduled", "amount": 2200.0, "created_date": "2022-09-01", "close_date": None, "owner": "Ana Ruiz", "pipeline": "New Business", "lead_source": "Referral"},
 ]
 
 _MARKETING_TOUCHES_ROWS = [

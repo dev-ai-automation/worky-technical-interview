@@ -1,7 +1,8 @@
 """Pruebas de los contratos de datos en tiempo de build, sobre el fixture sintetico.
 
-Corre el ensamblaje completo sobre las 11 empresas reales de
-`tests/fixtures/mini_dataset.py` para confirmar que los seis contratos
+Corre el ensamblaje completo sobre las 13 empresas reales de
+`tests/fixtures/mini_dataset.py` (dos de ellas sin MRR ni deal unico,
+para probar la rama `unresolved`) para confirmar que los siete contratos
 disponibles en este PR pasan sobre un dataset valido, y prueba cada
 violacion por separado sobre copias del resultado, para no depender de
 las 650 filas del dataset real. `tests/test_assembly_contracts.py`
@@ -18,6 +19,7 @@ from tests.fixtures.mini_dataset import build_mini_dataset
 from worky_engine.identity_resolution import resolve_identity
 from worky_engine.master_dataset import assemble_master_dataset, open_connection
 from worky_engine.quality import ContractViolation, run_contracts
+from worky_engine.writers import write_csv
 
 
 @pytest.fixture(scope="module")
@@ -73,4 +75,28 @@ def test_valor_fuera_de_dominio_viola_el_contrato(assembled: dict[str, pd.DataFr
     broken = assembled["master_dataset"].copy()
     broken.loc[broken.index[0], "churn_status"] = "desconocido"
     with pytest.raises(ContractViolation, match="value_domain_churn_status"):
+        run_contracts(broken, assembled["identity_crosswalk"], assembled["exceptions_log"])
+
+
+def test_empresas_sin_deal_unico_quedan_unresolved_sin_nan_ni_none_literal(
+    assembled: dict[str, pd.DataFrame], tmp_path
+) -> None:
+    """HS-200012 (dos montos distintos) y HS-200013 (sin deals) quedan unresolved."""
+    md = assembled["master_dataset"]
+    unresolved = md[md["mrr_source"] == "unresolved"]
+    assert set(unresolved["hubspot_id"]) == {"HS-200012", "HS-200013"}
+    assert (unresolved["mrr_mxn"] == "").all()
+    assert (unresolved["mrr_confidence"] == "none").all()
+
+    csv_path = tmp_path / "master_dataset.csv"
+    write_csv(md, csv_path)
+    fields = csv_path.read_text(encoding="utf-8").replace("\n", ",").split(",")
+    assert "nan" not in fields
+    assert "None" not in fields
+
+
+def test_mrr_confidence_none_fuera_de_unresolved_viola_el_contrato(assembled: dict[str, pd.DataFrame]) -> None:
+    broken = assembled["master_dataset"].copy()
+    broken.loc[broken.index[0], "mrr_confidence"] = "none"
+    with pytest.raises(ContractViolation, match="mrr_confidence_matches_source"):
         run_contracts(broken, assembled["identity_crosswalk"], assembled["exceptions_log"])

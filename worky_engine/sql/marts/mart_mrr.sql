@@ -10,7 +10,8 @@
 -- (el mensual), para que sigan contando como "un unico monto" segun el
 -- ADR-002; sin esta normalizacion las 3 quedarian sin imputar. Cuando
 -- el monto no es igual al minimo ni a 12 veces el minimo, la ambiguedad
--- es real y la empresa queda en `unresolved` (0 casos en este dataset).
+-- es real y la empresa queda en `unresolved` (0 casos reales, 2 en el
+-- fixture sintetico) con `mrr_confidence = 'none'`: no hay MRR que confiar.
 CREATE OR REPLACE VIEW mart_mrr AS
 WITH deal_pool AS (
     SELECT master_id, deal_id, amount_mxn, stage
@@ -55,9 +56,10 @@ SELECT
         ELSE 'unresolved'
     END AS mrr_source,
     CASE
-        WHEN c.mrr_crm_mxn IS NOT NULL THEN 'high'
-        WHEN d.has_closedwon = 1       THEN 'high'
-        ELSE 'medium'
+        WHEN c.mrr_crm_mxn IS NOT NULL              THEN 'high'
+        WHEN d.distinct_amounts = 1 AND d.has_closedwon = 1 THEN 'high'
+        WHEN d.distinct_amounts = 1                  THEN 'medium'
+        ELSE 'none'          -- unresolved: ningun MRR que confiar
     END AS mrr_confidence,
     c.mrr_original,
     c.currency_original,

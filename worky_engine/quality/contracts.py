@@ -37,7 +37,7 @@ REQUIRED_MASTER_DATASET_COLUMNS = (
 # total. Forzarlo aqui haria el contrato fragil fuera del dataset real.
 
 MRR_SOURCE_VALUES = {"crm", "imputed_from_deal", "unresolved"}
-MRR_CONFIDENCE_VALUES = {"high", "medium"}
+MRR_CONFIDENCE_VALUES = {"high", "medium", "none"}
 CHURN_STATUS_VALUES = {"active", "churned"}
 
 
@@ -94,6 +94,26 @@ def assert_value_domains(master_dataset: pd.DataFrame) -> None:
     _assert_domain(master_dataset, "churn_status", CHURN_STATUS_VALUES)
 
 
+def assert_mrr_confidence_matches_source(master_dataset: pd.DataFrame) -> None:
+    """`mrr_confidence` es 'none' solo cuando `mrr_source` es 'unresolved', y `mrr_mxn` solo queda vacio ahi."""
+    is_unresolved = master_dataset["mrr_source"] == "unresolved"
+    confidence_is_none = master_dataset["mrr_confidence"] == "none"
+    if (is_unresolved != confidence_is_none).any():
+        raise ContractViolation(
+            "contrato mrr_confidence_matches_source: mrr_confidence debe ser 'none' unicamente cuando mrr_source es 'unresolved'"
+        )
+    mrr_is_empty = master_dataset["mrr_mxn"].fillna("") == ""
+    if (is_unresolved != mrr_is_empty).any():
+        raise ContractViolation(
+            "contrato mrr_confidence_matches_source: mrr_mxn debe quedar vacio unicamente cuando mrr_source es 'unresolved'"
+        )
+
+
+def count_unresolved(master_dataset: pd.DataFrame) -> int:
+    """Cuenta filas `mrr_source = 'unresolved'`: estado legitimo, nunca hace fallar el build por si solo."""
+    return int((master_dataset["mrr_source"] == "unresolved").sum())
+
+
 def _assert_domain(frame: pd.DataFrame, column: str, allowed: set[str]) -> None:
     observed = set(frame[column].dropna())
     invalid = observed - allowed
@@ -108,10 +128,15 @@ def run_contracts(
     crosswalk: pd.DataFrame,
     exceptions_log: pd.DataFrame,
 ) -> None:
-    """Corre los seis contratos disponibles en este PR, en orden fijo."""
+    """Corre los siete contratos disponibles en este PR, en orden fijo, y reporta las filas unresolved."""
     assert_row_count_matches_crosswalk(master_dataset, crosswalk)
     assert_unique_master_id(master_dataset)
     assert_required_columns_not_null(master_dataset)
     assert_master_id_in_crosswalk(master_dataset, crosswalk)
     assert_exceptions_master_id_in_dataset(exceptions_log, master_dataset)
     assert_value_domains(master_dataset)
+    assert_mrr_confidence_matches_source(master_dataset)
+
+    unresolved_count = count_unresolved(master_dataset)
+    if unresolved_count:
+        print(f"contratos: {unresolved_count} filas con mrr_source='unresolved' (estado legitimo, no es una violacion)")

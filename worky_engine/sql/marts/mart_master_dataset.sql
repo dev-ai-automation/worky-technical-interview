@@ -22,7 +22,7 @@ SELECT
     c.state,
     c.csm_owner,
     strftime(c.signup_date, '%Y-%m-%d')                                       AS signup_date,
-    printf('%.2f', m.mrr_mxn)                                                 AS mrr_mxn,
+    COALESCE(printf('%.2f', m.mrr_mxn), '')                                  AS mrr_mxn,
     m.mrr_source,
     m.mrr_confidence,
     printf('%.2f', m.mrr_original)                                           AS mrr_original,
