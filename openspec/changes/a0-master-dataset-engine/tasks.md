@@ -77,6 +77,8 @@ Rama base: rama del PR 1. Entrega `identity_crosswalk`, `match_audit` y las dos 
 
 Rama base: rama del PR 2. Entrega `master_dataset`, la imputación de MRR, `exceptions_log`, `coverage_report.md` y el comando `build`.
 
+Corte confirmado por el usuario el 2026-09-08 (las marcas de seguimiento y los goldens cuentan en el presupuesto del libro nativo): el PR 3 se entrega en dos unidades apiladas. PR 3a (rama `feat/a0-pr3a-assembly`): tareas 3.1 a 3.7, 3.9, 3.10 (contratos de las columnas disponibles), 3.13, 3.15 y la parte de 3.16 que genera `master_dataset.csv` y `exceptions_log.csv`. PR 3b (rama `feat/a0-pr3b-coverage`): tareas 3.8, 3.11, 3.12, 3.14, el golden `coverage_report.md` de 3.16 y el cierre 3.17.
+
 - [ ] 3.1 Modificar `worky_engine/cli.py` para agregar el comando `build`, que ejecuta `resolve` internamente y después el ensamblaje, con código de salida 1 cuando un contrato de datos se viola (nombrado en el mensaje) y 2 cuando faltan argumentos o archivos. Aproximadamente 25 líneas. Spec: build-cli, requisitos comando único de construcción y mensajes de error claros.
 - [ ] 3.2 Crear `worky_engine/master_dataset/__init__.py`. Aproximadamente 8 líneas.
 - [ ] 3.3 Crear `worky_engine/master_dataset/assemble.py`, que registra los DataFrames en DuckDB con `con.register`, abre la conexión con `autoinstall_known_extensions=False` y `autoload_known_extensions=False`, y ejecuta los archivos `.sql` en el orden fijo de una lista explícita. Aproximadamente 65 líneas. Spec: build-cli, requisito comando único de construcción. Prueba: `python -m pytest -q tests/test_assembly_contracts.py -k no_extension`.
