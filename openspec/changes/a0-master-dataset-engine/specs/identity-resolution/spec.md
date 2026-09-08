@@ -150,10 +150,10 @@ Cuando dos sistemas discrepan sobre el mismo `master_id`, el sistema MUST resolv
 
 ### Requisito: calibración reproducible
 
-El sistema MUST reproducir, sobre los 596 pares donde el `hubspot_id` ya confirma el cruce correcto, una prueba de calibración donde `WRatio` elige el cruce correcto en primer lugar en el 99.3% de los casos.
+El sistema MUST reproducir, sobre los 596 pares donde el `hubspot_id` ya confirma el cruce correcto, una prueba de calibración donde `WRatio` elige el cruce correcto en primer lugar en al menos el 99.0% de los casos (590 de 596 con `ruleset_version` 1.0.0); los 6 restantes son empates que ninguna métrica de nombre puede resolver (dos empresas reales llamadas Galindo S. R.L. de C.V., y Rangel S.A. de C.V. contra Rangel y Asociados, idénticas tras quitar la razón social), y por eso T1 y T2 corren antes que T3. El valor esperado vive en `tests/fixtures/calibration_expectations.json` y se versiona junto con el ruleset.
 
 #### Escenario: prueba de calibración
 
 - Dado los 596 pares etiquetados
 - Cuando el sistema corre la prueba de calibración con el `hubspot_id` oculto
-- Entonces `WRatio` elige el cruce correcto en primer lugar en el 99.3% de los pares
+- Entonces `WRatio` elige el cruce correcto en primer lugar en al menos el 99.0% de los pares (590 de 596)

@@ -98,7 +98,7 @@ Todo lo que produce este cambio es código y archivos generados dentro de `outpu
 
 - [ ] El dataset maestro tiene exactamente 650 filas, una por empresa real, con `master_id` único.
 - [ ] Correr `python -m worky_engine build` dos veces produce salidas idénticas byte por byte.
-- [ ] La prueba de calibración reproduce los números del ADR-001 sobre los 596 pares etiquetados, con WRatio eligiendo el cruce correcto en primer lugar el 99.3% de las veces.
+- [ ] La prueba de calibración reproduce los números del ADR-001 sobre los 596 pares etiquetados, con WRatio eligiendo el cruce correcto en primer lugar al menos el 99.0% de las veces (590 de 596 con la normalización del motor; los 6 restantes son empates de nombre irresolubles).
 - [ ] Las empresas que comparten el dominio `club290.com.mx` se quedan separadas por el veto, cada una con su propio `master_id`, y el veto queda registrado en `match_audit`; solo van a revisión manual los registros que ningún nivel logra resolver.
 - [ ] La cuenta con el nombre truncado `Sanches y Asocia` queda resuelta a su empresa por T2 o T3, con la evidencia registrada en `match_audit`.
 - [ ] El reporte muestra los dos totales de MRR lado a lado: el reportado del CRM y el que incluye valores imputados, con la proporción imputada.

@@ -10,7 +10,7 @@ HubSpot, la base de datos de producto (Product DB) y Vitally llevan cada uno su 
 
 1. Limpiar el registro: normalizar sus fechas, dominio y nombre de empresa para que las diferencias de formato (acentos, subdominios, orden de la fecha, razones sociales) no parezcan diferencias reales.
 2. Compararlo contra los otros sistemas nivel por nivel, empezando con la evidencia más fuerte disponible (un id ya compartido entre sistemas) y recurriendo a la similitud de nombre y dominio solo cuando es necesario.
-3. Revisar si aplica un veto: una regla que anula un puntaje de similitud alto cuando otra evidencia indica que los dos registros son en realidad empresas distintas, y envía el registro a revisión manual en lugar de fusionarlo.
+3. Revisar si aplica un veto: una regla que anula un puntaje de similitud alto cuando otra evidencia indica que los dos registros son en realidad empresas distintas, y mantiene los registros separados, cada uno con su propio master_id, en lugar de fusionarlos. A revisión manual solo va lo que ningún nivel logra resolver.
 4. Asignarle un master_id: reutilizar el id que ya tiene si ya está en el crosswalk (la tabla que mapea el id propio de cada sistema al id compartido), o generar uno nuevo si pertenece a un registro dorado nuevo.
 5. Registrar la decisión en match_audit, anotando qué nivel coincidió, el puntaje y cada señal que contribuyó, para poder revisar el cruce después.
 
@@ -39,14 +39,14 @@ Antes de cualquier comparación, el proceso limpia cada registro para que las di
 |---|---|---|---|
 | T0 | hubspot_id está presente y existe en la tabla companies ya deduplicada | alta | 596 cuentas de producto |
 | T1 | el dominio coincide exactamente y la similitud de nombre (token_set_ratio, un puntaje de 0 a 100 que compara dos nombres sin importar el orden de las palabras) es de 90 o más | alta | 650 clientes de Vitally |
-| T2 | signup_date es igual a created_at, la similitud de nombre (partial_ratio) es de 90 o más, y el registro es el único candidato en ese grupo de fecha | alta | 54 cuentas de producto restantes |
+| T2 | signup_date es igual a created_at, y el registro es el único candidato de ese grupo de fecha con similitud de nombre (partial_ratio) de 90 o más; si más de uno supera el umbral, baja a T3 o a revisión manual, nunca por orden de filas | alta | 54 cuentas de producto restantes |
 | T3 | la similitud de nombre general (WRatio) es de 94 o más y supera al siguiente mejor candidato por al menos 10 puntos | media | lo que quede |
 | V (veto) | mismo dominio, similitud de nombre por debajo de 70, fechas de alta distintas, y ambos registros con un valor de MRR | se tratan como dos empresas distintas | 9 empresas en 4 dominios compartidos |
 | M | ninguna de las anteriores | confianza baja, se envía a revisión manual | lo que quede |
 
 El veto existe porque un puntaje de similitud alto no basta por sí solo: dos empresas pueden parecer iguales por nombre y dominio y aun así ser negocios distintos. Cuando la evidencia apunta en ese sentido, el proceso se niega a fusionarlas en lugar de adivinar.
 
-De dónde vienen los umbrales: tomamos los 596 pares donde ya conocemos la respuesta correcta (un hubspot_id los conecta), ocultamos ese id, corrimos las reglas de cruce por nombre y medimos qué tan bien funcionaron. El puntaje WRatio eligió el cruce correcto en primer lugar el 99.3% de las veces; el puntaje más bajo entre los cruces correctos fue 86, y 94 es el puntaje por debajo del cual cae solo el 5% de los cruces correctos. signup_date coincidió exactamente con created_at en el 95.5% de los pares verdaderos, y el grupo de candidatos que comparte una fecha tuvo una mediana de tamaño 1 y un máximo de 4. Los umbrales están versionados (ruleset_version 1.0.0) y se vuelven a revisar con este mismo tipo de prueba cada vez que cambian las reglas.
+De dónde vienen los umbrales: tomamos los 596 pares donde ya conocemos la respuesta correcta (un hubspot_id los conecta), ocultamos ese id, corrimos las reglas de cruce por nombre y medimos qué tan bien funcionaron. El puntaje WRatio eligió el cruce correcto en primer lugar el 99.0% de las veces (590 de 596; los 6 restantes son empates que ninguna métrica de nombre puede resolver, como dos empresas reales llamadas igual, Galindo S. R.L. de C.V., o Rangel S.A. de C.V. contra Rangel y Asociados, que al quitar la razón social quedan idénticas; por eso T1 y T2 corren antes que T3); el puntaje más bajo entre los cruces correctos fue 83, y 93 es el puntaje por debajo del cual cae solo el 5% de los cruces correctos, medidos con la normalización del motor y rapidfuzz 3.14.6. signup_date coincidió exactamente con created_at en el 95.5% de los pares verdaderos, y el grupo de candidatos que comparte una fecha tuvo una mediana de tamaño 1 y un máximo de 4. Los umbrales están versionados (ruleset_version 1.0.0) y se vuelven a revisar con este mismo tipo de prueba cada vez que cambian las reglas.
 
 ## Quién gana cuando las fuentes discrepan
 

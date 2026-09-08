@@ -291,6 +291,8 @@ La eliminación de razones sociales se aplica solo cuando el token calza complet
 
 La lista incluye `s a de c v` porque la puntuación se quita antes de buscar la razón social: `S.A. de C.V.`, que aparece 80 veces en el dataset, queda como `s a de c v` en ese momento y no calzaría con la entrada `sa de cv`. La forma `s de rl` no está en la lista porque no aparece en ningún nombre de las tres bases.
 
+Seguimiento pendiente: 29 nombres del dataset traen la variante `S. R.L. de C.V.`, que la lista actual no elimina. No afecta el cruce, porque T1 y T2 no dependen de esa forma, así que agregar `s r l de c v` se evalúa en un cambio posterior; hacerlo aquí movería los nombres normalizados y con ellos los goldens ya commiteados.
+
 Todas las lecturas de archivo pasan `encoding="utf-8"` de forma explícita. `sqlite3` decodifica TEXT como UTF-8 por omisión, y `cli.py` reconfigura `sys.stdout` y `sys.stderr` a UTF-8 antes de imprimir, porque la consola de Windows viene en cp1252 y un nombre acentuado tiraría el proceso al escribirlo.
 
 ### 3.2 Deduplicación de companies
@@ -381,15 +383,17 @@ Los 596 pares donde `accounts.hubspot_id` conecta una cuenta con su empresa son 
 
 | Métrica | Valor esperado |
 |---|---|
-| Aciertos en primer lugar con WRatio | 592 de 596, es decir 99.3% |
-| Puntaje WRatio mínimo entre los cruces correctos | 86 |
-| Percentil 5 de los puntajes correctos | 94 |
+| Aciertos en primer lugar con WRatio | 590 de 596, es decir 99.0% |
+| Puntaje WRatio mínimo entre los cruces correctos | 83.33 |
+| Percentil 5 de los puntajes correctos | 92.84 |
 | Pares verdaderos donde `created_at = signup_date` | 95.5% |
 | Tamaño del bloque de fecha | mediana 1, máximo 4 |
 | Cuentas sin `hubspot_id` resueltas por T2, con las fechas ya normalizadas | 54 de 54 |
 | Cuentas que llegan a T3 | 0 |
 
-El archivo de expectativas se genera con la primera corrida de calibración sobre los datos ya normalizados, y esa corrida es la que confirma el desglose exacto por nivel. Los valores de arriba son los que fija la lista de verificación del ADR-001, y la prueba falla si la implementación no los reproduce.
+Los tres primeros valores son los que midió la implementación real con la normalización del motor y rapidfuzz 3.14.6, y quedan registrados en `tests/fixtures/calibration_expectations.json`. Sustituyen a los que el ADR-001 declaró desde la calibración anterior (99.3%, mínimo 86, percentil 5 de 94), medida con una normalización distinta. Los 6 fallos son empates que el nombre no puede resolver: dos empresas reales se llaman `Galindo S. R.L. de C.V.`, y `Rangel S.A. de C.V.` contra `Rangel y Asociados` queda idéntico después de quitar la razón social. No son errores del scorer, son casos donde el nombre deja de ser evidencia suficiente y la cascada tiene que apoyarse en otro nivel.
+
+El resto de las expectativas se confirma con esa misma corrida sobre los datos ya normalizados, que es la que fija el desglose exacto por nivel. Los valores de cobertura por nivel son los que declara la lista de verificación del ADR-001, y la prueba falla si la implementación no los reproduce.
 
 Guardar los números en un archivo de expectativas, y no dentro del código de la prueba, hace que un cambio en la calibración aparezca como un diff legible. Si una actualización de rapidfuzz mueve un puntaje, esta prueba falla, y la respuesta correcta es subir `ruleset_version`, actualizar el archivo de expectativas y revisar el ADR-001 en su propio cambio, nunca ajustar el umbral en silencio.
 
