@@ -8,6 +8,7 @@ entrada produzcan archivos identicos byte a byte.
 
 from __future__ import annotations
 
+import math
 from pathlib import Path
 
 import pandas as pd
@@ -39,11 +40,16 @@ def write_markdown(content: str, path: str | Path) -> None:
         handle.write(normalized_content)
 
 
+def _is_missing(value: float | None) -> bool:
+    """Un valor cuenta como nulo si es None o NaN (asi llega un nulo desde pandas)."""
+    return value is None or (isinstance(value, float) and math.isnan(value))
+
+
 def format_money(value: float | None) -> str:
-    """Formatea un monto con dos decimales fijos; cadena vacia cuando es nulo."""
-    return "" if value is None else f"{value:.2f}"
+    """Formatea un monto con dos decimales fijos; cadena vacia cuando es nulo o NaN."""
+    return "" if _is_missing(value) else f"{value:.2f}"
 
 
 def format_ratio(value: float | None) -> str:
-    """Formatea una razon con seis decimales fijos; cadena vacia cuando es nula."""
-    return "" if value is None else f"{value:.6f}"
+    """Formatea una razon con seis decimales fijos; cadena vacia cuando es nula o NaN."""
+    return "" if _is_missing(value) else f"{value:.6f}"

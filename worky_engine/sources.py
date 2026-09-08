@@ -35,6 +35,11 @@ _TABLE_MAP: dict[str, dict[str, str]] = {
 }
 
 
+def readonly_uri(db_path: str | Path) -> str:
+    """Construye la URI de SQLite en modo solo lectura para `db_path`."""
+    return f"file:{Path(db_path).as_posix()}?mode=ro"
+
+
 def load_raw_tables(data_dir: str | Path) -> dict[str, pd.DataFrame]:
     """Lee las tres bases SQLite de `data_dir` y entrega un DataFrame por tabla.
 
@@ -45,8 +50,7 @@ def load_raw_tables(data_dir: str | Path) -> dict[str, pd.DataFrame]:
     tables: dict[str, pd.DataFrame] = {}
     for db_file, table_names in _TABLE_MAP.items():
         db_path = data_path / db_file
-        connection_uri = f"file:{db_path.as_posix()}?mode=ro"
-        connection = sqlite3.connect(connection_uri, uri=True)
+        connection = sqlite3.connect(readonly_uri(db_path), uri=True)
         try:
             for source_table, output_name in table_names.items():
                 tables[output_name] = pd.read_sql_query(

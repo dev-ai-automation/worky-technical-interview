@@ -14,9 +14,6 @@ dev = [
     "pytest==9.1.1",
 ]
 
-[project.scripts]
-worky-engine = "worky_engine.cli:main"
-
 [build-system]
 requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"

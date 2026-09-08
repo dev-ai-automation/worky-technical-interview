@@ -76,6 +76,7 @@ def test_write_markdown_usa_utf8_y_salto_unix(tmp_path) -> None:
         pytest.param(1234.5, "1234.50", id="money-un-decimal"),
         pytest.param(0, "0.00", id="money-cero"),
         pytest.param(None, "", id="money-nulo"),
+        pytest.param(float("nan"), "", id="money-nan-de-pandas"),
     ],
 )
 def test_format_money_usa_dos_decimales(value, expected: str) -> None:
@@ -88,6 +89,7 @@ def test_format_money_usa_dos_decimales(value, expected: str) -> None:
         pytest.param(0.4123, "0.412300", id="ratio-cuatro-decimales"),
         pytest.param(0, "0.000000", id="ratio-cero"),
         pytest.param(None, "", id="ratio-nulo"),
+        pytest.param(float("nan"), "", id="ratio-nan-de-pandas"),
     ],
 )
 def test_format_ratio_usa_seis_decimales(value, expected: str) -> None:
