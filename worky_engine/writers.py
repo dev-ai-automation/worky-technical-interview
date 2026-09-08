@@ -40,9 +40,14 @@ def write_markdown(content: str, path: str | Path) -> None:
         handle.write(normalized_content)
 
 
-def _is_missing(value: float | None) -> bool:
-    """Un valor cuenta como nulo si es None o NaN (asi llega un nulo desde pandas)."""
-    return value is None or (isinstance(value, float) and math.isnan(value))
+def _is_missing(value: object) -> bool:
+    """Un valor cuenta como nulo si es None, NaN, pd.NA o pd.NaT (asi llegan los nulos desde pandas)."""
+    if value is None or (isinstance(value, float) and math.isnan(value)):
+        return True
+    try:
+        return bool(pd.isna(value))
+    except (TypeError, ValueError):
+        return False
 
 
 def format_money(value: float | None) -> str:

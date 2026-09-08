@@ -67,7 +67,7 @@ def test_readonly_uri_rechaza_escrituras(tmp_path: Path) -> None:
 def test_load_raw_tables_falla_si_falta_una_base(tmp_path: Path) -> None:
     _build_mini_databases(tmp_path)
     (tmp_path / REQUIRED_DB_FILES[1]).unlink()
-    with pytest.raises(sqlite3.OperationalError):
+    with pytest.raises(sqlite3.OperationalError, match="unable to open database"):
         load_raw_tables(tmp_path)
 
 
@@ -77,7 +77,7 @@ def test_load_raw_tables_falla_si_falta_una_tabla(tmp_path: Path) -> None:
     connection.execute("DROP TABLE tickets")
     connection.commit()
     connection.close()
-    with pytest.raises((sqlite3.OperationalError, pd.errors.DatabaseError)):
+    with pytest.raises((sqlite3.OperationalError, pd.errors.DatabaseError), match="tickets"):
         load_raw_tables(tmp_path)
 
 
@@ -85,6 +85,8 @@ def test_load_raw_tables_falla_si_falta_una_tabla(tmp_path: Path) -> None:
 def test_load_raw_tables_lee_el_dataset_real_completo(data_dir: Path | None) -> None:
     if data_dir is None:
         pytest.skip("requiere el dataset real")
+    # Los conteos exactos son un contrato con el dataset congelado del caso (dataset_caso_v3);
+    # un refresh de las fuentes es un cambio de version del dataset, no un fallo de lectura.
     tables = load_raw_tables(data_dir)
     expected_rows = {
         "raw_companies": 678, "raw_deals": 997, "raw_marketing_touches": 1635,
