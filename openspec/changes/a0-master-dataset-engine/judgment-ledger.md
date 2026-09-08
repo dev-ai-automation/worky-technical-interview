@@ -38,3 +38,23 @@ Los dos hallazgos compartidos son reales en el código y no cambian ninguna sali
 ## Decisión pendiente
 
 La regla de Judgment Day corrige solo hallazgos severos confirmados por ambos jueces y exige preguntar antes de la ronda 1. Los jueces coinciden en que JD-01 y JD-02 existen, pero no en que sean severos; esa diferencia se escala a decisión humana.
+
+## Ronda 1: corrección y re-juicio acotado
+
+- Decisión del usuario: corregir JD-01 y JD-02.
+- Corrección (jd-fix-agent): commit `f4e8211caefbb09ba94711b14f223efed54eb088`, 251 líneas con pruebas; libro `jd-round1-fix` cerrado con `passed`; 134 pruebas en verde; los ocho goldens byte-idénticos tras dos builds.
+- target_identity del re-juicio: `sha256:031a0620c6ae6043d9ff257b60490987d5fc0106ffa7858278c6da90d151c0ee`
+- Alcance del re-juicio: ledger congelado + delta `36141a5..f4e8211` (339 líneas de diff) + contenido posterior de los siete archivos tocados.
+
+| ID | Estado tras la ronda 1 | Juez A | Juez B |
+|---|---|---|---|
+| JD-01 | resuelto | `IdentityCollisionError` en ambos bucles, pruebas deterministas con ambos ids en el mensaje | resuelto; una fila repetida con el mismo id no dispara la excepción |
+| JD-02 | resuelto | `COALESCE` al `survivor_master_id`, fila `deal_remapped_from_clone` por deal, pruebas que fallarían sin el arreglo | resuelto; sin fan-out (una fila por clon en `quarantine_companies`), `exceptions_log` con `ORDER BY` explícito |
+
+### Hallazgo causado por la corrección
+
+| ID | Ubicación | Juez A | Juez B | Verificación del orquestador |
+|---|---|---|---|---|
+| JD-07 | `tests/test_deal_remap_clone.py:112-116` | CRITICAL, determinista: `con_remap` devuelve solo las salidas de `assemble_master_dataset`, que no traen `quarantine_deals` (esa tabla vive en las salidas de `resolve_identity`), así que `con_remap.get("quarantine_deals")` es siempre `None` y la guardia salta la única aserción; la prueba no puede fallar | sin hallazgos; calificó las cuatro pruebas nuevas como diferenciales | Confirmado leyendo el fixture (líneas 78-80 devuelven solo `outputs`) y las claves de `assemble_master_dataset` (líneas 124-137: sin `quarantine_deals`). El juez A tiene razón. |
+
+Contradicción entre jueces sobre JD-07: se escala a decisión humana. La propiedad que la prueba pretende cubrir sí se cumple (el deal del clon no es huérfano porque `all_company_hubspot_ids` incluye a los clones), pero la prueba tal cual no lo demuestra.
