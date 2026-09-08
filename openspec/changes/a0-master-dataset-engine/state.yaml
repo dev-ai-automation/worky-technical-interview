@@ -22,7 +22,21 @@ phases:
   specs: done
   design: done
   tasks: done
-  apply: in_progress (PR 1 commit b950e13; PR 2 implementado, 1,208 lineas con size:exception aceptada por el usuario el 2026-09-08, validacion y commit pendientes)
+  apply: in_progress (PR 1 y PR 2 implementados, validados, revisados por RDD y reconocidos; PR 3 y PR 4 pendientes)
   verify: pending
   archive: pending
 next_recommended: sdd-apply PR 1 (tras aprobacion del usuario; acquire de sdd-attempt antes del lanzamiento)
+review_receipts:
+  mode: receipt-driven development activado (global) el 2026-09-08 por el usuario
+  pr1:
+    branch: feat/a0-pr1-normalization
+    commit: edabd50
+    lineage: review-6bd3b9d3e63ec847
+    lens: review-reliability
+    result: approved y acknowledged (tras una correccion en linaje previo review-ca5ee2f8a1a83de7 con 3 hallazgos criticos resueltos)
+  pr2:
+    branch: feat/a0-pr2-identity
+    commit: 82b2f46
+    lineage: review-96d24afad60af846
+    lens: review-reliability
+    result: approved y acknowledged en primera pasada
