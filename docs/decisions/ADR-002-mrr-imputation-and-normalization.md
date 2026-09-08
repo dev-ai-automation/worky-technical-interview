@@ -85,3 +85,20 @@ El script de limpieza de A6 escribe una fila en una bitácora de excepciones por
 - [ ] Los montos en USD se convierten a MXN a 18.5 MXN por USD, de forma consistente
 - [ ] Cada reporte que muestra MRR muestra el total reportado y el total incluyendo valores imputados lado a lado, con la proporción imputada indicada
 - [ ] La bitácora de excepciones tiene exactamente una fila por empresa imputada, nombrando el deal_id origen
+
+## Adenda 1 (2026-09-08): los montos de los deals vienen en dos unidades
+
+Al implementar la imputación se midió la relación entre el monto de cada deal y el MRR de su empresa en las 916 combinaciones donde el MRR se conoce. El resultado no deja lugar a interpretación: 655 deals tienen un monto igual al MRR y 261 tienen un monto igual a exactamente 12 veces el MRR. No existe ningún otro valor. Es decir, el CRM guarda algunos deals en valor mensual y otros en valor anual, sin una columna que lo indique.
+
+| Hecho | Medición |
+|---|---|
+| Deals con monto igual al MRR | 655 |
+| Deals con monto igual a 12 veces el MRR | 261 (28 por ciento) |
+| Deals con cualquier otra relación | 0 |
+| Empresas sin MRR con dos montos distintos en sus deals | 3 de 28 (HS-100337, HS-100500, HS-100585), y en las tres el monto mayor es 12 veces el menor |
+
+Esto corrige dos afirmaciones de este documento. Primero, "el monto del deal coincide con el MRR en 68 por ciento de los casos" era una lectura incompleta: coincide en el 100 por ciento una vez que los montos anuales se dividen entre 12. Segundo, "cada una de las 28 empresas tiene un solo monto distinto" era cierto para 25; las otras 3 tienen el mismo monto en dos unidades.
+
+Decisión: antes de imputar, el motor normaliza los montos a valor mensual. Cuando una empresa tiene un monto que es exactamente 12 veces otro de sus montos, el mayor se trata como anual y se divide entre 12. Con esa regla las 28 empresas se imputan con un monto único y la confianza queda como se definió: 4 en `high` y 24 en `medium`. La regla vive en `mart_mrr.sql` y se prueba con el dataset real.
+
+Consecuencias que salen de este documento y se atienden en sus secciones: `closed_revenue_mxn` (A1 y agregados comerciales del PR 4) debe calcularse sobre montos normalizados a mensual, y el reporte debe decir en qué unidad está; los 35 deals fantasma de A1.5 suman 667,251 en unidades mezcladas y se deben cuantificar también en unidad mensual; el script de A6 debe registrar cada deal anualizado como una corrección más en su log. Para la defensa: es un hallazgo de calidad de datos con impacto directo en cifras de ventas, y sale de medir en lugar de suponer.

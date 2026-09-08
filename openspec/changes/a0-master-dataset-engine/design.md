@@ -17,6 +17,7 @@ Este documento decide cómo se construye el motor que produce una fila por empre
 | D9 | Desempate en un bloque de fecha con más de un candidato | Bajar al siguiente nivel y, si el margen no alcanza, a revisión manual | Quedarse con el primero, el de id menor o el de puntaje más alto | La calibración mostró que un candidato incorrecto también llega a 100 de 100, así que un empate es ambigüedad real |
 | D10 | Normalización de dominio | Reglas propias sobre texto ya limpiado para mostrarse | Public Suffix List | Los datos traen acentos dentro del hostname (`gaitán115.com.mx`), que no es una etiqueta DNS válida; una dependencia de PSL resolvería un problema que estos datos no tienen |
 | D11 | Corte de entrega | Cuatro PR encadenados | Los dos PR de la propuesta | La estimación por archivo da ~2,330 líneas escritas; el PR 1 de la propuesta llegaría a ~1,750 y rompería el presupuesto de 800 (ver sección 8) |
+| D12 | Unidad de los montos de deals | Normalizar a valor mensual llevando al mínimo de la empresa el monto que sea exactamente 12 veces ese mínimo | Tomar el monto tal cual, o descartar como ambigua a la empresa con dos montos | La razón entre monto y MRR es exactamente 1.0 en 655 casos y exactamente 12.0 en 261, sin ningún otro valor: el CRM mezcla unidades sin declararlas (Adenda 1 del ADR-002). Sin la regla, 3 de las 28 empresas sin MRR quedarían sin imputar |
 
 ## 1. Arquitectura del paquete
 
@@ -105,7 +106,7 @@ Los nombres de columna de esta sección son los canónicos del cambio. En partic
 |---|---|---|---|
 | master_id | VARCHAR(12) | no, única | `3f9a1c0d7b21` |
 | hubspot_id | VARCHAR | no, única | `HS-100028` |
-| account_id | VARCHAR | sí (82 empresas no tienen cuenta de producto) | `ACC-2027` |
+| account_id | VARCHAR | sí por contrato, poblado en las 650 filas con el dataset real (596 por T0 y 54 por T2) | `ACC-2027` |
 | vitally_id | VARCHAR | sí | `cus_004512` |
 | account_match_tier | VARCHAR | sí (nulo cuando no hay cuenta) | `T2` |
 | vitally_match_tier | VARCHAR | sí | `T1` |
@@ -253,6 +254,8 @@ Los 48 valores negativos de `resolution_hours` no generan filas aquí. A0 no pub
 Dominios de valores: `churn_status` en {`active`, `churned`}; `mrr_source` en {`crm`, `imputed_from_deal`, `unresolved`}; `mrr_confidence` en {`high`, `medium`}; `confidence_tier` en {`T0`, `T1`, `T2`, `T3`, `M`}; `trend_status` en {`computed`, `insufficient_history`, `no_usage`}.
 
 `mrr_confidence` vale `high` para toda fila con valor del CRM. Para una fila imputada vale `high` cuando la empresa tiene un deal en `closedwon` (4 de 28) y `medium` cuando solo tiene deals abiertos o perdidos (24 de 28). La columna que separa un monto confirmado de una estimación es `mrr_source`; `mrr_confidence` gradúa qué tan sólida es la evidencia dentro de cada caso.
+
+`closed_revenue_mxn`, que se implementa en el PR 4, se calcula sobre montos ya normalizados a valor mensual con la regla de la sección 4.3, porque el CRM mezcla montos mensuales y anuales sin columna de unidad. El reporte de cobertura indica de forma explícita en qué unidad está la cifra, para que nadie sume un ingreso mensual creyendo que es anual ni al revés.
 
 `usage_months` cuenta los meses de uso hasta `trend_asof_month` inclusive. Existe para que `insufficient_history` se pueda auditar sin volver a la fuente.
 
@@ -421,40 +424,70 @@ Cuando `--data-dir` no contiene los tres archivos `.db` pero sí contiene `datas
 ### 4.3 Imputación de MRR (ADR-002)
 
 ```sql
--- mart_mrr.sql, fragmento con la regla completa
-WITH company_deals AS (
-  SELECT master_id,
-         COUNT(DISTINCT amount_mxn)            AS distinct_amounts,
-         MIN(amount_mxn)                       AS candidate_mrr_mxn,
-         MIN(deal_id)                          AS candidate_deal_id,
-         MAX(CASE WHEN stage = 'closedwon' THEN 1 ELSE 0 END) AS has_closedwon
-  FROM stg_deals
-  WHERE master_id IS NOT NULL          -- los huerfanos ya estan en cuarentena
-  GROUP BY master_id
+-- worky_engine/sql/marts/mart_mrr.sql, cadena de CTE tal como quedo implementada
+WITH deal_pool AS (
+    SELECT master_id, deal_id, amount_mxn, stage
+    FROM stg_deals
+    WHERE master_id IS NOT NULL          -- los huerfanos ya estan en cuarentena
+),
+company_min AS (
+    SELECT master_id, MIN(amount_mxn) AS min_amount
+    FROM deal_pool
+    GROUP BY master_id
+),
+normalized_deals AS (
+    -- normalizacion de unidad: el monto que es exactamente 12 veces el minimo
+    -- de su empresa esta cotizado al ano y se lleva a ese minimo (el mensual)
+    SELECT p.master_id, p.deal_id, p.stage,
+           CASE WHEN p.amount_mxn = m.min_amount * 12
+                THEN m.min_amount ELSE p.amount_mxn END AS normalized_amount
+    FROM deal_pool p
+    JOIN company_min m USING (master_id)
+),
+company_deals AS (
+    SELECT master_id,
+           COUNT(DISTINCT normalized_amount)                    AS distinct_amounts,
+           MIN(normalized_amount)                               AS candidate_mrr_mxn,
+           MAX(CASE WHEN stage = 'closedwon' THEN 1 ELSE 0 END) AS has_closedwon
+    FROM normalized_deals
+    GROUP BY master_id
+),
+candidate_deal AS (
+    SELECT n.master_id, MIN(n.deal_id) AS candidate_deal_id
+    FROM normalized_deals n
+    JOIN company_deals c ON c.master_id = n.master_id
+                        AND n.normalized_amount = c.candidate_mrr_mxn
+    GROUP BY n.master_id
 )
 SELECT c.master_id,
        CASE
-         WHEN c.mrr_crm_mxn IS NOT NULL              THEN c.mrr_crm_mxn
-         WHEN d.distinct_amounts = 1                 THEN d.candidate_mrr_mxn
+         WHEN c.mrr_crm_mxn IS NOT NULL THEN c.mrr_crm_mxn
+         WHEN d.distinct_amounts = 1    THEN d.candidate_mrr_mxn
          ELSE NULL
        END AS mrr_mxn,
        CASE
-         WHEN c.mrr_crm_mxn IS NOT NULL              THEN 'crm'
-         WHEN d.distinct_amounts = 1                 THEN 'imputed_from_deal'
+         WHEN c.mrr_crm_mxn IS NOT NULL THEN 'crm'
+         WHEN d.distinct_amounts = 1    THEN 'imputed_from_deal'
          ELSE 'unresolved'
        END AS mrr_source,
        CASE
-         WHEN c.mrr_crm_mxn IS NOT NULL              THEN 'high'
-         WHEN d.has_closedwon = 1                    THEN 'high'
+         WHEN c.mrr_crm_mxn IS NOT NULL THEN 'high'
+         WHEN d.has_closedwon = 1       THEN 'high'
          ELSE 'medium'
        END AS mrr_confidence,
        c.mrr_original,
-       c.currency_original
+       c.currency_original,
+       cd.candidate_deal_id
 FROM mart_company_core c
-LEFT JOIN company_deals d USING (master_id);
+LEFT JOIN company_deals d USING (master_id)
+LEFT JOIN candidate_deal cd USING (master_id);
 ```
 
-Un valor del CRM nunca se sobrescribe. Cuando una empresa sin MRR tiene más de un monto distinto entre sus deals, no se imputa: la fila queda en `unresolved` y se registra `imputation_ambiguous`. En este dataset cada una de las 28 empresas sin MRR tiene un único monto distinto, así que el caso ambiguo debe salir en cero, y la guarda existe para que un dato nuevo no se resuelva por accidente.
+Antes de imputar, los montos se normalizan a valor mensual. El motivo se midió durante la implementación del PR 3a y quedó registrado como Adenda 1 del ADR-002: en las 916 combinaciones de deal y empresa donde el MRR se conoce, la razón entre el monto del deal y el MRR es exactamente 1.0 en 655 casos y exactamente 12.0 en 261, sin ningún otro valor. El CRM guarda unos deals en valor mensual y otros en valor anual, y no tiene ninguna columna que indique cuál es cuál. La regla que se implementa toma como referencia el monto mínimo de cada empresa, que es el mensual: cuando un monto es exactamente 12 veces ese mínimo, está cotizado al año y se lleva al valor del mínimo antes de contar montos distintos. El `deal_id` que queda como evidencia de la imputación es el menor entre los deals cuyo monto normalizado coincide con el valor imputado.
+
+Tres de las 28 empresas sin MRR (`HS-100337`, `HS-100500` y `HS-100585`) tienen dos montos distintos entre sus deals, y en las tres el mayor es 12 veces el menor. Sin la normalización de unidad esas tres caerían en `imputation_ambiguous` y quedarían sin MRR; con ella, las 28 se imputan con un monto único y la confianza queda como la fija el ADR-002, 4 en `high` y 24 en `medium`.
+
+Un valor del CRM nunca se sobrescribe. Cuando una empresa sin MRR conserva más de un monto distinto después de la normalización a mensual, no se imputa: la fila queda en `unresolved` y se registra `imputation_ambiguous`. En este dataset ese caso sale en cero, y la guarda existe para que un dato nuevo no se resuelva por accidente.
 
 ### 4.4 Agregados de uso y resguardo contra fuga de datos (ADR-003)
 
@@ -674,6 +707,7 @@ Los goldens se regeneran en los PR 2, 3 y 4, así que el diff del PR 4 vuelve a 
 |---|---|---|
 | El corte real necesita cuatro PR y no dos, lo que cambia el plan de entrega aprobado | Alta, ya medida | La tabla de la sección 8 trae el conteo por archivo para que la decisión se tome con números; `sdd-tasks` debe pronosticar sobre esta base |
 | Una mala decodificación en Windows desplaza puntajes cerca de los umbrales | Media | `encoding="utf-8"` explícito en toda apertura, `sys.stdout` reconfigurado, y un fixture con acentos en nombre y dominio |
+| Un deal anual sin ninguna pareja mensual en su empresa no se detecta por la razón 12 y entra como si fuera mensual | Media | Límite conocido y declarado: la regla de la sección 4.3 solo puede reconocer la unidad cuando la empresa tiene los dos montos. En este dataset toda combinación medida cae en 1.0 o en 12.0, así que no hay caso suelto detectable; el reporte declara la unidad y una fila que resulte inflada por 12 se ve como un valor atípico contra su segmento |
 | La forma cerrada del EWMA en SQL se separa del `ewm` de pandas que usó el harness | Media | Prueba de paridad dentro de 1e-9 sobre 20 series sintéticas, más el contrato de series sin huecos |
 | Una actualización de rapidfuzz o duckdb mueve puntajes y ensucia los goldens | Media | Versiones fijas con `==`; la prueba de calibración falla primero, y cualquier actualización entra como su propio cambio con `ruleset_version` nuevo |
 | Un empate en un bloque de fecha manda registros a revisión manual y la cola crece por encima de un dígito | Baja | La cola se publica en el reporte de cobertura; si crece, el ADR-001 se revisa en su propio cambio, no se ajusta el umbral aquí |
