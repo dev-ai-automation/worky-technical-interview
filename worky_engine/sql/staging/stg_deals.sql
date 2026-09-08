@@ -6,7 +6,7 @@ CREATE OR REPLACE VIEW stg_deals AS
 SELECT
     trim(d.deal_id)                                     AS deal_id,
     trim(d.hubspot_id)                                   AS hubspot_id,
-    x.master_id                                          AS master_id,
+    COALESCE(x.master_id, q.survivor_master_id)          AS master_id,
     trim(d.stage)                                        AS stage,
     CAST(d.amount AS DECIMAL(14,2))                      AS amount,
     CASE WHEN c.currency_original = 'USD'
@@ -18,4 +18,5 @@ SELECT
     trim(d.lead_source)                                    AS lead_source
 FROM raw_deals d
 LEFT JOIN identity_crosswalk x ON x.hubspot_id = d.hubspot_id
+LEFT JOIN quarantine_companies q ON q.hubspot_id = d.hubspot_id
 LEFT JOIN stg_companies c ON c.hubspot_id = d.hubspot_id;

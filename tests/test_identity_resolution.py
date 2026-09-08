@@ -13,7 +13,7 @@ import pandas as pd
 import pytest
 
 from tests.fixtures.mini_dataset import build_mini_dataset
-from worky_engine.identity_resolution import resolve_identity
+from worky_engine.identity_resolution import keys, resolve_identity
 
 
 @pytest.fixture(scope="module")
@@ -220,6 +220,65 @@ def test_fila_completa_de_crosswalk_con_los_tres_ids(mini_result: dict[str, pd.D
     assert row["vitally_id"] == "cus_9001"
     assert pd.notna(row["master_id"]) and row["master_id"] != ""
     assert row["confidence_tier"] in {"T0", "T1", "T2", "T3"}
+
+
+def test_dos_accounts_al_mismo_master_id_abortan_la_corrida() -> None:
+    # Dos accounts con el mismo hubspot_id resuelven ambos por T0 a la
+    # misma empresa: el crosswalk solo tiene una fila por company, asi
+    # que la segunda escritura debe abortar en vez de pisar la primera.
+    raw_tables = {
+        **_empty_raw_tables(),
+        "raw_companies": pd.DataFrame(
+            [
+                {
+                    "hubspot_id": "HS-500002", "name": "Colision ProductDB SA de CV",
+                    "domain": "colision502.com.mx", "segment": "SMB", "industry": "Retail",
+                    "mrr": 1000.0, "currency": "MXN", "signup_date": "2022-01-01",
+                    "csm_owner": "X", "plan": "Basico", "state": "CDMX", "churn_date": None,
+                },
+            ]
+        ),
+        "raw_accounts": pd.DataFrame(
+            [
+                {"account_id": "ACC-500001", "hubspot_id": "HS-500002", "account_name": "Colision ProductDB", "created_at": "2022-01-01"},
+                {"account_id": "ACC-500002", "hubspot_id": "HS-500002", "account_name": "Colision ProductDB Otra", "created_at": "2022-02-01"},
+            ]
+        ),
+    }
+
+    with pytest.raises(keys.IdentityCollisionError, match="ACC-500001") as exc_info:
+        resolve_identity(raw_tables, existing_crosswalk=None, reuse_crosswalk=True)
+    assert "ACC-500002" in str(exc_info.value)
+
+
+def test_dos_customers_al_mismo_master_id_abortan_la_corrida() -> None:
+    # Dos customers de Vitally comparten dominio y coinciden por nombre
+    # con la unica empresa de ese dominio: ambos resuelven en T1 al
+    # mismo master_id, y la segunda escritura debe abortar.
+    raw_tables = {
+        **_empty_raw_tables(),
+        "raw_companies": pd.DataFrame(
+            [
+                {
+                    "hubspot_id": "HS-500001", "name": "Colision Vitally SA de CV",
+                    "domain": "colision500.com.mx", "segment": "SMB", "industry": "Retail",
+                    "mrr": 1000.0, "currency": "MXN", "signup_date": "2022-01-01",
+                    "csm_owner": "X", "plan": "Basico", "state": "CDMX", "churn_date": None,
+                },
+            ]
+        ),
+        "raw_accounts": pd.DataFrame(columns=["account_id", "hubspot_id", "account_name", "created_at"]),
+        "raw_customers": pd.DataFrame(
+            [
+                {"vitally_id": "cus_500001", "domain": "colision500.com.mx", "company_name": "Colision Vitally SA de CV", "csm_email": "x@worky.mx"},
+                {"vitally_id": "cus_500002", "domain": "colision500.com.mx", "company_name": "Colision Vitally SA de CV", "csm_email": "y@worky.mx"},
+            ]
+        ),
+    }
+
+    with pytest.raises(keys.IdentityCollisionError, match="cus_500001") as exc_info:
+        resolve_identity(raw_tables, existing_crosswalk=None, reuse_crosswalk=True)
+    assert "cus_500002" in str(exc_info.value)
 
 
 def test_cuarentena_vacia_trae_el_esquema_completo_con_cero_filas() -> None:

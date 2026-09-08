@@ -31,6 +31,16 @@ def resolve_master_id(
     return compute_master_id(domain_label, normalized_name)
 
 
+class IdentityCollisionError(ValueError):
+    """Dos ids de la misma fuente resolvieron al mismo master_id del crosswalk.
+
+    El crosswalk guarda una sola fila por company (`account_id` y
+    `vitally_id` son columnas escalares), asi que un segundo id que
+    resuelva al mismo `master_id` no tiene donde escribirse sin borrar
+    al primero; se aborta en vez de sobrescribir en silencio.
+    """
+
+
 def assert_unique_master_ids(companies: list[dict[str, Any]]) -> None:
     """Aborta con un mensaje claro si dos empresas distintas generan el mismo master_id.
 

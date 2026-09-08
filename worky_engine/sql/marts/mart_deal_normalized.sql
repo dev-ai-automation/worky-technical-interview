@@ -8,7 +8,9 @@ CREATE OR REPLACE VIEW mart_deal_normalized AS
 WITH deal_pool AS (
     SELECT master_id, deal_id, amount_mxn, stage
     FROM stg_deals
-    WHERE master_id IS NOT NULL          -- los huerfanos ya estan en cuarentena
+    WHERE master_id IS NOT NULL          -- stg_deals ya remapea los clones al master_id
+                                          -- del sobreviviente; lo que queda en NULL aqui
+                                          -- son los huerfanos, ya en quarantine_deals
 ),
 company_min AS (
     SELECT master_id, MIN(amount_mxn) AS min_amount

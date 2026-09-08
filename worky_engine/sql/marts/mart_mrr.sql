@@ -91,4 +91,27 @@ SELECT
     (SELECT MAX(resolved_at) FROM identity_crosswalk)                AS decided_at
 FROM mart_mrr m
 JOIN mart_company_core c ON c.master_id = m.master_id
-WHERE m.mrr_source = 'imputed_from_deal';
+WHERE m.mrr_source = 'imputed_from_deal'
+
+UNION ALL
+
+-- Una fila de exceptions_log por cada deal remapeado de un clon en
+-- cuarentena a su sobreviviente (design.md 3.8 caso 2): stg_deals ya
+-- resuelve ese master_id con quarantine_companies.survivor_master_id,
+-- esta fila es solo la evidencia de que ese remapeo ocurrio.
+SELECT
+    substr(
+        sha256('deal_remapped_from_clone|crm_hubspot|' || d.deal_id || '|hubspot_id'), 1, 12
+    )                                                       AS exception_id,
+    'deal_remapped_from_clone'                              AS exception_code,
+    'crm_hubspot'                                            AS source_system,
+    d.deal_id                                                 AS source_id,
+    q.survivor_master_id                                       AS master_id,
+    'hubspot_id'                                                AS field_name,
+    q.hubspot_id                                                 AS original_value,
+    q.survivor_hubspot_id                                         AS applied_value,
+    q.hubspot_id                                                   AS evidence_ref,
+    '1.0.0'                                                         AS ruleset_version,
+    (SELECT MAX(resolved_at) FROM identity_crosswalk)                AS decided_at
+FROM stg_deals d
+JOIN quarantine_companies q ON q.hubspot_id = d.hubspot_id;

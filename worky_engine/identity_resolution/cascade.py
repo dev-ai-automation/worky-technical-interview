@@ -139,6 +139,12 @@ def resolve_identity(
         audit_rows.append(decision)
         if decision["master_id"]:
             entry = crosswalk_rows[decision["master_id"]]
+            if entry["account_id"] and entry["account_id"] != account["account_id"]:
+                raise keys.IdentityCollisionError(
+                    f"colision de master_id {decision['master_id']!r} en product_db: "
+                    f"los accounts {entry['account_id']!r} y {account['account_id']!r} "
+                    "resuelven a la misma empresa"
+                )
             entry["account_id"] = account["account_id"]
             entry["account_match_tier"] = decision["tier"]
 
@@ -147,6 +153,12 @@ def resolve_identity(
         audit_rows.append(decision)
         if decision["master_id"]:
             entry = crosswalk_rows[decision["master_id"]]
+            if entry["vitally_id"] and entry["vitally_id"] != customer["vitally_id"]:
+                raise keys.IdentityCollisionError(
+                    f"colision de master_id {decision['master_id']!r} en vitally: "
+                    f"los customers {entry['vitally_id']!r} y {customer['vitally_id']!r} "
+                    "resuelven a la misma empresa"
+                )
             entry["vitally_id"] = customer["vitally_id"]
             entry["vitally_match_tier"] = decision["tier"]
 
