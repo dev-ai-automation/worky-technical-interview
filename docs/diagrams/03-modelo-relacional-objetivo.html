@@ -1,73 +1,164 @@
 <!DOCTYPE html>
-<html lang="es-MX">
+<html lang="en" data-theme="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Modelo relacional objetivo de A0</title>
-<style>
-  :root { color-scheme: light; }
-  body {
-    margin: 0;
-    padding: 32px 24px 56px;
-    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-    background: #FFFFFF;
-    color: #27272A;
-    line-height: 1.55;
-  }
-  main { max-width: 1200px; margin: 0 auto; }
-  h1 { font-size: 1.5rem; margin-bottom: 0.25rem; }
-  .subtitle { color: #52525B; font-size: 0.95rem; margin-top: 0; margin-bottom: 1.25rem; }
-  p.context { max-width: 900px; }
-  .diagram-wrap {
-    margin: 28px 0;
-    padding: 16px;
-    border: 1px solid #E4E4E7;
-    border-radius: 8px;
-    overflow-x: auto;
-    background: #FAFAFA;
-  }
-  .diagram-wrap svg { max-width: 100%; height: auto; display: block; margin: 0 auto; }
-  table { border-collapse: collapse; width: 100%; margin: 20px 0; font-size: 0.9rem; }
-  caption { text-align: left; font-weight: 600; margin-bottom: 6px; }
-  th, td { border: 1px solid #E4E4E7; padding: 6px 10px; text-align: left; }
-  th { background: #F4F4F5; }
-  footer { margin-top: 32px; font-size: 0.8rem; color: #71717A; }
-  a { color: #2563EB; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="archify-mermaid 2.17.0-dev.1">
+  <meta name="archify-mermaid-type" content="erd">
+  <meta name="archify-mermaid-runtime" content="static">
+  <title>Modelo relacional objetivo</title>
+  <script>
+    // Resolve theme before first paint, same approach as Archify's own
+    // template but with a separate localStorage key so the two never
+    // collide when both kinds of artifact are opened from the same origin.
+    (function () {
+      try {
+        var theme = null;
+        try {
+          var param = new URLSearchParams(window.location.search).get('theme');
+          if (param === 'light' || param === 'dark') theme = param;
+        } catch (_) {}
+        if (!theme) {
+          try { theme = localStorage.getItem('archify-mermaid-theme'); } catch (_) {}
+        }
+        if (theme !== 'light' && theme !== 'dark') {
+          theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (_) {}
+    })();
+  </script>
+  <style>
+    :root, [data-theme="dark"] {
+      --bg: #020617;
+      --text: #ffffff;
+      --text-muted: #94a3b8;
+      --panel: rgba(15, 23, 42, 0.55);
+      --panel-border: #1e293b;
+      --toolbar-bg: rgba(15, 23, 42, 0.85);
+      --toolbar-border: #334155;
+      --toolbar-text: #e2e8f0;
+      --toolbar-hover: rgba(15, 23, 42, 0.98);
+      --accent: #34d399;
+      --danger: #fb7185;
+      --svg-bg: #0b1220;
+      --svg-fg: #e2e8f0;
+    }
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --panel: #ffffff;
+      --panel-border: #e2e8f0;
+      --toolbar-bg: rgba(255, 255, 255, 0.92);
+      --toolbar-border: #cbd5e1;
+      --toolbar-text: #334155;
+      --toolbar-hover: #ffffff;
+      --accent: #059669;
+      --danger: #e11d48;
+      --svg-bg: #ffffff;
+      --svg-fg: #1e293b;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 28px 24px 48px;
+    }
+    .header h1 {
+      margin: 0 0 4px;
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+    .header .subtitle {
+      margin: 0 0 18px;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      background: var(--toolbar-bg);
+      border: 1px solid var(--toolbar-border);
+      border-radius: 10px;
+      padding: 8px;
+      margin-bottom: 18px;
+    }
+    .toolbar button {
+      appearance: none;
+      border: 1px solid var(--toolbar-border);
+      background: transparent;
+      color: var(--toolbar-text);
+      font: inherit;
+      font-size: 0.85rem;
+      padding: 7px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .toolbar button:hover { background: var(--toolbar-hover); }
+    .toolbar button:disabled { opacity: 0.5; cursor: not-allowed; }
+    .toolbar .spacer { flex: 1; }
+    .diagram-container {
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: 12px;
+      padding: 20px;
+      overflow: auto;
+    }
+    .diagram-container svg {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      background: var(--svg-bg);
+      color: var(--svg-fg);
+    }
+    pre.mermaid {
+      background: transparent;
+      color: var(--text);
+      white-space: pre-wrap;
+      font: inherit;
+    }
+    .mermaid-status {
+      margin-top: 12px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .mermaid-status[data-state="error"] { color: var(--danger); }
+    .mermaid-status[hidden] { display: none; }
+  </style>
 </head>
 <body>
-<main>
-  <h1>Modelo relacional objetivo de A0</h1>
-  <p class="subtitle">
-    Fuente: <code>openspec/changes/a0-master-dataset-engine/design.md</code> (sección 2, contratos de datos)
-    y <code>docs/decisions/ADR-001-identity-resolution-scorecard.md</code>
-  </p>
-
-  <p class="context">
-    Este diagrama muestra el modelo relacional que produce el motor <code>worky_engine</code>, la respuesta
-    a la pregunta A4 del caso. Al centro está <code>MASTER_DATASET</code>, la tabla de una fila por empresa
-    real (650 filas). <code>IDENTITY_CROSSWALK</code> mapea el <code>master_id</code> a los tres id de
-    origen. <code>MATCH_AUDIT</code> guarda una fila por registro de origen procesado con el nivel de
-    confianza, el puntaje y la evidencia de cada decisión de cruce. <code>QUARANTINE_COMPANIES</code>,
-    <code>QUARANTINE_DEALS</code> y <code>EXCEPTIONS_LOG</code> guardan lo que el motor aparta o corrige, sin
-    eliminarlo nunca. <code>COMPANIES</code>, <code>ACCOUNTS</code> y <code>CUSTOMERS</code> aparecen como
-    tablas de entrada, con solo su llave primaria; su esquema completo está en el diagrama
-    <code>02-erd-as-is-tres-sistemas</code>.
-  </p>
-
-  <p class="context">
-    El diseño de A0 no usa la nomenclatura <code>fact_</code> / <code>dim_</code>: esa convención pertenece
-    a la recomendación de arquitectura de bodega para A4 en <code>docs/research/01-bi-revops-data-architecture.md</code>,
-    un cambio posterior y todavía sin construir. Este diagrama usa los nombres exactos que el diseño de A0
-    ya implementó: <code>MASTER_DATASET</code> hace el papel de tabla de hechos por empresa, e
-    <code>IDENTITY_CROSSWALK</code> hace el papel de la dimensión de identidad conformada que menciona la
-    investigación.
-  </p>
-
-  <div class="diagram-wrap">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1954.626 1578.8" width="1954.626" height="1578.8" style="--bg:#FFFFFF;--fg:#27272A;background:var(--bg)">
+  <div class="container">
+    <div class="header">
+      <h1>Modelo relacional objetivo</h1>
+      <p class="subtitle">Master dataset, crosswalk de identidad, auditoria y cuarentenas del motor A0</p>
+    </div>
+    <div class="toolbar" role="toolbar" aria-label="Diagram actions">
+      <button type="button" id="mm-theme-toggle" aria-label="Toggle light and dark theme">
+        <span id="mm-theme-label">Dark</span>
+      </button>
+      <span class="spacer"></span>
+      <button type="button" id="mm-export-svg" data-export="svg">Export SVG</button>
+      <button type="button" id="mm-export-png" data-export="png">Export PNG</button>
+    </div>
+    <div class="diagram-container" id="mm-diagram-container">
+      <!-- ARCHIFY:MERMAID_BODY_START -->
+        <div class="mermaid-svg-wrap">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1954.626 1578.8" width="1954.626" height="1578.8" style="--bg:#ffffff;--fg:#1e293b;background:var(--bg)">
 <style>
-  text { font-family: 'Inter', system-ui, sans-serif; }
+
+
+  text { font-family: 'system-ui', system-ui, sans-serif; }
   .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', ui-monospace, monospace; }
   svg {
     /* Derived from --bg and --fg (overridable via --line, --accent, etc.) */
@@ -419,36 +510,106 @@
 <rect x="1482.98" y="466.35" width="120.13400000000003" height="20.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="0.5" />
 <text x="1543.047" y="476.5" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">source_system = vitally</text>
 </svg>
+        </div>
+      <!-- ARCHIFY:MERMAID_BODY_END -->
+    </div>
+    <p class="mermaid-status" id="mm-status" hidden></p>
+    <script type="application/json" id="archify-mermaid-meta">{"diagramType":"erd","counts":{"entities":9,"relationships":10},"sourceBytes":3782,"runtime":"static","engine":"beautiful-mermaid (Node, no browser)"}</script>
   </div>
 
-  <table>
-    <caption>Filas por tabla, según el diseño</caption>
-    <thead>
-      <tr><th>Tabla</th><th>Filas esperadas</th></tr>
-    </thead>
-    <tbody>
-      <tr><td><code>master_dataset</code></td><td>650</td></tr>
-      <tr><td><code>identity_crosswalk</code></td><td>650</td></tr>
-      <tr><td><code>match_audit</code></td><td>1,978 (678 + 650 + 650)</td></tr>
-      <tr><td><code>quarantine_companies</code></td><td>28</td></tr>
-      <tr><td><code>quarantine_deals</code></td><td>35</td></tr>
-      <tr><td><code>exceptions_log</code></td><td>28 exactas con <code>exception_code = mrr_imputed_from_deal</code>, más las demás filas de excepción</td></tr>
-    </tbody>
-  </table>
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var themeBtn = document.getElementById('mm-theme-toggle');
+      var themeLabel = document.getElementById('mm-theme-label');
+      var exportSvgBtn = document.getElementById('mm-export-svg');
+      var exportPngBtn = document.getElementById('mm-export-png');
+      var statusEl = document.getElementById('mm-status');
 
-  <p class="context">
-    Nota de lectura: <code>QUARANTINE_DEALS</code> queda sin línea de relación en el diagrama a propósito.
-    Sus 35 filas tienen un <code>hubspot_id</code> que no existe en ninguna empresa real, así que no hay
-    ninguna llave que unirlas a <code>MASTER_DATASET</code>; el diseño las conserva con su monto para que
-    el reporte de cobertura declare el total excluido (667,251), sin fusionarlas ni inventarles un vínculo.
-  </p>
+      function syncThemeLabel() {
+        var theme = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+        themeLabel.textContent = theme === 'light' ? 'Light' : 'Dark';
+      }
+      syncThemeLabel();
+      themeBtn.addEventListener('click', function () {
+        var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('archify-mermaid-theme', next); } catch (_) {}
+        syncThemeLabel();
+      });
 
-  <footer>
-    Generado con la skill <code>pretty-mermaid</code> (tema <code>zinc-light</code>) a partir de
-    <code>docs/diagrams/src/03-modelo-relacional-objetivo.mmd</code>. Para regenerar:
-    <code>node scripts/render.mjs --input docs/diagrams/src/03-modelo-relacional-objetivo.mmd --output docs/diagrams/03-modelo-relacional-objetivo.svg --theme zinc-light --node-spacing 60 --layer-spacing 80</code>
-    desde la raíz de la skill, y quitar a mano las dos líneas <code>@import</code> antes de incrustar el SVG.
-  </footer>
-</main>
+      function currentSvg() {
+        return document.querySelector('#mm-diagram-container svg');
+      }
+
+      function setStatus(message, state) {
+        if (!statusEl) return;
+        if (!message) { statusEl.hidden = true; statusEl.textContent = ''; statusEl.removeAttribute('data-state'); return; }
+        statusEl.hidden = false;
+        statusEl.textContent = message;
+        if (state) statusEl.setAttribute('data-state', state); else statusEl.removeAttribute('data-state');
+      }
+
+      function serializedSvg() {
+        var svg = currentSvg();
+        if (!svg) return null;
+        var clone = svg.cloneNode(true);
+        if (!clone.getAttribute('xmlns')) clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+        return new XMLSerializer().serializeToString(clone);
+      }
+
+      function download(blob, filename) {
+        var url = URL.createObjectURL(blob);
+        var link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+      }
+
+      exportSvgBtn.addEventListener('click', function () {
+        var svgString = serializedSvg();
+        if (!svgString) { setStatus('No SVG is available to export yet.', 'error'); return; }
+        download(new Blob([svgString], { type: 'image/svg+xml' }), 'erd.svg');
+      });
+
+      exportPngBtn.addEventListener('click', function () {
+        var svg = currentSvg();
+        var svgString = serializedSvg();
+        if (!svg || !svgString) { setStatus('No SVG is available to export yet.', 'error'); return; }
+        var viewBox = (svg.getAttribute('viewBox') || '').split(/\s+/).map(Number);
+        var width = viewBox.length === 4 && viewBox[2] > 0 ? viewBox[2] : (svg.width && svg.width.baseVal.value) || 1000;
+        var height = viewBox.length === 4 && viewBox[3] > 0 ? viewBox[3] : (svg.height && svg.height.baseVal.value) || 700;
+        var scale = 2;
+        var canvas = document.createElement('canvas');
+        canvas.width = Math.max(1, Math.round(width * scale));
+        canvas.height = Math.max(1, Math.round(height * scale));
+        var ctx = canvas.getContext('2d');
+        var img = new Image();
+        var svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+        var url = URL.createObjectURL(svgBlob);
+        img.onload = function () {
+          ctx.fillStyle = getComputedStyle(root).getPropertyValue('--svg-bg') || '#ffffff';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          URL.revokeObjectURL(url);
+          if (typeof canvas.toBlob !== 'function') { setStatus('This browser cannot export PNG from canvas.', 'error'); return; }
+          canvas.toBlob(function (blob) {
+            if (!blob) { setStatus('PNG export failed.', 'error'); return; }
+            download(blob, 'erd.png');
+          }, 'image/png');
+        };
+        img.onerror = function () {
+          URL.revokeObjectURL(url);
+          setStatus('PNG export failed while rasterizing the SVG.', 'error');
+        };
+        img.src = url;
+      });
+
+      window.__archifyMermaidSetStatus = setStatus;
+    })();
+  </script>
 </body>
 </html>

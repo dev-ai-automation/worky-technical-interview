@@ -1,69 +1,164 @@
 <!DOCTYPE html>
-<html lang="es-MX">
+<html lang="en" data-theme="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ERD tal cual: los tres sistemas de Worky sin sincronizar</title>
-<style>
-  :root { color-scheme: light; }
-  body {
-    margin: 0;
-    padding: 32px 24px 56px;
-    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-    background: #FFFFFF;
-    color: #27272A;
-    line-height: 1.55;
-  }
-  main { max-width: 1200px; margin: 0 auto; }
-  h1 { font-size: 1.5rem; margin-bottom: 0.25rem; }
-  .subtitle { color: #52525B; font-size: 0.95rem; margin-top: 0; margin-bottom: 1.25rem; }
-  p.context { max-width: 900px; }
-  .diagram-wrap {
-    margin: 28px 0;
-    padding: 16px;
-    border: 1px solid #E4E4E7;
-    border-radius: 8px;
-    overflow-x: auto;
-    background: #FAFAFA;
-  }
-  .diagram-wrap svg { max-width: 100%; height: auto; display: block; margin: 0 auto; }
-  table { border-collapse: collapse; width: 100%; margin: 20px 0; font-size: 0.9rem; }
-  caption { text-align: left; font-weight: 600; margin-bottom: 6px; }
-  th, td { border: 1px solid #E4E4E7; padding: 6px 10px; text-align: left; }
-  th { background: #F4F4F5; }
-  .legend { font-size: 0.85rem; color: #52525B; }
-  .legend span.solid { border-bottom: 2px solid #52525B; padding-bottom: 1px; }
-  .legend span.dashed { border-bottom: 2px dashed #52525B; padding-bottom: 1px; }
-  footer { margin-top: 32px; font-size: 0.8rem; color: #71717A; }
-  a { color: #2563EB; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="archify-mermaid 2.17.0-dev.1">
+  <meta name="archify-mermaid-type" content="erd">
+  <meta name="archify-mermaid-runtime" content="static">
+  <title>Modelo de datos AS IS: tres sistemas</title>
+  <script>
+    // Resolve theme before first paint, same approach as Archify's own
+    // template but with a separate localStorage key so the two never
+    // collide when both kinds of artifact are opened from the same origin.
+    (function () {
+      try {
+        var theme = null;
+        try {
+          var param = new URLSearchParams(window.location.search).get('theme');
+          if (param === 'light' || param === 'dark') theme = param;
+        } catch (_) {}
+        if (!theme) {
+          try { theme = localStorage.getItem('archify-mermaid-theme'); } catch (_) {}
+        }
+        if (theme !== 'light' && theme !== 'dark') {
+          theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (_) {}
+    })();
+  </script>
+  <style>
+    :root, [data-theme="dark"] {
+      --bg: #020617;
+      --text: #ffffff;
+      --text-muted: #94a3b8;
+      --panel: rgba(15, 23, 42, 0.55);
+      --panel-border: #1e293b;
+      --toolbar-bg: rgba(15, 23, 42, 0.85);
+      --toolbar-border: #334155;
+      --toolbar-text: #e2e8f0;
+      --toolbar-hover: rgba(15, 23, 42, 0.98);
+      --accent: #34d399;
+      --danger: #fb7185;
+      --svg-bg: #0b1220;
+      --svg-fg: #e2e8f0;
+    }
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --panel: #ffffff;
+      --panel-border: #e2e8f0;
+      --toolbar-bg: rgba(255, 255, 255, 0.92);
+      --toolbar-border: #cbd5e1;
+      --toolbar-text: #334155;
+      --toolbar-hover: #ffffff;
+      --accent: #059669;
+      --danger: #e11d48;
+      --svg-bg: #ffffff;
+      --svg-fg: #1e293b;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 28px 24px 48px;
+    }
+    .header h1 {
+      margin: 0 0 4px;
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+    .header .subtitle {
+      margin: 0 0 18px;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      background: var(--toolbar-bg);
+      border: 1px solid var(--toolbar-border);
+      border-radius: 10px;
+      padding: 8px;
+      margin-bottom: 18px;
+    }
+    .toolbar button {
+      appearance: none;
+      border: 1px solid var(--toolbar-border);
+      background: transparent;
+      color: var(--toolbar-text);
+      font: inherit;
+      font-size: 0.85rem;
+      padding: 7px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .toolbar button:hover { background: var(--toolbar-hover); }
+    .toolbar button:disabled { opacity: 0.5; cursor: not-allowed; }
+    .toolbar .spacer { flex: 1; }
+    .diagram-container {
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: 12px;
+      padding: 20px;
+      overflow: auto;
+    }
+    .diagram-container svg {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      background: var(--svg-bg);
+      color: var(--svg-fg);
+    }
+    pre.mermaid {
+      background: transparent;
+      color: var(--text);
+      white-space: pre-wrap;
+      font: inherit;
+    }
+    .mermaid-status {
+      margin-top: 12px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .mermaid-status[data-state="error"] { color: var(--danger); }
+    .mermaid-status[hidden] { display: none; }
+  </style>
 </head>
 <body>
-<main>
-  <h1>ERD tal cual: los tres sistemas de Worky sin sincronizar</h1>
-  <p class="subtitle">Fuente: <code>docs/data-model/00-as-is-schema-profile.md</code></p>
-
-  <p class="context">
-    Este diagrama muestra las siete tablas de los tres sistemas de origen exactamente como existen hoy,
-    antes de cualquier limpieza o cruce: el CRM de HubSpot (<code>companies</code>, <code>deals</code>,
-    <code>marketing_touches</code>), la base de datos de producto (<code>accounts</code>,
-    <code>product_usage</code>) y Vitally (<code>customers</code>, <code>tickets</code>). Ninguna tabla
-    declara una llave primaria ni una llave foránea en el motor de base de datos; todas las llaves marcadas
-    aquí son implícitas y se infieren del perfil de datos. Las líneas continuas marcan una relación con
-    llave foránea consistente aunque no declarada; las líneas punteadas marcan las dos uniones débiles entre
-    sistemas, donde la llave falta o no existe.
-  </p>
-
-  <p class="legend">
-    Línea <span class="solid">continua</span>: relación determinista por id, aunque no declarada como llave
-    foránea en la base. Línea <span class="dashed">punteada</span>: relación débil o difusa, con su cobertura
-    medida escrita sobre la línea.
-  </p>
-
-  <div class="diagram-wrap">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1362.117 954" width="1362.117" height="954" style="--bg:#FFFFFF;--fg:#27272A;background:var(--bg)">
+  <div class="container">
+    <div class="header">
+      <h1>Modelo de datos AS IS: tres sistemas</h1>
+      <p class="subtitle">HubSpot, Product DB y Vitally antes de la resolucion de identidad</p>
+    </div>
+    <div class="toolbar" role="toolbar" aria-label="Diagram actions">
+      <button type="button" id="mm-theme-toggle" aria-label="Toggle light and dark theme">
+        <span id="mm-theme-label">Dark</span>
+      </button>
+      <span class="spacer"></span>
+      <button type="button" id="mm-export-svg" data-export="svg">Export SVG</button>
+      <button type="button" id="mm-export-png" data-export="png">Export PNG</button>
+    </div>
+    <div class="diagram-container" id="mm-diagram-container">
+      <!-- ARCHIFY:MERMAID_BODY_START -->
+        <div class="mermaid-svg-wrap">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1362.117 954" width="1362.117" height="954" style="--bg:#ffffff;--fg:#1e293b;background:var(--bg)">
 <style>
-  text { font-family: 'Inter', system-ui, sans-serif; }
+
+
+  text { font-family: 'system-ui', system-ui, sans-serif; }
   .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', ui-monospace, monospace; }
   svg {
     /* Derived from --bg and --fg (overridable via --line, --accent, etc.) */
@@ -245,11 +340,13 @@
   <text x="1123.917" y="815" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
   <text x="1300.917" y="815" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">priority</tspan></text>
   <text x="1123.917" y="837" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
-  <text x="1300.917" y="837" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">category</tspan></text>
-  <text x="1123.917" y="859" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">decimal</tspan></text>
-  <text x="1300.917" y="859" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">resolution_hours</tspan></text>
+  <text x="1300.917" y="837" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">status</tspan></text>
+  <text x="1123.917" y="859" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">string</tspan></text>
+  <text x="1300.917" y="859" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">category</tspan></text>
   <text x="1123.917" y="881" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">decimal</tspan></text>
-  <text x="1300.917" y="881" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">csat_score</tspan></text>
+  <text x="1300.917" y="881" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">resolution_hours</tspan></text>
+  <text x="1123.917" y="903" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">decimal</tspan></text>
+  <text x="1300.917" y="903" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">csat_score</tspan></text>
 </g>
 <line x1="217.2" y1="225.20000000000002" x2="217.2" y2="237.20000000000002" stroke="var(--_line)" stroke-width="1.25" />
 <line x1="221.2" y1="225.20000000000002" x2="221.2" y2="237.20000000000002" stroke="var(--_line)" stroke-width="1.25" />
@@ -302,38 +399,106 @@
 <rect x="862.3332499999999" y="798.85" width="162.902" height="20.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="0.5" />
 <text x="943.7842499999999" y="809" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">FK no declarada, cobertura 100%</text>
 </svg>
+        </div>
+      <!-- ARCHIFY:MERMAID_BODY_END -->
+    </div>
+    <p class="mermaid-status" id="mm-status" hidden></p>
+    <script type="application/json" id="archify-mermaid-meta">{"diagramType":"erd","counts":{"entities":7,"relationships":4},"sourceBytes":1821,"runtime":"static","engine":"beautiful-mermaid (Node, no browser)"}</script>
   </div>
 
-  <table>
-    <caption>Filas por tabla, medidas en el perfil del esquema</caption>
-    <thead>
-      <tr><th>Sistema</th><th>Tabla</th><th>Filas</th><th>PK implícita</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>HubSpot CRM</td><td><code>companies</code></td><td>678</td><td><code>hubspot_id</code></td></tr>
-      <tr><td>HubSpot CRM</td><td><code>deals</code></td><td>997</td><td><code>deal_id</code></td></tr>
-      <tr><td>HubSpot CRM</td><td><code>marketing_touches</code></td><td>1,635</td><td><code>touch_id</code></td></tr>
-      <tr><td>Product DB</td><td><code>accounts</code></td><td>650</td><td><code>account_id</code></td></tr>
-      <tr><td>Product DB</td><td><code>product_usage</code></td><td>9,793</td><td><code>(account_id, month)</code></td></tr>
-      <tr><td>Vitally</td><td><code>customers</code></td><td>650</td><td><code>vitally_id</code></td></tr>
-      <tr><td>Vitally</td><td><code>tickets</code></td><td>1,888</td><td><code>ticket_id</code></td></tr>
-    </tbody>
-  </table>
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var themeBtn = document.getElementById('mm-theme-toggle');
+      var themeLabel = document.getElementById('mm-theme-label');
+      var exportSvgBtn = document.getElementById('mm-export-svg');
+      var exportPngBtn = document.getElementById('mm-export-png');
+      var statusEl = document.getElementById('mm-status');
 
-  <p class="context">
-    Nota de lectura: el renderizador de <code>pretty-mermaid</code> no soporta notas ni alias de texto dentro
-    del propio diagrama entidad relación, así que los conteos de filas se documentan en la tabla de arriba
-    en lugar de escribirse sobre cada entidad. En <code>PRODUCT_USAGE</code>, la llave primaria real es
-    compuesta (<code>account_id</code>, <code>month</code>); el renderizador solo puede mostrar una etiqueta
-    de llave por columna, así que <code>account_id</code> se marca como FK y <code>month</code> como PK.
-  </p>
+      function syncThemeLabel() {
+        var theme = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+        themeLabel.textContent = theme === 'light' ? 'Light' : 'Dark';
+      }
+      syncThemeLabel();
+      themeBtn.addEventListener('click', function () {
+        var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('archify-mermaid-theme', next); } catch (_) {}
+        syncThemeLabel();
+      });
 
-  <footer>
-    Generado con la skill <code>pretty-mermaid</code> (tema <code>zinc-light</code>) a partir de
-    <code>docs/diagrams/src/02-erd-as-is-tres-sistemas.mmd</code>. Para regenerar:
-    <code>node scripts/render.mjs --input docs/diagrams/src/02-erd-as-is-tres-sistemas.mmd --output docs/diagrams/02-erd-as-is-tres-sistemas.svg --theme zinc-light</code>
-    desde la raíz de la skill, y quitar a mano las dos líneas <code>@import</code> antes de incrustar el SVG.
-  </footer>
-</main>
+      function currentSvg() {
+        return document.querySelector('#mm-diagram-container svg');
+      }
+
+      function setStatus(message, state) {
+        if (!statusEl) return;
+        if (!message) { statusEl.hidden = true; statusEl.textContent = ''; statusEl.removeAttribute('data-state'); return; }
+        statusEl.hidden = false;
+        statusEl.textContent = message;
+        if (state) statusEl.setAttribute('data-state', state); else statusEl.removeAttribute('data-state');
+      }
+
+      function serializedSvg() {
+        var svg = currentSvg();
+        if (!svg) return null;
+        var clone = svg.cloneNode(true);
+        if (!clone.getAttribute('xmlns')) clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+        return new XMLSerializer().serializeToString(clone);
+      }
+
+      function download(blob, filename) {
+        var url = URL.createObjectURL(blob);
+        var link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+      }
+
+      exportSvgBtn.addEventListener('click', function () {
+        var svgString = serializedSvg();
+        if (!svgString) { setStatus('No SVG is available to export yet.', 'error'); return; }
+        download(new Blob([svgString], { type: 'image/svg+xml' }), 'erd.svg');
+      });
+
+      exportPngBtn.addEventListener('click', function () {
+        var svg = currentSvg();
+        var svgString = serializedSvg();
+        if (!svg || !svgString) { setStatus('No SVG is available to export yet.', 'error'); return; }
+        var viewBox = (svg.getAttribute('viewBox') || '').split(/\s+/).map(Number);
+        var width = viewBox.length === 4 && viewBox[2] > 0 ? viewBox[2] : (svg.width && svg.width.baseVal.value) || 1000;
+        var height = viewBox.length === 4 && viewBox[3] > 0 ? viewBox[3] : (svg.height && svg.height.baseVal.value) || 700;
+        var scale = 2;
+        var canvas = document.createElement('canvas');
+        canvas.width = Math.max(1, Math.round(width * scale));
+        canvas.height = Math.max(1, Math.round(height * scale));
+        var ctx = canvas.getContext('2d');
+        var img = new Image();
+        var svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+        var url = URL.createObjectURL(svgBlob);
+        img.onload = function () {
+          ctx.fillStyle = getComputedStyle(root).getPropertyValue('--svg-bg') || '#ffffff';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          URL.revokeObjectURL(url);
+          if (typeof canvas.toBlob !== 'function') { setStatus('This browser cannot export PNG from canvas.', 'error'); return; }
+          canvas.toBlob(function (blob) {
+            if (!blob) { setStatus('PNG export failed.', 'error'); return; }
+            download(blob, 'erd.png');
+          }, 'image/png');
+        };
+        img.onerror = function () {
+          URL.revokeObjectURL(url);
+          setStatus('PNG export failed while rasterizing the SVG.', 'error');
+        };
+        img.src = url;
+      });
+
+      window.__archifyMermaidSetStatus = setStatus;
+    })();
+  </script>
 </body>
 </html>
