@@ -52,3 +52,9 @@ review_receipts:
     lineage: review-e458a4342db4943b
     lens: review-reliability
     result: approved y acknowledged en primera pasada
+  pr4a:
+    branch: feat/a0-pr4a-usage
+    commit: 555450d
+    lineage: review-0443de485b83128c
+    lens: review-reliability
+    result: approved y acknowledged en primera pasada
