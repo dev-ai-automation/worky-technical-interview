@@ -561,7 +561,7 @@ El fixture sintético de `tests/fixtures/mini_dataset.py` tiene 12 empresas y tr
 
 | Fuente de variación | Cómo se elimina |
 |---|---|
-| Versiones de dependencias | `pyproject.toml` con `==` exacto: `duckdb==1.5.5`, y rapidfuzz, pandas y pytest fijados a la versión instalada, leída en la implementación. `requires-python = ">=3.14,<3.15"` |
+| Versiones de dependencias | `pyproject.toml` con `==` exacto: `rapidfuzz==3.14.6`, `duckdb==1.5.5`, `pandas==3.0.5` y `pytest==9.1.1`. `requires-python = ">=3.12"`, con Python 3.14.7 como entorno verificado |
 | Orden de filas | Cada salida lleva un `ORDER BY` explícito: `master_dataset` e `identity_crosswalk` por `master_id`; `match_audit` por `source_system, source_id`; `quarantine_companies` por `hubspot_id`; `quarantine_deals` por `deal_id`; `exceptions_log` por `exception_code, source_id` |
 | Formato de CSV | UTF-8 sin marca de orden de bytes, `\n`, coma, sin índice, nulo como campo vacío. El archivo se abre con `open(path, "w", encoding="utf-8", newline="")` y se pasa el descriptor a `to_csv(..., lineterminator="\n", index=False)` |
 | Representación de flotantes | Dinero con `printf('%.2f', x)` y razones con `printf('%.6f', x)` en SQL, de modo que el CSV nunca depende de cómo imprima un flotante la versión de numpy en turno |

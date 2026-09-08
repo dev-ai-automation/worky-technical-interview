@@ -22,7 +22,7 @@ phases:
   specs: done
   design: done
   tasks: done
-  apply: in_progress (PR 1 implementado y validado, commit pendiente de identidad git; intento cerrado como passed)
+  apply: in_progress (PR 1 commit b950e13 en feat/a0-pr1-normalization sobre main f09d03d; libro nativo: intento 1 passed con 801 lineas contadas vs 800, requiere reset del maintainer antes del PR 2)
   verify: pending
   archive: pending
 next_recommended: sdd-apply PR 1 (tras aprobacion del usuario; acquire de sdd-attempt antes del lanzamiento)
