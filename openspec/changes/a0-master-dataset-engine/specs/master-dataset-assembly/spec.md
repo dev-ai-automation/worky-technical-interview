@@ -43,7 +43,7 @@ El dataset maestro MUST incluir, para cada fila, `master_id`, `confidence_tier` 
 
 ### Requisito: imputación de MRR desde el monto del deal
 
-Para una empresa real sin valor de MRR en el CRM, el sistema MUST imputar `mrr_mxn` a partir del monto único de sus deals, MUST marcar `mrr_confidence` en `high` cuando la empresa tiene un deal en `closedwon` (deal cerrado y ganado), y MUST marcarlo en `medium` cuando no lo tiene. El sistema MUST NOT sobrescribir nunca un valor de MRR que ya viene del CRM.
+Para una empresa real sin valor de MRR en el CRM que tiene exactamente un monto mensual normalizado entre sus deals, el sistema MUST imputar `mrr_mxn` a partir de ese monto, MUST marcar `mrr_confidence` en `high` cuando la empresa tiene un deal en `closedwon` (deal cerrado y ganado), y MUST marcarlo en `medium` cuando no lo tiene. El sistema MUST NOT sobrescribir nunca un valor de MRR que ya viene del CRM. El dominio completo de `mrr_confidence`, incluido el valor `none` para los casos que no se pueden imputar, se define en el requisito de MRR sin resolver.
 
 #### Escenario: imputación con deal closedwon
 
@@ -62,6 +62,22 @@ Para una empresa real sin valor de MRR en el CRM, el sistema MUST imputar `mrr_m
 - Dado una empresa que ya tiene un valor de MRR en HubSpot
 - Cuando el sistema ensambla su fila
 - Entonces `mrr_mxn` conserva el valor del CRM, y `mrr_source` es `crm`
+
+### Requisito: MRR sin resolver
+
+El sistema MUST usar el dominio `{high, medium, none}` para `mrr_confidence`. El sistema MUST marcar `mrr_confidence` en `none` si y solo si `mrr_source` es `unresolved`, y MUST dejar `mrr_mxn` vacío si y solo si `mrr_source` es `unresolved`. Una empresa real sin MRR en el CRM queda en `unresolved` cuando tiene más de un monto mensual normalizado distinto entre sus deals, o cuando no tiene ningún deal. El sistema MUST NOT fallar la construcción por una fila en `unresolved`, pero MUST contar esas filas y MUST reportarlas.
+
+#### Escenario: empresa con dos montos ambiguos
+
+- Dado una empresa real sin MRR en el CRM cuyos deals tienen dos montos mensuales normalizados distintos
+- Cuando el sistema intenta imputar su MRR
+- Entonces `mrr_source` es `unresolved`, `mrr_confidence` es `none`, y `mrr_mxn` queda vacío
+
+#### Escenario: empresa sin deals
+
+- Dado una empresa real sin MRR en el CRM y sin ningún deal
+- Cuando el sistema intenta imputar su MRR
+- Entonces `mrr_source` es `unresolved`, `mrr_confidence` es `none`, y `mrr_mxn` queda vacío
 
 ### Requisito: bitácora de excepciones de imputación
 
