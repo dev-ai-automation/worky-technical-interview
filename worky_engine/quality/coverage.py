@@ -13,12 +13,6 @@ from __future__ import annotations
 
 import pandas as pd
 
-_PENDING_PR4_NOTE = (
-    "Pendiente para el PR 4: esta seccion se completa cuando `mart_usage` "
-    "y `mart_commercial` esten disponibles y agreguen sus columnas a "
-    "`master_dataset` (tarea 4.5 de las tareas del cambio)."
-)
-
 
 def _md_table(headers: list[str], rows: list[list[str]]) -> str:
     lines = ["| " + " | ".join(headers) + " |", "|" + "|".join("---" for _ in headers) + "|"]
@@ -53,9 +47,11 @@ def generate_coverage_report(
         _section_manual_queue(assembly_outputs["coverage_manual_queue"]),
         _section_mrr(master_dataset),
         _section_quarantine(assembly_outputs["coverage_quarantine"]),
-        "## 7. Tendencia de uso\n\n" + _PENDING_PR4_NOTE,
+        _section_trend(assembly_outputs["coverage_trend"], assembly_outputs["coverage_trend_median"]),
         _section_exceptions(exceptions_log),
-        "## 9. Canal de adquisicion\n\n" + _PENDING_PR4_NOTE,
+        _section_channel(
+            assembly_outputs["coverage_channel"], assembly_outputs["coverage_revenue"], len(master_dataset)
+        ),
     ]
     return "\n\n".join(sections) + "\n"
 
@@ -142,3 +138,36 @@ def _section_exceptions(exceptions_log: pd.DataFrame) -> str:
     counts = exceptions_log["exception_code"].value_counts()
     rows = [[code, str(int(count))] for code, count in counts.items()]
     return "## 8. Excepciones\n\n" + _md_table(["exception_code", "Filas"], rows)
+
+
+def _section_trend(coverage_trend: pd.DataFrame, coverage_trend_median: pd.DataFrame) -> str:
+    """Distribucion de trend_status y mediana de trend_usage por churn_status (ADR-003)."""
+    status_rows = [
+        [str(row["trend_status"]), str(int(row["row_count"]))] for _, row in coverage_trend.iterrows()
+    ]
+    median_rows = [
+        [str(row["churn_status"]), f"{row['median_trend_usage']:.6f}"]
+        for _, row in coverage_trend_median.iterrows()
+    ]
+    return (
+        "## 7. Tendencia de uso\n\n"
+        + _md_table(["trend_status", "Filas"], status_rows)
+        + "\n\n"
+        + "Mediana de trend_usage por churn_status, solo filas 'computed':\n\n"
+        + _md_table(["churn_status", "Mediana trend_usage"], median_rows)
+    )
+
+
+def _section_channel(coverage_channel: pd.DataFrame, coverage_revenue: pd.DataFrame, total_rows: int) -> str:
+    """Distribucion de acquisition_channel (incluye 'unknown') y el total de closed_revenue_mxn."""
+    channel_rows = [
+        [str(row["acquisition_channel"]), str(int(row["row_count"])), f"{100.0 * row['row_count'] / total_rows:.2f}%"]
+        for _, row in coverage_channel.sort_values("acquisition_channel").iterrows()
+    ]
+    revenue_total = float(coverage_revenue["closed_revenue_mxn_total"].iloc[0])
+    return (
+        "## 9. Canal de adquisicion\n\n"
+        + _md_table(["acquisition_channel", "Filas", "Porcentaje"], channel_rows)
+        + "\n\n"
+        + f"Revenue cerrado total, mensual normalizado y en MXN (closed_revenue_mxn): {revenue_total:.2f}"
+    )

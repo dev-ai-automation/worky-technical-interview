@@ -13,7 +13,7 @@ from pathlib import Path
 import duckdb
 import pandas as pd
 
-from worky_engine.normalization import normalize_date
+from worky_engine.normalization import domain_label, normalize_date
 
 SQL_DIR = Path(__file__).resolve().parent.parent / "sql"
 
@@ -32,8 +32,11 @@ STAGING_FILES = [
 
 MART_FILES = [
     "marts/mart_company_core.sql",
+    "marts/mart_deal_normalized.sql",
     "marts/mart_mrr.sql",
     "marts/mart_usage.sql",
+    "marts/mart_support.sql",
+    "marts/mart_commercial.sql",
     "marts/mart_master_dataset.sql",
     "marts/mart_coverage.sql",
 ]
@@ -82,6 +85,12 @@ def _with_iso_dates(raw_tables: dict[str, pd.DataFrame]) -> dict[str, pd.DataFra
     `identity_resolution` normaliza las mismas columnas de forma interna
     sobre sus propias copias, asi que esto no duplica trabajo: es la
     unica vez que el staging de SQL necesita ver estas fechas.
+
+    De paso, agrega `domain_label` a `raw_companies` con la misma
+    funcion pura que usa `identity_resolution` (`worky_engine.
+    normalization.domain_label`), para que `stg_companies.sql` solo
+    tenga que pasarla de largo en vez de reimplementar el recorte de
+    acentos y subdominios en SQL.
     """
     tables = dict(raw_tables)
     for table_name, columns in _DATE_COLUMNS_BY_TABLE.items():
@@ -91,6 +100,9 @@ def _with_iso_dates(raw_tables: dict[str, pd.DataFrame]) -> dict[str, pd.DataFra
                 lambda value: None if pd.isna(value) else normalize_date(str(value))
             )
         tables[table_name] = frame
+    companies = tables["raw_companies"].copy()
+    companies["domain_label"] = companies["domain"].apply(domain_label)
+    tables["raw_companies"] = companies
     return tables
 
 
@@ -118,4 +130,8 @@ def assemble_master_dataset(
         "coverage_by_tier": con.execute("SELECT * FROM mart_coverage_by_tier").df(),
         "coverage_manual_queue": con.execute("SELECT * FROM mart_coverage_manual_queue").df(),
         "coverage_quarantine": con.execute("SELECT * FROM mart_coverage_quarantine").df(),
+        "coverage_trend": con.execute("SELECT * FROM mart_coverage_trend").df(),
+        "coverage_trend_median": con.execute("SELECT * FROM mart_coverage_trend_median").df(),
+        "coverage_channel": con.execute("SELECT * FROM mart_coverage_channel").df(),
+        "coverage_revenue": con.execute("SELECT * FROM mart_coverage_revenue").df(),
     }

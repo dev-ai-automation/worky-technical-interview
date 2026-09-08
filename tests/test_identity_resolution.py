@@ -220,3 +220,63 @@ def test_fila_completa_de_crosswalk_con_los_tres_ids(mini_result: dict[str, pd.D
     assert row["vitally_id"] == "cus_9001"
     assert pd.notna(row["master_id"]) and row["master_id"] != ""
     assert row["confidence_tier"] in {"T0", "T1", "T2", "T3"}
+
+
+def test_cuarentena_vacia_trae_el_esquema_completo_con_cero_filas() -> None:
+    """Tarea 4.15: sin clones ni deals huerfanos, las dos cuarentenas deben seguir siendo registrables en DuckDB.
+
+    Antes del arreglo, `_to_quarantine_companies_frame`/`_to_quarantine_deals_frame`
+    devolvian un DataFrame sin columnas cuando la lista de entrada venia
+    vacia, y `con.register()` de DuckDB rechazaba esa forma con "Need a
+    DataFrame with at least one column".
+    """
+    companies = [
+        {"hubspot_id": "HS-800001", "name": "Sin Clones Uno SA de CV", "domain": "sinclones801.com.mx",
+         "segment": "SMB", "industry": "Retail", "mrr": 1000.0, "currency": "MXN", "signup_date": "2022-01-01",
+         "csm_owner": "X", "plan": "Basico", "state": "CDMX", "churn_date": None},
+        {"hubspot_id": "HS-800002", "name": "Sin Clones Dos SA de CV", "domain": "sinclones802.com.mx",
+         "segment": "SMB", "industry": "Retail", "mrr": 2000.0, "currency": "MXN", "signup_date": "2022-02-01",
+         "csm_owner": "X", "plan": "Basico", "state": "CDMX", "churn_date": None},
+    ]
+    deals = [
+        # El deal apunta a una de las dos empresas reales: no hay huerfano.
+        {"deal_id": "D-8001", "hubspot_id": "HS-800001", "stage": "closedwon", "amount": 1000.0,
+         "created_date": "2022-01-15", "close_date": "2022-01-20", "pipeline": "New Business", "lead_source": "Web"},
+    ]
+    raw_tables = {
+        "raw_companies": pd.DataFrame(companies),
+        "raw_deals": pd.DataFrame(deals),
+        "raw_marketing_touches": pd.DataFrame(columns=["touch_id", "hubspot_id", "channel", "touch_date", "campaign"]),
+        "raw_accounts": pd.DataFrame(columns=["account_id", "hubspot_id", "account_name", "created_at"]),
+        "raw_product_usage": pd.DataFrame(columns=["account_id", "month", "active_users"]),
+        "raw_customers": pd.DataFrame(columns=["vitally_id", "domain", "company_name", "csm_email"]),
+        "raw_tickets": pd.DataFrame(
+            columns=["ticket_id", "vitally_id", "created_date", "priority", "status", "category", "resolution_hours", "csat_score"]
+        ),
+    }
+    outputs = resolve_identity(raw_tables, existing_crosswalk=None, reuse_crosswalk=True)
+
+    quarantine_companies = outputs["quarantine_companies"]
+    quarantine_deals = outputs["quarantine_deals"]
+    assert len(quarantine_companies) == 0
+    assert len(quarantine_deals) == 0
+    assert list(quarantine_companies.columns) == [
+        "hubspot_id", "company_name", "domain", "mrr", "currency", "signup_date",
+        "churn_date", "reason_code", "survivor_hubspot_id", "survivor_master_id",
+        "evidence_json", "ruleset_version", "decided_at",
+    ]
+    assert list(quarantine_deals.columns) == [
+        "deal_id", "hubspot_id", "stage", "amount", "created_date", "close_date",
+        "pipeline", "lead_source", "reason_code", "ruleset_version", "decided_at",
+    ]
+
+    # El registro en DuckDB, que era el sintoma original del hallazgo, no
+    # debe volver a fallar con "Need a DataFrame with at least one column".
+    import duckdb
+
+    con = duckdb.connect()
+    try:
+        con.register("quarantine_companies", quarantine_companies)
+        con.register("quarantine_deals", quarantine_deals)
+    finally:
+        con.close()

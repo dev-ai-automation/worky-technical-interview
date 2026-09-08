@@ -414,7 +414,28 @@ def _to_match_audit_frame(audit_rows: list[dict[str, Any]]) -> pd.DataFrame:
     return frame.sort_values(["source_system", "source_id"]).reset_index(drop=True)
 
 
+_QUARANTINE_COMPANIES_COLUMNS = [
+    "hubspot_id", "company_name", "domain", "mrr", "currency", "signup_date",
+    "churn_date", "reason_code", "survivor_hubspot_id", "survivor_master_id",
+    "evidence_json", "ruleset_version", "decided_at",
+]
+
+_QUARANTINE_DEALS_COLUMNS = [
+    "deal_id", "hubspot_id", "stage", "amount", "created_date", "close_date",
+    "pipeline", "lead_source", "reason_code", "ruleset_version", "decided_at",
+]
+
+
 def _to_quarantine_companies_frame(clone_rows: list[dict[str, Any]]) -> pd.DataFrame:
+    """Siempre entrega las 13 columnas del contrato, con cero filas si no hay clones.
+
+    Un `pd.DataFrame([])` sin columnas rechaza el `con.register()` de
+    DuckDB ("Need a DataFrame with at least one column") en cuanto no
+    hay ningun clon: hallazgo del PR 4a, tarea 4.15. El esquema fijo
+    evita ese caso sin depender de que siempre haya al menos una fila.
+    """
+    if not clone_rows:
+        return pd.DataFrame(columns=_QUARANTINE_COMPANIES_COLUMNS)
     records = []
     for row in clone_rows:
         records.append(
@@ -436,13 +457,14 @@ def _to_quarantine_companies_frame(clone_rows: list[dict[str, Any]]) -> pd.DataF
                 "decided_at": row["decided_at"],
             }
         )
-    frame = pd.DataFrame(records)
-    if frame.empty:
-        return frame
+    frame = pd.DataFrame(records, columns=_QUARANTINE_COMPANIES_COLUMNS)
     return frame.sort_values("hubspot_id").reset_index(drop=True)
 
 
 def _to_quarantine_deals_frame(orphan_rows: list[dict[str, Any]]) -> pd.DataFrame:
+    """Siempre entrega las 11 columnas del contrato, con cero filas si no hay huerfanos (tarea 4.15)."""
+    if not orphan_rows:
+        return pd.DataFrame(columns=_QUARANTINE_DEALS_COLUMNS)
     records = []
     for row in orphan_rows:
         records.append(
@@ -460,7 +482,5 @@ def _to_quarantine_deals_frame(orphan_rows: list[dict[str, Any]]) -> pd.DataFram
                 "decided_at": row["decided_at"],
             }
         )
-    frame = pd.DataFrame(records)
-    if frame.empty:
-        return frame
+    frame = pd.DataFrame(records, columns=_QUARANTINE_DEALS_COLUMNS)
     return frame.sort_values("deal_id").reset_index(drop=True)

@@ -45,12 +45,20 @@ def _generate_report(match_audit: pd.DataFrame, golden_frames: dict[str, pd.Data
         con.register("match_audit", match_audit)
         con.register("quarantine_companies", golden_frames["quarantine_companies"])
         con.register("quarantine_deals", golden_frames["quarantine_deals"])
+        # mart_coverage.sql (secciones 7 y 9) lee `mart_master_dataset`:
+        # registrar el golden bajo ese mismo nombre deja entrar la salida
+        # ya materializada sin correr el resto del pipeline de marts.
+        con.register("mart_master_dataset", golden_frames["master_dataset"])
         con.execute(MART_COVERAGE_SQL)
         coverage = {
             "coverage_by_system": con.execute("SELECT * FROM mart_coverage_by_system").df(),
             "coverage_by_tier": con.execute("SELECT * FROM mart_coverage_by_tier").df(),
             "coverage_manual_queue": con.execute("SELECT * FROM mart_coverage_manual_queue").df(),
             "coverage_quarantine": con.execute("SELECT * FROM mart_coverage_quarantine").df(),
+            "coverage_trend": con.execute("SELECT * FROM mart_coverage_trend").df(),
+            "coverage_trend_median": con.execute("SELECT * FROM mart_coverage_trend_median").df(),
+            "coverage_channel": con.execute("SELECT * FROM mart_coverage_channel").df(),
+            "coverage_revenue": con.execute("SELECT * FROM mart_coverage_revenue").df(),
         }
     finally:
         con.close()
@@ -162,3 +170,23 @@ def test_excepciones_coinciden_con_un_recalculo_independiente(report_and_frames:
     report, frames = report_and_frames
     for code, count in frames["exceptions_log"]["exception_code"].value_counts().items():
         assert f"| {code} | {count} |" in report
+
+
+def test_distribucion_de_trend_status_coincide_con_un_recalculo_independiente(
+    report_and_frames: tuple[str, dict],
+) -> None:
+    report, frames = report_and_frames
+    master_dataset = frames["master_dataset"]
+    for status, count in master_dataset["trend_status"].value_counts().items():
+        assert f"| {status} | {count} |" in report
+
+
+def test_canal_de_adquisicion_y_revenue_coinciden_con_un_recalculo_independiente(
+    report_and_frames: tuple[str, dict],
+) -> None:
+    report, frames = report_and_frames
+    master_dataset = frames["master_dataset"]
+    for channel, count in master_dataset["acquisition_channel"].value_counts().items():
+        assert f"| {channel} | {count} |" in report
+    expected_revenue = master_dataset["closed_revenue_mxn"].sum()
+    assert f"{expected_revenue:.2f}" in report

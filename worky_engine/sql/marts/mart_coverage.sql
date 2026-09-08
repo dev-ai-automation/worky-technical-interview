@@ -72,3 +72,43 @@ SELECT
     (SELECT COUNT(*) FROM quarantine_deals)                         AS quarantine_deals_count,
     (SELECT COALESCE(SUM(amount), 0) FROM quarantine_deals_typed)   AS quarantine_deals_amount_raw,
     (SELECT COALESCE(SUM(normalized_amount), 0) FROM normalized)    AS quarantine_deals_amount_normalized;
+
+-- Tendencia de uso (seccion 7 del reporte, ADR-003): distribucion de
+-- trend_status y la mediana de trend_usage por churn_status, solo sobre
+-- las filas 'computed' (las unicas con valor numerico). Ambas vistas
+-- leen mart_master_dataset, ya materializada por este mismo build; el
+-- registro con ese mismo nombre en tests/test_coverage_report.py deja
+-- entrar el golden commiteado sin correr el resto del pipeline.
+--
+-- El ORDER BY explicito en las cuatro vistas de esta seccion no es
+-- cosmetico: sin el, el orden de un GROUP BY de DuckDB no esta
+-- garantizado entre corridas (agregacion hash en paralelo), y
+-- test_build_idempotency.py lo detecto como una diferencia real de
+-- bytes en coverage_report.md entre dos builds identicos.
+CREATE OR REPLACE VIEW mart_coverage_trend AS
+SELECT trend_status, COUNT(*) AS row_count
+FROM mart_master_dataset
+GROUP BY trend_status
+ORDER BY trend_status;
+
+CREATE OR REPLACE VIEW mart_coverage_trend_median AS
+SELECT churn_status, median(CAST(trend_usage AS DOUBLE)) AS median_trend_usage
+FROM mart_master_dataset
+WHERE trend_status = 'computed'
+GROUP BY churn_status
+ORDER BY churn_status;
+
+-- Canal de adquisicion y revenue cerrado (seccion 9 del reporte): la
+-- distribucion completa de acquisition_channel ya incluye 'unknown'
+-- como un valor mas, asi que su proporcion queda visible sin una
+-- columna aparte. closed_revenue_mxn ya viene normalizado a valor
+-- mensual en MXN (seccion 4.3 del diseno, regla 12x del ADR-002).
+CREATE OR REPLACE VIEW mart_coverage_channel AS
+SELECT acquisition_channel, COUNT(*) AS row_count
+FROM mart_master_dataset
+GROUP BY acquisition_channel
+ORDER BY acquisition_channel;
+
+CREATE OR REPLACE VIEW mart_coverage_revenue AS
+SELECT SUM(CAST(closed_revenue_mxn AS DOUBLE)) AS closed_revenue_mxn_total
+FROM mart_master_dataset;

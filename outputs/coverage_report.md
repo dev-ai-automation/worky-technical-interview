@@ -59,7 +59,18 @@
 
 ## 7. Tendencia de uso
 
-Pendiente para el PR 4: esta seccion se completa cuando `mart_usage` y `mart_commercial` esten disponibles y agreguen sus columnas a `master_dataset` (tarea 4.5 de las tareas del cambio).
+| trend_status | Filas |
+|---|---|
+| computed | 585 |
+| insufficient_history | 61 |
+| no_usage | 4 |
+
+Mediana de trend_usage por churn_status, solo filas 'computed':
+
+| churn_status | Mediana trend_usage |
+|---|---|
+| active | 0.000433 |
+| churned | -0.192664 |
 
 ## 8. Excepciones
 
@@ -69,4 +80,14 @@ Pendiente para el PR 4: esta seccion se completa cuando `mart_usage` y `mart_com
 
 ## 9. Canal de adquisicion
 
-Pendiente para el PR 4: esta seccion se completa cuando `mart_usage` y `mart_commercial` esten disponibles y agreguen sus columnas a `master_dataset` (tarea 4.5 de las tareas del cambio).
+| acquisition_channel | Filas | Porcentaje |
+|---|---|---|
+| Evento | 108 | 16.62% |
+| Organic | 92 | 14.15% |
+| Outbound SDR | 90 | 13.85% |
+| Paid Search | 86 | 13.23% |
+| Partner | 85 | 13.08% |
+| Referral | 100 | 15.38% |
+| Webinar | 89 | 13.69% |
+
+Revenue cerrado total, mensual normalizado y en MXN (closed_revenue_mxn): 11046172.00

@@ -1,11 +1,13 @@
 """Interfaz de linea de comandos del motor: `build`, `resolve` y `backtest`.
 
-Este PR agrega `build`; `backtest` llega en el PR 4, segun la seccion
-5.3 del diseno. `resolve_identity`, `assemble_master_dataset` y
-`open_connection` se importan de forma diferida, en el primer uso dentro
-de cada comando, para poder capturar la falta de `rapidfuzz` o `duckdb`
-como un mensaje claro en espanol en vez de un traceback al cargar el
-modulo (requisito de mensajes claros de build-cli).
+`backtest` (PR 4b, seccion 5.3 del diseno) corre aparte de `build`: no
+depende de `master_dataset.csv` ni de DuckDB, asi que puede reproducirse
+sin haber corrido un build primero, y su golden (`backtest_report.md`)
+se versiona por separado. `resolve_identity`, `assemble_master_dataset`
+y `open_connection` se importan de forma diferida, en el primer uso
+dentro de cada comando, para poder capturar la falta de `rapidfuzz` o
+`duckdb` como un mensaje claro en espanol en vez de un traceback al
+cargar el modulo (requisito de mensajes claros de build-cli).
 """
 
 from __future__ import annotations
@@ -52,6 +54,15 @@ def _import_build_dependencies():
     except ImportError as error:
         _exit_missing_dependency(error)
     return resolve_identity, assemble_master_dataset, open_connection
+
+
+def _import_backtest_dependencies():
+    """Importa el harness en el primer uso; solo `backtest` lo necesita."""
+    try:
+        from worky_engine.harness import format_report, run_backtest
+    except ImportError as error:
+        _exit_missing_dependency(error)
+    return run_backtest, format_report
 
 
 def _reconfigure_streams_to_utf8() -> None:
@@ -172,6 +183,27 @@ def cmd_build(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_backtest(args: argparse.Namespace) -> int:
+    """Corre el harness del ADR-003 y escribe `backtest_report.md` en `--out-dir`.
+
+    No corre `build`: lee las tres bases directo con `load_raw_tables`,
+    tal como fija la seccion 5.3 del diseno.
+    """
+    run_backtest, format_report = _import_backtest_dependencies()
+    data_dir = _resolve_data_dir(Path(args.data_dir))
+    out_dir = Path(args.out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    raw_tables = load_raw_tables(data_dir)
+    k_values = tuple(int(part) for part in args.k.split(","))
+    metrics = run_backtest(raw_tables, k_values=k_values, flag_rate=args.flag_rate)
+    report_text = format_report(metrics, k_values)
+    write_markdown(report_text, out_dir / "backtest_report.md")
+
+    print(f"backtest: reporte escrito en {out_dir / 'backtest_report.md'}")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="worky_engine")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -196,6 +228,19 @@ def build_parser() -> argparse.ArgumentParser:
         help="Ignora el identity_crosswalk.csv existente y regenera todos los master_id por hash.",
     )
     build_subparser.set_defaults(func=cmd_build)
+
+    backtest_subparser = subparsers.add_parser(
+        "backtest", help="Corre el harness del ADR-003 y escribe backtest_report.md."
+    )
+    backtest_subparser.add_argument("--data-dir", required=True)
+    backtest_subparser.add_argument("--out-dir", required=True)
+    backtest_subparser.add_argument(
+        "--k", default="0,2,3", help="Valores de k separados por coma (por omision: 0,2,3)."
+    )
+    backtest_subparser.add_argument(
+        "--flag-rate", type=float, default=0.20, help="Tasa de marcado para precision/recall (por omision: 0.20)."
+    )
+    backtest_subparser.set_defaults(func=cmd_backtest)
 
     return parser
 

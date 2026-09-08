@@ -29,6 +29,10 @@ REQUIRED_MASTER_DATASET_COLUMNS = (
     "currency_original",
     "trend_status",
     "trend_asof_month",
+    "tickets_total",
+    "tickets_urgent",
+    "acquisition_channel",
+    "closed_revenue_mxn",
 )
 # `confidence_tier` no entra aqui a proposito: el diseno lo marca "no
 # nulable" porque el dataset real tiene cobertura total de Vitally
@@ -181,6 +185,36 @@ def assert_usage_months_no_internal_gaps(raw_product_usage: pd.DataFrame) -> Non
             )
 
 
+def assert_tickets_urgent_within_total(master_dataset: pd.DataFrame) -> None:
+    """`tickets_urgent` nunca puede superar `tickets_total`, en ninguna fila (seccion 4.5 del diseno)."""
+    invalid = master_dataset["tickets_urgent"] > master_dataset["tickets_total"]
+    if invalid.any():
+        raise ContractViolation(
+            f"contrato tickets_urgent_within_total: {int(invalid.sum())} filas con tickets_urgent > tickets_total"
+        )
+
+
+def assert_csat_avg_domain(master_dataset: pd.DataFrame) -> None:
+    """`csat_avg` esta entre 1 y 5, o vacio cuando ningun ticket trajo puntaje."""
+    csat = pd.to_numeric(master_dataset["csat_avg"], errors="coerce")
+    present = csat.notna()
+    invalid = present & ((csat < 1) | (csat > 5))
+    if invalid.any():
+        raise ContractViolation(
+            f"contrato csat_avg_domain: {int(invalid.sum())} filas con csat_avg fuera de [1, 5]"
+        )
+
+
+def assert_closed_revenue_non_negative(master_dataset: pd.DataFrame) -> None:
+    """`closed_revenue_mxn` nunca es negativo: es una suma de montos de deals cerrados."""
+    revenue = pd.to_numeric(master_dataset["closed_revenue_mxn"], errors="coerce")
+    invalid = revenue < 0
+    if invalid.any():
+        raise ContractViolation(
+            f"contrato closed_revenue_non_negative: {int(invalid.sum())} filas con closed_revenue_mxn negativo"
+        )
+
+
 def count_unresolved(master_dataset: pd.DataFrame) -> int:
     """Cuenta filas `mrr_source = 'unresolved'`: estado legitimo, nunca hace fallar el build por si solo."""
     return int((master_dataset["mrr_source"] == "unresolved").sum())
@@ -220,6 +254,9 @@ def run_contracts(
     assert_mrr_confidence_matches_source(master_dataset)
     assert_trend_usage_matches_status(master_dataset)
     assert_trend_asof_month_is_reference_minus_two(master_dataset)
+    assert_tickets_urgent_within_total(master_dataset)
+    assert_csat_avg_domain(master_dataset)
+    assert_closed_revenue_non_negative(master_dataset)
     if match_audit is not None and raw_tables is not None:
         assert_source_id_in_origin_table(match_audit, raw_tables)
         assert_tickets_priority_domain(raw_tables["raw_tickets"])

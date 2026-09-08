@@ -7,6 +7,14 @@ contra la copia commiteada en `outputs/`, tal como fija el requisito de
 idempotencia byte a byte de `build-cli`. `coverage_report.md` no lleva
 hora de reloj (seccion 2 del diseno), asi que tambien debe salir
 identico entre las dos corridas.
+
+`backtest_report.md` (PR 4b) no entra a `OUTPUT_NAMES` ni a
+`EXPECTED_BUILD_OUTPUT_NAMES` a proposito: `backtest` es un comando
+aparte de `build` (seccion 5.3 del diseno, decision de la tarea 4.8), no
+depende de DuckDB ni de `master_dataset.csv`, y un `build` limpio en una
+carpeta vacia sigue produciendo exactamente siete archivos. Su propia
+idempotencia y su comparacion contra el golden viven en
+`tests/test_harness_regression.py`.
 """
 
 from __future__ import annotations

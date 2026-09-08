@@ -5,29 +5,18 @@
 -- Tres de las 28 empresas reales sin MRR (HS-100337, HS-100500,
 -- HS-100585, verificadas contra el dataset real) traen un deal cotizado
 -- al valor anual completo en lugar del mensual: su monto es exactamente
--- 12 veces el monto minimo entre los deals de esa misma empresa. Antes
--- de contar montos distintos, esos casos se normalizan al valor minimo
--- (el mensual), para que sigan contando como "un unico monto" segun el
--- ADR-002; sin esta normalizacion las 3 quedarian sin imputar. Cuando
--- el monto no es igual al minimo ni a 12 veces el minimo, la ambiguedad
--- es real y la empresa queda en `unresolved` (0 casos reales, 2 en el
--- fixture sintetico) con `mrr_confidence = 'none'`: no hay MRR que confiar.
+-- 12 veces el monto minimo entre los deals de esa misma empresa. La
+-- normalizacion de unidad vive en `mart_deal_normalized` (compartida con
+-- `mart_commercial`), asi que esos casos ya llegan aqui con un unico
+-- monto normalizado, tal como pide el ADR-002; sin ella las 3 quedarian
+-- sin imputar. Cuando el monto no es igual al minimo ni a 12 veces el
+-- minimo, la ambiguedad es real y la empresa queda en `unresolved`
+-- (0 casos reales, 2 en el fixture sintetico) con `mrr_confidence = 'none'`:
+-- no hay MRR que confiar.
 CREATE OR REPLACE VIEW mart_mrr AS
-WITH deal_pool AS (
-    SELECT master_id, deal_id, amount_mxn, stage
-    FROM stg_deals
-    WHERE master_id IS NOT NULL          -- los huerfanos ya estan en cuarentena
-),
-company_min AS (
-    SELECT master_id, MIN(amount_mxn) AS min_amount
-    FROM deal_pool
-    GROUP BY master_id
-),
-normalized_deals AS (
-    SELECT p.master_id, p.deal_id, p.stage, p.amount_mxn AS original_amount,
-           CASE WHEN p.amount_mxn = m.min_amount * 12 THEN m.min_amount ELSE p.amount_mxn END AS normalized_amount
-    FROM deal_pool p
-    JOIN company_min m USING (master_id)
+WITH normalized_deals AS (
+    SELECT master_id, deal_id, stage, original_amount, normalized_amount
+    FROM mart_deal_normalized
 ),
 company_deals AS (
     SELECT master_id,

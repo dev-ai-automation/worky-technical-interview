@@ -106,6 +106,28 @@ def test_mrr_confidence_none_fuera_de_unresolved_viola_el_contrato(assembled: di
         run_contracts(broken, assembled["identity_crosswalk"], assembled["exceptions_log"])
 
 
+def test_tickets_urgent_mayor_a_tickets_total_viola_el_contrato(assembled: dict[str, pd.DataFrame]) -> None:
+    broken = assembled["master_dataset"].copy()
+    broken.loc[broken.index[0], "tickets_total"] = 0
+    broken.loc[broken.index[0], "tickets_urgent"] = 1
+    with pytest.raises(ContractViolation, match="tickets_urgent_within_total"):
+        run_contracts(broken, assembled["identity_crosswalk"], assembled["exceptions_log"])
+
+
+def test_csat_avg_fuera_de_1_5_viola_el_contrato(assembled: dict[str, pd.DataFrame]) -> None:
+    broken = assembled["master_dataset"].copy()
+    broken.loc[broken.index[0], "csat_avg"] = "5.50"
+    with pytest.raises(ContractViolation, match="csat_avg_domain"):
+        run_contracts(broken, assembled["identity_crosswalk"], assembled["exceptions_log"])
+
+
+def test_closed_revenue_negativo_viola_el_contrato(assembled: dict[str, pd.DataFrame]) -> None:
+    broken = assembled["master_dataset"].copy()
+    broken.loc[broken.index[0], "closed_revenue_mxn"] = "-1.00"
+    with pytest.raises(ContractViolation, match="closed_revenue_non_negative"):
+        run_contracts(broken, assembled["identity_crosswalk"], assembled["exceptions_log"])
+
+
 def test_build_con_data_dir_inexistente_termina_con_codigo_2(tmp_path, capsys) -> None:
     """Tarea 3.18: falta una de las tres bases SQLite, mensaje en espanol y sin salidas parciales."""
     with pytest.raises(SystemExit) as exit_info:

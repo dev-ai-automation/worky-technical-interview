@@ -22,7 +22,7 @@ phases:
   specs: done
   design: done
   tasks: done
-  apply: in_progress (PR 1 a PR 3 cerrados; PR 4a implementado y validado, en revision RDD; PR 4b pendiente)
+  apply: in_progress (PR 1 a PR 4a cerrados; PR 4b implementado y validado con size:exception aceptada, en revision RDD; motor A0 completo pendiente de verify)
   verify: pending
   archive: pending
 next_recommended: sdd-apply PR 1 (tras aprobacion del usuario; acquire de sdd-attempt antes del lanzamiento)

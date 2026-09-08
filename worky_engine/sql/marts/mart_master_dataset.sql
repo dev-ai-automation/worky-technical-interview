@@ -1,9 +1,10 @@
--- Ensambla las columnas disponibles en este PR: identidad, atributos
--- comerciales, MRR con su trazabilidad, el estatus de baja y, desde el
--- PR 4a, la tendencia de uso (`mart_usage`, seccion 4.4 del diseno).
--- Soporte y comercial llegan en el PR 4b; este SELECT queda listo para
--- agregarlos con un JOIN mas, sin tocar ninguna columna que ya arma
--- este PR.
+-- Ensambla el contrato completo del dataset maestro (seccion 2 del
+-- diseno): identidad, atributos comerciales, MRR con su trazabilidad,
+-- el estatus de baja, la tendencia de uso (`mart_usage`, PR 4a) y,
+-- desde el PR 4b, soporte (`mart_support`) y comercial (`mart_commercial`).
+-- `domain_label`, `ruleset_version` y `dataset_asof` cierran el PR 4b:
+-- las dos ultimas salen tal cual del crosswalk via mart_company_core,
+-- sin recalcularlas.
 --
 -- Fechas y montos salen como texto ya formateado (`strftime`, `printf`)
 -- para que el CSV nunca dependa de como pandas imprima un Timestamp o
@@ -17,6 +18,7 @@ SELECT
     c.confidence_tier,
     c.company_name,
     c.domain,
+    c.domain_label,
     c.segment,
     c.industry,
     c.plan,
@@ -37,7 +39,16 @@ SELECT
     u.usage_months,
     u.trend_usage,
     u.trend_asof_month,
-    u.trend_status
+    u.trend_status,
+    s.tickets_total,
+    s.tickets_urgent,
+    s.csat_avg,
+    ci.acquisition_channel,
+    ci.closed_revenue_mxn,
+    c.ruleset_version,
+    strftime(CAST(c.resolved_at AS DATE), '%Y-%m-%d')                          AS dataset_asof
 FROM mart_company_core c
 JOIN mart_mrr m ON m.master_id = c.master_id
-JOIN mart_usage u ON u.master_id = c.master_id;
+JOIN mart_usage u ON u.master_id = c.master_id
+JOIN mart_support s ON s.master_id = c.master_id
+JOIN mart_commercial ci ON ci.master_id = c.master_id;
