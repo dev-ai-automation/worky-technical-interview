@@ -58,3 +58,30 @@ La regla de Judgment Day corrige solo hallazgos severos confirmados por ambos ju
 | JD-07 | `tests/test_deal_remap_clone.py:112-116` | CRITICAL, determinista: `con_remap` devuelve solo las salidas de `assemble_master_dataset`, que no traen `quarantine_deals` (esa tabla vive en las salidas de `resolve_identity`), así que `con_remap.get("quarantine_deals")` es siempre `None` y la guardia salta la única aserción; la prueba no puede fallar | sin hallazgos; calificó las cuatro pruebas nuevas como diferenciales | Confirmado leyendo el fixture (líneas 78-80 devuelven solo `outputs`) y las claves de `assemble_master_dataset` (líneas 124-137: sin `quarantine_deals`). El juez A tiene razón. |
 
 Contradicción entre jueces sobre JD-07: se escala a decisión humana. La propiedad que la prueba pretende cubrir sí se cumple (el deal del clon no es huérfano porque `all_company_hubspot_ids` incluye a los clones), pero la prueba tal cual no lo demuestra.
+
+## Ronda 2 (última): corrección de JD-07 y re-juicio final
+
+- Decisión del usuario: corregir la prueba vacía.
+- Corrección (jd-fix-agent): commit `00e31b68fcaa878f1b264a833aef7d85ae9b33de`, 9 líneas en `tests/test_deal_remap_clone.py`; libro `jd-round2-fix` cerrado con `passed`; se demostró que la prueba falla al invertir su expectativa; 134 pruebas en verde; goldens intactos.
+- target_identity del re-juicio final: `sha256:93022260c54d224148d09ac1181ab362ebada2d406b8a82a78b5f55a5cceb205`
+
+| ID | Estado final | Juez A | Juez B |
+|---|---|---|---|
+| JD-07 | resuelto | fixture fusiona las 4 tablas de identidad con las 10 del ensamblado sin colisión de claves; la aserción ya es alcanzable | mismo análisis; la prueba puede fallar |
+
+## Veredicto terminal
+
+```yaml
+target_identity: sha256:93022260c54d224148d09ac1181ab362ebada2d406b8a82a78b5f55a5cceb205
+round: 2
+confirmed: [JD-01, JD-02, JD-07]
+suspect: [JD-03, JD-04, JD-05]
+contradictions: [JD-07 (resuelta por verificación del orquestador y re-juicio final)]
+info: [JD-06]
+fix_work_units: [jd-round1-fix (f4e8211: JD-01, JD-02), jd-round2-fix (00e31b6: JD-07)]
+scoped_rejudgment: approved
+terminal_state: approved
+skill_resolution: none
+```
+
+JUDGMENT: APPROVED. Los IDs en `suspect` e `info` quedan como seguimientos documentados; no son severos ni fueron confirmados por ambos jueces. Este veredicto no autoriza entrega: commit, merge y publicación siguen la política ordinaria del repositorio.
