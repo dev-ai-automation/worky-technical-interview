@@ -1,0 +1,354 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "Flujo de datos del motor A0",
+    "output": "docs/diagrams/01-a0-engine-dataflow.html",
+    "viewBox": [
+      1060,
+      1300
+    ],
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "identity-path",
+        "label": "Resolución de identidad",
+        "focus": [
+          "normalization",
+          "identity_resolution",
+          "identity_outputs"
+        ],
+        "note": "Deduplicación HS-9000xx, cascada T0 a T3 con veto, y master_id idempotente."
+      },
+      {
+        "id": "duckdb-assembly",
+        "label": "Ensamblaje en DuckDB",
+        "focus": [
+          "identity_outputs",
+          "duckdb_staging",
+          "duckdb_marts",
+          "out_master",
+          "out_exceptions",
+          "out_coverage"
+        ],
+        "note": "SQL de staging y marts produce el dataset maestro y sus excepciones."
+      },
+      {
+        "id": "backtest-harness",
+        "label": "Harness de backtest",
+        "focus": [
+          "src_hubspot",
+          "src_product",
+          "harness"
+        ],
+        "note": "El backtest de ADR-003 lee product_usage y churn_date por separado del ensamblaje."
+      }
+    ]
+  },
+  "stages": [
+    {
+      "label": "Fuentes (solo lectura)"
+    },
+    {
+      "label": "Python"
+    },
+    {
+      "label": "DuckDB"
+    },
+    {
+      "label": "Salidas (outputs/)"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "src_hubspot",
+      "type": "database",
+      "label": "crm_hubspot.db",
+      "sublabel": "solo lectura, sqlite3",
+      "stage": 0,
+      "row": 0,
+      "tag": "mode=ro"
+    },
+    {
+      "id": "src_product",
+      "type": "database",
+      "label": "product_db.db",
+      "sublabel": "solo lectura, sqlite3",
+      "stage": 0,
+      "row": 1,
+      "tag": "mode=ro"
+    },
+    {
+      "id": "src_vitally",
+      "type": "database",
+      "label": "vitally_support.db",
+      "sublabel": "solo lectura, sqlite3",
+      "stage": 0,
+      "row": 2,
+      "tag": "mode=ro"
+    },
+    {
+      "id": "harness",
+      "type": "backend",
+      "label": "harness",
+      "sublabel": "backtest ADR-003",
+      "stage": 1,
+      "row": 0,
+      "tag": "usage, churn_date"
+    },
+    {
+      "id": "normalization",
+      "type": "backend",
+      "label": "normalization",
+      "sublabel": "fecha, dominio, nombre",
+      "stage": 1,
+      "row": 1,
+      "tag": "USD a MXN, 18.5"
+    },
+    {
+      "id": "identity_resolution",
+      "type": "backend",
+      "label": "identity_resolution",
+      "sublabel": "cascada T0 a T3, veto",
+      "stage": 1,
+      "row": 2,
+      "tag": "HS-9000xx, master_id"
+    },
+    {
+      "id": "identity_outputs",
+      "type": "database",
+      "label": "resultados",
+      "sublabel": "crosswalk, audit",
+      "stage": 1,
+      "row": 3,
+      "tag": "quarantine_*"
+    },
+    {
+      "id": "duckdb_staging",
+      "type": "database",
+      "label": "sql/staging",
+      "sublabel": "tipos, fechas, MXN",
+      "stage": 2,
+      "row": 2,
+      "tag": "vistas stg_*"
+    },
+    {
+      "id": "duckdb_marts",
+      "type": "database",
+      "label": "sql/marts",
+      "sublabel": "supervivencia, MRR",
+      "stage": 2,
+      "row": 3,
+      "tag": "trend_usage"
+    },
+    {
+      "id": "out_coverage",
+      "type": "external",
+      "label": "coverage_report.md",
+      "sublabel": "conteos y caminos",
+      "stage": 3,
+      "row": 2,
+      "tag": "outputs/"
+    },
+    {
+      "id": "out_master",
+      "type": "external",
+      "label": "master_dataset.csv",
+      "sublabel": "una fila por empresa",
+      "stage": 3,
+      "row": 3,
+      "tag": "outputs/"
+    },
+    {
+      "id": "out_exceptions",
+      "type": "external",
+      "label": "exceptions_log.csv",
+      "sublabel": "contratos violados",
+      "stage": 3,
+      "row": 4,
+      "tag": "outputs/"
+    }
+  ],
+  "flows": [
+    {
+      "id": "hubspot_raw",
+      "from": "src_hubspot",
+      "to": "normalization",
+      "label": "raw tables",
+      "classification": "raw_companies, raw_deals, raw_marketing_touches",
+      "variant": "default",
+      "route": "vertical-channel",
+      "channelX": 165
+    },
+    {
+      "id": "product_raw",
+      "from": "src_product",
+      "to": "normalization",
+      "label": "product",
+      "classification": "accounts, usage",
+      "variant": "default",
+      "route": "straight",
+      "labelAt": [
+        100,
+        320
+      ]
+    },
+    {
+      "id": "vitally_raw",
+      "from": "src_vitally",
+      "to": "normalization",
+      "label": "vitally",
+      "classification": "customers, tickets",
+      "variant": "default",
+      "route": "vertical-channel",
+      "channelX": 201,
+      "labelAt": [
+        140,
+        428
+      ]
+    },
+    {
+      "id": "norm_to_identity",
+      "from": "normalization",
+      "to": "identity_resolution",
+      "label": "normalizado",
+      "classification": "fecha, dominio, nombre",
+      "variant": "emphasis",
+      "route": "straight",
+      "labelAt": [
+        310,
+        320
+      ]
+    },
+    {
+      "id": "norm_to_staging",
+      "from": "normalization",
+      "to": "duckdb_staging",
+      "label": "raw + norm",
+      "classification": "con.register()",
+      "variant": "default",
+      "route": "vertical-channel",
+      "labelAt": [
+        440,
+        260
+      ]
+    },
+    {
+      "id": "identity_to_outputs",
+      "from": "identity_resolution",
+      "to": "identity_outputs",
+      "label": "resultados",
+      "classification": "crosswalk, audit, cuarentenas",
+      "variant": "emphasis",
+      "route": "straight",
+      "labelAt": [
+        315,
+        428
+      ]
+    },
+    {
+      "id": "outputs_to_staging",
+      "from": "identity_outputs",
+      "to": "duckdb_staging",
+      "label": "crosswalk",
+      "classification": "identity_crosswalk, match_audit",
+      "variant": "emphasis",
+      "route": "vertical-channel",
+      "labelAt": [
+        423,
+        542
+      ]
+    },
+    {
+      "id": "staging_to_marts",
+      "from": "duckdb_staging",
+      "to": "duckdb_marts",
+      "label": "stg_*",
+      "classification": "sin joins entre sistemas",
+      "variant": "emphasis",
+      "route": "straight",
+      "labelAt": [
+        530,
+        428
+      ]
+    },
+    {
+      "id": "marts_to_master",
+      "from": "duckdb_marts",
+      "to": "out_master",
+      "label": "dataset",
+      "classification": "ensamblaje final",
+      "variant": "emphasis",
+      "route": "vertical-channel",
+      "labelAt": [
+        730,
+        542
+      ]
+    },
+    {
+      "id": "marts_to_exceptions",
+      "from": "duckdb_marts",
+      "to": "out_exceptions",
+      "label": "exceptions",
+      "classification": "MRR ambiguo",
+      "variant": "dashed",
+      "route": "vertical-channel",
+      "labelAt": [
+        700,
+        656
+      ]
+    },
+    {
+      "id": "marts_to_coverage",
+      "from": "duckdb_marts",
+      "to": "out_coverage",
+      "label": "coverage",
+      "classification": "conteos por camino",
+      "variant": "dashed",
+      "route": "vertical-channel",
+      "labelAt": [
+        700,
+        428
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "Camino principal",
+      "items": [
+        "Las tres bases se leen en modo solo lectura con sqlite3, sin la extensión sqlite de DuckDB",
+        "normalization e identity_resolution corren en Python antes de tocar DuckDB",
+        "El SQL de staging y marts produce master_dataset.csv, una fila por empresa real"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Resolución de identidad",
+      "items": [
+        "Las filas HS-9000xx se detectan por evidencia (nombre, dominio, mrr nulo, sin cuenta vinculada), no por el prefijo del id",
+        "La cascada T0 a T3 exige candidato único en cada nivel, con veto por dominio compartido cuando el nombre no coincide",
+        "identity_resolution escribe identity_crosswalk, match_audit, quarantine_companies y quarantine_deals",
+        "master_id es sha256 de dominio y nombre normalizados, y se reutiliza desde el crosswalk cuando ruleset_version coincide"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Ensamblaje en DuckDB",
+      "items": [
+        "assemble.py registra raw_*, norm_*, identity_crosswalk y match_audit en la misma conexión",
+        "sql/staging tipa columnas y convierte moneda sin cruzar sistemas, y sql/marts hace supervivencia, imputación de MRR y agregados de uso (trend_usage)",
+        "exceptions_log documenta cada contrato violado, incluida la imputación de MRR ambigua"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Harness de backtest",
+      "items": [
+        "harness lee product_usage (product_db.db) y churn_date (crm_hubspot.db) directamente de las fuentes, fuera del ensamblaje",
+        "Corre el ADR-003 en k = 0, 2 y 3 para medir la tendencia de uso sin fuga de datos",
+        "Es un consumidor de solo lectura: no escribe en identity_crosswalk ni en master_dataset.csv"
+      ]
+    }
+  ]
+}

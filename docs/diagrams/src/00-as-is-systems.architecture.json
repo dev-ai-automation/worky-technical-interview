@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Panorama de datos actual",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "animation": "none"
+  },
+  "components": [
+    { "id": "deals", "type": "database", "label": "Deals", "sublabel": "997 filas • hubspot_id: 685 distintos", "pos": [40, 40], "size": [170, 70] },
+    { "id": "marketing_touches", "type": "database", "label": "Marketing Touches", "sublabel": "1,635 filas • hubspot_id: 650 distintos", "pos": [250, 40], "size": [190, 70] },
+    { "id": "companies", "type": "database", "label": "Companies", "sublabel": "678 filas • hubspot_id (único) • 95 bajas", "tag": "Fuente de verdad de bajas", "pos": [130, 210], "size": [200, 74] },
+    { "id": "product_usage", "type": "database", "label": "Product Usage", "sublabel": "9,793 filas • 24 meses • sin PK", "pos": [560, 40], "size": [180, 70] },
+    { "id": "accounts", "type": "database", "label": "Accounts", "sublabel": "650 filas • hubspot_id: 54 nulos", "pos": [560, 210], "size": [180, 74] },
+    { "id": "tickets", "type": "database", "label": "Tickets", "sublabel": "1,888 filas • vitally_id: 593 distintos", "pos": [850, 40], "size": [180, 70] },
+    { "id": "customers", "type": "database", "label": "Customers", "sublabel": "650 filas • domain: 646 distintos", "pos": [850, 210], "size": [180, 74] },
+    { "id": "master_dataset", "type": "database", "label": "Sábana Maestra (A0)", "sublabel": "Meta: aún no construida", "tag": "Planeado", "pos": [420, 400], "size": [260, 90] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "Sistema 1: HubSpot CRM (crm_hubspot.db)", "wraps": ["deals", "marketing_touches", "companies"], "pad": 26 },
+    { "kind": "region", "label": "Sistema 2: Product DB (product_db.db)", "wraps": ["product_usage", "accounts"], "pad": 26 },
+    { "kind": "region", "label": "Sistema 3: Vitally CS/Soporte (vitally_support.db)", "wraps": ["tickets", "customers"], "pad": 26 },
+    { "kind": "region", "label": "Meta: aún no existe", "wraps": ["master_dataset"], "pad": 26 }
+  ],
+  "connections": [
+    { "id": "companies-deals", "from": "companies", "to": "deals", "label": "hubspot_id: sin FK, deals huérfanos (685 vs 678)", "fromSide": "top", "toSide": "bottom", "labelAt": [90, 120] },
+    { "id": "companies-touches", "from": "companies", "to": "marketing_touches", "label": "hubspot_id: sin FK", "fromSide": "top", "toSide": "bottom" },
+    { "id": "companies-accounts", "from": "companies", "to": "accounts", "label": "hubspot_id: puede ir vacío, 54 faltantes", "variant": "dashed" },
+    { "id": "companies-customers", "from": "companies", "to": "customers", "label": "solo domain / company_name, sin ID compartido", "variant": "dashed", "fromSide": "top", "toSide": "right", "via": [[230, -20], [1060, -20], [1060, 247]], "labelAt": [700, -20] },
+    { "id": "accounts-usage", "from": "accounts", "to": "product_usage", "label": "account_id" },
+    { "id": "customers-tickets", "from": "customers", "to": "tickets", "label": "vitally_id" },
+    { "id": "companies-master", "from": "companies", "to": "master_dataset", "label": "debe alimentar a A0 (aún no construida)", "variant": "dashed" },
+    { "id": "accounts-master", "from": "accounts", "to": "master_dataset", "label": "debe alimentar a A0 (aún no construida)", "variant": "dashed", "fromSide": "bottom", "toSide": "top" },
+    { "id": "customers-master", "from": "customers", "to": "master_dataset", "label": "debe alimentar a A0 (aún no construida)", "variant": "dashed" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "HubSpot CRM: sistema de registro", "items": ["companies: 678 filas, hubspot_id único, fuente de verdad de bajas (95 bajas)", "deals: 997 filas, 685 hubspot_id distintos, existen deals huérfanos", "marketing_touches: 1,635 filas, 650 hubspot_id distintos"] },
+    { "dot": "emerald", "title": "Product DB: datos de uso", "items": ["accounts: 650 filas, hubspot_id puede ir vacío (54 faltantes), FK débil", "product_usage: 9,793 filas en 24 meses, sin PK declarada"] },
+    { "dot": "violet", "title": "Vitally: CS / soporte", "items": ["customers: 650 filas, sin ID compartido con HubSpot, cruce difuso solo por dominio y nombre", "tickets: 1,888 filas, 593 vitally_id distintos, resolution/csat con nulos y anomalías"] },
+    { "dot": "amber", "title": "Brechas de calidad de datos", "items": ["Ninguna tabla declara restricciones PRIMARY KEY o FOREIGN KEY", "El vínculo Companies↔Accounts es débil (54 hubspot_id nulos)", "El vínculo Companies↔Customers es difuso (cruce solo por dominio/nombre)", "La Sábana Maestra (A0) aún no existe: los tres sistemas deben alimentarla"] }
+  ]
+}

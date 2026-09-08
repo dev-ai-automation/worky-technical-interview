@@ -1,0 +1,56 @@
+# openspec/config.yaml: 21-worky
+schema: spec-driven
+
+context: |
+  Repositorio de caso de estudio de datos y analítica, no una aplicación. Contiene fundation-docs/
+  (PDF del caso de negocio + dataset_caso_v3.zip: 3 bases SQLite + CSV: crm_hubspot,
+  product_db, vitally_support) y .gitignore. Git recién inicializado, sin remoto ni commits.
+  Stack esperado: Python 3.14 (sqlite3 de la librería estándar), SQL sobre SQLite/DuckDB, Node v24
+  solo para el skill de diagramas archify. No existe ningún manifiesto de paquete ni corredor de pruebas.
+
+# Convención de idioma (instrucción del usuario, 2026-09-07): toda decisión, documento,
+# artefacto SDD, comentario de código, mensaje de CLI y reporte se escribe en español de
+# México con registro profesional, entendible por un analista junior y un director.
+# Se conservan en inglés los identificadores de código, columnas, tablas, archivos y comandos.
+language:
+  artifacts: es-MX
+  identifiers: en
+  style: lenguaje llano; aplicar skills humanizer y cognitive-doc-design; sin patrones de escritura de IA
+
+strict_tdd: false  # zero in-scope projects discovered; see testing capabilities
+
+persistence:
+  mode: hybrid
+  engram_project: "21-worky"
+  execution_mode: interactive
+  artifact_store: hybrid
+  delivery_strategy: auto-chain
+  review_budget_lines: 800
+
+projects: []  # no package.json/pyproject.toml/go.mod/Cargo.toml discovered
+
+rules:
+  proposal:
+    - Incluir un plan de reversión para cambios riesgosos
+    - Fundamentar las afirmaciones de análisis de datos en los datasets y el caso de negocio proporcionados, y no en supuestos
+  specs:
+    - Usar Given/When/Then para los escenarios
+    - Usar las palabras clave de RFC 2119 (MUST, SHALL, SHOULD, MAY)
+  design:
+    - Incluir diagramas de secuencia o de flujo de datos para los pipelines complejos (el skill archify está disponible)
+    - Documentar las decisiones de arquitectura junto con su justificación
+  tasks:
+    - Agrupar por fase, usando numeración jerárquica
+    - Mantener las tareas completables en una sola sesión
+  apply:
+    guidelines:
+      - Seguir los patrones de código existentes en cuanto exista un andamiaje de proyecto
+      - Preferir sqlite3/csv de la librería estándar de Python, o pandas/duckdb una vez instalados
+    tdd: false
+    test_command: ""
+  verify:
+    test_command: ""
+    build_command: ""
+    coverage_threshold: 0
+  archive:
+    - Advertir antes de fusionar deltas destructivos

@@ -1,0 +1,37 @@
+schema: gentle-ai.sdd-preproposal/v1
+revision: 1
+change: a0-master-dataset-engine
+artifact_store: hybrid
+exploration:
+  outcome: done
+  reference:
+    openspec: openspec/changes/a0-master-dataset-engine/exploration.md
+    engram: sdd/a0-master-dataset-engine/explore
+research:
+  selected: false
+  request: null
+  classes: []
+  admission: not_applicable
+  outcome: unselected
+  note: se usa como evidencia el documento existente docs/research/01-bi-revops-data-architecture.md (carriles 1, 2 y 6), sin fase de research dedicada; decision del usuario el 2026-09-07
+evidence:
+  openspec:
+    - docs/decisions/ADR-001-identity-resolution-scorecard.md
+    - docs/decisions/ADR-002-mrr-imputation-and-normalization.md
+    - docs/decisions/ADR-003-usage-trend-and-leakage-guard.md
+    - docs/research/01-bi-revops-data-architecture.md
+    - docs/data-model/00-as-is-schema-profile.md
+  engram:
+    - worky/a0/decision-identity-resolution
+    - worky/a0/decision-mrr-imputation
+    - worky/a0/decision-usage-trend
+    - worky/a0/matching-calibration
+    - worky/a3/trend-backtest
+    - sdd/a0-master-dataset-engine/explore
+product_decisions: confirmed
+confirmed_decisions:
+  - ADR-001 aceptado (scorecard de identidad por niveles, veto, supervivencia, master_id idempotente, match_audit, cuarentena)
+  - ADR-002 aceptado (imputacion de MRR desde deals, mrr_source, mrr_confidence, dos totales, USD a 18.5)
+  - ADR-003 aceptado (trend_usage como momentum EWMA, resguardo contra fuga, trend_status, harness en el repositorio)
+  - Enfoque de implementacion aprobado por el usuario: motor hibrido (Python puro para normalizacion e identidad con RapidFuzz, DuckDB SQL para staging y marts), dos PR encadenados
+proposal_ready: true

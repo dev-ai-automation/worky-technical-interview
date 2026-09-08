@@ -1,0 +1,28 @@
+# Estado del DAG para el cambio de SDD. Es propiedad del orquestador; se actualiza después de cada transición de fase.
+change: a0-master-dataset-engine
+title: Motor del dataset maestro de A0 (reconciliación de identidad, tabla maestra, reporte de cobertura)
+created: 2026-09-07
+artifact_store: hybrid
+engram_project: 21-worky
+preflight:
+  execution_mode: interactive
+  delivery_strategy: auto-chain
+  review_budget_lines: 800
+inputs:
+  decisions:
+    - docs/decisions/ADR-001-identity-resolution-scorecard.md
+    - docs/decisions/ADR-002-mrr-imputation-and-normalization.md
+    - docs/decisions/ADR-003-usage-trend-and-leakage-guard.md
+  research: docs/research/01-bi-revops-data-architecture.md
+  schema_profile: docs/data-model/00-as-is-schema-profile.md
+phases:
+  explore: done
+  research: not_selected
+  proposal: done
+  specs: done
+  design: done
+  tasks: done
+  apply: in_progress (PR 1 implementado y validado, commit pendiente de identidad git; intento cerrado como passed)
+  verify: pending
+  archive: pending
+next_recommended: sdd-apply PR 1 (tras aprobacion del usuario; acquire de sdd-attempt antes del lanzamiento)

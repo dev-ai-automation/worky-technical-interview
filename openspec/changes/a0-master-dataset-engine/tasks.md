@@ -1,0 +1,158 @@
+# Tareas: motor del dataset maestro de A0
+
+Este documento convierte el diseño en trabajo ejecutable. El corte sigue la sección 8 del diseño: cuatro PR encadenados, cada uno con su propio commit de cierre, en lugar de las dos rebanadas que planteó la propuesta original.
+
+## Pronóstico de carga de revisión
+
+| Campo | Valor |
+|---|---|
+| Líneas escritas estimadas | 428 (PR 1) + 594 (PR 2) + 729 (PR 3) + 576 (PR 4) = 2,327 en total; los goldens en `outputs/` quedan fuera de este conteo |
+| Presupuesto de la sesión | 800 líneas por PR (`review_budget_lines`, `openspec/config.yaml`) |
+| Riesgo respecto al presupuesto | Alto: PR 3 llega a ~729, el 91% de las 800 líneas disponibles, así que un desvío de estimación lo saca del presupuesto |
+| PR encadenados recomendados | Sí, ya decidido en el diseño (decisión D11) |
+| Estrategia de encadenado | PR apilados hacia main; el PR 1 apunta a `main`, y cada PR siguiente apunta a la rama del PR anterior |
+| Estrategia de entrega | auto-chain |
+| Decisión pendiente antes de aplicar | No: con auto-chain el orquestador procede con la primera rebanada usando la estrategia ya fijada |
+
+Líneas de control exactas para el guardián automatizado, en el formato literal que exige el skill:
+
+```text
+Decision needed before apply: No
+Chained PRs recommended: Yes
+Chain strategy: stacked-to-main
+400-line budget risk: High
+```
+
+### Unidades de trabajo sugeridas
+
+| Unidad | Meta | PR probable | Comando de prueba enfocada | Arnés en tiempo real | Límite de reversión |
+|---|---|---|---|---|---|
+| 1 | Paquete y normalización reutilizable, la pieza que A6 va a importar | PR 1 | `python -m pytest -q -m "not dataset" tests/test_normalization.py tests/test_writers.py` | No aplica: todavía no existe CLI, se ejercita solo con pytest | Eliminar `worky_engine/normalization/`, `worky_engine/sources.py`, `worky_engine/writers.py` y sus pruebas, sin tocar otro PR |
+| 2 | Capa de identidad completa: crosswalk, auditoría y las dos cuarentenas | PR 2 | `python -m pytest -q -m "not dataset" tests/test_identity_resolution.py tests/test_master_id.py tests/test_identity_idempotency.py` | `python -m worky_engine resolve --data-dir data/raw --out-dir outputs` | Eliminar `worky_engine/identity_resolution/`, el comando `resolve` de `cli.py` y los cuatro CSV de identidad en `outputs/` |
+| 3 | `master_dataset`, imputación de MRR, `exceptions_log`, `coverage_report.md`, comando `build` | PR 3 | `python -m pytest -q -m "not dataset" tests/test_assembly_contracts.py tests/test_mrr_imputation.py tests/test_coverage_report.py` | `python -m worky_engine build --data-dir data/raw --out-dir outputs` | Eliminar `worky_engine/master_dataset/`, `worky_engine/quality/`, `worky_engine/sql/staging/`, `mart_mrr.sql` y revertir `master_dataset.csv`, `exceptions_log.csv`, `coverage_report.md` |
+| 4 | Uso con `trend_usage`, soporte, comercial y el harness del ADR-003 | PR 4 | `python -m pytest -q -m "not dataset" tests/test_usage_trend.py tests/test_support_commercial.py` | `python -m worky_engine backtest --data-dir data/raw --out-dir outputs` | Eliminar `worky_engine/harness/`, `mart_usage.sql`, `mart_support.sql`, `mart_commercial.sql`, y revertir los cambios en `mart_master_dataset.sql` y `mart_coverage.sql` |
+
+## PR 1: paquete y normalización reutilizable
+
+Rama base: `main`. Entrega el paquete importable y las cuatro funciones de normalización que A6 reutilizará.
+
+- [x] 1.1 Preparar los datos locales de desarrollo: extraer `fundation-docs/dataset_caso_v3.zip` (read-only) a `data/raw/` y confirmar que las tres bases `.db` quedan disponibles ahí para usarlas como `--data-dir`. Sin líneas de código en el presupuesto. Hecho: el zip trae sus tres `.db` dentro de una carpeta `sistemas/`, así que la ruta real queda en `data/raw/sistemas/`; documentado en `tests/conftest.py`.
+- [x] 1.2 Editar `.gitignore` para agregar `data/raw/`, `.build/` y `*.duckdb`, porque el archivo DuckDB se regenera en cada build (decisión D6 del diseño). Aproximadamente 6 líneas. Hecho: las tres entradas ya estaban presentes en `.gitignore` (trabajo previo de `sdd-init`); no hizo falta editarlo.
+- [x] 1.3 Crear `pyproject.toml` con `duckdb==1.5.5` (versión verificada en el diseño), `rapidfuzz`, `pandas` y `pytest` fijados con `==<versión detectada en apply>` como marcador que `sdd-apply` resuelve corriendo `pip show`, `requires-python = ">=3.14,<3.15"` y el punto de entrada del CLI. Aproximadamente 22 líneas. Hecho: versiones resueltas con `pip show` (`rapidfuzz==3.14.6`, `duckdb==1.5.5`, `pandas==3.0.5`, `pytest==9.1.1`); `requires-python = ">=3.12"` por instrucción explícita del entorno (Python 3.14.7 instalado), que sustituye el rango `>=3.14,<3.15` del diseño.
+- [x] 1.4 Crear `worky_engine/__init__.py`. Aproximadamente 3 líneas.
+- [x] 1.5 Crear `worky_engine/normalization/__init__.py` que exporta `normalize_date`, `domain_label`, `normalize_company_name` y `to_mxn`. Aproximadamente 12 líneas. Spec: source-normalization.
+- [x] 1.6 Crear `worky_engine/normalization/dates.py` con `normalize_date(raw)`. Aproximadamente 30 líneas. Spec: source-normalization, requisito normalización de fecha. Prueba: `python -m pytest -q tests/test_normalization.py -k date`.
+- [x] 1.7 Crear `worky_engine/normalization/domains.py` con `domain_label(raw)`. Aproximadamente 35 líneas. Spec: source-normalization, requisito etiqueta de dominio. Prueba: `python -m pytest -q tests/test_normalization.py -k domain`.
+- [x] 1.8 Crear `worky_engine/normalization/names.py` con `normalize_company_name(raw)`. Aproximadamente 40 líneas. Spec: source-normalization, requisito nombre normalizado de empresa. Prueba: `python -m pytest -q tests/test_normalization.py -k name`.
+- [x] 1.9 Crear `worky_engine/normalization/currency.py` con `to_mxn(amount, currency)`. Aproximadamente 20 líneas. Spec: source-normalization, requisito conversión de moneda a MXN. Prueba: `python -m pytest -q tests/test_normalization.py -k currency`.
+- [x] 1.10 Crear `worky_engine/sources.py`, que abre las tres bases SQLite con `sqlite3` en modo solo lectura (`file:...?mode=ro`, `uri=True`) y `encoding="utf-8"` explícito, y entrega un DataFrame por tabla. Aproximadamente 40 líneas. Spec: source-normalization, requisito codificación explícita de archivos.
+- [x] 1.11 Crear `worky_engine/writers.py` con la escritura de CSV (UTF-8 sin BOM, salto `\n`, sin índice, nulo como campo vacío, `printf('%.2f')` para dinero y `printf('%.6f')` para razones) y de Markdown. Aproximadamente 30 líneas. Hecho: los formatos de dos y seis decimales quedan como `format_money`/`format_ratio`, listos para que el SQL de PR 3 los use vía `printf` y para que el Python de PR 2 los use antes de escribir CSV.
+- [x] 1.12 Crear `tests/conftest.py`, que resuelve la ruta de datos en este orden: opción `--data-dir`, variable `WORKY_DATA_DIR`, `fundation-docs/dataset_caso_v3`, y salta las pruebas marcadas `dataset` con un motivo cuando ninguna existe. Aproximadamente 35 líneas. Spec: build-cli, requisito carpeta de datos configurable. Hecho: el tercer valor por omisión es `data/raw/sistemas` y no `fundation-docs/dataset_caso_v3`, porque el zip guarda sus tres `.db` dentro de una carpeta `sistemas/`; verificado moviendo temporalmente esa carpeta y confirmando el mensaje de salto.
+- [x] 1.13 Crear `tests/fixtures/mini_dataset.py` con las 12 empresas sintéticas: un nombre acentuado, una fecha DD/MM/YYYY, un clon, un deal huérfano, un par de dominio compartido a vetar, un nombre truncado y una cuenta con dos meses de uso para forzar `insufficient_history`. Aproximadamente 50 líneas.
+- [x] 1.14 Crear `tests/test_normalization.py` con la tabla de casos de fecha, dominio, nombre y moneda, la prueba de idempotencia por registro, y el caso de ida y vuelta con acentos (`Gaitán`, `gaitán115.com.mx`, `Sánchez`). Aproximadamente 70 líneas. Spec: source-normalization, requisitos idempotencia de la normalización y codificación explícita de archivos. Prueba: `python -m pytest -q tests/test_normalization.py`.
+- [x] 1.15 Crear `tests/test_writers.py`, que confirma codificación UTF-8, salto `\n`, ausencia de columna de índice, nulo como campo vacío y el formato de dos y seis decimales. Aproximadamente 35 líneas. Prueba: `python -m pytest -q tests/test_writers.py`.
+- [ ] 1.16 Cerrar el PR 1: correr `python -m pytest -q -m "not dataset"`, confirmar que 1.6 a 1.15 pasan, y preparar el commit `feat(normalization): add package scaffolding and pure normalization functions`, sin atribución de IA ni coautoría. Estado: pruebas verdes confirmadas (`python -m pytest -q -m "not dataset"` y `python -m pytest -q` con el dataset real, 42/42). **Commit pendiente del orquestador**: el repositorio todavía no tiene identidad de autor configurada, así que `sdd-apply` deja el árbol de trabajo listo sin comitear; el orquestador hace el commit inicial y el cierre de este PR.
+
+## PR 2: resolución de identidad
+
+Rama base: rama del PR 1. Entrega `identity_crosswalk`, `match_audit` y las dos cuarentenas.
+
+- [ ] 2.1 Crear `worky_engine/__main__.py`, que invoca `cli.py`. Aproximadamente 4 líneas.
+- [ ] 2.2 Crear `worky_engine/cli.py` con el comando `resolve`: reconfigura `sys.stdout` y `sys.stderr` a UTF-8 antes de imprimir, y resuelve `--data-dir` extrayendo `dataset_caso_v3.zip` a `.build/dataset/` cuando la carpeta no trae las tres `.db` pero sí el zip. Aproximadamente 45 líneas. Spec: build-cli, requisito carpeta de datos configurable.
+- [ ] 2.3 Crear `worky_engine/identity_resolution/__init__.py`. Aproximadamente 10 líneas.
+- [ ] 2.4 Crear `worky_engine/identity_resolution/keys.py` con `master_id = sha256(f"{domain_label}|{normalized_name}")[:12]`, la reutilización del crosswalk existente y el aborto ante colisión real. Aproximadamente 25 líneas. Spec: identity-resolution, requisito master_id idempotente. Prueba: `python -m pytest -q tests/test_master_id.py`.
+- [ ] 2.5 Crear `worky_engine/identity_resolution/blocking.py` con las cuatro reglas de bloque (`hubspot_id`, `domain_label`, `signup_date`, `global`). Aproximadamente 35 líneas.
+- [ ] 2.6 Crear `worky_engine/identity_resolution/scoring.py` con los envoltorios de RapidFuzz para `token_set_ratio`, `partial_ratio` y `WRatio`. Aproximadamente 30 líneas.
+- [ ] 2.7 Crear `worky_engine/identity_resolution/veto.py` con la regla de veto: dominio compartido, similitud menor a 70, fechas de alta distintas, ambos con MRR. Aproximadamente 30 líneas. Spec: identity-resolution, requisito regla de veto. Prueba: `python -m pytest -q tests/test_identity_resolution.py -k club290`.
+- [ ] 2.8 Crear `worky_engine/identity_resolution/cascade.py` con la cascada T0 a T3 y M, el desempate que baja de nivel cuando el bloque de fecha no es único, y el registro de cada decisión en `match_audit`. Aproximadamente 120 líneas. Spec: identity-resolution, requisitos cascada de niveles de confianza, revisión manual y tabla match_audit. Prueba: `python -m pytest -q tests/test_identity_resolution.py`.
+- [ ] 2.9 Crear `worky_engine/identity_resolution/quarantine.py` con la deduplicación de las 28 filas clon y la cuarentena de los 35 deals huérfanos. Aproximadamente 50 líneas. Spec: identity-resolution, requisitos deduplicación de filas clon en companies y cuarentena de deals huérfanos. Prueba: `python -m pytest -q tests/test_identity_resolution.py -k quarantine`.
+- [ ] 2.10 Crear `tests/test_master_id.py` con el determinismo del hash, el separador que evita colisiones de concatenación, y el aborto ante colisión real. Aproximadamente 35 líneas.
+- [ ] 2.11 Crear `tests/test_identity_resolution.py` con la cascada T0 a T3 sobre el fixture sintético, el veto de `club290.com.mx`, el nombre truncado `ACC-2027` resuelto por T2 con puntaje 100 contra `HS-100028`, y el bloque de fecha con dos candidatos que no resuelve en T2 y termina en M sin margen. Aproximadamente 110 líneas. Spec: identity-resolution, requisitos cascada de niveles de confianza, regla de veto y revisión manual.
+- [ ] 2.12 Crear `tests/test_calibration.py`, marca `dataset`, junto con `tests/fixtures/calibration_expectations.json` generado en la primera corrida: 592 de 596 aciertos en primer lugar con WRatio (99.3%), y el desglose 596 en T0, 650 en T1, 54 en T2, 0 en T3. Aproximadamente 55 líneas. Spec: identity-resolution, requisito calibración reproducible. Prueba: `python -m pytest -q -m dataset tests/test_calibration.py`.
+- [ ] 2.13 Crear `tests/test_identity_idempotency.py`, que corre `resolve` dos veces, con y sin reutilización del crosswalk (`--no-reuse-crosswalk`), y compara las cuatro salidas byte a byte. Aproximadamente 45 líneas. Spec: identity-resolution, requisito master_id idempotente. Prueba: `python -m pytest -q tests/test_identity_idempotency.py`.
+- [ ] 2.14 Generar y commitear los goldens de identidad en `outputs/`: `identity_crosswalk.csv` (650 filas), `match_audit.csv` (1,978 filas), `quarantine_companies.csv` (28 filas) y `quarantine_deals.csv` (35 filas), corriendo `python -m worky_engine resolve --data-dir data/raw --out-dir outputs`. Fuera del conteo de líneas del presupuesto.
+- [ ] 2.15 Cerrar el PR 2: correr `python -m pytest -q -m "not dataset"` y `python -m pytest -q -m dataset tests/test_calibration.py`, correr `python -m worky_engine resolve --data-dir data/raw --out-dir outputs`, verificar la lista de verificación del ADR-001 (596 en T0, 650 en T1, 54 en T2, 0 en T3, 0 en M) contra `match_audit.csv`, y preparar el commit `feat(identity-resolution): add T0-T3 cascade, veto rule and quarantine`, sin atribución de IA ni coautoría.
+
+## PR 3: ensamblaje, MRR y cobertura
+
+Rama base: rama del PR 2. Entrega `master_dataset`, la imputación de MRR, `exceptions_log`, `coverage_report.md` y el comando `build`.
+
+- [ ] 3.1 Modificar `worky_engine/cli.py` para agregar el comando `build`, que ejecuta `resolve` internamente y después el ensamblaje, con código de salida 1 cuando un contrato de datos se viola (nombrado en el mensaje) y 2 cuando faltan argumentos o archivos. Aproximadamente 25 líneas. Spec: build-cli, requisitos comando único de construcción y mensajes de error claros.
+- [ ] 3.2 Crear `worky_engine/master_dataset/__init__.py`. Aproximadamente 8 líneas.
+- [ ] 3.3 Crear `worky_engine/master_dataset/assemble.py`, que registra los DataFrames en DuckDB con `con.register`, abre la conexión con `autoinstall_known_extensions=False` y `autoload_known_extensions=False`, y ejecuta los archivos `.sql` en el orden fijo de una lista explícita. Aproximadamente 65 líneas. Spec: build-cli, requisito comando único de construcción. Prueba: `python -m pytest -q tests/test_assembly_contracts.py -k no_extension`.
+- [ ] 3.4 Crear los siete archivos de `worky_engine/sql/staging/` (`stg_companies`, `stg_deals`, `stg_marketing_touches`, `stg_accounts`, `stg_product_usage`, `stg_customers`, `stg_tickets`): tipado, fechas ya normalizadas, conversión a MXN, recorte de espacios, sin ningún join entre sistemas. Aproximadamente 85 líneas en total.
+- [ ] 3.5 Crear `worky_engine/sql/marts/mart_company_core.sql` con la supervivencia de atributos por columna: nombre y dominio de `HS-1xxxxx`, atributos comerciales de HubSpot, `churn_date` después de quitar los clones. Aproximadamente 40 líneas. Spec: identity-resolution, requisito supervivencia de atributos, implementado en SQL sobre el crosswalk que entrega el PR 2. Prueba: `python -m pytest -q tests/test_assembly_contracts.py`.
+- [ ] 3.6 Crear `worky_engine/sql/marts/mart_mrr.sql` con la imputación de MRR: monto único de deals, `mrr_confidence` en `high` con un deal `closedwon` y `medium` sin él, sin sobrescribir nunca un valor del CRM. Aproximadamente 55 líneas. Spec: master-dataset-assembly, requisitos imputación de MRR desde el monto del deal y bitácora de excepciones de imputación. Prueba: `python -m pytest -q tests/test_mrr_imputation.py`.
+- [ ] 3.7 Crear `worky_engine/sql/marts/mart_master_dataset.sql`, que ensambla las columnas disponibles en este PR: identidad, atributos, MRR y `churn_status`. Aproximadamente 55 líneas. Spec: master-dataset-assembly, requisitos una fila por empresa real y columnas mínimas del dataset maestro. Prueba: `python -m pytest -q tests/test_assembly_contracts.py`.
+- [ ] 3.8 Crear `worky_engine/sql/marts/mart_coverage.sql` con los conteos por sistema y por nivel, recalculados desde `match_audit`. Aproximadamente 40 líneas. Spec: coverage-report, requisitos cobertura por sistema, cobertura por nivel de confianza y recalculo desde match_audit. Prueba: `python -m pytest -q tests/test_coverage_report.py`.
+- [ ] 3.9 Crear `worky_engine/quality/__init__.py`. Aproximadamente 6 líneas.
+- [ ] 3.10 Crear `worky_engine/quality/contracts.py` con las pruebas de contrato en tiempo de build: `master_id` único y 650 filas, columnas obligatorias sin nulo, todo `master_id` del dataset existe en el crosswalk, todo `master_id` de `exceptions_log` existe en el dataset, todo `source_id` de `match_audit` existe en su tabla origen, dominios de valores permitidos, y `tickets.priority` dentro de {`Low`, `Medium`, `High`, `Urgent`}. Aproximadamente 50 líneas. Spec: master-dataset-assembly, requisito columnas mínimas del dataset maestro. Prueba: `python -m pytest -q tests/test_assembly_contracts.py -k tickets_priority`.
+- [ ] 3.11 Crear `worky_engine/quality/coverage.py`, que genera `coverage_report.md` con las nueve secciones fijas del diseño, calculadas siempre desde `match_audit` y las salidas ya materializadas, sin ningún porcentaje escrito a mano. Aproximadamente 80 líneas. Spec: coverage-report, requisitos tamaño de la cola de revisión manual y conteos de cuarentena. Prueba: `python -m pytest -q tests/test_coverage_report.py`.
+- [ ] 3.12 Crear `tests/test_assembly_contracts.py` con los contratos completos: unicidad de `master_id`, 650 filas, columnas sin nulo, referencias cruzadas entre salidas, dominios de valores, `tickets.priority`, y series de uso sin huecos internos. Aproximadamente 70 líneas. Spec: master-dataset-assembly, requisitos una fila por empresa real y columnas mínimas del dataset maestro.
+- [ ] 3.13 Crear `tests/test_mrr_imputation.py`: 28 filas imputadas, 4 en `high` y 24 en `medium`, ningún valor del CRM sobrescrito, `mrr_original` y `currency_original` intactos, conversión a 18.5. Aproximadamente 60 líneas. Spec: master-dataset-assembly, requisitos imputación de MRR desde el monto del deal y bitácora de excepciones de imputación.
+- [ ] 3.14 Crear `tests/test_coverage_report.py`, que compara los porcentajes del reporte contra conteos recalculados de forma independiente. Aproximadamente 45 líneas. Spec: coverage-report, requisito recalculo desde match_audit.
+- [ ] 3.15 Crear `tests/test_build_idempotency.py`, marca `dataset`: dos corridas completas de `build` en directorios temporales distintos producen las salidas de este PR idénticas byte a byte entre sí y contra la copia commiteada en `outputs/`. Aproximadamente 45 líneas. Spec: build-cli, requisito idempotencia byte a byte. Prueba: `python -m pytest -q -m dataset tests/test_build_idempotency.py`.
+- [ ] 3.16 Generar y commitear los goldens de ensamblaje en `outputs/`: `master_dataset.csv` (650 filas), `exceptions_log.csv` (28 filas de `mrr_imputed_from_deal` más las demás) y `coverage_report.md`, corriendo `python -m worky_engine build --data-dir data/raw --out-dir outputs`. Fuera del conteo de líneas del presupuesto.
+- [ ] 3.17 Cerrar el PR 3: correr `python -m pytest -q -m "not dataset"` y `python -m pytest -q -m dataset tests/test_build_idempotency.py`, correr `python -m worky_engine build --data-dir data/raw --out-dir outputs` dos veces seguidas y confirmar salidas idénticas byte a byte, verificar los criterios de éxito de la propuesta que ya aplican (650 filas con `master_id` único, 28 filas exactas de imputación, los dos totales de MRR lado a lado en el reporte), verificar los mensajes de error corriendo `build` con `--data-dir` vacío y sin una dependencia instalada, y preparar el commit `feat(master-dataset-assembly): add build command with MRR imputation and coverage report`, sin atribución de IA ni coautoría.
+
+## PR 4: uso, soporte, comercial y harness
+
+Rama base: rama del PR 3. Entrega `trend_usage`, los agregados de soporte y comercial, y el harness del ADR-003.
+
+- [ ] 4.1 Crear `worky_engine/sql/marts/mart_usage.sql` con el mes de referencia, `trend_asof_month`, la forma cerrada del EWMA (span 3 y span 9), `trend_usage`, `trend_status`, el resguardo contra fuga de datos (`month <= trend_asof_month`), `usage_months`, `active_users_latest` y `active_users_avg`. Aproximadamente 65 líneas. Spec: master-dataset-assembly, requisitos mes de referencia, cálculo de trend_usage y resguardo contra fuga de datos. Prueba: `python -m pytest -q tests/test_usage_trend.py`.
+- [ ] 4.2 Crear `worky_engine/sql/marts/mart_support.sql` con `tickets_total`, `tickets_urgent` y `csat_avg` por empresa. Aproximadamente 30 líneas. Spec: master-dataset-assembly, requisito columnas mínimas del dataset maestro. Prueba: `python -m pytest -q tests/test_support_commercial.py`.
+- [ ] 4.3 Crear `worky_engine/sql/marts/mart_commercial.sql` con `acquisition_channel` (primer touch por fecha y `touch_id`, respaldo de `lead_source`, `unknown`) y `closed_revenue_mxn` (excluyendo la cuarentena). Aproximadamente 40 líneas. Spec: master-dataset-assembly, requisitos canal de adquisición y revenue cerrado. Prueba: `python -m pytest -q tests/test_support_commercial.py`.
+- [ ] 4.4 Modificar `worky_engine/sql/marts/mart_master_dataset.sql` para incorporar las columnas de uso, soporte y comercial. Aproximadamente 35 líneas. Spec: master-dataset-assembly, requisito columnas mínimas del dataset maestro. Prueba: `python -m pytest -q tests/test_assembly_contracts.py`.
+- [ ] 4.5 Modificar `worky_engine/sql/marts/mart_coverage.sql` para agregar el desglose de tendencia de uso y de canal de adquisición. Aproximadamente 20 líneas. Prueba: `python -m pytest -q tests/test_coverage_report.py`.
+- [ ] 4.6 Crear `worky_engine/harness/__init__.py`. Aproximadamente 6 líneas.
+- [ ] 4.7 Crear `worky_engine/harness/backtest.py` con las seis fórmulas del ADR-003 evaluadas en k = 0, 2 y 3 sobre las 78 empresas con baja que tienen uso y las 515 empresas activas, reportando proporción calculable, AUC, precisión y recall a la tasa de marcado configurable (20% por defecto). Aproximadamente 130 líneas. Spec: trend-backtest-harness, los cuatro requisitos. Prueba: `python -m pytest -q -m dataset tests/test_harness_regression.py`.
+- [ ] 4.8 Modificar `worky_engine/cli.py` para agregar el comando `backtest` con la opción `--k`. Aproximadamente 20 líneas.
+- [ ] 4.9 Crear `tests/test_usage_trend.py`: la forma cerrada en SQL coincide con `pandas.Series.ewm(span=s, adjust=True).mean().iloc[-1]` dentro de 1e-9 sobre 20 series sintéticas, `ewma_9 = 0` da `0.000000`, y los tres estados de `trend_status`. Aproximadamente 85 líneas. Spec: master-dataset-assembly, requisitos mes de referencia y cálculo de trend_usage.
+- [ ] 4.10 Crear `tests/test_leakage_guard.py`, marca `dataset`: para cada empresa, el mes máximo entre las filas que contribuyeron a `trend_usage` es menor o igual a `trend_asof_month`, recalculando el conjunto contribuyente en la prueba y no confiando en el mart. Aproximadamente 40 líneas. Spec: master-dataset-assembly, requisito resguardo contra fuga de datos. Prueba: `python -m pytest -q -m dataset tests/test_leakage_guard.py`.
+- [ ] 4.11 Crear `tests/test_support_commercial.py`: conteos de tickets, promedio de CSAT sobre no nulos, primer touch con su desempate por `touch_id`, respaldo de `lead_source`, ingreso cerrado sin deals de cuarentena. Aproximadamente 55 líneas. Spec: master-dataset-assembly, requisitos canal de adquisición y revenue cerrado.
+- [ ] 4.12 Crear `tests/test_harness_regression.py`, marca `dataset`: el momentum EWMA sigue ganando por AUC en k = 2, la tabla del ADR-003 se reproduce en k = 0, 2 y 3, y el AUC en k = 0 queda cercano a 1.0 para la mayoría de las fórmulas. Aproximadamente 50 líneas. Spec: trend-backtest-harness, los cuatro requisitos.
+- [ ] 4.13 Regenerar y commitear los goldens finales en `outputs/`: `master_dataset.csv` con las 35 columnas completas y `coverage_report.md` con las nueve secciones, corriendo `python -m worky_engine build --data-dir data/raw --out-dir outputs`. Fuera del conteo de líneas del presupuesto; anotar en la descripción del PR que el diff vuelve a tocar estos dos archivos porque ya llevaban las columnas de los PR anteriores.
+- [ ] 4.14 Cerrar el PR 4: correr `python -m pytest -q` (incluida la marca `dataset`), correr `python -m worky_engine build --data-dir data/raw --out-dir outputs` y `python -m worky_engine backtest --data-dir data/raw --out-dir outputs`, verificar la lista de verificación del ADR-003 y los criterios de éxito restantes de la propuesta (`trend_status` poblado en todas las filas sin nulo silencioso, ninguna fila posterior a `trend_asof_month` en el cálculo, `coverage_report.md` con cobertura por sistema y por nivel más la cola de revisión manual), y preparar el commit `feat(usage-support-commercial): add usage trend, support, commercial aggregates and ADR-003 harness`, sin atribución de IA ni coautoría.
+
+## Trazabilidad de requisitos
+
+| Capacidad | Requisito | Tareas |
+|---|---|---|
+| source-normalization | normalización de fecha | 1.6, 1.14 |
+| source-normalization | etiqueta de dominio | 1.7, 1.14 |
+| source-normalization | nombre normalizado de empresa | 1.8, 1.14 |
+| source-normalization | conversión de moneda a MXN | 1.9, 1.14 |
+| source-normalization | idempotencia de la normalización | 1.6, 1.7, 1.8, 1.9, 1.14 |
+| source-normalization | codificación explícita de archivos | 1.10, 1.12, 1.14, 1.15 |
+| identity-resolution | deduplicación de filas clon en companies | 2.9, 2.11, 2.14 |
+| identity-resolution | cascada de niveles de confianza | 2.8, 2.11, 2.12, 2.15 |
+| identity-resolution | regla de veto | 2.7, 2.11 |
+| identity-resolution | revisión manual | 2.8, 2.11 |
+| identity-resolution | master_id idempotente | 2.4, 2.10, 2.13 |
+| identity-resolution | tabla identity_crosswalk | 2.8, 2.9, 2.14 |
+| identity-resolution | tabla match_audit | 2.6, 2.7, 2.8, 2.11, 2.14 |
+| identity-resolution | cuarentena de deals huérfanos | 2.9, 2.11, 2.14 |
+| identity-resolution | supervivencia de atributos | 3.5, 3.12 |
+| identity-resolution | calibración reproducible | 2.12, 2.15 |
+| master-dataset-assembly | una fila por empresa real | 3.3, 3.7, 3.12, 3.17 |
+| master-dataset-assembly | columnas mínimas del dataset maestro | 3.7, 3.10, 3.12, 4.2, 4.3, 4.4 |
+| master-dataset-assembly | imputación de MRR desde el monto del deal | 3.6, 3.13 |
+| master-dataset-assembly | bitácora de excepciones de imputación | 3.6, 3.13, 3.16 |
+| master-dataset-assembly | mes de referencia | 4.1, 4.9 |
+| master-dataset-assembly | cálculo de trend_usage | 4.1, 4.9 |
+| master-dataset-assembly | resguardo contra fuga de datos | 4.1, 4.10 |
+| master-dataset-assembly | canal de adquisición | 4.3, 4.11 |
+| master-dataset-assembly | revenue cerrado | 4.3, 4.11 |
+| coverage-report | cobertura por sistema | 3.8, 3.11, 3.14 |
+| coverage-report | cobertura por nivel de confianza | 3.8, 3.11, 3.14 |
+| coverage-report | tamaño de la cola de revisión manual | 3.11, 3.14 |
+| coverage-report | conteos de cuarentena | 3.11, 3.14 |
+| coverage-report | recalculo desde match_audit | 3.8, 3.11, 3.14 |
+| trend-backtest-harness | reproducción de la comparación de fórmulas | 4.7, 4.12 |
+| trend-backtest-harness | métricas reportadas por fórmula | 4.7, 4.12 |
+| trend-backtest-harness | regresión del momentum ganador en k = 2 | 4.7, 4.12 |
+| trend-backtest-harness | evidencia de fuga de datos en k = 0 | 4.7, 4.12 |
+| build-cli | comando único de construcción | 3.1, 3.3, 3.17 |
+| build-cli | idempotencia byte a byte | 3.15, 3.17 |
+| build-cli | mensajes de error claros | 3.1, 3.17 |
+| build-cli | carpeta de datos configurable | 1.12, 2.2, 2.15, 3.17 |

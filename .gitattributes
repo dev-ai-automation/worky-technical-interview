@@ -1,0 +1,4 @@
+* text=auto eol=lf
+*.zip binary
+*.db binary
+*.html text eol=lf

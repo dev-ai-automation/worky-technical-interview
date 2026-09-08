@@ -1,0 +1,14 @@
+# Herramientas y cachés locales
+.atl/
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+.build/
+*.duckdb
+
+# Datos locales extraídos del zip (se regeneran con la tarea 1.1 del PR 1)
+data/raw/
+
+# El enunciado del caso no se versiona; el dataset sí, porque el build lo necesita
+fundation-docs/*.pdf
