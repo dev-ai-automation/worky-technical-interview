@@ -22,7 +22,7 @@ phases:
   specs: done
   design: done
   tasks: done
-  apply: in_progress (PR 1 y PR 2 revisados y reconocidos; PR 3a implementado, validado y en revision RDD; PR 3b y PR 4 pendientes)
+  apply: in_progress (PR 1 y PR 2 revisados y reconocidos; PR 3a implementado, validado y corregido, commit 20fc647; PR 3b y PR 4 pendientes)
   verify: pending
   archive: pending
 next_recommended: sdd-apply PR 1 (tras aprobacion del usuario; acquire de sdd-attempt antes del lanzamiento)
@@ -40,3 +40,9 @@ review_receipts:
     lineage: review-96d24afad60af846
     lens: review-reliability
     result: approved y acknowledged en primera pasada
+  pr3a:
+    branch: feat/a0-pr3a-assembly
+    commit: 20fc647 (correccion sobre c9ee8c0)
+    lineages: review-eca4cb21ee6acfb0 (correccion solicitada y aplicada; quedo en recover por cambio de alcance del arbol), review-8fb5fa791a5e8147 (revision fresca; captura rechazada 4 veces por payload JSON incompleto del proveedor)
+    result: sin recibo; candidato declinado solo esta vez tras reportar la ocurrencia en https://github.com/Gentleman-Programming/gentle-ai/issues/3942#issuecomment-5582362286; entrega bajo politica ordinaria del repositorio
+    process_note: la correccion (83 lineas) se aplico sin acquire previo en el libro nativo; desviacion registrada, no se fabricaron entradas
