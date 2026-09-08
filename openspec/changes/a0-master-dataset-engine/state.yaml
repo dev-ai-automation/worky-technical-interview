@@ -23,7 +23,7 @@ phases:
   design: done
   tasks: done
   apply: done (PR 1, 2, 3a, 3b, 4a y 4b implementados; motor A0 completo con 35 columnas, 128 pruebas y 8 goldens; pendiente sdd-verify)
-  verify: pending
+  verify: done (PASS: 39/39 requisitos, 55/55 escenarios, 128 pruebas; reporte admitido por sdd-verify-validate; Engram #1781)
   archive: pending
 next_recommended: sdd-verify del cambio completo, luego Judgment Day sobre el motor, sdd-archive y merge apilado a main
 review_receipts:
