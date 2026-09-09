@@ -1,13 +1,12 @@
-"""Idempotencia byte a byte de `health_scores.csv`, marca `dataset`.
+"""Idempotencia byte a byte de `health_scores.csv` y `validation.md`, marca `dataset`.
 
 Corre `python -m worky_engine health` dos veces en carpetas temporales
-distintas y compara la salida entre si y contra la copia commiteada en
-`outputs/health/`, y verifica que el hash de los ocho archivos de
-`outputs/` (A0) y de los ocho de `outputs/analysis/` (A1), incluido
-`backtest_report.md`, es el mismo antes y despues de correr `health`
-(requirement "comando health sin build previo", escenario "goldens de
-A0 y A1 sin cambio"). `validation.md` se agrega a esta comparacion en
-el PR 3 (tarea 3.5).
+distintas y compara las dos salidas entre si y contra la copia
+commiteada en `outputs/health/`, y verifica que el hash de los ocho
+archivos de `outputs/` (A0) y de los ocho de `outputs/analysis/` (A1),
+incluido `backtest_report.md`, es el mismo antes y despues de correr
+`health` (requirement "comando health sin build previo", escenario
+"goldens de A0 y A1 sin cambio").
 """
 
 from __future__ import annotations
@@ -64,12 +63,13 @@ def test_dos_corridas_de_health_son_identicas_entre_si_y_contra_el_golden(data_d
     _run_health(data_dir, first_dir, tmp_path / "first.duckdb")
     _run_health(data_dir, second_dir, tmp_path / "second.duckdb")
 
-    first_bytes = (first_dir / "health_scores.csv").read_bytes()
-    second_bytes = (second_dir / "health_scores.csv").read_bytes()
-    assert first_bytes == second_bytes
+    for file_name in ("health_scores.csv", "validation.md"):
+        first_bytes = (first_dir / file_name).read_bytes()
+        second_bytes = (second_dir / file_name).read_bytes()
+        assert first_bytes == second_bytes, f"{file_name}: las dos corridas no son identicas"
 
-    golden_bytes = (GOLDEN_DIR / "health_scores.csv").read_bytes()
-    assert first_bytes == golden_bytes
+        golden_bytes = (GOLDEN_DIR / file_name).read_bytes()
+        assert first_bytes == golden_bytes, f"{file_name}: no coincide con el golden commiteado"
 
     assert _hash_files(A0_OUTPUTS_DIR, A0_OUTPUT_NAMES) == hashes_a0_before
     assert _hash_files(A1_OUTPUTS_DIR, A1_OUTPUT_NAMES) == hashes_a1_before

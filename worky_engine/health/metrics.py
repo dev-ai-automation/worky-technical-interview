@@ -183,6 +183,74 @@ def sensitivity_summary(scores: pd.DataFrame) -> dict[str, float]:
     return {"auc": auc_by_signal(scores, ["health_score"])["health_score"], **precision_recall(scores, "flagged_20")}
 
 
+# Pesos iguales para la sensibilidad "pesos iguales" (seccion 6 del
+# diseno, tabla de metricas.py): mismos cuatro subpuntajes ya
+# normalizados de la corrida principal, con 0.25 cada uno en vez de
+# los pesos del ADR-005.
+EQUAL_WEIGHTS: dict[str, float] = {"momentum": 0.25, "mom": 0.25, "drawdown": 0.25, "tenure": 0.25}
+
+
+def _recompute_weighted_score(scores: pd.DataFrame, weights: dict[str, float]) -> pd.Series:
+    """Recalcula la suma ponderada con otro juego de pesos sobre los cuatro subpuntajes ya normalizados."""
+    has_history = scores["score_momentum"].notna()
+    total = (
+        scores["score_momentum"] * weights["momentum"]
+        + scores["score_mom"] * weights["mom"]
+        + scores["score_drawdown"] * weights["drawdown"]
+        + scores["score_tenure"] * weights["tenure"]
+    ).round(2)
+    return total.where(has_history)
+
+
+def equal_weights_sensitivity(scores: pd.DataFrame, rate: float = 0.20) -> dict[str, float]:
+    """Sensibilidad de pesos iguales (0.25 cada subpuntaje), mismo umbral del libro activo que D16.
+
+    Recalcula el score de la corrida principal con `EQUAL_WEIGHTS` en
+    vez de `WEIGHTS`, y marca con el mismo criterio de la seccion 5 del
+    diseno: el umbral sale del percentil de la tasa sobre las empresas
+    activas con score definido, aplicado por igual a activas y a bajas.
+    """
+    churned = _churned_mask(scores)
+    alt_score = _recompute_weighted_score(scores, EQUAL_WEIGHTS)
+    active_book = alt_score[(~churned) & alt_score.notna()]
+    if active_book.empty:
+        return {"auc": float("nan"), "recall": float("nan"), "flagged": 0}
+    threshold = active_book.quantile(rate, interpolation="lower")
+    flagged = alt_score.notna() & (alt_score <= threshold)
+    denominator = int(churned.sum())
+    detected = int((churned & flagged).sum())
+    return {
+        "auc": harness_auc(alt_score[churned], alt_score[~churned]),
+        "recall": (detected / denominator) if denominator else float("nan"),
+        "flagged": int(flagged.sum()),
+    }
+
+
+def harness_convention_sensitivity(scores: pd.DataFrame, rate: float = 0.20) -> dict[str, float]:
+    """Sensibilidad con la convencion del harness (D16, rechazada como regla principal): umbral sobre la poblacion completa.
+
+    Usa el mismo `health_score` de la corrida principal (pesos del
+    ADR-005), pero el umbral de marcado sale del percentil de la tasa
+    sobre bajas y activas juntas, en vez de solo el libro activo: es la
+    convencion que ya usa `measurements.md`, publicada aqui solo para
+    poder comparar los dos numeros lado a lado.
+    """
+    score_values = pd.to_numeric(scores["health_score"], errors="coerce")
+    defined = score_values.dropna()
+    if defined.empty:
+        return {"auc": float("nan"), "recall": float("nan"), "flagged": 0}
+    threshold = defined.quantile(rate, interpolation="lower")
+    flagged = score_values.notna() & (score_values <= threshold)
+    churned = _churned_mask(scores)
+    denominator = int(churned.sum())
+    detected = int((churned & flagged).sum())
+    return {
+        "auc": auc_by_signal(scores, ["health_score"])["health_score"],
+        "recall": (detected / denominator) if denominator else float("nan"),
+        "flagged": int(flagged.sum()),
+    }
+
+
 def acceptance_check(scores: pd.DataFrame, auc_threshold: float = 0.95, recall_threshold: float = 0.85) -> dict:
     """Regla de aceptacion restablecida en la Adenda 1 del ADR-005 (D18): AUC >= 0.95 y recall_detectable >= 0.85 al 20 %.
 

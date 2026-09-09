@@ -33,6 +33,12 @@ Requiere Python 3.12 o superior. El dataset del caso (`fundation-docs/dataset_ca
    python -m worky_engine analyze --data-dir fundation-docs --out-dir outputs/analysis
    ```
 
+5. Corre el health score de A3 y su validación medida (ADR-005), sin haber corrido `build` antes:
+
+   ```bash
+   python -m worky_engine health --data-dir fundation-docs --out-dir outputs/health
+   ```
+
 ## Qué produce
 
 | Archivo en `outputs/` | Qué es |
@@ -46,6 +52,8 @@ Requiere Python 3.12 o superior. El dataset del caso (`fundation-docs/dataset_ca
 | `coverage_report.md` | Qué porcentaje de cada sistema se reconcilió y con qué confianza |
 | `backtest_report.md` | Cómo se eligió la fórmula de tendencia de uso, medida contra el churn real |
 | `analysis/report.md` | Las siete respuestas de A1 sobre la sábana, cada una con su definición del ADR-004, el SQL y el resultado |
+| `health/health_scores.csv` | 650 empresas, el health score de A3 con sus cuatro subpuntajes, la banda de riesgo y las tres marcas por tasa de capacidad (ADR-005) |
+| `health/validation.md` | La validación medida del health score contra `churn_date`: AUC por señal, precisión, recall, recall ponderado por MRR, sensibilidades y la respuesta a A3.4 |
 
 ## Dónde está cada cosa
 

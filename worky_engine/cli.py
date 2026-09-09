@@ -1,4 +1,4 @@
-"""Interfaz de linea de comandos del motor: `build`, `resolve`, `backtest` y `analyze`.
+"""Interfaz de linea de comandos del motor: `build`, `resolve`, `backtest`, `analyze` y `health`.
 
 `backtest` (PR 4b, seccion 5.3 del diseno) corre aparte de `build`: no
 depende de `master_dataset.csv` ni de DuckDB, asi que puede reproducirse
@@ -94,15 +94,16 @@ def _import_analyze_dependencies():
 
 
 def _import_health_dependencies():
-    """Importa las piezas de `health` en el primer uso: DuckDB, el corredor de A3 y sus contratos."""
+    """Importa las piezas de `health` en el primer uso: DuckDB, el corredor de A3, `report.py` y sus contratos."""
     try:
+        from worky_engine.health.report import format_validation
         from worky_engine.health.runner import run_health
         from worky_engine.identity_resolution import resolve_identity
         from worky_engine.master_dataset import assemble_master_dataset, open_connection
         from worky_engine.quality.health_contracts import run_health_contracts
     except ImportError as error:
         _exit_missing_dependency(error)
-    return resolve_identity, assemble_master_dataset, open_connection, run_health, run_health_contracts
+    return resolve_identity, assemble_master_dataset, open_connection, run_health, run_health_contracts, format_validation
 
 
 def _reconfigure_streams_to_utf8() -> None:
@@ -316,14 +317,18 @@ def cmd_health(args: argparse.Namespace) -> int:
     Mismo orden que `cmd_analyze`: importacion diferida, `_resolve_data_dir`,
     `load_raw_tables`, `resolve_identity` en memoria, `open_connection`
     propio, `assemble_master_dataset`, `run_contracts` de A0 sobre el
-    dataset recien ensamblado, `run_health`, `run_health_contracts` y
-    `write_csv`. En este PR solo escribe `health_scores.csv`:
-    `validation.md` llega en el PR 3 con `report.py`, el mismo patron
-    incremental que ya siguio `cmd_analyze` en A1 (brecha documentada
-    en tasks.md). Mismos codigos de salida que `build` y `analyze`.
+    dataset recien ensamblado, `run_health`, `run_health_contracts`,
+    `write_csv` y `write_markdown`. Escribe `health_scores.csv` y
+    `validation.md` en `--out-dir`. Mismos codigos de salida que
+    `build` y `analyze`.
     """
     (
-        resolve_identity, assemble_master_dataset, open_connection, run_health, run_health_contracts,
+        resolve_identity,
+        assemble_master_dataset,
+        open_connection,
+        run_health,
+        run_health_contracts,
+        format_validation,
     ) = _import_health_dependencies()
     data_dir = _resolve_data_dir(Path(args.data_dir))
     out_dir = Path(args.out_dir)
@@ -358,11 +363,9 @@ def cmd_health(args: argparse.Namespace) -> int:
         con.close()
 
     write_csv(result.formatted, out_dir / "health_scores.csv")
+    write_markdown(format_validation(result), out_dir / "validation.md")
 
-    print(
-        f"health: {len(result.formatted)} empresas puntuadas, health_scores.csv en {out_dir} "
-        "(validation.md llega en el PR 3)"
-    )
+    print(f"health: {len(result.formatted)} empresas puntuadas en {out_dir}")
     return 0
 
 
@@ -413,7 +416,8 @@ def build_parser() -> argparse.ArgumentParser:
     analyze_subparser.set_defaults(func=cmd_analyze)
 
     health_subparser = subparsers.add_parser(
-        "health", help="Corre el health score de A3 (ADR-005) y escribe health_scores.csv, sin build previo."
+        "health",
+        help="Corre el health score de A3 (ADR-005) y escribe health_scores.csv y validation.md, sin build previo.",
     )
     health_subparser.add_argument("--data-dir", required=True)
     health_subparser.add_argument("--out-dir", default=str(DEFAULT_HEALTH_OUT_DIR))

@@ -58,12 +58,28 @@ _TEXT_NUMERIC_COLUMNS = ("score_momentum", "score_mom", "score_drawdown", "score
 
 @dataclass(frozen=True)
 class HealthResult:
-    """Scores de la corrida principal (numericos y ya formateados a texto), sensibilidades y SQL leido."""
+    """Scores de la corrida principal (numericos y ya formateados a texto), sensibilidades y SQL leido.
+
+    `dataset_asof` y `ruleset_version` se agregan en el PR 3 (extension
+    menor sobre el diseno, mismo patron que `AnalysisResult` de A1):
+    `report.py` no abre conexion ni lee archivos (D13), y necesita los
+    dos valores para el encabezado de `validation.md`.
+    """
 
     scores: pd.DataFrame
     formatted: pd.DataFrame
     sensitivities: dict[str, pd.DataFrame]
     sql_text: dict[str, str]
+    dataset_asof: str
+    ruleset_version: str
+
+
+def _dataset_metadata(con: duckdb.DuckDBPyConnection) -> tuple[str, str]:
+    """Lee `dataset_asof` y `ruleset_version` de `mart_master_dataset`, mismo patron que `analysis/runner.py`."""
+    row = con.execute("SELECT dataset_asof, ruleset_version FROM mart_master_dataset LIMIT 1").fetchone()
+    if row is None:
+        raise RuntimeError("health: mart_master_dataset no tiene filas, no se puede fechar validation.md")
+    return str(row[0]), str(row[1])
 
 
 def _run_once(con: duckdb.DuckDBPyConnection, k_months: int, active_offset: int) -> pd.DataFrame:
@@ -103,4 +119,12 @@ def run_health(con: duckdb.DuckDBPyConnection) -> HealthResult:
     primary = _order_rows(runs["primaria"])
     formatted = _format_for_csv(primary)
     sensitivities = {label: runs[label] for label in ("k3", "literal")}
-    return HealthResult(scores=primary, formatted=formatted, sensitivities=sensitivities, sql_text=sql_text)
+    dataset_asof, ruleset_version = _dataset_metadata(con)
+    return HealthResult(
+        scores=primary,
+        formatted=formatted,
+        sensitivities=sensitivities,
+        sql_text=sql_text,
+        dataset_asof=dataset_asof,
+        ruleset_version=ruleset_version,
+    )
