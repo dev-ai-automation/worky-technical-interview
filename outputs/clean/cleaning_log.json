@@ -20,7 +20,8 @@
       "annualized_deals": 3,
       "not_numeric": 0,
       "ambiguous": 0,
-      "unresolved": 0
+      "unresolved": 0,
+      "deal_amount_not_numeric": 0
     },
     {
       "rule": "currency_to_mxn",

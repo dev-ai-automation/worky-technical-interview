@@ -131,6 +131,8 @@ def _build_counts(
     mrr_not_numeric = _count(corrections, "mrr_not_numeric")
     mrr_detected = mrr_excluded_clones + mrr_corrected + mrr_pending
     mrr_annualized = _count(corrections, "mrr_deal_annualized")
+    # reporte por deal, no correccion: no cuenta en total_corrections.
+    deal_amount_not_numeric = _count(corrections, "deal_amount_not_numeric")
 
     deals_in = len(deals)
     deals_matched = int(deals["hubspot_id"].isin(clean["hubspot_id"]).sum()) if deals_in else 0
@@ -158,6 +160,7 @@ def _build_counts(
                 "not_numeric": mrr_not_numeric,
                 "ambiguous": 0,
                 "unresolved": mrr_unresolved,
+                "deal_amount_not_numeric": deal_amount_not_numeric,
             },
             {
                 "rule": "currency_to_mxn",
@@ -240,7 +243,8 @@ def format_cleaning_log(counts: dict) -> str:
         [
             "",
             f"Clones excluidos de la imputacion (ADR-001): {missing_mrr['excluded_clones']}. "
-            f"Deals anualizados (ADR-002, adenda 1): {missing_mrr['annualized_deals']}.",
+            f"Deals anualizados (ADR-002, adenda 1): {missing_mrr['annualized_deals']}. "
+            f"Deals con monto no numerico: {missing_mrr['deal_amount_not_numeric']}.",
             "",
             f"Total de correcciones: {totals['corrections']}. "
             f"Filas en `cleaning_exceptions.csv`: {totals['exception_rows']}.",

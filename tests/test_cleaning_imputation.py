@@ -123,6 +123,39 @@ def test_anualizacion_contada_como_correccion_propia() -> None:
     assert annualized.iloc[0]["evidence_ref"] == "HS-200005"
 
 
+def test_deal_con_monto_vacio_se_reporta_y_no_aborta_la_imputacion() -> None:
+    """Un deal con amount vacio se salta y se reporta; la empresa igual se imputa con el deal valido restante."""
+    companies = pd.DataFrame([_company("HS-200006", mrr="")], columns=COMPANIES_COLUMNS)
+    deals = pd.DataFrame(
+        [
+            _deal("D90008", "HS-200006", "closedwon", "3000"),
+            _deal("D90009", "HS-200006", "qualifiedtobuy", ""),
+        ],
+        columns=DEALS_COLUMNS,
+    )
+    result = run_clean(companies, deals)
+    row = result.clean.iloc[0]
+    assert row["mrr_mxn"] == "3000.00"
+    assert row["mrr_source"] == "imputed_from_deal"
+    bad_deal = result.exceptions[result.exceptions["source_id"] == "D90009"].iloc[0]
+    assert bad_deal["exception_code"] == "deal_amount_not_numeric"
+    assert bad_deal["original_value"] == ""
+    assert bad_deal["evidence_ref"] == "HS-200006"
+
+
+def test_unico_deal_con_monto_no_numerico_queda_sin_resolver() -> None:
+    """Una empresa cuyo unico deal trae un monto no numerico queda unresolved, reporta el deal y no revienta."""
+    companies = pd.DataFrame([_company("HS-200007", mrr="")], columns=COMPANIES_COLUMNS)
+    deals = pd.DataFrame([_deal("D90010", "HS-200007", "qualifiedtobuy", "abc")], columns=DEALS_COLUMNS)
+    result = run_clean(companies, deals)
+    row = result.clean.iloc[0]
+    assert row["mrr_mxn"] == ""
+    assert row["mrr_source"] == "unresolved"
+    bad_deal = result.exceptions[result.exceptions["source_id"] == "D90010"].iloc[0]
+    assert bad_deal["exception_code"] == "deal_amount_not_numeric"
+    assert (result.exceptions["exception_code"] == "mrr_unresolved").sum() == 1
+
+
 def test_clon_no_se_toca_por_impute() -> None:
     """`impute_mrr_from_deals` nunca procesa una fila `clone_excluded`, incluso si un deal apunta a ese hubspot_id."""
     companies = pd.DataFrame(

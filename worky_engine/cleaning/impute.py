@@ -29,6 +29,11 @@ def impute_mrr_from_deals(companies: pd.DataFrame, deals: pd.DataFrame) -> tuple
     deal `closedwon` y `medium` en cualquier otro caso. Una empresa sin
     deals o con montos que no convergen a un unico valor queda
     `unresolved` y se reporta en cada corrida (reporte, no correccion).
+
+    Un deal con `amount` vacio o no numerico se salta y se reporta como
+    `deal_amount_not_numeric` (reporte, nunca correccion); la empresa
+    se imputa igual con sus deals restantes, o queda `unresolved` si
+    ninguno trae un monto numerico.
     """
     result = companies.copy()
     corrections: list[Correction] = []
@@ -53,10 +58,37 @@ def impute_mrr_from_deals(companies: pd.DataFrame, deals: pd.DataFrame) -> tuple
             )
             continue
 
-        amounts_mxn = {
-            deal_id: round(to_mxn(float(amount), currency).mxn, 2)
-            for deal_id, amount in zip(company_deals["deal_id"], company_deals["amount"])
-        }
+        amounts_mxn: dict[str, float] = {}
+        for deal_id, amount in zip(company_deals["deal_id"], company_deals["amount"]):
+            try:
+                amounts_mxn[deal_id] = round(to_mxn(float(amount), currency).mxn, 2)
+            except ValueError:
+                corrections.append(
+                    Correction(
+                        exception_code="deal_amount_not_numeric",
+                        source_system="crm_hubspot",
+                        source_id=deal_id,
+                        field_name="amount",
+                        original_value=amount,
+                        applied_value="",
+                        evidence_ref=hubspot_id,
+                    )
+                )
+
+        if not amounts_mxn:
+            corrections.append(
+                Correction(
+                    exception_code="mrr_unresolved",
+                    source_system="crm_hubspot",
+                    source_id=hubspot_id,
+                    field_name="mrr_mxn",
+                    original_value="",
+                    applied_value="",
+                    evidence_ref="sin deals numericos",
+                )
+            )
+            continue
+
         min_amount = min(amounts_mxn.values())
         normalized = {}
         annualized_deal_ids = []
@@ -82,7 +114,8 @@ def impute_mrr_from_deals(companies: pd.DataFrame, deals: pd.DataFrame) -> tuple
             continue
 
         candidate_mrr = min_amount
-        has_closedwon = (company_deals["stage"] == "closedwon").any()
+        valid_deals = company_deals[company_deals["deal_id"].isin(amounts_mxn)]
+        has_closedwon = (valid_deals["stage"] == "closedwon").any()
         confidence = "high" if has_closedwon else "medium"
         evidence_deal_id = min(normalized, key=lambda deal_id: (amounts_mxn[deal_id] != candidate_mrr, deal_id))
 

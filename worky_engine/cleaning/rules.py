@@ -216,7 +216,9 @@ def detect_missing_mrr(companies: pd.DataFrame) -> tuple[pd.DataFrame, list[Corr
     correccion") se preserva tal cual, con su `mrr_confidence`
     original: en esa fila `mrr` ya no esta vacio, y sin esta guarda
     quedaria reclasificada como `crm`, perdiendo la procedencia de la
-    imputacion en cada corrida siguiente.
+    imputacion en cada corrida siguiente. Si ese frame trae
+    `mrr_source` pero no `mrr_confidence` (columna ausente), se usa el
+    mismo `'none'` por omision en vez de leerla y reventar.
     """
     result = companies.copy()
     previous_source = companies["mrr_source"] if "mrr_source" in companies.columns else None
@@ -228,7 +230,9 @@ def detect_missing_mrr(companies: pd.DataFrame) -> tuple[pd.DataFrame, list[Corr
         hubspot_id = row["hubspot_id"]
         if previous_source is not None and previous_source.at[index] == "imputed_from_deal":
             result.at[index, "mrr_source"] = "imputed_from_deal"
-            result.at[index, "mrr_confidence"] = previous_confidence.at[index]
+            result.at[index, "mrr_confidence"] = (
+                previous_confidence.at[index] if previous_confidence is not None else "none"
+            )
             continue
         # `row.get` porque una llamada aislada a esta funcion (fuera de
         # `run_clean`) puede no traer todavia la columna `mrr_mxn` de

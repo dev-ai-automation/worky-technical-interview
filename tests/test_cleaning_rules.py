@@ -244,6 +244,18 @@ def test_detect_missing_mrr_deja_las_filas_con_valor_como_crm() -> None:
     assert corrections == []
 
 
+def test_detect_missing_mrr_sin_mrr_confidence_previa_no_revienta() -> None:
+    """Un frame con mrr_source de una corrida previa pero sin la columna mrr_confidence no revienta (R2-01)."""
+    companies = pd.DataFrame(
+        [_company("HS-100012", mrr="4000", mrr_source="imputed_from_deal")],
+        columns=list(COMPANIES_COLUMNS) + ["mrr_source"],
+    )
+    result, corrections = detect_missing_mrr(companies)
+    assert result.at[0, "mrr_source"] == "imputed_from_deal"
+    assert result.at[0, "mrr_confidence"] == "none"
+    assert corrections == []
+
+
 def test_convert_currency_no_revienta_con_moneda_no_soportada() -> None:
     """Una moneda fuera de {USD, MXN} no revienta la corrida: la fila queda intacta y sale como currency_unsupported."""
     companies = pd.DataFrame([_company("HS-100007", mrr="100", currency="EUR")], columns=COMPANIES_COLUMNS)
