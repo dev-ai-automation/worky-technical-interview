@@ -116,13 +116,13 @@ Una cuenta con menos de 3 meses de uso hasta su mes de corte MUST recibir `risk_
 
 ### Requirement: tasas de marcado por capacidad de CSM
 
-El comando MUST marcar `flagged_10`, `flagged_15` y `flagged_20` como el top 10 %, 15 % y 20 % por `health_score` entre las cuentas activas con score definido, MUST reportar además un corte fijo de referencia, y MUST documentar el 15 % como umbral operativo (81 cuentas, unas 12 por cada uno de los 7 CSM). `risk_band` MUST tomar solo los valores "sin historia", "riesgo alto" (el 15 % marcado), "riesgo medio" (el siguiente 15 % del libro activo) y "riesgo bajo".
+El comando MUST marcar `flagged_10`, `flagged_15` y `flagged_20` como el top 10 %, 15 % y 20 % por `health_score` entre las cuentas activas con score definido, MUST reportar además un corte fijo de referencia, y MUST documentar el 15 % como umbral operativo (78 cuentas del libro activo con score en el caso, unas 11 por cada uno de los 7 CSM). `risk_band` MUST tomar solo los valores "sin historia", "riesgo alto" (el 15 % marcado), "riesgo medio" (el siguiente 15 % del libro activo) y "riesgo bajo".
 
-#### Scenario: 81 cuentas marcadas al 15 %
+#### Scenario: 78 cuentas marcadas al 15 %
 
 - Dado las cuentas activas con `health_score` definido
 - Cuando el comando marca el 15 % con peor score
-- Entonces el resultado marca 81 cuentas, documentadas como unas 12 por CSM
+- Entonces el resultado marca 78 cuentas del libro activo con score, documentadas como unas 11 por CSM
 
 #### Scenario: corte fijo reportado aparte
 
@@ -154,7 +154,7 @@ El comando MUST marcar `flagged_10`, `flagged_15` y `flagged_20` como el top 10 
 
 ### Requirement: aceptación del harness sobre los pesos del ADR-005
 
-El comando MUST verificar, sobre el dataset del caso, si el score con los pesos 0.35 / 0.20 / 0.15 / 0.30 alcanza AUC de al menos 0.95 y recall de al menos 0.85 al 20 % de marcado. Si no los alcanza, `validation.md` MUST reportarlo y el resultado MUST recomendar adoptar la mezcla medida (uso 70 %, antigüedad 15 %, activación 15 %) como adenda al ADR-005.
+El comando MUST verificar, sobre el dataset del caso, si el score con los pesos 0.35 / 0.20 / 0.15 / 0.30 alcanza AUC de al menos 0.95 y recall de al menos 0.85 al 20 % de marcado entre las cuentas con baja detectables (las que tienen score); el recall total sobre las 89 bajas MUST reportarse al lado con su techo estructural (67 de 89 en el caso, porque 22 caen en "sin historia"). Si no los alcanza, `validation.md` MUST reportarlo y el resultado MUST recomendar adoptar la mezcla medida (uso 70 %, antigüedad 15 %, activación 15 %) como adenda al ADR-005.
 
 #### Scenario: los pesos por juicio pasan el harness
 
@@ -190,7 +190,7 @@ El comando MUST verificar, sobre el dataset del caso, si el score con los pesos 
 
 ### Requirement: pruebas por regla y sobre el dataset real
 
-Cada regla del ADR-005 (exclusión por mes de corte, normalización percentil, banda "sin historia", suma ponderada, tasas de marcado) MUST tener una prueba sobre un fixture mínimo, y las cifras fijadas por el dataset real MUST tener una prueba marcada `dataset` que fije 89 cuentas con baja, 10 no detectables en k = 2, 81 cuentas marcadas al 15 %, y que el harness cumple los umbrales de AUC y recall al 20 % o que la adenda queda documentada.
+Cada regla del ADR-005 (exclusión por mes de corte, normalización percentil, banda "sin historia", suma ponderada, tasas de marcado) MUST tener una prueba sobre un fixture mínimo, y las cifras fijadas por el dataset real MUST tener una prueba marcada `dataset` que fije 89 cuentas con baja, 22 no detectables en k = 2, 78 cuentas marcadas al 15 % del libro activo, y que el harness cumple los umbrales de AUC y recall entre las detectables al 20 %.
 
 #### Scenario: prueba de fixture por regla
 
@@ -202,4 +202,4 @@ Cada regla del ADR-005 (exclusión por mes de corte, normalización percentil, b
 
 - Dado el dataset real y la marca `dataset` de pytest
 - Cuando la prueba corre `health` sobre ese dataset
-- Entonces compara el resultado contra 89 cuentas con baja, 10 no detectables en k = 2 y 81 cuentas marcadas al 15 %
+- Entonces compara el resultado contra 89 cuentas con baja, 22 no detectables en k = 2 (4 sin ningún mes de uso) y 78 cuentas marcadas al 15 % del libro activo con score (518 cuentas)

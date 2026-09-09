@@ -1,4 +1,4 @@
-# Progreso de aplicacion: `a3-health-score`, PR 1
+# Progreso de aplicacion: `a3-health-score`, PR 1 y PR 2
 
 ## Hecho
 
@@ -57,6 +57,75 @@ tests/test_analysis_report.py   (preexistente de A1, cadena literal de una aserc
 - Autoria total (`git diff --numstat`, suma de adiciones + eliminaciones): 798 lineas, bajo el presupuesto de 800.
 - No hay goldens generados en este PR (empiezan en `outputs/health/` a partir del PR 2).
 
-## Estado
+## Estado (PR 1)
 
-12/12 tareas de PR 1 completas. Listo para `sdd-verify`.
+12/12 tareas de PR 1 completas.
+
+---
+
+# Progreso de aplicacion: PR 2
+
+## Hecho
+
+Tareas 2.1 a 2.8 completas y marcadas `[x]` en `tasks.md`.
+
+- `worky_engine/health/runner.py` (106 lineas): `HEALTH_FILES`, `SENSITIVITY_RUNS` (primaria k=2/2, k3 3/3, literal 2/0), `_run_once` crea `health_params` con parametros y corre `HEALTH_FILES`, `_order_rows` ordena `health_score` ascendente con vacios al final y `master_id` de desempate (`mergesort`), `_format_for_csv` selecciona las 22 columnas de salida y formatea los subpuntajes a texto de 2 decimales con `writers.format_money`. `run_health(con)` regresa `HealthResult` (scores numericos, formato CSV, sensibilidades k3/literal, texto SQL).
+- `worky_engine/health/metrics.py` (179 lineas): `auc_by_signal` (usa el alias `worky_engine.harness.auc`, con inversion de direccion para las senales "mas alto es riesgo" como tickets), `precision_recall`, `mrr_weighted_recall`, `rate_metrics` (10/15/20 %), `confusion_matrix_15`, `fixed_cut_metrics` (score < 40), `capacity_by_csm` (7 CSM), `early_detection_k3`, `sensitivity_summary`, `acceptance_check` (AUC >= 0.95, recall >= 0.85 al 20 %, D18).
+- `worky_engine/quality/health_contracts.py` (+62/-5 lineas): tres contratos nuevos (`assert_health_asof_before_reference`, `assert_health_recall_denominator`, `assert_health_row_order` sobre el archivo ya formateado a texto con `pd.to_numeric` como guarda de CAST) y `run_health_contracts` que corre los doce contratos en orden fijo. `assert_health_score_matches_weights` se actualizo para incluir el termino de `activation_score` (ver desviaciones).
+- `worky_engine/cli.py` (+78 lineas): `cmd_health` (mismo orden que `cmd_analyze`: importacion diferida, `_resolve_data_dir`, `load_raw_tables`, `resolve_identity` en memoria, `open_connection` propio, `assemble_master_dataset`, `run_contracts` de A0, `run_health`, `run_health_contracts`, `write_csv`) y su parser (`--data-dir`, `--out-dir` por omision `outputs/health`, `--db-path` por omision `.build/worky_health.duckdb`). Solo escribe `health_scores.csv` en este PR; `validation.md` llega en el PR 3.
+- `worky_engine/health/__init__.py` (+6/-1 lineas): expone `HealthResult` y `run_health`.
+- `worky_engine/health/scoring.py`: `WEIGHTS` con los cuatro pesos originales del ADR-005 (momentum 0.35 / mom 0.20 / caida 0.15 / antiguedad 0.30) y `_weighted_sum` con la suma de cuatro terminos (ver "Decision del usuario" abajo).
+- `tests/test_health_dataset_numbers.py` (5 pruebas, marca `dataset`): 650 filas, 89 bajas, 22 no detectables en k=2, 78 marcadas al 15 % sobre el libro activo de 518, metricas al 10/15/20 % con los pesos originales, deteccion temprana en k=3, regla de aceptacion restablecida sobre el recall detectable (alcanzada).
+- `tests/test_health_idempotency.py` (marca `dataset`, 1 prueba): dos corridas de `health` en carpetas temporales distintas, `health_scores.csv` identico byte a byte entre si y contra el golden commiteado, hash de los ocho archivos de A0 y los ocho de A1 (incluido `backtest_report.md`) sin cambio.
+- `tests/test_health_rules.py`: revertido a la version de PR 1 (cuatro pesos, sin `activation_raw` en los fixtures sinteticos), porque `WEIGHTS` ya no tiene termino de activacion.
+- `worky_engine/quality/health_contracts.py`: `assert_health_score_matches_weights` revertido a la formula de cuatro terminos.
+- `worky_engine/health/metrics.py`: `precision_recall` agrega `recall_detectable` (denominador = bajas con `health_score`) y `undetectable` junto al recall general; `acceptance_check` decide sobre `recall_detectable_20`.
+- `docs/decisions/ADR-005-health-score-model.md`: "Adenda 1" reescrita (ver "Decision del usuario" abajo).
+- `outputs/health/health_scores.csv` (650 filas + encabezado, generado, fuera del conteo de autoria): golden de la corrida principal, regenerado con los pesos originales.
+
+## Decision del usuario (post PR 2, revierte la tarea 2.6)
+
+La tarea 2.6 habia cambiado `WEIGHTS` a la mezcla medida (uso 70 %, antiguedad 15 %, activacion 15 %) siguiendo al pie de la letra la redaccion original de D18. Al revisar el resultado, el usuario decidio: (1) mantener la banda "sin historia" tal cual, (2) revertir `WEIGHTS` a los pesos originales del ADR-005, porque la mezcla medida no mejoraba el recall (se quedaba en el mismo 0.753) y si bajaba el AUC (0.992 contra 0.997), (3) restablecer la regla de aceptacion como AUC >= 0.95 y recall entre las bajas detectables >= 0.85 al 20 % (en vez de sobre el recall general), que con los pesos originales si se cumple (AUC 0.997, recall detectable 1.000), (4) seguir reportando el recall general con su techo estructural de 22 no detectables como hallazgo de onboarding para la Parte B, y (5) corregir la cifra "10 de 89" de la ruta rapida del ADR-005 (era el conteo de bajas con cero meses de uso, no el de bajas sin historia suficiente; el conteo correcto es 22 de 89, de las cuales 4 no tienen ningun mes de uso). La Adenda 1 del ADR-005 quedo reescrita con esta decision completa. Las tareas de PR 2 en `tasks.md` se mantienen marcadas `[x]`; la tarea 2.6 documenta esta decision en su propia nota.
+
+## Verificacion (verbatim, con los pesos originales del ADR-005)
+
+```
+$ python -m worky_engine health --data-dir data/raw/sistemas --out-dir outputs/health
+health: 650 empresas puntuadas, health_scores.csv en outputs\health (validation.md llega en el PR 3)
+$ sha256sum outputs/health/health_scores.csv
+7b56e0478bf19ed4dd4ec3e069c891a62e52f88a5780b502f318208a7c332bda outputs/health/health_scores.csv
+
+$ python -m worky_engine health --data-dir data/raw/sistemas --out-dir outputs/health
+health: 650 empresas puntuadas, health_scores.csv en outputs\health (validation.md llega en el PR 3)
+$ sha256sum outputs/health/health_scores.csv
+7b56e0478bf19ed4dd4ec3e069c891a62e52f88a5780b502f318208a7c332bda outputs/health/health_scores.csv
+(identico entre las dos corridas)
+
+$ python -m pytest -q
+199 passed in 105.22s
+
+$ git status --short outputs
+?? outputs/health/
+(sin cambios en los goldens de A0 ni A1)
+```
+
+## Metricas medidas (corrida principal, pesos originales del ADR-005)
+
+| Tasa | Marcadas (total) | Marcadas (libro activo, 518) | Precision | Recall general | Recall detectable | Recall ponderado por MRR |
+|---|---|---|---|---|---|---|
+| 10 % | 119 | 52 | 0.563 | 0.753 | 1.000 | 0.608 |
+| 15 % | 145 | 78 | 0.462 | 0.753 | 1.000 | 0.608 |
+| 20 % | 171 | 104 | 0.392 | 0.753 | 1.000 | 0.608 |
+
+AUC del `health_score`: 0.997. No detectables: 22 de 89 (4 con cero meses de uso, 6 con uno, 12 con dos). Deteccion temprana en k=3: 52 de 56 elegibles (0.929). Regla de aceptacion (AUC >= 0.95, recall detectable >= 0.85 al 20 %): alcanzada.
+
+## Presupuesto de revision
+
+- Archivos modificados (`git diff --numstat`, adiciones + eliminaciones): `worky_engine/cli.py` 78, `worky_engine/health/__init__.py` 7, `worky_engine/health/scoring.py` 26, `worky_engine/quality/health_contracts.py` 66. Subtotal: 177. `tests/test_health_rules.py` volvio a la version commiteada de PR 1 (sin diferencia).
+- Archivos nuevos (`wc -l`): `tests/test_health_dataset_numbers.py` 144, `tests/test_health_idempotency.py` 75, `worky_engine/health/metrics.py` 207, `worky_engine/health/runner.py` 106. Subtotal: 532.
+- Total de autoria: 709 lineas, bajo el presupuesto de 800.
+- `outputs/health/health_scores.csv` (651 lineas con encabezado) queda fuera del conteo de autoria, como golden generado.
+
+## Estado (PR 2)
+
+8/8 tareas de PR 2 completas. Listo para `sdd-verify`.
