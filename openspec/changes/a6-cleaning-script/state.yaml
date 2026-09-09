@@ -21,9 +21,9 @@ inputs:
 phases:
   explore: done (el sub-agente no pudo guardar en Engram por ambiguedad de sesion; el orquestador materializo exploration.md, guardo el topic con la sesion manual y verifico las cifras contra los CSV reales)
   research: not_selected (el usuario eligio todas las recomendaciones el 2026-09-09)
-  proposal: in_progress (decisiones confirmadas, preproposal.yaml revision 2; modo automatico)
-  specs: blocked
-  design: blocked
+  proposal: done (gate inline del orquestador: capacidad nueva declarada, sin modificadas, cifras verificadas)
+  specs: in_progress
+  design: in_progress
   tasks: blocked
   apply: blocked
   verify: blocked
