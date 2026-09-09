@@ -77,3 +77,83 @@ $ git status --short outputs
 
 - `next_recommended`: `sdd-verify` para el PR 1.
 - PR 2 (`mart_last_touch`, A1.3, A1.4) y PR 3 (A1.6, `analysis_exceptions.csv`, A1.7, `report.md`) siguen pendientes, fuera del alcance de este work unit.
+
+## PR 2: `mart_last_touch`, A1.3 y A1.4
+
+**Estado**: completo. Las 9 tareas de PR 2 (2.1 a 2.9) están marcadas `[x]` en `tasks.md`.
+
+### Tareas completadas
+
+- [x] 2.1 `worky_engine/sql/analysis/a1_00_last_touch.sql` (vista `mart_last_touch`, transcripción literal del diseño, sección 2.0).
+- [x] 2.2 `worky_engine/sql/analysis/a1_03_cohort_retention.sql` (retención por cohorte de alta, celdas censuradas vacías, transcripción literal del diseño, sección 2.3).
+- [x] 2.3 `worky_engine/sql/analysis/a1_04_attribution.sql` (atribución a grano deal por primer y último touch, transcripción literal del diseño, sección 2.4).
+- [x] 2.4 `worky_engine/analysis/runner.py`: `ANALYSIS_FILES` ahora lista `a1_00_last_touch.sql` primero, luego `a1_01`, `a1_02`, `a1_03`, `a1_04`, `a1_05`; `ANALYSIS_OUTPUTS` agrega `analysis_a1_03_cohort_retention` (`cohort_month, k`) y `analysis_a1_04_attribution` (`model, channel_rank`). `mart_last_touch` no entra a `ANALYSIS_OUTPUTS` porque no tiene CSV propio (no está en la tabla de la sección 1 del diseño).
+- [x] 2.5 `worky_engine/quality/analysis_contracts.py`: cinco contratos nuevos (`assert_a1_03_pct_within_range`, `assert_a1_03_monotone_non_increasing`, `assert_a1_03_retained_within_cohort_size`, `assert_a1_04_rate_within_unit`, `assert_a1_04_models_cover_same_deals`) y `run_analysis_contracts` los corre en orden fijo sobre las cinco salidas ya disponibles.
+- [x] 2.6 `tests/test_analysis_rules.py`: fixture extendido con dos empresas nuevas (`HS-810020` cohorte reciente censurada, `HS-810021` caso frontera de churn exacto en k = 3), tres touches (empate por `touch_id` en la misma fecha) y dos deals nuevos (uno posterior al empate, otro anterior al único touch de su empresa). Cinco pruebas nuevas.
+- [x] 2.7 `tests/test_analysis_dataset_numbers.py`: tres pruebas nuevas marcadas `dataset` con los números medidos sobre el dataset real (ver "Notas de la aplicación del PR 2").
+- [x] 2.8 `tests/test_analysis_idempotency.py`: `OUTPUT_NAMES` ahora incluye las cinco salidas acumuladas (`a1_01`, `a1_02`, `a1_03`, `a1_04`, `a1_05`); la comparación byte a byte y la guarda de los ocho goldens de A0 no cambiaron de forma.
+- [x] 2.9 Cierre de PR 2: suite completa en verde (168 pruebas), `analyze` corrido dos veces con sha256 idéntico en las cinco salidas, `git status --short outputs` solo muestra los dos goldens nuevos de este PR (los tres de PR 1 y los ocho de A0 sin cambio), goldens de `a1_03_cohort_retention.csv` y `a1_04_attribution.csv` generados.
+
+### Archivos creados o modificados
+
+| Archivo | Acción | Líneas (add/del) |
+|---|---|---|
+| `worky_engine/sql/analysis/a1_00_last_touch.sql` | crear | 31/0 |
+| `worky_engine/sql/analysis/a1_03_cohort_retention.sql` | crear | 48/0 |
+| `worky_engine/sql/analysis/a1_04_attribution.sql` | crear | 37/0 |
+| `worky_engine/analysis/runner.py` | modificar | 14/8 |
+| `worky_engine/quality/analysis_contracts.py` | modificar | 67/4 |
+| `tests/test_analysis_rules.py` | modificar | 113/4 |
+| `tests/test_analysis_dataset_numbers.py` | modificar | 43/0 |
+| `tests/test_analysis_idempotency.py` | modificar | 15/7 |
+| `outputs/analysis/a1_03_cohort_retention.csv`, `a1_04_attribution.csv` | generar (fuera del conteo de autoría) | 137 líneas totales |
+
+**Total autoría (código + pruebas)**: 368 adiciones + 23 eliminaciones = **391 líneas**, muy por debajo de las ~405 estimadas por el diseño y del presupuesto de 800.
+
+### Evidencia de unidad de trabajo
+
+| Evidencia | Valor |
+|---|---|
+| Prueba enfocada | `python -m pytest -q -m "not dataset" tests/test_analysis_rules.py tests/test_analysis_dataset_numbers.py -k "cohort or attribution or a1_03 or a1_04"` y `python -m pytest -q -m "not dataset" tests/test_analysis_rules.py` → 15 passed |
+| Arnés en tiempo real | `python -m worky_engine analyze --data-dir data/raw/sistemas --out-dir outputs/analysis` → `analyze: 5 consultas escritas en outputs\analysis`, corrido dos veces, sha256 idéntico en las cinco salidas |
+| Límite de reversión | Eliminar `a1_00_last_touch.sql`, `a1_03_cohort_retention.sql`, `a1_04_attribution.sql` y revertir las entradas que agregan a `runner.py` (`ANALYSIS_FILES`/`ANALYSIS_OUTPUTS`) y `analysis_contracts.py` (los cinco `assert_a1_03_*`/`assert_a1_04_*` y sus llamadas en `run_analysis_contracts`); PR 1 (A1.1, A1.2, A1.5) queda intacto |
+
+### Desviaciones del diseño (reportadas, no silenciosas)
+
+1. **`ANALYSIS_OUTPUTS` no incluye `mart_last_touch`**: la tarea 2.4 decía "agregar `a1_00_last_touch.sql` ... a `ANALYSIS_FILES`/`ANALYSIS_OUTPUTS`", pero la tabla de `ANALYSIS_OUTPUTS` de la sección 1 del diseño no lista `mart_last_touch` (no tiene CSV propio; solo la consumen `a1_04` y el corredor la ejecuta desde `ANALYSIS_FILES`). Se agregó solo a `ANALYSIS_FILES`, siguiendo la tabla del diseño en vez de la redacción literal de la tarea.
+2. **El canal ganador no cambia entre modelos**: el diseño y el ADR-004 (sección "Qué cambia en las secciones siguientes") anticipan que la comparación de atribución "alimenta la conversación" sobre un posible cambio de canal, y las tareas piden probar "la bandera de cambio de ganador". Sobre el dataset real medido, el canal ganador (`channel_rank = 1`) es `Paid Search` en los dos modelos (tasa 0.225000 en `first_touch`, 0.229885 en `last_touch`): el ganador no cambia. `test_a1_04_canal_ganador_medido_por_modelo` fija este resultado medido en vez de forzar un cambio que el dataset no produce (misma lógica que D12: se publica el número medido).
+
+### Problemas notados y no corregidos en este PR
+
+- El texto de ayuda de `analyze_subparser` en `worky_engine/cli.py` ("Corre A1.1, A1.2 y A1.5 sobre la sabana...") quedó desactualizado desde el PR 1: ahora el comando también corre A1.3 y A1.4. Ninguna tarea de PR 2 pide modificar `cli.py`, y el mensaje dinámico (`analyze: {N} consultas escritas`) ya refleja el conteo correcto (5) sin cambios de código; el texto de ayuda estático se deja para el PR 3, que sí modifica `cli.py` (tarea 3.4).
+
+### Verificación final (verbatim)
+
+```
+$ python -m pytest -q
+........................................................................ [ 42%]
+........................................................................ [ 85%]
+........................                                                 [100%]
+168 passed in 45.55s
+```
+
+```
+$ python -m worky_engine analyze --data-dir data/raw/sistemas --out-dir outputs/analysis
+analyze: 5 consultas escritas en outputs\analysis
+$ python -m worky_engine analyze --data-dir data/raw/sistemas --out-dir outputs/analysis
+analyze: 5 consultas escritas en outputs\analysis
+$ sha256sum outputs/analysis/*.csv   # antes y despues de la segunda corrida: identico
+$ git status --short outputs
+?? outputs/analysis/a1_03_cohort_retention.csv
+?? outputs/analysis/a1_04_attribution.csv
+```
+
+### Notas de la aplicación del PR 2
+
+- **Números reales medidos sobre el dataset**: A1.3 produce 120 filas (30 cohortes por mes de `signup_date`, 4 valores de k), 105 celdas `computed` y 15 `censored`. A1.4 atribuye 962 deals en cada modelo (997 de HubSpot menos los 35 huérfanos de A1.5), y el canal ganador (`channel_rank = 1`) es `Paid Search` en los dos modelos, sin cambio de ganador. La monotonía de `retained` no sube dentro de ninguna de las 30 cohortes (verificado con un chequeo manual y con el contrato `assert_a1_03_monotone_non_increasing`).
+- **`cli.py` sin tocar**: ninguna tarea de PR 2 pide modificar `cli.py`; el texto de ayuda estático del subcomando queda desactualizado hasta el PR 3 (ver "Problemas notados y no corregidos").
+
+### Próximos pasos
+
+- `next_recommended`: `sdd-verify` para el PR 2.
+- PR 3 (A1.6, `analysis_exceptions.csv`, A1.7, `report.md`) sigue pendiente, fuera del alcance de este work unit.
