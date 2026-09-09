@@ -26,10 +26,10 @@ phases:
   specs: done (warehouse-model nuevo: 12 requisitos, 26 escenarios; delta identity-resolution: 1 requisito agregado, 5 escenarios tras sincronizar la falla cerrada de D17 y el source_id desconocido; Engram #1986 reescrito; marcadores nativos en ingles verificados)
   design: done (D1 a D21; Engram #1991; validador de contrato en contexto fresco: sin referencias inventadas; el orquestador corrigio el presupuesto a 800 por PR, agrego la seccion 12 de cambios por archivo y sincronizo ADR-006, spec delta y propuesta con D15/D17; el archivo design.md es la version autoritativa)
   tasks: done (31 tareas en 4 PR apilados a main: PR1 overrides 5, PR2 estrella 12, PR3 SCD2+health 9, PR4 docs 6; forecast: decision needed No, chained Yes, riesgo Medium; ~255/380/390/200 lineas)
-  apply: done (32/32 tareas en cuatro PR apilados: PR1 overrides 529 lineas, PR2 estrella 967 con size:exception, PR3 SCD2 y health 873 con size:exception, PR4 documento y ERD 07; 253 pruebas; goldens outputs/warehouse/{dim_company,map_source_identity}.csv)
-  verify: in_progress (sdd-verify lanzado el 2026-09-09 con 12/27 warehouse-model y 1/5 delta identity-resolution; validador nativo antes de escribir)
+  apply: done (32/32 tareas en cuatro PR apilados: PR1 overrides 529 lineas, PR2 estrella 967 con size:exception, PR3 SCD2 y health 873 con size:exception, PR4 documento y ERD 07; 252 pruebas; goldens outputs/warehouse/{dim_company,map_source_identity}.csv)
+  verify: done (PASS WITH WARNINGS: 13/13 requisitos, 32/32 escenarios, 31 con prueba o inspeccion y 1 N/A por D18; 252 pruebas; 20 salidas versionadas byte-identicas; 0 CRITICAL, 1 WARNING, 3 sugerencias; validador nativo admitio el reporte, evidence_revision sha256:e679321b...)
   archive: blocked
-next_recommended: esperar el verify-report; si PASS, sdd-archive y merge apilado a main
+next_recommended: sdd-archive; despues merge apilado a main y push con confirmacion del usuario
 review_receipts:
   mode: receipt-driven development activado (global) el 2026-09-09 para los PR con codigo de A4 y apagado al cerrar el PR3 (antes del PR4 documental)
   pr1:
