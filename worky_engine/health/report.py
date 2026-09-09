@@ -234,6 +234,15 @@ def _confusion_section(scores: pd.DataFrame) -> str:
 def _undetectable_section(scores: pd.DataFrame) -> str:
     churned_total = int(_churned_mask(scores).sum())
     total = hm.undetectable_count(scores)
+    if churned_total == 0:
+        # R3-undetectable-zero-division: sin bajas no hay denominador ni
+        # porcentaje que reportar; el reporte lo dice en vez de tronar.
+        return (
+            "## Empresas no detectables, en este dataset\n\n"
+            "Este dataset no tiene bajas, así que no hay empresas no detectables que contar ni un "
+            "recall que calcular; la banda 'sin historia' sigue aplicando a las cuentas con menos de "
+            "tres meses de uso al mes de corte."
+        )
     breakdown_text = _breakdown_text(_undetectable_breakdown(scores), suffix=" de uso")
     return (
         "## Empresas no detectables, en este dataset\n\n"

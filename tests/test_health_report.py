@@ -200,3 +200,19 @@ def test_sin_hora_de_reloj_en_el_documento(report_text: str) -> None:
 
 def test_sin_em_dash_en_el_documento(report_text: str) -> None:
     assert "—" not in report_text
+
+
+def test_seccion_de_no_detectables_sin_bajas_no_divide_entre_cero() -> None:
+    # R3-undetectable-zero-division: un dataset sin churn debe producir la
+    # seccion con una oracion, no un ZeroDivisionError.
+    from worky_engine.health.report import _undetectable_section
+
+    scores = pd.DataFrame(
+        [
+            {"master_id": "A", "churned": False, "usage_months_asof": 5, "health_score": 50.0, "risk_band": "riesgo bajo"},
+            {"master_id": "B", "churned": False, "usage_months_asof": 1, "health_score": None, "risk_band": "sin historia"},
+        ]
+    )
+    text = _undetectable_section(scores)
+    assert text.startswith("## Empresas no detectables")
+    assert "no tiene bajas" in text
