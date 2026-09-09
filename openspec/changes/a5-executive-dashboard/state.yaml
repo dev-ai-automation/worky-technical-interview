@@ -23,8 +23,8 @@ phases:
   proposal: done (gate inline del orquestador: capacidad nueva declarada, sin modificadas, cifras verificadas)
   specs: done (executive-dashboard nuevo: 9 requisitos, 22 escenarios; marcadores nativos verificados)
   design: done (D1 a D14; validador en contexto fresco: 2 bloqueos y 3 advertencias corregidos por el orquestador: prueba sin marca dataset, 22 columnas, etiqueta sobre capacidad, Cuenta = hubspot_id, HTML cuenta como autoria; grafia Carla Nuñez alineada en ADR-007 y spec)
-  tasks: in_progress
-  apply: blocked
+  tasks: done (27 tareas en un PR feat/a5-pr1-dashboard; forecast 630-730 lineas, riesgo Medium, sin decision previa; prueba de cifras sin marca dataset)
+  apply: in_progress (worktree aislado C:/Users/Lenovo/Documents/cartera-clientes/21-worky-a5, rama feat/a5-pr1-dashboard desde main; RDD apagado, cambio documental)
   verify: blocked
   archive: blocked
-next_recommended: exploracion en curso (paralela a a6-cleaning-script)
+next_recommended: sdd-apply en el worktree aislado; despues verify y archive
