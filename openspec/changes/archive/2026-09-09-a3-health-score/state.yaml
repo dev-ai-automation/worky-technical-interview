@@ -25,8 +25,8 @@ phases:
   tasks: done (28 tareas en 3 PR apilados; forecast: decision needed No, chained Yes, riesgo medio; PR1 ~600, PR2 ~560, PR3 ~470 lineas)
   apply: done (PR 1, 2 y 3: vistas as-of, scoring, metricas, comando health, health_scores.csv y validation.md; 209 pruebas; 28/28 tareas)
   verify: done (primer intento FAIL 11/12 por la seccion de aceptacion no renderizada; corregido en fc19791 y 82353a2; rerun PASS con advertencias: 12/12 requisitos, 25/25 escenarios, 213 pruebas; envelope validado sobre 82353a2)
-  archive: pending
-next_recommended: sdd-archive, luego merge apilado a main y push (autorizado por el usuario)
+  archive: done (especificacion sincronizada en openspec/specs/health-score/spec.md, cambio archivado en openspec/changes/archive/2026-09-09-a3-health-score/, informe en Engram topic_key sdd/a3-health-score/archive-report)
+next_recommended: merge apilado a main y push (autorizado por el usuario, SDD completado)
 review_receipts:
   mode: receipt-driven development activado (global)
   pr1:
