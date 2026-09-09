@@ -25,10 +25,10 @@ phases:
   specs: done (data-cleaning nuevo: 11 requisitos, 26 escenarios; deals.csv obligatorio; marcadores nativos verificados)
   design: done (D1 a D12; validador en contexto fresco: bloqueo de esquema del log resuelto alineando spec y diseno en diez columnas con confidence y evidence_ref; escenario de dependencia reescrito; deals_in 997 y deals_matched 962; D8 con dueno en runner.py)
   tasks: done (21 tareas en dos PR apilados: PR1 feat/a6-pr1-clean-rules reglas, log y comando; PR2 feat/a6-pr2-clean-impute imputacion ADR-002, contratos, equivalencia, idempotencia y goldens; forecast ~500/~400, riesgo Medium)
-  apply: in_progress (PR1 done: 11/21 tareas, 1,190 lineas de autoria con size:exception aceptada, correccion de diez hallazgos de la revision nativa en dcb188c; PR2 en curso)
+  apply: done (21/21 tareas; PR1 1,190 lineas con size:exception; PR2 476 lineas + 79 de cierre de las tres advertencias del verificador independiente del PR1; 289 pruebas + 3 nuevas; goldens outputs/clean/*)
   verify: blocked
   archive: blocked
-next_recommended: sdd-apply PR1; revision nativa; PR2; verify; archive
+next_recommended: revision nativa del PR2 (linaje nuevo); despues sdd-verify (11/30) y archive
 review_receipts:
   pr1:
     branch: feat/a6-pr1-clean-rules

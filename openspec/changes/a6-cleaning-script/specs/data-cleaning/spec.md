@@ -44,6 +44,12 @@ El comando MUST leer companies.csv como entrada obligatoria para toda corrida, y
 - Cuando alguien corre clean
 - Entonces el comando termina con código 2, sin escribir companies_clean.csv, y el mensaje nombra deals.csv
 
+#### Scenario: archivo vacío o con bytes fuera de UTF-8
+
+- Dado un companies.csv de cero bytes, o uno con bytes que no son UTF-8
+- Cuando alguien corre clean
+- Entonces el comando termina con código 2 y un mensaje en español que nombra el archivo y el problema, sin escribir ninguna salida
+
 ### Requirement: detección de mrr nulo con exclusión de clones
 
 El comando MUST detectar exactamente 56 filas con mrr nulo sobre las 678 filas del dataset, MUST separar de esas 56 las 28 filas clon `HS-9000xx` como excluidas de la imputación, y MUST contar las 28 restantes como empresas reales imputables.
@@ -119,6 +125,12 @@ El comando MUST convertir cada monto en USD a MXN usando el tipo de cambio fijo 
 - Dado una fila cuyo mrr trae texto no numérico, como "1,234" o "n/a"
 - Cuando el comando corre
 - Entonces la fila recibe la excepción mrr_not_numeric con el texto original, mrr_mxn queda vacío y mrr_source unresolved, y el texto nunca se copia a mrr_mxn
+
+#### Scenario: mrr no numérico se vuelve a reportar en cada corrida
+
+- Dado una salida de clean con una fila cuyo mrr sigue siendo texto no numérico
+- Cuando alguien corre clean sobre esa salida
+- Entonces la excepción mrr_not_numeric aparece otra vez para esa fila, como reporte y no como corrección, y el conteo de correcciones es cero
 
 ### Requirement: imputación de mrr desde deals con anualización
 
