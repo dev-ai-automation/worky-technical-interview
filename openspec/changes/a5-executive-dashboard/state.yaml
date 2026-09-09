@@ -1,0 +1,30 @@
+# Estado del DAG para el cambio de SDD. Es propiedad del orquestador; se actualiza despues de cada transicion de fase.
+change: a5-executive-dashboard
+title: Tablero ejecutivo del VP de CS (A5): cuentas en riesgo real priorizadas por MRR, con la regla de misma salud y distinto MRR
+created: 2026-09-09
+artifact_store: hybrid
+engram_project: 21-worky
+preflight:
+  execution_mode: interactive (cacheado de la sesion; A5 y A6 corren en paralelo, planeacion en main y una rama de implementacion por cambio)
+  delivery_strategy: auto-chain
+  chain_strategy: stacked-to-main
+  review_budget_lines: 800
+  rdd: apagado (cambio documental; sin revision nativa salvo que el entregable incluya codigo generador)
+inputs:
+  case_section: A5 (fundation-docs, evaluada por Head of Data; alimenta la Parte B)
+  decisions:
+    - docs/decisions/ADR-005-health-score-model.md
+    - docs/decisions/ADR-006-warehouse-model.md
+  data: outputs/health/health_scores.csv, outputs/health/validation.md, outputs/master_dataset.csv, outputs/warehouse/
+  research_existing: docs/research/01-bi-revops-data-architecture.md (seccion 5)
+phases:
+  explore: done (el sub-agente no pudo guardar en Engram por ambiguedad de sesion; el orquestador materializo exploration.md, guardo el topic con la sesion manual y verifico las cifras contra los CSV reales)
+  research: offered (pendiente de respuesta del usuario)
+  proposal: blocked (decisiones de producto pendientes en preproposal.yaml)
+  specs: blocked
+  design: blocked
+  tasks: blocked
+  apply: blocked
+  verify: blocked
+  archive: blocked
+next_recommended: exploracion en curso (paralela a a6-cleaning-script)

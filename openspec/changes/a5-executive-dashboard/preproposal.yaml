@@ -1,0 +1,48 @@
+schema: gentle-ai.sdd-preproposal/v1
+revision: 1
+change: a5-executive-dashboard
+artifact_store: hybrid
+exploration:
+  outcome: done
+  reference:
+    openspec: openspec/changes/a5-executive-dashboard/exploration.md
+    engram: sdd/a5-executive-dashboard/explore
+research:
+  selected: null
+  request: null
+  classes: []
+  admission: not_applicable
+  outcome: pending_offer
+  note: ofrecida el 2026-09-09 junto con las decisiones; docs/research/01 seccion 5 ya cubre tableros ejecutivos de CS
+evidence:
+  openspec:
+    - openspec/changes/a5-executive-dashboard/exploration.md
+    - docs/decisions/ADR-005-health-score-model.md
+    - docs/decisions/ADR-006-warehouse-model.md
+    - outputs/health/health_scores.csv
+    - outputs/health/validation.md
+    - outputs/analysis/report.md
+    - docs/research/01-bi-revops-data-architecture.md
+  engram:
+    - sdd/a5-executive-dashboard/explore
+product_decisions: pending
+pending_decisions:
+  - id: A5.shape
+    options: {a: solo Markdown por secciones, b: Markdown + mockup HTML autocontenido con cifras reales [recomendada], c: b + generador Python}
+  - id: A5.mrr_tiers
+    options: {a: "<$5k / $5k-$20k / >$20k [recomendada]", b: otro corte que indique el usuario}
+  - id: A5.source
+    options: {a: CSV de A1/A3 para el mockup y warehouse documentado para la tendencia [recomendada], b: esquema en estrella de A4 como fuente del mockup}
+  - id: A5.churned_panel
+    options: {a: panel separado de evidencia del modelo para las 67 churneadas [recomendada], b: excluirlas del tablero}
+  - id: A5.generator
+    options: {a: documentar el generador como trabajo futuro [recomendada], b: implementarlo en este corte}
+verified_counts:
+  flagged_15_active: 78
+  mrr_at_risk_mxn: 2216115.0
+  active_mrr_mxn: 16223225.5
+  sin_historia: {total: 65, churned: 22, active: 43}
+  risk_alto: {total: 145, active: 78}
+  active_mrr_bands: {under_5k: 131, from_5k_to_20k: 250, from_20k: 180}
+  flagged_per_csm: {Jorge Ibarra: 21, Ana Ruiz: 15, Diego Ortega: 10, Luis Pena: 10, Carla Nunez: 9, Fernanda Solis: 8, Marta Diaz: 5}
+proposal_ready: false

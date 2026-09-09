@@ -1,0 +1,45 @@
+schema: gentle-ai.sdd-preproposal/v1
+revision: 1
+change: a6-cleaning-script
+artifact_store: hybrid
+exploration:
+  outcome: done
+  reference:
+    openspec: openspec/changes/a6-cleaning-script/exploration.md
+    engram: sdd/a6-cleaning-script/explore
+research:
+  selected: null
+  request: null
+  classes: []
+  admission: not_applicable
+  outcome: pending_offer
+  note: ofrecida el 2026-09-09 junto con las decisiones; docs/research/01 secciones 1 y 6 ya cubren calidad de datos
+evidence:
+  openspec:
+    - openspec/changes/a6-cleaning-script/exploration.md
+    - docs/decisions/ADR-001-identity-resolution-scorecard.md
+    - docs/decisions/ADR-002-mrr-imputation-and-normalization.md
+    - docs/data-model/00-as-is-schema-profile.md
+    - worky_engine/sql/marts/mart_mrr.sql
+  engram:
+    - sdd/a6-cleaning-script/explore
+product_decisions: pending
+pending_decisions:
+  - id: A6.shape
+    options: {a: script standalone puro, b: subcomando clean en cli.py + wrapper scripts/clean_companies.py [recomendada], c: solo subcomando}
+  - id: A6.null_mrr
+    options: {a: marcar sin imputar, b: imputar desde deals.csv replicando la regla del ADR-002 y excluyendo clones HS-9000xx [recomendada]}
+  - id: A6.columns
+    options: {a: espejar mrr_mxn / mrr_original / currency_original [recomendada], b: nombres propios del script}
+  - id: A6.row_log
+    options: {a: cleaning_exceptions.csv a grano fila con el shape de exceptions_log [recomendada], b: solo conteos}
+  - id: A6.golden
+    options: {a: versionar outputs/clean/* como golden [recomendada], b: no versionar}
+verified_counts:
+  rows: 678
+  mrr_null: {total: 56, clones: 28, real: 28}
+  currency_usd: 22
+  signup_date_ddmm: 31
+  signup_date_ddmm_ambiguous_day_le_12: 12
+  churn_date_ddmm: 0
+proposal_ready: false

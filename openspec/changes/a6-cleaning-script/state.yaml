@@ -1,0 +1,31 @@
+# Estado del DAG para el cambio de SDD. Es propiedad del orquestador; se actualiza despues de cada transicion de fase.
+change: a6-cleaning-script
+title: Script de limpieza de companies.csv (A6): nulos en mrr, USD y fechas mixtas, con log de correcciones
+created: 2026-09-09
+artifact_store: hybrid
+engram_project: 21-worky
+preflight:
+  execution_mode: interactive (cacheado de la sesion; A5 y A6 corren en paralelo, planeacion en main y una rama de implementacion por cambio)
+  delivery_strategy: auto-chain
+  chain_strategy: stacked-to-main
+  review_budget_lines: 800
+  rdd: se enciende antes del apply del PR con codigo y se apaga al cerrarlo
+inputs:
+  case_section: A6 (fundation-docs, plus valioso, evaluada por Head of Data)
+  decisions:
+    - docs/decisions/ADR-001-identity-resolution-scorecard.md
+    - docs/decisions/ADR-002-mrr-imputation-and-normalization.md
+  data: data/raw/sistemas/crm_hubspot__companies.csv
+  engine: worky_engine/normalization/{dates,currency,names,domains}.py
+  research_existing: docs/research/01-bi-revops-data-architecture.md (secciones 1 y 6)
+phases:
+  explore: done (el sub-agente no pudo guardar en Engram por ambiguedad de sesion; el orquestador materializo exploration.md, guardo el topic con la sesion manual y verifico las cifras contra los CSV reales)
+  research: offered (pendiente de respuesta del usuario)
+  proposal: blocked (decisiones de producto pendientes en preproposal.yaml)
+  specs: blocked
+  design: blocked
+  tasks: blocked
+  apply: blocked
+  verify: blocked
+  archive: blocked
+next_recommended: exploracion en curso (paralela a a5-executive-dashboard)
