@@ -24,9 +24,9 @@ phases:
   design: done (D1 a D21; Engram #1900; spec alineado en mes de cierre derivado de los datos y dominio de risk_band)
   tasks: done (28 tareas en 3 PR apilados; forecast: decision needed No, chained Yes, riesgo medio; PR1 ~600, PR2 ~560, PR3 ~470 lineas)
   apply: done (PR 1, 2 y 3: vistas as-of, scoring, metricas, comando health, health_scores.csv y validation.md; 209 pruebas; 28/28 tareas)
-  verify: pending
+  verify: done (primer intento FAIL 11/12 por la seccion de aceptacion no renderizada; corregido en fc19791 y 82353a2; rerun PASS con advertencias: 12/12 requisitos, 25/25 escenarios, 213 pruebas; envelope validado sobre 82353a2)
   archive: pending
-next_recommended: sdd-verify del cambio completo sobre feat/a3-pr3-health-validation, luego sdd-archive y merge apilado a main
+next_recommended: sdd-archive, luego merge apilado a main y push (autorizado por el usuario)
 review_receipts:
   mode: receipt-driven development activado (global)
   pr1:
@@ -47,3 +47,9 @@ review_receipts:
     lineage: review-450cc7fb355c16c7
     lens: review-reliability
     result: approved y acknowledged tras una correccion acotada (guardia para un dataset sin bajas en la seccion de no detectables)
+  verify_fix:
+    branch: feat/a3-pr3-health-validation
+    commit: 82353a2 (fc19791 seccion de aceptacion y rutas; 82353a2 guardia de cero bajas y pruebas)
+    lineage: review-499e7ae7b187668e (el primer candidato fc19791, linaje review-b600ca2dee708aed, escalo sin recibo y quedo superado)
+    lens: review-reliability
+    result: approved y acknowledged en primera pasada
