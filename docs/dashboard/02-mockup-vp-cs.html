@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tablero ejecutivo de riesgo real, VP de Customer Success</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --muted: #555555;
+    --border: #cccccc;
+    --tile-bg: #f4f4f4;
+    --row-alt: #fafafa;
+    --alto: #b3261e;
+    --medio: #7a5b00;
+    --bajo: #1e6b3a;
+    --bar: #3a5a8c;
+    --bar-bg: #e2e2e2;
+    --ref-line: #b3261e;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #121212;
+      --fg: #f0f0f0;
+      --muted: #b8b8b8;
+      --border: #444444;
+      --tile-bg: #1e1e1e;
+      --row-alt: #191919;
+      --alto: #ff8a80;
+      --medio: #ffd54f;
+      --bajo: #81c784;
+      --bar: #8fb2e6;
+      --bar-bg: #333333;
+      --ref-line: #ff8a80;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: Georgia, "Times New Roman", serif;
+    margin: 0;
+    padding: 1.5rem;
+    line-height: 1.45;
+  }
+  h1, h2, h3 { font-family: Arial, Helvetica, sans-serif; }
+  h1 { font-size: 1.5rem; margin-bottom: 0.25rem; }
+  .subtitulo { color: var(--muted); margin-top: 0; margin-bottom: 1.5rem; }
+  h2 { font-size: 1.15rem; border-bottom: 2px solid var(--border); padding-bottom: 0.3rem; margin-top: 2rem; }
+  h3 { font-size: 1rem; margin-bottom: 0.4rem; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.85rem; margin-top: 0.5rem; }
+  caption { text-align: left; color: var(--muted); font-size: 0.8rem; margin-bottom: 0.3rem; }
+  th, td { border: 1px solid var(--border); padding: 0.35rem 0.5rem; text-align: left; vertical-align: middle; }
+  th { background: var(--tile-bg); }
+  tr:nth-child(even) td { background: var(--row-alt); }
+  .kpis { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .tile { flex: 1 1 200px; border: 1px solid var(--border); background: var(--tile-bg); border-radius: 6px; padding: 0.75rem 1rem; }
+  .tile .valor { font-size: 1.4rem; font-weight: bold; margin: 0.2rem 0; }
+  .tile .detalle { font-size: 0.8rem; color: var(--muted); }
+  .badge { display: inline-block; padding: 0.05rem 0.4rem; border-radius: 3px; font-size: 0.78rem; font-weight: bold; border: 1px solid currentColor; }
+  .nivel-alto { color: var(--alto); }
+  .nivel-medio { color: var(--medio); }
+  .nivel-bajo { color: var(--bajo); }
+  .sobre-capacidad { color: var(--alto); font-weight: bold; }
+  .callout { border-left: 4px solid var(--bar); background: var(--tile-bg); padding: 0.75rem 1rem; margin: 0.75rem 0; }
+  .csm-row { display: grid; grid-template-columns: 9rem 1fr 4rem; gap: 0.5rem; align-items: center; margin: 0.35rem 0; }
+  .csm-bar-track { background: var(--bar-bg); border-radius: 4px; height: 1.1rem; position: relative; }
+  .footer { margin-top: 2rem; padding-top: 0.75rem; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--muted); }
+  .scroll-list { max-height: 22rem; overflow: auto; border: 1px solid var(--border); }
+  .scroll-list table { margin-top: 0; }
+  .nota-futuro { border: 1px dashed var(--border); padding: 1rem; color: var(--muted); text-align: center; }
+  @media print {
+    body { padding: 0; }
+    .scroll-list { max-height: none; overflow: visible; }
+    .tile, .callout { border: 1px solid #000; background: #fff; }
+  }
+</style>
+</head>
+<body>
+<h1>Tablero ejecutivo de riesgo real</h1>
+<p class="subtitulo">VP de Customer Success. Cifras de la corrida con dataset_asof 2024-08-31. Detalle de cada cifra en <code>docs/dashboard/01-dashboard-vp-cs.md</code>.</p>
+
+<h2>KPIs de encabezado</h2>
+<div class="kpis">
+  <div class="tile">
+    <div>MRR en riesgo</div>
+    <div class="valor">$2,216,115</div>
+    <div class="detalle">13.7 % del MRR activo total ($16,223,225.50)</div>
+  </div>
+  <div class="tile">
+    <div>Cuentas por atender</div>
+    <div class="valor">78</div>
+    <div class="detalle">de 518 cuentas activas con puntaje</div>
+  </div>
+  <div class="tile">
+    <div>Carga por CSM</div>
+    <div class="valor">11.1</div>
+    <div class="detalle">referencia operativa: 12 cuentas por persona</div>
+  </div>
+  <div class="tile">
+    <div>Aviso anticipado</div>
+    <div class="valor">92.9 %</div>
+    <div class="detalle">52 de 56 cuentas evaluables, un mes antes</div>
+  </div>
+</div>
+
+<h2>Cola de prioridad (20 de 78 cuentas, ordenadas por MRR)</h2>
+<p>Cuentas vivas en la lista de esta semana, de mayor a menor peso en MRR. Las cuatro barras muestran, de izquierda a derecha, tendencia de uso, cambio contra el mes pasado, caída desde el mejor momento y antigüedad; entre más corta la barra, más débil esa señal.</p>
+<table>
+<caption>Fuente: cuentas vivas marcadas esta semana, ordenadas por MRR mensual</caption>
+<thead><tr><th>Cuenta</th><th>Segmento</th><th>Responsable</th><th>MRR mensual</th><th>Tramo</th><th>Nivel</th><th>Por qué está marcada</th></tr></thead>
+<tbody>
+<tr><td>HS-100155</td><td>Enterprise</td><td>Luis Peña: 10</td><td>$952,602</td><td>más de $20,000</td><td><span class="badge nivel-alto">Alto</span></td><td><svg viewBox="0 0 60 12" width="90" height="18" role="img" aria-label="tendencia 38, cambio 41, caida 31, antiguedad 35"><rect x="0" y="0" width="22.6" height="10" fill="var(--bar)"/><rect x="15" y="0" width="24.8" height="10" fill="var(--bar)"/><rect x="30" y="0" width="18.7" height="10" fill="var(--bar)"/><rect x="45" y="0" width="21.0" height="10" fill="var(--bar)"/></svg></td></tr>
+<tr><td>HS-100517</td><td>SMB</td><td>Carla Nuñez: 9</td><td>$143,153</td><td>más de $20,000</td><td><span class="badge nivel-alto">Alto</span></td><td><svg viewBox="0 0 60 12" width="90" height="18" role="img" aria-label="tendencia 26, cambio 25, caida 25, antiguedad 35"><rect x="0" y="0" width="15.4" height="10" fill="var(--bar)"/><rect x="15" y="0" width="15.0" height="10" fill="var(--bar)"/><rect x="30" y="0" width="14.9" height="10" fill="var(--bar)"/><rect x="45" y="0" width="21.0" height="10" fill="var(--bar)"/></svg></td></tr>
+<tr><td>HS-100140</td><td>Enterprise</td><td>Carla Nuñez: 9</td><td>$89,122</td><td>más de $20,000</td><td><span class="badge nivel-alto">Alto</span></td><td><svg viewBox="0 0 60 12" width="90" height="18" role="img" aria-label="tendencia 24, cambio 64, caida 26, antiguedad 45"><rect x="0" y="0" width="14.7" height="10" fill="var(--bar)"/><rect x="15" y="0" width="38.6" height="10" fill="var(--bar)"/><rect x="30" y="0" width="15.7" height="10" fill="var(--bar)"/><rect x="45" y="0" width="26.8" height="10" fill="var(--bar)"/></svg></td></tr>
+<tr><td>HS-100242</td><td>Enterprise</td><td>Ana Ruiz: 15</td><td>$85,286</td><td>más de $20,000</td><td><span class="badge nivel-alto">Alto</span></td><td><svg viewBox="0 0 60 12" width="90" height="18" role="img" aria-label="tendencia 16, cambio 17, caida 35, antiguedad 40"><rect x="0" y="0" width="9.7" height="10" fill="var(--bar)"/><rect x="15" y="0" width="10.2" height="10" fill="var(--bar)"/><rect x="30" y="0" width="21.0" height="10" fill="var(--bar)"/><rect x="45" y="0" width="24.1" height="10" fill="var(--bar)"/></svg></td></tr>
+<tr><td>HS-100523</td><td>Enterprise</td><td>Fernanda Solís: 8</td><td>$70,544</td><td>más de $20,000</td><td><span class="badge nivel-alto">Alto</span></td><td><svg viewBox="0 0 60 12" width="90" height="18" role="img" aria-label="tendencia 17, cambio 46, caida 22, antiguedad 60"><rect x="0" y="0" width="9.9" height="10" fill="var(--bar)"/><rect x="15" y="0" width="27.6" height="10" fill="var(--bar)"/><rect x="30" y="0" width="13.3" height="10" fill="var(--bar)"/><rect x="45" y="0" width="36.1" height="10" fill="var(--bar)"/></svg></td></tr>
+<tr><td>HS-100406</td><td>Enterprise</td><td>Marta Díaz: 5</td><td>$65,740</td><td>más de $20,000</td><td><span class="badge nivel-alto">Alto</span></td><td><svg viewBox="0 0 60 12" width="90" height="18" role="img" aria-label="tendencia 12, cambio 9, caida 10, antiguedad 32"><rect x="0" y="0" width="7.2" height="10" fill="var(--bar)"/><rect x="15" y="0" width="5.3" height="10" fill="var(--bar)"/><rect x="30" y="0" width="6.3" height="10" fill="var(--bar)"/><rect x="45" y="0" width="19.5" height="10" fill="var(--bar)"/></svg></td></tr>
+<tr><td>HS-100359</td><td>Enterprise</td><td>Jorge Ibarra: 21</td><td>$54,755</td><td>más de $20,000</td><td><span class="badge nivel-alto">Alto</span></td><td><svg viewBox="0 0 60 12" width="90" height="18" role="img" aria-label="tendencia 11, cambio 49, caida 7, antiguedad 60"><rect x="0" y="0" width="6.8" height="10" fill="var(--bar)"/><rect x="15" y="0" width="29.2" height="10" fill="var(--bar)"/><rect x="30" y="0" width="4.1" height="10" fill="var(--bar)"/><rect x="45" y="0" width="36.1" height="10" fill="var(--bar)"/></svg></td></tr>
+<tr><td>HS-100507</td><td>Enterprise</td><td>Luis Peña: 10</td><td>$46,340</td><td>más de $20,000</td><td><span class="badge nivel-alto">Alto</span></td><td><svg viewBox="0 0 60 12" width="90" height="18" role="img" aria-label="tendencia 23, cambio 14, caida 77, antiguedad 17"><rect x="0" y="0" width="13.8" height="10" fill="var(--bar)"/><rect x="15" y="0" width="8.6" height="10" fill="var(--bar)"/><rect x="30" y="0" width="46.2" height="10" fill="var(--bar)"/><rect x="45" y="0" width="10.4" height="10" fill="var(--bar)"/></svg></td></tr>
+<tr><td>HS-100012</td><td>Enterprise</td><td>Diego Ortega: 10</td><td>$42,392</td><td>más de $20,000</td><td><span class="badge nivel-alto">Alto</span></td><td><svg viewBox="0 0 60 12" width="90" height="18" role="img" aria-label="tendencia 28, cambio 30, caida 42, antiguedad 45"><rect x="0" y="0" width="17.0" height="10" fill="var(--bar)"/><rect x="15" y="0" width="18.0" height="10" fill="var(--bar)"/><rect x="30" y="0" width="25.2" height="10" fill="var(--bar)"/><rect x="45" y="0" width="26.8" height="10" fill="var(--bar)"/></svg></td></tr>
+<tr><td>HS-100248</td><td>Enterprise</td><td>Diego Ortega: 10</td><td>$29,245</td><td>más de $20,000</td><td><span class="badge nivel-alto">Alto</span></td><td><svg viewBox="0 0 60 12" width="90" height="18" role="img" aria-label="tendencia 32, cambio 48, caida 27, antiguedad 25"><rect x="0" y="0" width="19.0" height="10" fill="var(--bar)"/><rect x="15" y="0" width="28.6" height="10" fill="var(--bar)"/><rect x="30" y="0" width="16.4" height="10" fill="var(--bar)"/><rect x="45" y="0" width="15.2" height="10" fill="var(--bar)"/></svg></td></tr>
+<tr><td>HS-100208</td><td>Mid-Market</td><td>Ana Ruiz: 15</td><td>$24,945</td><td>más de $20,000</td><td><span class="badge nivel-alto">Alto</span></td><td><svg viewBox="0 0 60 12" width="90" height="18" role="img" aria-label="tendencia 17, cambio 19, caida 43, antiguedad 63"><rect x="0" y="0" width="10.3" height="10" fill="var(--bar)"/><rect x="15" y="0" width="11.7" height="10" fill="var(--bar)"/><rect x="30" y="0" width="26.0" height="10" fill="var(--bar)"/><rect x="45" y="0" width="37.9" height="10" fill="var(--bar)"/></svg></td></tr>
+<tr><td>HS-100158</td><td>Mid-Market</td><td>Carla Nuñez: 9</td><td>$24,245</td><td>más de $20,000</td><td><span class="badge nivel-alto">Alto</span></td><td><svg viewBox="0 0 60 12" width="90" height="18" role="img" aria-label="tendencia 27, cambio 13, caida 71, antiguedad 17"><rect x="0" y="0" width="15.9" height="10" fill="var(--bar)"/><rect x="15" y="0" width="7.8" height="10" fill="var(--bar)"/><rect x="30" y="0" width="42.5" height="10" fill="var(--bar)"/><rect x="45" y="0" width="10.4" height="10" fill="var(--bar)"/></svg></td></tr>
+<tr><td>HS-100259</td><td>Mid-Market</td><td>Ana Ruiz: 15</td><td>$23,997</td><td>más de $20,000</td><td><span class="badge nivel-alto">Alto</span></td><td><svg viewBox="0 0 60 12" width="90" height="18" role="img" aria-label="tendencia 16, cambio 13, caida 40, antiguedad 54"><rect x="0" y="0" width="9.3" height="10" fill="var(--bar)"/><rect x="15" y="0" width="7.7" height="10" fill="var(--bar)"/><rect x="30" y="0" width="23.8" height="10" fill="var(--bar)"/><rect x="45" y="0" width="32.4" height="10" fill="var(--bar)"/></svg></td></tr>
+<tr><td>HS-100585</td><td>Mid-Market</td><td>Fernanda Solís: 8</td><td>$23,993</td><td>más de $20,000</td><td><span class="badge nivel-alto">Alto</span></td><td><svg viewBox="0 0 60 12" width="90" height="18" role="img" aria-label="tendencia 19, cambio 15, caida 20, antiguedad 63"><rect x="0" y="0" width="11.4" height="10" fill="var(--bar)"/><rect x="15" y="0" width="9.2" height="10" fill="var(--bar)"/><rect x="30" y="0" width="12.2" height="10" fill="var(--bar)"/><rect x="45" y="0" width="37.9" height="10" fill="var(--bar)"/></svg></td></tr>
+<tr><td>HS-100267</td><td>Mid-Market</td><td>Diego Ortega: 10</td><td>$23,252</td><td>más de $20,000</td><td><span class="badge nivel-alto">Alto</span></td><td><svg viewBox="0 0 60 12" width="90" height="18" role="img" aria-label="tendencia 14, cambio 11, caida 41, antiguedad 37"><rect x="0" y="0" width="8.2" height="10" fill="var(--bar)"/><rect x="15" y="0" width="6.4" height="10" fill="var(--bar)"/><rect x="30" y="0" width="24.5" height="10" fill="var(--bar)"/><rect x="45" y="0" width="22.3" height="10" fill="var(--bar)"/></svg></td></tr>
+<tr><td>HS-100186</td><td>Mid-Market</td><td>Ana Ruiz: 15</td><td>$22,794</td><td>más de $20,000</td><td><span class="badge nivel-alto">Alto</span></td><td><svg viewBox="0 0 60 12" width="90" height="18" role="img" aria-label="tendencia 38, cambio 36, caida 90, antiguedad 12"><rect x="0" y="0" width="22.8" height="10" fill="var(--bar)"/><rect x="15" y="0" width="21.3" height="10" fill="var(--bar)"/><rect x="30" y="0" width="54.1" height="10" fill="var(--bar)"/><rect x="45" y="0" width="7.3" height="10" fill="var(--bar)"/></svg></td></tr>
+<tr><td>HS-100554</td><td>Mid-Market</td><td>Jorge Ibarra: 21</td><td>$22,464</td><td>más de $20,000</td><td><span class="badge nivel-alto">Alto</span></td><td><svg viewBox="0 0 60 12" width="90" height="18" role="img" aria-label="tendencia 32, cambio 9, caida 68, antiguedad 32"><rect x="0" y="0" width="19.2" height="10" fill="var(--bar)"/><rect x="15" y="0" width="5.4" height="10" fill="var(--bar)"/><rect x="30" y="0" width="40.7" height="10" fill="var(--bar)"/><rect x="45" y="0" width="19.5" height="10" fill="var(--bar)"/></svg></td></tr>
+<tr><td>HS-100332</td><td>Mid-Market</td><td>Marta Díaz: 5</td><td>$22,287</td><td>más de $20,000</td><td><span class="badge nivel-alto">Alto</span></td><td><svg viewBox="0 0 60 12" width="90" height="18" role="img" aria-label="tendencia 10, cambio 13, caida 8, antiguedad 93"><rect x="0" y="0" width="6.1" height="10" fill="var(--bar)"/><rect x="15" y="0" width="7.6" height="10" fill="var(--bar)"/><rect x="30" y="0" width="4.9" height="10" fill="var(--bar)"/><rect x="45" y="0" width="56.0" height="10" fill="var(--bar)"/></svg></td></tr>
+<tr><td>HS-100231</td><td>Mid-Market</td><td>Ana Ruiz: 15</td><td>$21,843</td><td>más de $20,000</td><td><span class="badge nivel-alto">Alto</span></td><td><svg viewBox="0 0 60 12" width="90" height="18" role="img" aria-label="tendencia 34, cambio 42, caida 64, antiguedad 22"><rect x="0" y="0" width="20.3" height="10" fill="var(--bar)"/><rect x="15" y="0" width="25.5" height="10" fill="var(--bar)"/><rect x="30" y="0" width="38.3" height="10" fill="var(--bar)"/><rect x="45" y="0" width="13.0" height="10" fill="var(--bar)"/></svg></td></tr>
+</tbody>
+</table>
+<p class="detalle">Las 58 cuentas restantes de la cola siguen la misma regla de orden por MRR; se listan completas en el CSV fuente y en el apéndice del wireframe.</p>
+
+<div class="callout">
+<h3>Respuesta a $3,000 contra $45,000</h3>
+<p>Dos cuentas con puntaje de salud parecido no reciben el mismo trato: el orden por MRR, el KPI que suma MRR por cuenta y el tramo de MRR hacen que la cuenta grande siempre pese más.</p>
+<p><strong>HS-100507</strong> (Enterprise): MRR $46,340, puntaje de salud 27.68. Queda arriba en la cola y pesa quince veces más en el MRR en riesgo que la siguiente cuenta de evidencia.</p>
+<p><strong>HS-100065</strong> (SMB): MRR $2,947, puntaje de salud 35.56. Misma banda de riesgo alto, mucho menos peso en dinero.</p>
+</div>
+
+<h2>Matriz de tramo por nivel de riesgo</h2>
+<p>Cuentas activas con puntaje, cruzadas por nivel de riesgo y tramo de MRR. El color solo marca el nivel de riesgo; el tramo se lee en el encabezado de columna, nunca por color.</p>
+<table>
+<thead><tr><th>Nivel</th><th>menos de $5,000</th><th>de $5,000 a $20,000</th><th>más de $20,000</th></tr></thead>
+<tbody>
+<tr><td><span class="badge nivel-alto">Alto</span></td><td>24 cuentas, $85,285</td><td>35 cuentas, $341,831</td><td>19 cuentas, $1,788,999</td></tr>
+<tr><td><span class="badge nivel-medio">Medio</span></td><td>25 cuentas, $87,802</td><td>31 cuentas, $300,252</td><td>22 cuentas, $1,497,433.50</td></tr>
+<tr><td><span class="badge nivel-bajo">Bajo</span></td><td>74 cuentas, $263,071</td><td>168 cuentas, $1,632,383</td><td>120 cuentas, $8,056,794</td></tr>
+</tbody>
+</table>
+<p class="detalle">Total por tramo, las tres columnas sumadas: 131 cuentas menos de $5,000, 250 cuentas de $5,000 a $20,000, 180 cuentas más de $20,000.</p>
+
+<h2>Cohorte de onboarding (43 cuentas activas, sin historia de uso suficiente)</h2>
+<p>Cuentas demasiado nuevas para tener puntaje. No están "sanas": todavía no hay datos para saberlo. Un CSM de onboarding les da seguimiento activo aparte de este tablero.</p>
+<div class="scroll-list">
+<table>
+<thead><tr><th>Cuenta</th><th>Segmento</th><th>Meses de uso</th><th>Fecha de alta</th></tr></thead>
+<tbody>
+<tr><td>HS-100003</td><td>Mid-Market</td><td>2</td><td>2024-05-30</td></tr>
+<tr><td>HS-100004</td><td>Mid-Market</td><td>2</td><td>2024-05-13</td></tr>
+<tr><td>HS-100017</td><td>SMB</td><td>2</td><td>2024-05-18</td></tr>
+<tr><td>HS-100021</td><td>Mid-Market</td><td>2</td><td>2024-05-16</td></tr>
+<tr><td>HS-100022</td><td>SMB</td><td>1</td><td>2024-06-20</td></tr>
+<tr><td>HS-100033</td><td>SMB</td><td>1</td><td>2024-06-29</td></tr>
+<tr><td>HS-100044</td><td>Enterprise</td><td>1</td><td>2024-06-17</td></tr>
+<tr><td>HS-100064</td><td>SMB</td><td>1</td><td>2024-06-09</td></tr>
+<tr><td>HS-100071</td><td>Mid-Market</td><td>1</td><td>2024-06-19</td></tr>
+<tr><td>HS-100074</td><td>Mid-Market</td><td>2</td><td>2024-05-29</td></tr>
+<tr><td>HS-100096</td><td>SMB</td><td>2</td><td>2024-05-07</td></tr>
+<tr><td>HS-100122</td><td>Enterprise</td><td>1</td><td>2024-06-21</td></tr>
+<tr><td>HS-100129</td><td>SMB</td><td>2</td><td>2024-05-10</td></tr>
+<tr><td>HS-100142</td><td>SMB</td><td>1</td><td>2024-06-05</td></tr>
+<tr><td>HS-100149</td><td>SMB</td><td>1</td><td>2024-06-24</td></tr>
+<tr><td>HS-100182</td><td>SMB</td><td>2</td><td>2024-05-29</td></tr>
+<tr><td>HS-100193</td><td>Enterprise</td><td>1</td><td>2024-06-12</td></tr>
+<tr><td>HS-100195</td><td>SMB</td><td>2</td><td>2024-05-15</td></tr>
+<tr><td>HS-100227</td><td>Enterprise</td><td>1</td><td>2024-06-05</td></tr>
+<tr><td>HS-100229</td><td>Enterprise</td><td>2</td><td>2024-05-17</td></tr>
+<tr><td>HS-100251</td><td>SMB</td><td>2</td><td>2024-05-27</td></tr>
+<tr><td>HS-100257</td><td>Enterprise</td><td>2</td><td>2024-05-22</td></tr>
+<tr><td>HS-100261</td><td>Mid-Market</td><td>1</td><td>2024-06-29</td></tr>
+<tr><td>HS-100266</td><td>Mid-Market</td><td>1</td><td>2024-06-09</td></tr>
+<tr><td>HS-100299</td><td>Mid-Market</td><td>1</td><td>2024-06-17</td></tr>
+<tr><td>HS-100353</td><td>Mid-Market</td><td>2</td><td>2024-05-12</td></tr>
+<tr><td>HS-100368</td><td>Enterprise</td><td>1</td><td>2024-06-22</td></tr>
+<tr><td>HS-100369</td><td>SMB</td><td>2</td><td>2024-05-25</td></tr>
+<tr><td>HS-100379</td><td>Mid-Market</td><td>2</td><td>2024-05-31</td></tr>
+<tr><td>HS-100380</td><td>SMB</td><td>2</td><td>2024-05-19</td></tr>
+<tr><td>HS-100438</td><td>Mid-Market</td><td>2</td><td>2024-05-02</td></tr>
+<tr><td>HS-100452</td><td>Mid-Market</td><td>2</td><td>2024-05-06</td></tr>
+<tr><td>HS-100469</td><td>SMB</td><td>2</td><td>2024-05-08</td></tr>
+<tr><td>HS-100476</td><td>Enterprise</td><td>1</td><td>2024-06-11</td></tr>
+<tr><td>HS-100487</td><td>SMB</td><td>1</td><td>2024-06-29</td></tr>
+<tr><td>HS-100508</td><td>Mid-Market</td><td>1</td><td>2024-06-19</td></tr>
+<tr><td>HS-100509</td><td>Enterprise</td><td>1</td><td>2024-06-12</td></tr>
+<tr><td>HS-100511</td><td>Mid-Market</td><td>2</td><td>2024-05-03</td></tr>
+<tr><td>HS-100525</td><td>Mid-Market</td><td>2</td><td>2024-05-27</td></tr>
+<tr><td>HS-100533</td><td>Enterprise</td><td>1</td><td>2024-06-10</td></tr>
+<tr><td>HS-100625</td><td>Mid-Market</td><td>2</td><td>2024-05-15</td></tr>
+<tr><td>HS-100627</td><td>SMB</td><td>1</td><td>2024-06-26</td></tr>
+<tr><td>HS-100642</td><td>SMB</td><td>2</td><td>2024-05-16</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Carga por CSM</h2>
+<p>Cuentas marcadas por responsable, contra una línea de referencia operativa de 12 cuentas (no un dato medido). Quien la rebasa lleva la etiqueta de texto "sobre capacidad", nunca solo un color.</p>
+<div class="csm-row"><div>Jorge Ibarra: 21</div><div class="csm-bar-track"><svg viewBox="0 0 100 18" width="100%" height="18" preserveAspectRatio="none" role="img" aria-label="Jorge Ibarra, 21 cuentas, sobre la referencia de 12"><rect x="0" y="2" width="100" height="14" fill="var(--bar)"/><line x1="57.1" y1="0" x2="57.1" y2="18" stroke="var(--ref-line)" stroke-width="2"/></svg></div><div class="sobre-capacidad">sobre capacidad</div></div>
+<div class="csm-row"><div>Ana Ruiz: 15</div><div class="csm-bar-track"><svg viewBox="0 0 100 18" width="100%" height="18" preserveAspectRatio="none" role="img" aria-label="Ana Ruiz, 15 cuentas, sobre la referencia de 12"><rect x="0" y="2" width="71.4" height="14" fill="var(--bar)"/><line x1="57.1" y1="0" x2="57.1" y2="18" stroke="var(--ref-line)" stroke-width="2"/></svg></div><div class="sobre-capacidad">sobre capacidad</div></div>
+<div class="csm-row"><div>Diego Ortega: 10</div><div class="csm-bar-track"><svg viewBox="0 0 100 18" width="100%" height="18" preserveAspectRatio="none" role="img" aria-label="Diego Ortega, 10 cuentas, dentro del rango"><rect x="0" y="2" width="47.6" height="14" fill="var(--bar)"/><line x1="57.1" y1="0" x2="57.1" y2="18" stroke="var(--ref-line)" stroke-width="2"/></svg></div><div>dentro del rango</div></div>
+<div class="csm-row"><div>Luis Peña: 10</div><div class="csm-bar-track"><svg viewBox="0 0 100 18" width="100%" height="18" preserveAspectRatio="none" role="img" aria-label="Luis Pena, 10 cuentas, dentro del rango"><rect x="0" y="2" width="47.6" height="14" fill="var(--bar)"/><line x1="57.1" y1="0" x2="57.1" y2="18" stroke="var(--ref-line)" stroke-width="2"/></svg></div><div>dentro del rango</div></div>
+<div class="csm-row"><div>Carla Nuñez: 9</div><div class="csm-bar-track"><svg viewBox="0 0 100 18" width="100%" height="18" preserveAspectRatio="none" role="img" aria-label="Carla Nunez, 9 cuentas, dentro del rango"><rect x="0" y="2" width="42.9" height="14" fill="var(--bar)"/><line x1="57.1" y1="0" x2="57.1" y2="18" stroke="var(--ref-line)" stroke-width="2"/></svg></div><div>dentro del rango</div></div>
+<div class="csm-row"><div>Fernanda Solís: 8</div><div class="csm-bar-track"><svg viewBox="0 0 100 18" width="100%" height="18" preserveAspectRatio="none" role="img" aria-label="Fernanda Solis, 8 cuentas, dentro del rango"><rect x="0" y="2" width="38.1" height="14" fill="var(--bar)"/><line x1="57.1" y1="0" x2="57.1" y2="18" stroke="var(--ref-line)" stroke-width="2"/></svg></div><div>dentro del rango</div></div>
+<div class="csm-row"><div>Marta Díaz: 5</div><div class="csm-bar-track"><svg viewBox="0 0 100 18" width="100%" height="18" preserveAspectRatio="none" role="img" aria-label="Marta Diaz, 5 cuentas, dentro del rango"><rect x="0" y="2" width="23.8" height="14" fill="var(--bar)"/><line x1="57.1" y1="0" x2="57.1" y2="18" stroke="var(--ref-line)" stroke-width="2"/></svg></div><div>dentro del rango</div></div>
+<p class="detalle">La línea vertical marca la referencia de 12 cuentas. La escala del ancho de barra cubre hasta 21 cuentas, el conteo más alto de esta corrida.</p>
+
+<h2>Evidencia del modelo</h2>
+<p>Cuentas que ya se fueron y que el modelo había marcado con anticipación, en un panel separado de la cola de trabajo activa.</p>
+<div class="kpis">
+  <div class="tile">
+    <div>Cuentas ya perdidas que el modelo marcó</div>
+    <div class="valor">67</div>
+    <div class="detalle">riesgo alto, ya dadas de baja, ninguna en la cola de trabajo</div>
+  </div>
+  <div class="tile">
+    <div>Detección con un mes de anticipación</div>
+    <div class="valor">92.9 %</div>
+    <div class="detalle">52 de 56 cuentas evaluables ya estaban marcadas un mes antes</div>
+  </div>
+</div>
+
+<h2>Tendencia en el tiempo</h2>
+<div class="nota-futuro">Todavía no hay dos corridas del comando de almacenamiento en fechas distintas para dibujar una línea real. Esta vista se llena cuando existan.</div>
+
+<div class="footer">
+  <p>Fuentes: outputs/health/health_scores.csv, outputs/master_dataset.csv. dataset_asof: 2024-08-31. ruleset_version: 1.0.0. Cifras calculadas el 2026-09-09.</p>
+</div>
+</body>
+</html>

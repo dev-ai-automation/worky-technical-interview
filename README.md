@@ -75,6 +75,7 @@ Requiere Python 3.12 o superior. El dataset del caso (`fundation-docs/dataset_ca
 | `docs/research/` | Investigación previa sobre arquitectura de datos, BI y RevOps |
 | `openspec/specs/` | El contrato vigente del motor: 41 requisitos y 60 escenarios en seis dominios |
 | `openspec/changes/archive/` | El expediente completo del cambio A0: propuesta, diseño, tareas, verificación, revisión adversarial y reporte de cierre |
+| `docs/dashboard/` | El wireframe y el mockup autocontenido del tablero ejecutivo para el VP de Customer Success (A5): la cola de prioridad por MRR, la carga por CSM y la evidencia de detección temprana del modelo, con las cifras ancladas a `outputs/health/` y `outputs/master_dataset.csv` por `tests/test_dashboard_figures.py` |
 
 ## Cómo se trabajó
 
