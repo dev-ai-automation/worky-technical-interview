@@ -21,11 +21,20 @@ corridas (D2, excepcion documentada a D6 de A0). Escribe
 `map_source_identity.csv` y `dim_company.csv`, poblada por el
 algoritmo de SCD2 (D4 a D8) y validada por `--run-date` contra el
 `effective_from` vigente mas reciente ya persistido.
+`clean` (A6, ADR-002) lee companies.csv y deals.csv en texto puro y
+nunca las tres bases SQLite (D2, D3 del diseno de `a6-cleaning-script`):
+`_locate_clean_data_dir` solo reutiliza la extraccion del zip de
+`_resolve_data_dir` para ubicar la carpeta, nunca su lectura via
+`sqlite3`. Corre las tres detecciones de este PR (fechas, moneda, mrr
+nulo con exclusion de clones; la imputacion del ADR-002 se conecta en
+PR2) y escribe companies_clean.csv, cleaning_exceptions.csv,
+cleaning_log.json y cleaning_log.md en `--out-dir`.
 """
 
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 import zipfile
 from datetime import date
@@ -46,6 +55,10 @@ DEFAULT_HEALTH_OUT_DIR = Path("outputs") / "health"
 DEFAULT_OVERRIDES_PATH = Path("data") / "identity_overrides.csv"
 DEFAULT_WAREHOUSE_DB_PATH = Path(".build") / "warehouse.duckdb"
 DEFAULT_WAREHOUSE_OUT_DIR = Path("outputs") / "warehouse"
+DEFAULT_CLEAN_DATA_DIR = Path("data") / "raw" / "sistemas"
+DEFAULT_CLEAN_OUT_DIR = Path("outputs") / "clean"
+CLEAN_COMPANIES_FILENAME = "crm_hubspot__companies.csv"
+CLEAN_DEALS_FILENAME = "crm_hubspot__deals.csv"
 
 
 def _exit_missing_dependency(error: ImportError) -> None:
@@ -143,6 +156,16 @@ def _import_warehouse_dependencies():
     )
 
 
+def _import_clean_dependencies():
+    """Importa el paquete `cleaning` y sus contratos en el primer uso; solo `clean` los necesita."""
+    try:
+        from worky_engine.cleaning import format_cleaning_log, run_clean
+        from worky_engine.quality.cleaning_contracts import run_cleaning_contracts
+    except ImportError as error:
+        _exit_missing_dependency(error)
+    return run_clean, run_cleaning_contracts, format_cleaning_log
+
+
 def _reconfigure_streams_to_utf8() -> None:
     """Reconfigura `stdout`/`stderr` a UTF-8 antes de imprimir cualquier cosa.
 
@@ -179,6 +202,49 @@ def _resolve_data_dir(data_dir: Path) -> Path:
         file=sys.stderr,
     )
     raise SystemExit(2)
+
+
+def _locate_clean_data_dir(data_dir: Path) -> Path:
+    """Ubica la carpeta con companies.csv y deals.csv para `clean`, extrayendo el zip si data_dir solo lo trae.
+
+    A diferencia de `_resolve_data_dir`, nunca exige las tres bases
+    SQLite (D2 del diseno de `a6-cleaning-script`): solo revisa que la
+    carpeta candidata tenga los dos CSV. Si ninguna candidata los trae,
+    devuelve `data_dir` sin cambios para que `_resolve_clean_inputs`
+    nombre el archivo que falta sobre esa misma ruta.
+    """
+    candidates = [data_dir]
+    zip_path = data_dir / ZIP_NAME
+    if zip_path.is_file():
+        extract_dir = Path(".build") / "dataset"
+        extract_dir.mkdir(parents=True, exist_ok=True)
+        with zipfile.ZipFile(zip_path) as archive:
+            archive.extractall(extract_dir)
+        candidates.append(extract_dir / "sistemas")
+        candidates.append(extract_dir)
+    for candidate in candidates:
+        if (candidate / CLEAN_COMPANIES_FILENAME).is_file() and (candidate / CLEAN_DEALS_FILENAME).is_file():
+            return candidate
+    return data_dir
+
+
+def _resolve_clean_inputs(args: argparse.Namespace) -> tuple[Path, Path]:
+    """Resuelve companies.csv y deals.csv: `--companies`/`--deals` sueltos, o dentro de `--data-dir` (D2).
+
+    Sin el archivo, termina en 2 nombrando cual de los dos falta, sin
+    escribir ninguna salida parcial (requisito "entradas requeridas
+    companies.csv y deals.csv").
+    """
+    data_dir = _locate_clean_data_dir(Path(args.data_dir))
+    companies_path = Path(args.companies) if args.companies else data_dir / CLEAN_COMPANIES_FILENAME
+    deals_path = Path(args.deals) if args.deals else data_dir / CLEAN_DEALS_FILENAME
+    if not companies_path.is_file():
+        print(f"clean: no se encontro companies.csv en '{companies_path}'", file=sys.stderr)
+        raise SystemExit(2)
+    if not deals_path.is_file():
+        print(f"clean: no se encontro deals.csv en '{deals_path}'", file=sys.stderr)
+        raise SystemExit(2)
+    return companies_path, deals_path
 
 
 def _load_existing_crosswalk(out_dir: Path) -> pd.DataFrame | None:
@@ -557,6 +623,46 @@ def cmd_warehouse(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_clean(args: argparse.Namespace) -> int:
+    """Corre las tres detecciones de A6 sobre companies.csv y deals.csv, sin build previo.
+
+    Lee ambos CSV en texto puro (`dtype=str, keep_default_na=False`,
+    D3), corre `run_clean` en el orden fijo de `worky_engine.cleaning`
+    (fechas, moneda, deteccion de mrr nulo; la imputacion del ADR-002
+    se conecta en PR2), corre los contratos de forma, moneda, fecha,
+    unicidad e idempotencia disponibles en este PR y escribe las
+    cuatro salidas en `--out-dir`. Mismos codigos de salida que los
+    otros cinco comandos: 2 cuando falta un archivo o una dependencia,
+    1 cuando un contrato se viola.
+    """
+    run_clean, run_cleaning_contracts, format_cleaning_log = _import_clean_dependencies()
+    companies_path, deals_path = _resolve_clean_inputs(args)
+    out_dir = Path(args.out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    companies = pd.read_csv(companies_path, dtype=str, keep_default_na=False, encoding="utf-8")
+    deals = pd.read_csv(deals_path, dtype=str, keep_default_na=False, encoding="utf-8")
+
+    result = run_clean(companies, deals, companies_path.name, deals_path.name)
+
+    try:
+        run_cleaning_contracts(result.clean, companies, result.exceptions, result.counts, run_clean, deals)
+    except ContractViolation as error:
+        print(f"clean: {error}", file=sys.stderr)
+        return 1
+
+    write_csv(result.clean, out_dir / "companies_clean.csv")
+    write_csv(result.exceptions, out_dir / "cleaning_exceptions.csv")
+    with open(out_dir / "cleaning_log.json", "w", encoding="utf-8", newline="\n") as handle:
+        json.dump(result.counts, handle, ensure_ascii=False, indent=2)
+        handle.write("\n")
+    write_markdown(format_cleaning_log(result.counts), out_dir / "cleaning_log.md")
+
+    total_corrections = result.counts["totals"]["corrections"]
+    print(f"clean: {total_corrections} correcciones en {len(result.clean)} filas, salidas en {out_dir}")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="worky_engine")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -643,6 +749,20 @@ def build_parser() -> argparse.ArgumentParser:
         help="CSV de identity_overrides; se aplica solo si el archivo existe (por omision: data/identity_overrides.csv).",
     )
     warehouse_subparser.set_defaults(func=cmd_warehouse)
+
+    clean_subparser = subparsers.add_parser(
+        "clean",
+        help="Corre las tres detecciones de A6 (fechas, moneda, mrr nulo) sobre companies.csv, sin build previo.",
+    )
+    clean_subparser.add_argument("--data-dir", default=str(DEFAULT_CLEAN_DATA_DIR))
+    clean_subparser.add_argument("--out-dir", default=str(DEFAULT_CLEAN_OUT_DIR))
+    clean_subparser.add_argument(
+        "--companies", default=None, help="Ruta directa a companies.csv; por omision, <data-dir>/crm_hubspot__companies.csv."
+    )
+    clean_subparser.add_argument(
+        "--deals", default=None, help="Ruta directa a deals.csv; por omision, <data-dir>/crm_hubspot__deals.csv."
+    )
+    clean_subparser.set_defaults(func=cmd_clean)
 
     return parser
 
