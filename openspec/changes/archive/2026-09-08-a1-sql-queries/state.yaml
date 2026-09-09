@@ -25,8 +25,8 @@ phases:
   tasks: done (32 tareas en 3 PR apilados; forecast: decision needed No, chained Yes, riesgo medio; PR1 ~630, PR2 ~405, PR3 ~440 lineas)
   apply: done (PR 1, 2 y 3: analyze, las siete respuestas de A1, report.md y analysis_exceptions.csv; 179 pruebas; 32/32 tareas)
   verify: done (PASS con advertencias: 10/10 requisitos, 22/22 escenarios, 179 pruebas; analyze idempotente; A0 sin cambios; envelope validado por sdd-verify-validate sobre 2593273; 3 advertencias y 1 sugerencia como seguimientos)
-  archive: pending
-next_recommended: sdd-archive, luego merge apilado a main y push con confirmacion del usuario
+  archive: done (cambio archivado, spec sincronizada a openspec/specs/sql-analysis/spec.md, Engram sdd/a1-sql-queries/archive-report)
+next_recommended: merge apilado a main (feat/a1-pr1 a main, feat/a1-pr2 a feat/a1-pr1, feat/a1-pr3 a feat/a1-pr2) con confirmacion del usuario y push
 review_receipts:
   mode: receipt-driven development activado (global)
   pr1:
