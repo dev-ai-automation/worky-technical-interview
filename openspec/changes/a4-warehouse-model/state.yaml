@@ -26,10 +26,10 @@ phases:
   specs: done (warehouse-model nuevo: 12 requisitos, 26 escenarios; delta identity-resolution: 1 requisito agregado, 5 escenarios tras sincronizar la falla cerrada de D17 y el source_id desconocido; Engram #1986 reescrito; marcadores nativos en ingles verificados)
   design: done (D1 a D21; Engram #1991; validador de contrato en contexto fresco: sin referencias inventadas; el orquestador corrigio el presupuesto a 800 por PR, agrego la seccion 12 de cambios por archivo y sincronizo ADR-006, spec delta y propuesta con D15/D17; el archivo design.md es la version autoritativa)
   tasks: done (31 tareas en 4 PR apilados a main: PR1 overrides 5, PR2 estrella 12, PR3 SCD2+health 9, PR4 docs 6; forecast: decision needed No, chained Yes, riesgo Medium; ~255/380/390/200 lineas)
-  apply: in_progress (PR1, PR2 y PR3 done: 26/32 tareas; PR3 con size:exception aceptada, 873 lineas de autoria, SCD2 y snapshot de health, 253 pruebas; PR4 documental en curso)
-  verify: blocked
+  apply: done (32/32 tareas en cuatro PR apilados: PR1 overrides 529 lineas, PR2 estrella 967 con size:exception, PR3 SCD2 y health 873 con size:exception, PR4 documento y ERD 07; 253 pruebas; goldens outputs/warehouse/{dim_company,map_source_identity}.csv)
+  verify: in_progress (sdd-verify lanzado el 2026-09-09 con 12/27 warehouse-model y 1/5 delta identity-resolution; validador nativo antes de escribir)
   archive: blocked
-next_recommended: sdd-apply PR4 en feat/a4-pr4-warehouse-docs (tareas 4.1 a 4.6); despues sdd-verify (12/27 y 1/5)
+next_recommended: esperar el verify-report; si PASS, sdd-archive y merge apilado a main
 review_receipts:
   mode: receipt-driven development activado (global) el 2026-09-09 para los PR con codigo de A4 y apagado al cerrar el PR3 (antes del PR4 documental)
   pr1:
@@ -58,3 +58,8 @@ review_receipts:
     size_exception: aceptada por el usuario (873 lineas de autoria)
     result: approved y acknowledged tras una correccion acotada (la union hacia atras de la primera banda no estaba demostrada por ninguna prueba; ahora una prueba de SCD2 con hechos fechados antes de la primera banda falla sin el CASE, y la prueba con dataset ata los conteos reales de los cinco hechos); autoridad quemada
     advisory: 4 warnings y 2 sugerencias informativas (ramas de contrato sin prueba, run_date por omision sin guardia, validacion de run_date sin prueba, mutaciones SCD2 sin transaccion, corrimiento de bandas en el fixture de estrella, acoplamiento del contrato de atributos rastreados)
+  pr4:
+    branch: feat/a4-pr4-warehouse-docs
+    base: 17917ad (tip del PR3)
+    commits: 8b57945 (documento 01-warehouse-model.md, ERD 07 con fuente, README), 33d8e3e (docs sdd)
+    review: RDD apagado antes de este PR documental; gate por riesgo: assess medium por las 1,077 lineas contadas (HTML generado del ERD), lectura estructural del orquestador como verificacion proporcional; ledger reseteado bajo la autorizacion permanente para documentos
