@@ -23,10 +23,10 @@ phases:
   specs: done (dominio nuevo sql-analysis: 10 requisitos, 22 escenarios; Engram sdd/a1-sql-queries/spec)
   design: done (D1 a D15; Engram #1832; spec alineado en --out-dir outputs/analysis y borde months_to_churn > k)
   tasks: done (32 tareas en 3 PR apilados; forecast: decision needed No, chained Yes, riesgo medio; PR1 ~630, PR2 ~405, PR3 ~440 lineas)
-  apply: in_progress (PR 1 y PR 2 hechos: analyze, A1.1, A1.2, A1.5, last touch, A1.3, A1.4; 168 pruebas; pendiente PR 3)
+  apply: done (PR 1, 2 y 3: analyze, las siete respuestas de A1, report.md y analysis_exceptions.csv; 179 pruebas; 33/33 tareas)
   verify: pending
   archive: pending
-next_recommended: sdd-apply PR 3 (feat/a1-pr3-exceptions-report) apilado sobre el PR 2, luego sdd-verify y archive
+next_recommended: sdd-verify del cambio completo sobre feat/a1-pr3-exceptions-report, luego sdd-archive y merge apilado a main
 review_receipts:
   mode: receipt-driven development activado (global)
   pr1:
@@ -41,3 +41,9 @@ review_receipts:
     lineage: review-19c5d811de3c8e83
     lens: review-reliability
     result: approved y acknowledged en primera pasada
+  pr3:
+    branch: feat/a1-pr3-exceptions-report
+    commit: 728d9a0 (4b86b82 codigo, eaad202 docs, 728d9a0 correccion R3-fetchone-unpack)
+    lineage: review-effc98586c8e243b
+    lens: review-reliability
+    result: approved y acknowledged tras una correccion acotada (dataset_metadata con ContractViolation ante un dataset maestro vacio)
