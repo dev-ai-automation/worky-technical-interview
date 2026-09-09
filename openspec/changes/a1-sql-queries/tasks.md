@@ -65,18 +65,18 @@ Rama: `feat/a1-pr2-cohort-attribution`, base rama del PR 1. Líneas de autoría 
 
 Rama: `feat/a1-pr3-exceptions-report`, base rama del PR 2. Líneas de autoría estimadas: ~440. Qué revisa primero el revisor: la justificación de tres a cuatro líneas de A1.6, que el bloque de SQL de cada sección de `report.md` sea el texto exacto del archivo `.sql`, y que ningún golden de A0 haya cambiado.
 
-- [ ] 3.1 Crear `worky_engine/sql/analysis/a1_06_negative_hours.sql` con `analysis_a1_06_negative_hours` (tickets con `resolution_hours < 0`, con `resolution_hours_abs`) y la vista `analysis_exceptions` con las once columnas de `exceptions_log`. ~60 líneas. Requirement A1.6, tres escenarios. Decisiones D6, D11.
-- [ ] 3.2 Modificar `worky_engine/analysis/runner.py`: agregar `a1_06_negative_hours.sql` a `ANALYSIS_FILES`/`ANALYSIS_OUTPUTS` e incluir `analysis_exceptions` entre las tablas materializadas. ~10 líneas. Decisión D6.
-- [ ] 3.3 Crear `worky_engine/analysis/report.py` con `format_report`, sin abrir conexión ni leer archivos: encabezado (motor, `dataset_asof`, `ruleset_version`, comando, conteo de filas), una sección por ítem de A1.1 a A1.6 con definición del ADR-004, motor, el texto del `.sql` que ya leyó el corredor y la tabla de resultado (completa en A1.1/A1.3/A1.4/A1.5, primeras 15 filas más total en A1.2/A1.6), la matriz pivoteada de A1.3 con celdas censuradas vacías, la justificación de A1.6 en 3 a 4 líneas, y la sección A1.7 con el DDL ilustrativo marcado como no ejecutable. ~180 líneas. Requirement "reporte de resultados por ítem" (dos escenarios), A1.7 (un escenario). Decisiones D8, D13.
-- [ ] 3.4 Modificar `worky_engine/cli.py`: `cmd_analyze` escribe `analysis_exceptions.csv` y `outputs/analysis/report.md`, y ajusta el mensaje final a `analyze: 6 consultas escritas en <out-dir>`. ~8 líneas. Requirement: comando `analyze` sin build previo.
-- [ ] 3.5 Modificar `worky_engine/quality/analysis_contracts.py`: agregar `assert_a1_06_all_hours_negative` y `assert_analysis_exceptions_shape`. ~30 líneas. Decisiones D12, D14.
-- [ ] 3.6 Modificar `tests/test_analysis_rules.py`: agregar al fixture un ticket con `resolution_hours` negativo y la prueba de fixture de A1.6 (queda en el detalle, genera su fila de excepción, no entra al promedio de resolución, sí cuenta en conteos y CSAT). ~25 líneas (no incluidas en la tabla de líneas del diseño; ver brecha en el resumen de esta fase). Requirement A1.6, escenarios "48 tickets listados y neutralizados en promedios" y "tickets conservados en conteos y CSAT"; Requirement "pruebas de comportamiento por consulta", escenario "prueba de fixture por regla".
-- [ ] 3.7 Crear `tests/test_analysis_report.py`: una sección por ítem en `report.md`, el bloque de SQL igual al archivo `.sql` carácter por carácter, la regla de tabla completa contra encabezado más conteo, la matriz pivoteada de A1.3 con celdas vacías donde hay censura, la justificación de A1.6 entre 3 y 4 líneas, y la ausencia de cualquier hora de reloj en el documento. ~90 líneas. Requirement "reporte de resultados por ítem", ambos escenarios.
-- [ ] 3.8 Modificar `tests/test_analysis_dataset_numbers.py`, marca `dataset`: agregar las 48 filas de A1.6, las medianas 13.5 contra 12.2 con tolerancia 0.05, y el MRR activo de A1.1 igual a la suma de `mrr_mxn` de las empresas activas en `master_dataset`. ~60 líneas. Requirement A1.1 (escenario "el total imputado coincide con la sábana"), A1.6 (escenario "48 tickets listados"). Decisión D12.
-- [ ] 3.9 Modificar `tests/test_analysis_idempotency.py`, marca `dataset`: expandir la comparación a las ocho salidas completas de `analyze` (seis CSV, `analysis_exceptions.csv` y `report.md`), entre las dos corridas y contra la copia commiteada en `outputs/analysis/`, y mantener la verificación del hash de los ocho archivos de `outputs/` (A0, read-only) antes y después de correr `analyze`. Requirement: comando `analyze` sin build previo, escenario "dos corridas idénticas". Decisión D15.
-- [ ] 3.10 Actualizar `README.md`: una sola línea nueva en "Ruta rápida" con el comando `python -m worky_engine analyze --data-dir fundation-docs --out-dir outputs/analysis` y una fila en la tabla de "Qué produce" para `outputs/analysis/report.md`. Sin em dashes.
-- [ ] 3.11 Verificar que ningún archivo generado por `analyze` ni la prosa nueva de `report.py`, `README.md` o los comentarios SQL usa el carácter em dash; usar coma, dos puntos o punto y seguido en su lugar.
-- [ ] 3.12 Cerrar PR 3: correr `python -m pytest -q -m "not dataset"`, correr `python -m pytest -q` completo con el dataset real (incluye la marca `dataset` de las tres pruebas de A1), correr `python -m worky_engine analyze --data-dir data/raw/sistemas --out-dir outputs/analysis` dos veces seguidas y confirmar que las ocho salidas quedan idénticas byte a byte, confirmar con `git status --short outputs` (A0, read-only) que los ocho goldens de A0 no cambiaron, generar y commitear `outputs/analysis/a1_06_negative_hours.csv`, `analysis_exceptions.csv` y `report.md`, y preparar el commit de cierre.
+- [x] 3.1 Crear `worky_engine/sql/analysis/a1_06_negative_hours.sql` con `analysis_a1_06_negative_hours` (tickets con `resolution_hours < 0`, con `resolution_hours_abs`) y la vista `analysis_exceptions` con las once columnas de `exceptions_log`. ~60 líneas. Requirement A1.6, tres escenarios. Decisiones D6, D11.
+- [x] 3.2 Modificar `worky_engine/analysis/runner.py`: agregar `a1_06_negative_hours.sql` a `ANALYSIS_FILES`/`ANALYSIS_OUTPUTS` e incluir `analysis_exceptions` entre las tablas materializadas. ~10 líneas. Decisión D6.
+- [x] 3.3 Crear `worky_engine/analysis/report.py` con `format_report`, sin abrir conexión ni leer archivos: encabezado (motor, `dataset_asof`, `ruleset_version`, comando, conteo de filas), una sección por ítem de A1.1 a A1.6 con definición del ADR-004, motor, el texto del `.sql` que ya leyó el corredor y la tabla de resultado (completa en A1.1/A1.3/A1.4/A1.5, primeras 15 filas más total en A1.2/A1.6), la matriz pivoteada de A1.3 con celdas censuradas vacías, la justificación de A1.6 en 3 a 4 líneas, y la sección A1.7 con el DDL ilustrativo marcado como no ejecutable. ~180 líneas. Requirement "reporte de resultados por ítem" (dos escenarios), A1.7 (un escenario). Decisiones D8, D13.
+- [x] 3.4 Modificar `worky_engine/cli.py`: `cmd_analyze` escribe `analysis_exceptions.csv` y `outputs/analysis/report.md`, y ajusta el mensaje final a `analyze: 6 consultas escritas en <out-dir>`. ~8 líneas. Requirement: comando `analyze` sin build previo.
+- [x] 3.5 Modificar `worky_engine/quality/analysis_contracts.py`: agregar `assert_a1_06_all_hours_negative` y `assert_analysis_exceptions_shape`. ~30 líneas. Decisiones D12, D14.
+- [x] 3.6 Modificar `tests/test_analysis_rules.py`: agregar al fixture un ticket con `resolution_hours` negativo y la prueba de fixture de A1.6 (queda en el detalle, genera su fila de excepción, no entra al promedio de resolución, sí cuenta en conteos y CSAT). ~25 líneas (no incluidas en la tabla de líneas del diseño; ver brecha en el resumen de esta fase). Requirement A1.6, escenarios "48 tickets listados y neutralizados en promedios" y "tickets conservados en conteos y CSAT"; Requirement "pruebas de comportamiento por consulta", escenario "prueba de fixture por regla".
+- [x] 3.7 Crear `tests/test_analysis_report.py`: una sección por ítem en `report.md`, el bloque de SQL igual al archivo `.sql` carácter por carácter, la regla de tabla completa contra encabezado más conteo, la matriz pivoteada de A1.3 con celdas vacías donde hay censura, la justificación de A1.6 entre 3 y 4 líneas, y la ausencia de cualquier hora de reloj en el documento. ~90 líneas. Requirement "reporte de resultados por ítem", ambos escenarios.
+- [x] 3.8 Modificar `tests/test_analysis_dataset_numbers.py`, marca `dataset`: agregar las 48 filas de A1.6, las medianas 13.5 contra 12.2 con tolerancia 0.05, y el MRR activo de A1.1 igual a la suma de `mrr_mxn` de las empresas activas en `master_dataset`. ~60 líneas. Requirement A1.1 (escenario "el total imputado coincide con la sábana"), A1.6 (escenario "48 tickets listados"). Decisión D12.
+- [x] 3.9 Modificar `tests/test_analysis_idempotency.py`, marca `dataset`: expandir la comparación a las ocho salidas completas de `analyze` (seis CSV, `analysis_exceptions.csv` y `report.md`), entre las dos corridas y contra la copia commiteada en `outputs/analysis/`, y mantener la verificación del hash de los ocho archivos de `outputs/` (A0, read-only) antes y después de correr `analyze`. Requirement: comando `analyze` sin build previo, escenario "dos corridas idénticas". Decisión D15.
+- [x] 3.10 Actualizar `README.md`: una sola línea nueva en "Ruta rápida" con el comando `python -m worky_engine analyze --data-dir fundation-docs --out-dir outputs/analysis` y una fila en la tabla de "Qué produce" para `outputs/analysis/report.md`. Sin em dashes.
+- [x] 3.11 Verificar que ningún archivo generado por `analyze` ni la prosa nueva de `report.py`, `README.md` o los comentarios SQL usa el carácter em dash; usar coma, dos puntos o punto y seguido en su lugar.
+- [x] 3.12 Cerrar PR 3: correr `python -m pytest -q -m "not dataset"`, correr `python -m pytest -q` completo con el dataset real (incluye la marca `dataset` de las tres pruebas de A1), correr `python -m worky_engine analyze --data-dir data/raw/sistemas --out-dir outputs/analysis` dos veces seguidas y confirmar que las ocho salidas quedan idénticas byte a byte, confirmar con `git status --short outputs` (A0, read-only) que los ocho goldens de A0 no cambiaron, generar y commitear `outputs/analysis/a1_06_negative_hours.csv`, `analysis_exceptions.csv` y `report.md`, y preparar el commit de cierre.
 
 ## Brechas encontradas en el diseño
 
@@ -89,3 +89,57 @@ Rama: `feat/a1-pr3-exceptions-report`, base rama del PR 2. Líneas de autoría e
 - **Alcance de `ANALYSIS_FILES`/`ANALYSIS_OUTPUTS` en el PR 1**: la tarea 1.2 describía el orden final con `a1_00_last_touch.sql` primero "aunque no se use aún", pero ese archivo no existe hasta el PR 2 (tarea 2.1); incluirlo en el PR 1 haría fallar `run_sql_files` con un archivo inexistente. `worky_engine/analysis/runner.py` declara `ANALYSIS_FILES`/`ANALYSIS_OUTPUTS` en el PR 1 solo con las tres consultas que ya existen (A1.1, A1.2, A1.5); el PR 2 agrega `a1_00_last_touch.sql` y las suyas, en el orden que fija el diseño completo.
 - **`worky_engine/analysis/__init__.py` en el PR 1**: la tarea 1.1 pedía exponer `run_analysis` y `format_report`, pero `format_report` vive en `worky_engine/analysis/report.py`, que se crea hasta el PR 3 (tarea 3.3). El PR 1 solo expone `run_analysis`; `format_report` se agrega al `__init__.py` cuando `report.py` exista.
 - **Presupuesto de revisión**: el diff de autoría de este PR (`git diff --numstat` sobre `worky_engine/` y `tests/`, sin contar los goldens de `outputs/analysis/`) suma 751 líneas (additions + deletions), dentro del presupuesto de 800 y sin necesidad de mover A1.5 al PR 3.
+
+## Notas de la aplicación del PR 3
+
+- **`AnalysisResult` gana `dataset_asof` y `ruleset_version`**: el diseño (sección 1) solo describía `AnalysisResult` con `outputs` y `sql_text` como entrada de `report.py`. El encabezado de `report.md` necesita `dataset_asof` y `ruleset_version` (tarea 3.3), y `report.py` no puede leerlos porque no abre conexión ni archivos (decisión D13). `run_analysis` (`runner.py`) los lee de `mart_master_dataset` justo después de correr `ANALYSIS_FILES`, que es donde ya está la conexión abierta, y los agrega como dos campos nuevos de `AnalysisResult`. Extensión menor sobre el diseño, no un cambio de comportamiento.
+- **`report.py` mide ~336 líneas, no las ~180 estimadas**: la estimación de la sección 7 del diseño subestimó el texto de las siete secciones (definición del ADR-004, motor, SQL, resultado y nota de límite por ítem, más la justificación de A1.6 y el DDL completo de A1.7 con su tabla de cambios). El total de autoría de este PR (ver abajo) sigue dentro del presupuesto de 800 líneas del repositorio, así que no se movió ningún alcance a otro corte.
+- **DDL de A1.7 con `MERGE INTO` en vez de `DELETE` + `INSERT`**: el diseño (sección 4) ilustraba el refresco incremental con un `DELETE FROM ... WHERE month IN (...)` seguido de un `INSERT`. Se cambió a un `MERGE INTO ... WHEN MATCHED ... WHEN NOT MATCHED` (instrucción explícita del encargo de esta fase de pedir un sketch de `MERGE` o `INSERT ... ON CONFLICT`); el DDL sigue marcado como ilustrativo y no ejecutable, y el razonamiento de particionado y marca de agua no cambió.
+- **`tests/test_analysis_report.py` importa `_minimal_raw_tables` de `tests/test_analysis_rules.py`**: en vez de duplicar el fixture mínimo (que ya cubre las siete consultas) en un segundo archivo. `tests/` no tiene `__init__.py`, así que pytest agrega ese directorio a `sys.path` y el import funciona igual que cualquier módulo del repositorio; no hay precedente de este patrón en el resto de la suite, así que se documenta aquí como decisión, no como copia de un patrón existente.
+- **Fixture de A1.6 con tres tickets, no solo el negativo que pedía la tarea 3.6**: se agregó un ticket positivo y uno con `resolution_hours` nulo, además del negativo, para comprobar que la vista de detalle filtra estrictamente `< 0` y no excluye ni el positivo ni el nulo por accidente. `raw_customers` sigue vacío (patrón ya usado en el fixture), así que los tres tickets quedan con `master_id` nulo en `analysis_a1_06_negative_hours` y en `analysis_exceptions`.
+- **Frase del `no_prior_touch` en la sección de A1.4**: la fase pidió explícitamente una frase sobre el tamaño del cubo `no_prior_touch` (326 deals sobre el dataset real) además de si cambia el canal ganador; se agregó como una segunda oración de la nota de A1.4 en `report.py`, no estaba en la tabla de bloques de la sección 4 del diseño.
+
+### Archivos creados o modificados
+
+| Archivo | Acción | Líneas (add/del) |
+|---|---|---|
+| `worky_engine/sql/analysis/a1_06_negative_hours.sql` | crear | 47/0 |
+| `worky_engine/analysis/report.py` | crear | 336/0 |
+| `worky_engine/analysis/runner.py` | modificar | 24/9 |
+| `worky_engine/analysis/__init__.py` | modificar | 4/4 |
+| `worky_engine/cli.py` | modificar | 14/5 |
+| `worky_engine/quality/analysis_contracts.py` | modificar | 38/3 |
+| `tests/test_analysis_rules.py` | modificar | 44/6 |
+| `tests/test_analysis_report.py` | crear | 101/0 |
+| `tests/test_analysis_dataset_numbers.py` | modificar | 35/1 |
+| `tests/test_analysis_idempotency.py` | modificar | 12/10 |
+| `README.md` | modificar | 7/0 |
+| `outputs/analysis/a1_06_negative_hours.csv`, `analysis_exceptions.csv`, `report.md` | generar (fuera del conteo de autoría) | 3 archivos, ver verificación |
+
+**Total autoría (código + pruebas + README)**: 662 adiciones + 38 eliminaciones = **700 líneas**, dentro del presupuesto de 800 sin necesidad de `size:exception`.
+
+### Verificación final (verbatim)
+
+```
+$ python -m pytest -q tests --data-dir data/raw/sistemas
+........................................................................ [ 40%]
+........................................................................ [ 80%]
+..................................                                       [100%]
+178 passed in 47.68s
+```
+
+```
+$ python -m worky_engine analyze --data-dir data/raw/sistemas --out-dir outputs/analysis
+analyze: 6 consultas escritas en outputs\analysis
+# corrida repetida en dos carpetas temporales distintas: sha256 identico
+# en las ocho salidas (seis CSV, analysis_exceptions.csv y report.md),
+# y contra la copia commiteada en outputs/analysis/.
+$ git status --short outputs
+?? outputs/analysis/a1_06_negative_hours.csv
+?? outputs/analysis/analysis_exceptions.csv
+?? outputs/analysis/report.md
+$ grep -rn "—" outputs/analysis README.md worky_engine/analysis
+(sin resultados)
+```
+
+Números medidos sobre el dataset real: 48 tickets con `resolution_hours` negativo (10 siguen `Open`, 38 `Closed`); mediana de valor absoluto de los negativos 13.5, mediana de los positivos 12.2 (ambas medidas con pandas sobre `raw_tickets`, coinciden exactamente con las que cita la justificación del ADR-004, sin necesidad de tolerancia). `no_prior_touch` en el modelo de último touch: 326 deals, sin cambio de canal ganador entre modelos (`Paid Search` en los dos).

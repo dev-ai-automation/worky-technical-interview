@@ -157,3 +157,76 @@ $ git status --short outputs
 
 - `next_recommended`: `sdd-verify` para el PR 2.
 - PR 3 (A1.6, `analysis_exceptions.csv`, A1.7, `report.md`) sigue pendiente, fuera del alcance de este work unit.
+
+## PR 3: A1.6, `analysis_exceptions.csv`, A1.7 y `report.md`
+
+**Estado**: completo. Las 12 tareas de PR 3 (3.1 a 3.12) están marcadas `[x]` en `tasks.md`.
+
+### Tareas completadas
+
+- [x] 3.1 `worky_engine/sql/analysis/a1_06_negative_hours.sql`: dos vistas, `analysis_a1_06_negative_hours` (detalle) y `analysis_exceptions` (once columnas de `exceptions_log`), transcripción literal del diseño, sección 2.6 y 3.
+- [x] 3.2 `worky_engine/analysis/runner.py`: `ANALYSIS_FILES` agrega `a1_06_negative_hours.sql` al final; `ANALYSIS_OUTPUTS` agrega `analysis_a1_06_negative_hours` y `analysis_exceptions`. `AnalysisResult` gana `dataset_asof` y `ruleset_version` (extensión sobre el diseño, ver nota de desviación).
+- [x] 3.3 `worky_engine/analysis/report.py`: `format_report`, sin abrir conexión ni leer archivos. Una sección por ítem A1.1 a A1.6 (definición, motor, SQL verbatim, resultado y nota de límite), justificación de A1.6, sección A1.7 con DDL ilustrativo y tabla de referencias.
+- [x] 3.4 `worky_engine/cli.py`: `cmd_analyze` escribe `report.md` con `format_report` después del bucle que ya escribía los CSV de `ANALYSIS_OUTPUTS` (incluye `analysis_exceptions.csv` porque ya está en esa lista desde la tarea 3.2); el mensaje final cuenta solo las vistas `analysis_a1_*` (6), no `analysis_exceptions`; texto de ayuda del subcomando `analyze` actualizado (pendiente reportado en el cierre del PR 2).
+- [x] 3.5 `worky_engine/quality/analysis_contracts.py`: `assert_a1_06_all_hours_negative` y `assert_analysis_exceptions_shape`, con la lista de las once columnas de `exceptions_log` como constante del módulo; ambos corren en `run_analysis_contracts`.
+- [x] 3.6 `tests/test_analysis_rules.py`: fixture con tres tickets (negativo, positivo, nulo) y una prueba que comprueba que solo el negativo entra al detalle y a `analysis_exceptions`.
+- [x] 3.7 `tests/test_analysis_report.py`: siete pruebas sobre la estructura del reporte generado con el mismo fixture mínimo (importado de `test_analysis_rules.py`).
+- [x] 3.8 `tests/test_analysis_dataset_numbers.py`: dos pruebas nuevas marcadas `dataset`, 48 filas de A1.6/`analysis_exceptions` y las medianas 13.5/12.2 medidas con pandas sobre `raw_tickets` (sin tolerancia porque coinciden exactas con las citadas en el ADR-004).
+- [x] 3.9 `tests/test_analysis_idempotency.py`: `OUTPUT_NAMES` ahora tiene las ocho salidas completas; la guarda de los ocho goldens de A0 no cambió de forma.
+- [x] 3.10 `README.md`: un paso 4 nuevo en "Ruta rápida" con el comando `analyze` y una fila en "Qué produce" para `outputs/analysis/report.md`.
+- [x] 3.11 Verificado: `grep -rn "—" outputs/analysis README.md worky_engine/analysis` no encuentra nada.
+- [x] 3.12 Cierre de PR 3: suite completa en verde (178 pruebas), `analyze` corrido dos veces en carpetas distintas con sha256 idéntico en las ocho salidas y contra el golden commiteado, `git status --short outputs` solo muestra los tres goldens nuevos de este PR, los ocho goldens de A0 sin cambio, goldens de `a1_06_negative_hours.csv`, `analysis_exceptions.csv` y `report.md` generados.
+
+### Archivos creados o modificados
+
+Ver la tabla completa en `tasks.md`, sección "Notas de la aplicación del PR 3". Resumen: 662 adiciones + 38 eliminaciones = **700 líneas de autoría**, dentro del presupuesto de 800 sin `size:exception`.
+
+### Evidencia de unidad de trabajo
+
+| Evidencia | Valor |
+|---|---|
+| Prueba enfocada | `python -m pytest -q -m "not dataset" tests/test_analysis_report.py tests/test_analysis_rules.py` → 30 passed |
+| Arnés en tiempo real | `python -m worky_engine analyze --data-dir data/raw/sistemas --out-dir outputs/analysis` → `analyze: 6 consultas escritas en outputs\analysis`, corrido dos veces en carpetas temporales distintas más una tercera vez sobre `outputs/analysis`, sha256 idéntico en las ocho salidas entre las tres corridas |
+| Límite de reversión | Eliminar `a1_06_negative_hours.sql`, `worky_engine/analysis/report.py`, la escritura de `report.md`/`analysis_exceptions.csv` en `cli.py` (revertir a la versión que solo escribía los CSV de A1.1 a A1.5), las dos entradas nuevas de `ANALYSIS_FILES`/`ANALYSIS_OUTPUTS` y `dataset_asof`/`ruleset_version` de `AnalysisResult` en `runner.py`, los dos contratos nuevos en `analysis_contracts.py`, y la línea nueva de `README.md`; PR 1 y PR 2 (A1.1 a A1.5) quedan intactos |
+
+### Deviaciones del diseño (reportadas, no silenciosas)
+
+1. **`AnalysisResult` gana `dataset_asof` y `ruleset_version`**: el diseño solo describía `outputs` y `sql_text`. El encabezado de `report.md` necesita esos dos valores y `report.py` no puede leerlos (no abre conexión ni archivos, decisión D13); se agregaron como campos de `AnalysisResult`, leídos por `run_analysis` desde `mart_master_dataset` justo después de correr `ANALYSIS_FILES`.
+2. **`report.py` mide ~336 líneas, no las ~180 estimadas**: la estimación de la sección 7 del diseño subestimó el volumen de texto de las siete secciones. El total de autoría del PR sigue dentro del presupuesto de 800, así que no se movió alcance a otro corte.
+3. **DDL de A1.7 con `MERGE INTO` en vez de `DELETE` + `INSERT`**: instrucción explícita de esta fase de incluir un sketch de `MERGE` o `INSERT ... ON CONFLICT`; el diseño original usaba `DELETE` seguido de `INSERT`. El DDL sigue marcado como ilustrativo y no ejecutable.
+4. **`tests/test_analysis_report.py` importa el fixture de `test_analysis_rules.py`** en vez de duplicarlo, para no repetir el mismo dataset mínimo en dos archivos; no hay precedente de este patrón cruzado en el resto de la suite.
+5. **Fixture de A1.6 con tres tickets** (negativo, positivo, nulo), no solo el negativo que pedía la tarea 3.6, para comprobar que el filtro es estrictamente `< 0`.
+
+### Problemas notados y no corregidos en este PR
+
+- Ninguno bloqueante. La adenda pendiente al ADR-004 (corregir 30 a 33 en `windows_overlap`, reportada en el cierre del PR 1) sigue pendiente; no forma parte del alcance de A1.6/A1.7/`report.md`.
+
+### Verificación final (verbatim)
+
+```
+$ python -m pytest -q tests --data-dir data/raw/sistemas
+........................................................................ [ 40%]
+........................................................................ [ 80%]
+..................................                                       [100%]
+178 passed in 47.68s
+```
+
+```
+$ python -m worky_engine analyze --data-dir data/raw/sistemas --out-dir outputs/analysis
+analyze: 6 consultas escritas en outputs\analysis
+$ git status --short outputs
+?? outputs/analysis/a1_06_negative_hours.csv
+?? outputs/analysis/analysis_exceptions.csv
+?? outputs/analysis/report.md
+$ grep -rn "—" outputs/analysis README.md worky_engine/analysis
+(sin resultados)
+```
+
+### Notas de la aplicación del PR 3
+
+- **Números reales medidos sobre el dataset**: 48 tickets con `resolution_hours` negativo (10 `Open`, 38 `Closed`); mediana del valor absoluto de los negativos 13.5, mediana de los positivos 12.2, medidas con pandas sobre `raw_tickets` sin pasar por DuckDB, coinciden exactas con las que cita la justificación del ADR-004. En A1.4, el modelo de último touch atribuye 326 de los 962 deals a `no_prior_touch`, sin cambio de canal ganador entre modelos (`Paid Search` en los dos).
+- **PR 3 cierra el cambio `a1-sql-queries`**: las 33 tareas de las tres PR (11 + 9 + 12) están en `[x]`. Queda pendiente, fuera de este cambio, la adenda al ADR-004 que corrija 30 a 33 en `windows_overlap` (nota del PR 1).
+
+### Próximos pasos
+
+- `next_recommended`: `sdd-verify` para el PR 3 (y cierre del cambio completo).
