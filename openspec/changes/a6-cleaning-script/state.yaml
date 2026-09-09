@@ -24,8 +24,8 @@ phases:
   proposal: done (gate inline del orquestador: capacidad nueva declarada, sin modificadas, cifras verificadas)
   specs: done (data-cleaning nuevo: 11 requisitos, 26 escenarios; deals.csv obligatorio; marcadores nativos verificados)
   design: done (D1 a D12; validador en contexto fresco: bloqueo de esquema del log resuelto alineando spec y diseno en diez columnas con confidence y evidence_ref; escenario de dependencia reescrito; deals_in 997 y deals_matched 962; D8 con dueno en runner.py)
-  tasks: in_progress
-  apply: blocked
+  tasks: done (21 tareas en dos PR apilados: PR1 feat/a6-pr1-clean-rules reglas, log y comando; PR2 feat/a6-pr2-clean-impute imputacion ADR-002, contratos, equivalencia, idempotencia y goldens; forecast ~500/~400, riesgo Medium)
+  apply: in_progress (PR1 en el arbol principal; RDD apagado durante el apply y encendido solo para revisar cada candidato comprometido)
   verify: blocked
   archive: blocked
-next_recommended: exploracion en curso (paralela a a5-executive-dashboard)
+next_recommended: sdd-apply PR1; revision nativa; PR2; verify; archive
