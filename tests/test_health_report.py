@@ -36,6 +36,7 @@ _SECTION_HEADINGS = (
     "## Fórmula y pesos",
     "## AUC por señal",
     "## Métricas de validación",
+    "## Regla de aceptación del ADR-005",
     "## Matriz de confusión",
     "## Empresas no detectables",
     "## Detección temprana",
@@ -220,10 +221,17 @@ def test_seccion_de_no_detectables_sin_bajas_no_divide_entre_cero() -> None:
 
 def test_seccion_de_aceptacion_presente_con_umbrales_y_veredicto(report_text: str) -> None:
     # Verificacion de A3: el reporte debe decir la regla, lo medido y si se cumplio.
+    assert "## Regla de aceptación del ADR-005" in report_text
     start = report_text.index("## Regla de aceptación del ADR-005")
-    section = report_text[start : report_text.index("## ", start + 5)]
+    assert "## Matriz de confusión" in report_text[start:], "la seccion de aceptacion debe ir antes de la matriz"
+    section = report_text[start : report_text.index("## Matriz de confusión", start)]
     assert "0.95" in section and "0.85" in section
-    assert "Regla cumplida." in section or "Regla no cumplida." in section
+    # El veredicto y la recomendacion son excluyentes: cumplida sin mezcla medida,
+    # no cumplida con mezcla medida. Asi una recomendacion incondicional no pasa.
+    if "Regla cumplida." in section:
+        assert "mezcla medida" not in section
+    else:
+        assert "Regla no cumplida." in section and "mezcla medida" in section
 
 
 def test_seccion_de_aceptacion_recomienda_la_mezcla_medida_cuando_falla() -> None:
@@ -244,3 +252,23 @@ def test_seccion_de_aceptacion_recomienda_la_mezcla_medida_cuando_falla() -> Non
     text = _acceptance_section(pd.DataFrame(rows))
     assert "Regla no cumplida." in text
     assert "mezcla medida" in text and "WEIGHTS" in text
+    for piece in ("uso 70 %", "momentum 0.35", "cambio mes a mes 0.20", "caída 0.15", "antigüedad 15 %", "activación 15 %"):
+        assert piece in text
+    assert "no cambia los pesos por su cuenta" in text
+
+
+def test_seccion_de_aceptacion_sin_bajas_queda_sin_evaluar() -> None:
+    # R3-acceptance-section-no-empty-churn-guard: sin clase positiva no hay
+    # AUC ni recall; la seccion lo dice en vez de tronar o imprimir NaN.
+    from worky_engine.health.report import _acceptance_section
+
+    scores = pd.DataFrame(
+        [
+            {"master_id": "A", "churned": False, "usage_months_asof": 5, "health_score": 50.0, "flagged_20": False, "mrr_mxn": 100.0, "risk_band": "riesgo bajo"},
+            {"master_id": "B", "churned": False, "usage_months_asof": 5, "health_score": 20.0, "flagged_20": True, "mrr_mxn": 100.0, "risk_band": "riesgo alto"},
+        ]
+    )
+    text = _acceptance_section(scores)
+    assert text.startswith("## Regla de aceptación del ADR-005")
+    assert "no tiene bajas" in text and "queda sin evaluar" in text
+    assert "NaN" not in text and "nan" not in text

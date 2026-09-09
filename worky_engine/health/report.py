@@ -375,6 +375,14 @@ def _acceptance_section(scores: pd.DataFrame) -> str:
     la salida humana que fija la decision D18: la constante WEIGHTS no
     cambia sola en tiempo de corrida.
     """
+    if int(_churned_mask(scores).sum()) == 0:
+        # Sin bajas no hay clase positiva: ni AUC ni recall se pueden medir,
+        # asi que la regla queda sin evaluar y el reporte lo dice.
+        return (
+            "## Regla de aceptación del ADR-005, en este dataset\n\n"
+            "Este dataset no tiene bajas, así que la regla de aceptación (AUC de al menos 0.95 y recall de al "
+            "menos 0.85 al 20 % entre las bajas detectables) no se puede medir y queda sin evaluar."
+        )
     check = hm.acceptance_check(scores)
     verdict = "cumplida" if check["passed"] else "no cumplida"
     text = (

@@ -142,3 +142,17 @@ def test_regla_de_aceptacion_se_alcanza_sobre_las_bajas_detectables(real_health_
     assert check["recall_detectable_20"] == pytest.approx(1.000, abs=0.001)
     assert check["undetectable"] == 22
     assert check["passed"] is True
+
+
+@pytest.mark.dataset
+def test_validation_md_declara_la_regla_cumplida_en_el_dataset_real(real_health_result) -> None:
+    # R3-verdict-assertion-accepts-both-outcomes: sobre el dataset real la regla
+    # se cumple, y el reporte debe decirlo sin la recomendacion de respaldo.
+    from worky_engine.health.report import format_validation
+
+    result, _ = real_health_result
+    text = format_validation(result)
+    start = text.index("## Regla de aceptación del ADR-005")
+    section = text[start : text.index("## Matriz de confusión", start)]
+    assert "Regla cumplida." in section
+    assert "mezcla medida" not in section
