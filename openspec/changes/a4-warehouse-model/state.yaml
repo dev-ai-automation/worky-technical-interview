@@ -22,11 +22,11 @@ inputs:
 phases:
   explore: done (Engram #1966; el sub-agente no tiene herramienta de escritura, el orquestador materializo exploration.md con el mismo contenido y reescribio el topic para que ambos almacenes coincidan)
   research: not_selected (ofrecida el 2026-09-09; el usuario eligio todas las recomendaciones)
-  proposal: in_progress (decisiones confirmadas en preproposal.yaml revision 2; ADR-006 en redaccion)
-  specs: blocked
-  design: blocked
+  proposal: done (Engram #1979; ajustada por el orquestador tras el gate: build y resolve tambien aplican overrides, identity-resolution como capacidad modificada; aprobada por el usuario: "Si, build tambien")
+  specs: in_progress
+  design: in_progress
   tasks: blocked
   apply: blocked
   verify: blocked
   archive: blocked
-next_recommended: sdd-propose con el handoff confirmado
+next_recommended: sdd-spec y sdd-design en paralelo; despues sdd-tasks

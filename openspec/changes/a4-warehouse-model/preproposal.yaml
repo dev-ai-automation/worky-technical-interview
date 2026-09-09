@@ -1,5 +1,5 @@
 schema: gentle-ai.sdd-preproposal/v1
-revision: 2
+revision: 3
 change: a4-warehouse-model
 artifact_store: hybrid
 exploration:
@@ -29,6 +29,7 @@ evidence:
   engram:
     - sdd/a4-warehouse-model/explore
     - worky/a4/decision-warehouse-model
+    - worky/a4/decision-overrides-in-build
     - worky/rdd/policy-block-a-b
 product_decisions: confirmed
 confirmed_decisions:
@@ -37,6 +38,7 @@ confirmed_decisions:
   - A4.overrides opcion a: tabla identity_overrides agregada en A4 como extension aditiva sobre identity_resolution, sin modificar archivos existentes de ese modulo
   - A4.watermark opcion a: la marca de agua incremental por sistema origen se documenta con su contrato exacto y solo se implementa si sobra presupuesto tras dim_company/SCD2/overrides
   - A4.health_history opcion a: fact_health_score_monthly entra en A4 con el mismo mecanismo de snapshot por fecha de corrida que dim_company
+  - A4.overrides_in_build (ajuste del 2026-09-09, "Si, build tambien"): resolve y build aplican identity_overrides despues de la cascada via un archivo nuevo en identity_resolution y una llamada desde cli.py; identity-resolution pasa a capacidad modificada con un requisito AGREGADO; sin archivo de overrides la salida es identica byte a byte
   - research: no seleccionada
   - decision del usuario el 2026-09-09: "Vamos con las recomendaciones"
 assumptions_stated:
