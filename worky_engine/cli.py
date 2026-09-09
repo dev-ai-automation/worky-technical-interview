@@ -15,6 +15,11 @@ de mensajes claros de build-cli).
 `a4-warehouse-model`): un CSV opcional que fija manualmente el
 `master_id` de un registro despues de la cascada. Sin el archivo, sus
 salidas quedan identicas a las de antes de este cambio.
+`warehouse` (A4, ADR-006) tampoco depende de `build`: mismo orden que
+`analyze` y `health` (D1), con su propia conexion persistida entre
+corridas (D2, excepcion documentada a D6 de A0). Este PR solo escribe
+`map_source_identity.csv`; `dim_company.csv` llega con el algoritmo de
+SCD2 del PR3.
 """
 
 from __future__ import annotations
@@ -37,6 +42,8 @@ DEFAULT_ANALYSIS_OUT_DIR = Path("outputs") / "analysis"
 DEFAULT_HEALTH_DB_PATH = Path(".build") / "worky_health.duckdb"
 DEFAULT_HEALTH_OUT_DIR = Path("outputs") / "health"
 DEFAULT_OVERRIDES_PATH = Path("data") / "identity_overrides.csv"
+DEFAULT_WAREHOUSE_DB_PATH = Path(".build") / "warehouse.duckdb"
+DEFAULT_WAREHOUSE_OUT_DIR = Path("outputs") / "warehouse"
 
 
 def _exit_missing_dependency(error: ImportError) -> None:
@@ -111,6 +118,27 @@ def _import_health_dependencies():
     except ImportError as error:
         _exit_missing_dependency(error)
     return resolve_identity, assemble_master_dataset, open_connection, run_health, run_health_contracts, format_validation
+
+
+def _import_warehouse_dependencies():
+    """Importa las piezas de `warehouse` en el primer uso: DuckDB, overrides, el corredor de A4 y sus contratos."""
+    try:
+        from worky_engine.identity_resolution import resolve_identity
+        from worky_engine.identity_resolution.overrides import apply_overrides, load_overrides
+        from worky_engine.master_dataset import assemble_master_dataset
+        from worky_engine.quality.warehouse_contracts import run_warehouse_contracts
+        from worky_engine.warehouse import open_warehouse_connection, run_warehouse
+    except ImportError as error:
+        _exit_missing_dependency(error)
+    return (
+        resolve_identity,
+        load_overrides,
+        apply_overrides,
+        assemble_master_dataset,
+        open_warehouse_connection,
+        run_warehouse,
+        run_warehouse_contracts,
+    )
 
 
 def _reconfigure_streams_to_utf8() -> None:
@@ -418,6 +446,80 @@ def cmd_health(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_warehouse(args: argparse.Namespace) -> int:
+    """Corre identidad, ensamblaje y el esquema en estrella de A4, sin `build` previo.
+
+    Mismo orden que `cmd_analyze` y `cmd_health` (D1): importacion
+    diferida, `_resolve_data_dir`, `load_raw_tables`, `resolve_identity`
+    en memoria, `apply_overrides` si `--overrides` existe (D15,
+    reutiliza `overrides.py` del PR1), conexion propia que no borra su
+    archivo entre corridas (`open_warehouse_connection`, D2),
+    `assemble_master_dataset`, `run_contracts` de A0 sobre el dataset
+    recien ensamblado, `run_warehouse`, `run_warehouse_contracts` y un
+    `write_csv`. Mismos codigos de salida que `build`, `analyze` y
+    `health`. Este PR solo escribe `map_source_identity.csv`; el golden
+    de `dim_company.csv` y el resto del mensaje final ("<n> empresas
+    vigentes") llegan con el algoritmo de SCD2 del PR3.
+    """
+    (
+        resolve_identity,
+        load_overrides,
+        apply_overrides,
+        assemble_master_dataset,
+        open_warehouse_connection,
+        run_warehouse,
+        run_warehouse_contracts,
+    ) = _import_warehouse_dependencies()
+    data_dir = _resolve_data_dir(Path(args.data_dir))
+    out_dir = Path(args.out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    raw_tables = load_raw_tables(data_dir)
+    identity_outputs = resolve_identity(raw_tables, existing_crosswalk=None, reuse_crosswalk=True)
+
+    overrides_path = Path(args.overrides)
+    overrides_frame = None
+    if overrides_path.is_file():
+        from worky_engine.identity_resolution.overrides import OverrideError
+
+        try:
+            overrides_frame = load_overrides(overrides_path)
+            identity_outputs = apply_overrides(overrides_frame, identity_outputs, raw_tables)
+        except OverrideError as error:
+            print(f"warehouse: {error}", file=sys.stderr)
+            return 1
+
+    con = open_warehouse_connection(args.db_path)
+    try:
+        assembly_outputs = assemble_master_dataset(con, raw_tables, identity_outputs)
+        try:
+            run_contracts(
+                assembly_outputs["master_dataset"],
+                identity_outputs["identity_crosswalk"],
+                assembly_outputs["exceptions_log"],
+                identity_outputs["match_audit"],
+                raw_tables,
+                identity_outputs["quarantine_companies"],
+            )
+        except ContractViolation as error:
+            print(f"warehouse: {error}", file=sys.stderr)
+            return 1
+
+        result = run_warehouse(con, overrides_frame)
+        try:
+            run_warehouse_contracts(result.map_source_identity, result.overrides)
+        except ContractViolation as error:
+            print(f"warehouse: {error}", file=sys.stderr)
+            return 1
+    finally:
+        con.close()
+
+    write_csv(result.map_source_identity, out_dir / "map_source_identity.csv")
+
+    print(f"warehouse: {len(result.map_source_identity)} vinculos en {out_dir}")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="worky_engine")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -482,6 +584,25 @@ def build_parser() -> argparse.ArgumentParser:
     health_subparser.add_argument("--out-dir", default=str(DEFAULT_HEALTH_OUT_DIR))
     health_subparser.add_argument("--db-path", default=str(DEFAULT_HEALTH_DB_PATH))
     health_subparser.set_defaults(func=cmd_health)
+
+    warehouse_subparser = subparsers.add_parser(
+        "warehouse",
+        help="Corre el esquema en estrella de A4 (ADR-006) y escribe map_source_identity.csv, sin build previo.",
+    )
+    warehouse_subparser.add_argument("--data-dir", required=True)
+    warehouse_subparser.add_argument("--out-dir", default=str(DEFAULT_WAREHOUSE_OUT_DIR))
+    warehouse_subparser.add_argument("--db-path", default=str(DEFAULT_WAREHOUSE_DB_PATH))
+    warehouse_subparser.add_argument(
+        "--run-date",
+        default=None,
+        help="Fecha de corrida en formato YYYY-MM-DD; por omision, dataset_asof (D3). Sin efecto hasta el PR3.",
+    )
+    warehouse_subparser.add_argument(
+        "--overrides",
+        default=str(DEFAULT_OVERRIDES_PATH),
+        help="CSV de identity_overrides; se aplica solo si el archivo existe (por omision: data/identity_overrides.csv).",
+    )
+    warehouse_subparser.set_defaults(func=cmd_warehouse)
 
     return parser
 
