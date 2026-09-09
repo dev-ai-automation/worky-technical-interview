@@ -215,6 +215,23 @@ def assert_closed_revenue_non_negative(master_dataset: pd.DataFrame) -> None:
         )
 
 
+def assert_quarantine_companies_unique_hubspot_id(quarantine_companies: pd.DataFrame) -> None:
+    """`quarantine_companies.hubspot_id` nunca se repite: cada clon aporta una sola fila.
+
+    Un `hubspot_id` repetido en esta tabla significaria que el mismo
+    clon fue detectado (y por lo tanto emitido) mas de una vez por
+    `quarantine.deduplicate_companies`, lo que a su vez duplicaria la
+    fila `deal_remapped_from_clone` que emite mart_mrr.sql por cada
+    deal de ese clon (fan-out, el reves de JD-02).
+    """
+    duplicated = quarantine_companies["hubspot_id"].duplicated()
+    if duplicated.any():
+        ids = sorted(set(quarantine_companies.loc[duplicated, "hubspot_id"]))
+        raise ContractViolation(
+            f"contrato quarantine_companies_unique_hubspot_id: hubspot_id repetido {ids}"
+        )
+
+
 def count_unresolved(master_dataset: pd.DataFrame) -> int:
     """Cuenta filas `mrr_source = 'unresolved'`: estado legitimo, nunca hace fallar el build por si solo."""
     return int((master_dataset["mrr_source"] == "unresolved").sum())
@@ -235,15 +252,18 @@ def run_contracts(
     exceptions_log: pd.DataFrame,
     match_audit: pd.DataFrame | None = None,
     raw_tables: dict[str, pd.DataFrame] | None = None,
+    quarantine_companies: pd.DataFrame | None = None,
 ) -> None:
     """Corre todos los contratos disponibles en tiempo de build, en orden fijo (seccion 6 del diseno).
 
-    `match_audit` y `raw_tables` son opcionales para no romper las pruebas
-    existentes que solo ejercitan `master_dataset`/`crosswalk`/`exceptions_log`
-    (por ejemplo sobre copias rotas de una sola tabla); `cmd_build` los pasa
-    siempre, asi que en un build real los tres contratos de la tarea 3.12
-    (`source_id` de match_audit, `tickets.priority`, series de uso sin
-    huecos) tambien corren y pueden terminar el build con codigo 1.
+    `match_audit`, `raw_tables` y `quarantine_companies` son opcionales
+    para no romper las pruebas existentes que solo ejercitan
+    `master_dataset`/`crosswalk`/`exceptions_log` (por ejemplo sobre
+    copias rotas de una sola tabla); `cmd_build` los pasa siempre, asi
+    que en un build real los tres contratos de la tarea 3.12 (`source_id`
+    de match_audit, `tickets.priority`, series de uso sin huecos) y el
+    contrato de unicidad de `quarantine_companies.hubspot_id` tambien
+    corren y pueden terminar el build con codigo 1.
     """
     assert_row_count_matches_crosswalk(master_dataset, crosswalk)
     assert_unique_master_id(master_dataset)
@@ -261,6 +281,8 @@ def run_contracts(
         assert_source_id_in_origin_table(match_audit, raw_tables)
         assert_tickets_priority_domain(raw_tables["raw_tickets"])
         assert_usage_months_no_internal_gaps(raw_tables["raw_product_usage"])
+    if quarantine_companies is not None:
+        assert_quarantine_companies_unique_hubspot_id(quarantine_companies)
 
     unresolved_count = count_unresolved(master_dataset)
     if unresolved_count:

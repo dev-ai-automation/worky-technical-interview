@@ -23,6 +23,7 @@ from worky_engine.cli import main as cli_main
 from worky_engine.identity_resolution import resolve_identity
 from worky_engine.master_dataset import assemble_master_dataset, open_connection
 from worky_engine.quality import ContractViolation, run_contracts
+from worky_engine.quality.contracts import assert_quarantine_companies_unique_hubspot_id
 from worky_engine.writers import write_csv
 
 
@@ -126,6 +127,28 @@ def test_closed_revenue_negativo_viola_el_contrato(assembled: dict[str, pd.DataF
     broken.loc[broken.index[0], "closed_revenue_mxn"] = "-1.00"
     with pytest.raises(ContractViolation, match="closed_revenue_non_negative"):
         run_contracts(broken, assembled["identity_crosswalk"], assembled["exceptions_log"])
+
+
+def test_quarantine_companies_con_hubspot_id_repetido_viola_el_contrato() -> None:
+    broken = pd.DataFrame(
+        [
+            {"hubspot_id": "HS-900010", "survivor_hubspot_id": "HS-200001"},
+            {"hubspot_id": "HS-900010", "survivor_hubspot_id": "HS-200001"},
+        ]
+    )
+    with pytest.raises(ContractViolation, match="quarantine_companies_unique_hubspot_id") as exc_info:
+        assert_quarantine_companies_unique_hubspot_id(broken)
+    assert "HS-900010" in str(exc_info.value)
+
+
+def test_quarantine_companies_con_hubspot_id_unico_pasa_el_contrato() -> None:
+    unique = pd.DataFrame(
+        [
+            {"hubspot_id": "HS-900010", "survivor_hubspot_id": "HS-200001"},
+            {"hubspot_id": "HS-900011", "survivor_hubspot_id": "HS-200002"},
+        ]
+    )
+    assert_quarantine_companies_unique_hubspot_id(unique)
 
 
 def test_build_con_data_dir_inexistente_termina_con_codigo_2(tmp_path, capsys) -> None:

@@ -168,6 +168,7 @@ def cmd_build(args: argparse.Namespace) -> int:
             assembly_outputs["exceptions_log"],
             identity_outputs["match_audit"],
             raw_tables,
+            identity_outputs["quarantine_companies"],
         )
     except ContractViolation as error:
         print(f"build: {error}", file=sys.stderr)

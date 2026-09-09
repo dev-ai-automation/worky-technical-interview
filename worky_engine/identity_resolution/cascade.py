@@ -136,31 +136,33 @@ def resolve_identity(
 
     for account in accounts:
         decision = _resolve_account(account, companies_by_hubspot, companies_by_signup, survivors, decided_at)
-        audit_rows.append(decision)
         if decision["master_id"]:
             entry = crosswalk_rows[decision["master_id"]]
             if entry["account_id"] and entry["account_id"] != account["account_id"]:
-                raise keys.IdentityCollisionError(
-                    f"colision de master_id {decision['master_id']!r} en product_db: "
-                    f"los accounts {entry['account_id']!r} y {account['account_id']!r} "
-                    "resuelven a la misma empresa"
+                # Contencion, no aborto: el crosswalk conserva el primer
+                # account_id por orden de entrada y esta segunda decision
+                # queda marcada para revision manual con la evidencia de
+                # cual id se conservo y cual se descarto.
+                decision = _mark_duplicate_link(
+                    decision, "account_id", entry["account_id"], account["account_id"]
                 )
-            entry["account_id"] = account["account_id"]
-            entry["account_match_tier"] = decision["tier"]
+            else:
+                entry["account_id"] = account["account_id"]
+                entry["account_match_tier"] = decision["tier"]
+        audit_rows.append(decision)
 
     for customer in customers:
         decision = _resolve_customer(customer, companies_by_domain, survivors, decided_at)
-        audit_rows.append(decision)
         if decision["master_id"]:
             entry = crosswalk_rows[decision["master_id"]]
             if entry["vitally_id"] and entry["vitally_id"] != customer["vitally_id"]:
-                raise keys.IdentityCollisionError(
-                    f"colision de master_id {decision['master_id']!r} en vitally: "
-                    f"los customers {entry['vitally_id']!r} y {customer['vitally_id']!r} "
-                    "resuelven a la misma empresa"
+                decision = _mark_duplicate_link(
+                    decision, "vitally_id", entry["vitally_id"], customer["vitally_id"]
                 )
-            entry["vitally_id"] = customer["vitally_id"]
-            entry["vitally_match_tier"] = decision["tier"]
+            else:
+                entry["vitally_id"] = customer["vitally_id"]
+                entry["vitally_match_tier"] = decision["tier"]
+        audit_rows.append(decision)
 
     quarantine_deal_rows = quarantine.quarantine_orphan_deals(deals, all_company_hubspot_ids)
     for row in quarantine_deal_rows:
@@ -354,6 +356,29 @@ def _decision(
         "decided_by": DECIDED_BY,
         "decided_at": decided_at,
     }
+
+
+def _mark_duplicate_link(
+    decision: dict[str, Any], field_name: str, kept_id: str, dropped_id: str
+) -> dict[str, Any]:
+    """Copia una decision ya construida y le agrega la evidencia del enlace duplicado descartado.
+
+    El crosswalk guarda una sola fila por company (`account_id` y
+    `vitally_id` son columnas escalares); cuando un segundo id de la
+    misma fuente resuelve al mismo `master_id`, el primero por orden de
+    entrada se queda en el crosswalk y este segundo se descarta en vez
+    de sobrescribirlo en silencio. Se marca `needs_review = True` y se
+    extiende `evidence_json` (siempre determinista: `sort_keys=True`,
+    separadores compactos, sin escapar acentos) con el id conservado y
+    el descartado, para que la fila quede auditable en `match_audit` y
+    en el `exceptions_log` (exception_code `duplicate_source_link`).
+    """
+    evidence = json.loads(decision["evidence_json"])
+    evidence["duplicate_link"] = {"kept": kept_id, "dropped": dropped_id, "field": field_name}
+    marked = dict(decision)
+    marked["evidence_json"] = json.dumps(evidence, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+    marked["needs_review"] = True
+    return marked
 
 
 def _weakest_tier(*tiers: str | None) -> str | None:

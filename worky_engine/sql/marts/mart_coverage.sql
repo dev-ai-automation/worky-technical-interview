@@ -36,10 +36,16 @@ LEFT JOIN counted c USING (tier)
 CROSS JOIN total t
 ORDER BY k.tier;
 
+-- needs_review, no tier = 'M': hasta antes de la contencion de enlaces
+-- duplicados (seccion 3.6 del diseno) ambas condiciones eran equivalentes
+-- (M era el unico tier que marcaba needs_review = true), pero un enlace
+-- duplicado de product_db o vitally tambien necesita revision manual sin
+-- dejar de resolver en T0-T3. Sobre el dataset real (0 duplicados) el
+-- conteo no cambia.
 CREATE OR REPLACE VIEW mart_coverage_manual_queue AS
 SELECT COUNT(*) AS manual_queue_size
 FROM match_audit
-WHERE tier = 'M';
+WHERE needs_review;
 
 -- Cuarentena: 28 empresas clon y 35 deals huerfanos. El monto de los
 -- deals huerfanos se conserva en unidades mezcladas porque no tienen

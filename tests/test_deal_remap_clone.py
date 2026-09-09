@@ -78,7 +78,11 @@ def con_remap(tmp_path_factory) -> dict[str, pd.DataFrame]:
     outputs, identity_outputs = _assemble(raw_tables, tmp_path_factory)
     assert len(identity_outputs["quarantine_companies"]) == 1
     # Se fusionan las salidas de identidad (incluye quarantine_deals) con
-    # las de master_dataset para que las pruebas puedan revisar ambas.
+    # las de master_dataset para que las pruebas puedan revisar ambas; las
+    # diez claves de assemble_master_dataset y las cuatro de
+    # resolve_identity nunca deben chocar (JD-07), o la fusion perderia
+    # una tabla en silencio.
+    assert not set(identity_outputs) & set(outputs)
     return {**identity_outputs, **outputs}
 
 
@@ -103,7 +107,10 @@ def con_sin_remap(tmp_path_factory) -> dict[str, pd.DataFrame]:
     }
     outputs, identity_outputs = _assemble(raw_tables, tmp_path_factory)
     assert len(identity_outputs["quarantine_companies"]) == 1
-    return outputs
+    # Misma forma fusionada que con_remap, para que las pruebas negativas
+    # tambien puedan revisar quarantine_deals y quarantine_companies.
+    assert not set(identity_outputs) & set(outputs)
+    return {**identity_outputs, **outputs}
 
 
 def test_deal_de_clon_se_remapea_al_master_id_del_sobreviviente(con_remap: dict[str, pd.DataFrame]) -> None:
@@ -135,3 +142,60 @@ def test_sin_deal_de_clon_no_hay_fila_de_remapeo(con_sin_remap: dict[str, pd.Dat
     exceptions_log = con_sin_remap["exceptions_log"]
     remap_rows = exceptions_log[exceptions_log["exception_code"] == "deal_remapped_from_clone"]
     assert len(remap_rows) == 0
+    # El deal real (no de clon) tampoco debe caer en cuarentena, y el
+    # clon sigue aislado en quarantine_companies pese a no tener ningun
+    # deal remapeado en esta corrida.
+    assert (con_sin_remap["quarantine_deals"]["deal_id"] == "D-6002").sum() == 0
+    assert len(con_sin_remap["quarantine_companies"]) == 1
+
+
+@pytest.fixture(scope="module")
+def con_multiples_deals(tmp_path_factory) -> dict[str, pd.DataFrame]:
+    """Dos deals sobre el mismo clon, mas un tercero sobre el sobreviviente real."""
+    raw_tables = {
+        "raw_companies": pd.DataFrame(_companies_con_clon()),
+        "raw_accounts": _EMPTY_ACCOUNTS,
+        "raw_product_usage": _EMPTY_USAGE,
+        "raw_customers": _EMPTY_CUSTOMERS,
+        "raw_tickets": _EMPTY_TICKETS,
+        "raw_marketing_touches": _EMPTY_TOUCHES,
+        "raw_deals": pd.DataFrame(
+            [
+                # Dos deals sobre el clon HS-900060: ambos deben remapearse.
+                {
+                    "deal_id": "D-6101", "hubspot_id": "HS-900060", "stage": "closedwon", "amount": 1000.0,
+                    "created_date": "2022-02-01", "close_date": "2022-02-10", "pipeline": "New Business", "lead_source": "Web",
+                },
+                {
+                    "deal_id": "D-6102", "hubspot_id": "HS-900060", "stage": "closedwon", "amount": 2000.0,
+                    "created_date": "2022-03-01", "close_date": "2022-03-10", "pipeline": "New Business", "lead_source": "Web",
+                },
+                # Deal sobre el sobreviviente real: el clon existe en el
+                # mismo build (la rama de remapeo existe), pero este deal
+                # no debe producir ninguna fila de remapeo.
+                {
+                    "deal_id": "D-6103", "hubspot_id": "HS-600001", "stage": "closedwon", "amount": 500.0,
+                    "created_date": "2022-04-01", "close_date": "2022-04-10", "pipeline": "New Business", "lead_source": "Web",
+                },
+            ]
+        ),
+    }
+    outputs, identity_outputs = _assemble(raw_tables, tmp_path_factory)
+    assert len(identity_outputs["quarantine_companies"]) == 1
+    assert not set(identity_outputs) & set(outputs)
+    return {**identity_outputs, **outputs}
+
+
+def test_dos_deals_del_mismo_clon_producen_dos_filas_de_remapeo(con_multiples_deals: dict[str, pd.DataFrame]) -> None:
+    exceptions_log = con_multiples_deals["exceptions_log"]
+    remap_rows = exceptions_log[exceptions_log["exception_code"] == "deal_remapped_from_clone"]
+    assert len(remap_rows) == 2
+    assert set(remap_rows["source_id"]) == {"D-6101", "D-6102"}
+    assert remap_rows["exception_id"].nunique() == 2
+
+
+def test_deal_sobre_el_sobreviviente_real_no_produce_fila_de_remapeo(con_multiples_deals: dict[str, pd.DataFrame]) -> None:
+    exceptions_log = con_multiples_deals["exceptions_log"]
+    remap_rows = exceptions_log[exceptions_log["exception_code"] == "deal_remapped_from_clone"]
+    assert (remap_rows["source_id"] == "D-6103").sum() == 0
+    assert (con_multiples_deals["quarantine_deals"]["deal_id"] == "D-6103").sum() == 0

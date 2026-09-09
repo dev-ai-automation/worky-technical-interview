@@ -98,7 +98,11 @@ UNION ALL
 -- Una fila de exceptions_log por cada deal remapeado de un clon en
 -- cuarentena a su sobreviviente (design.md 3.8 caso 2): stg_deals ya
 -- resuelve ese master_id con quarantine_companies.survivor_master_id,
--- esta fila es solo la evidencia de que ese remapeo ocurrio.
+-- esta fila es solo la evidencia de que ese remapeo ocurrio. El
+-- `d.master_id = q.survivor_master_id` es la guardia que hace que esta
+-- fila solo aparezca cuando el remapeo de verdad ocurrio: sin ella, un
+-- hubspot_id que ya esta en identity_crosswalk (y por lo tanto trae su
+-- propio master_id via COALESCE) nunca podria producir una fila aqui.
 SELECT
     substr(
         sha256('deal_remapped_from_clone|crm_hubspot|' || d.deal_id || '|hubspot_id'), 1, 12
@@ -114,4 +118,39 @@ SELECT
     '1.0.0'                                                         AS ruleset_version,
     (SELECT MAX(resolved_at) FROM identity_crosswalk)                AS decided_at
 FROM stg_deals d
-JOIN quarantine_companies q ON q.hubspot_id = d.hubspot_id;
+JOIN quarantine_companies q
+    ON q.hubspot_id = d.hubspot_id AND d.master_id = q.survivor_master_id
+
+UNION ALL
+
+-- Una fila de exceptions_log por cada enlace de origen descartado por
+-- resolve_identity (seccion 3.6 del diseno): dos accounts de product_db
+-- o dos customers de Vitally que resuelven al mismo master_id ya no
+-- abortan el build, se contienen. El crosswalk conserva el primero por
+-- orden de entrada; el segundo queda fuera del crosswalk, pero su
+-- match_audit trae needs_review = true y esta fila es la evidencia
+-- auditable de cual id se conservo y cual se descarto.
+SELECT
+    substr(
+        sha256(
+            'duplicate_source_link|' || a.source_system || '|' || a.source_id || '|' ||
+            (CASE WHEN a.source_system = 'product_db' THEN 'account_id' ELSE 'vitally_id' END)
+        ), 1, 12
+    )                                                                             AS exception_id,
+    'duplicate_source_link'                                                      AS exception_code,
+    a.source_system                                                              AS source_system,
+    a.source_id                                                                  AS source_id,
+    a.master_id                                                                  AS master_id,
+    CASE WHEN a.source_system = 'product_db' THEN 'account_id' ELSE 'vitally_id' END AS field_name,
+    a.source_id                                                                  AS original_value,
+    CASE WHEN a.source_system = 'product_db' THEN x.account_id ELSE x.vitally_id END AS applied_value,
+    'match_audit'                                                                AS evidence_ref,
+    '1.0.0'                                                                      AS ruleset_version,
+    (SELECT MAX(resolved_at) FROM identity_crosswalk)                           AS decided_at
+FROM match_audit a
+JOIN identity_crosswalk x ON x.master_id = a.master_id
+WHERE a.source_system IN ('product_db', 'vitally')
+  AND (
+    (a.source_system = 'product_db' AND a.source_id <> x.account_id)
+    OR (a.source_system = 'vitally' AND a.source_id <> x.vitally_id)
+  );

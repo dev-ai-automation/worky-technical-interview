@@ -9,11 +9,13 @@ resolver ni siquiera en T3.
 
 from __future__ import annotations
 
+import json
+
 import pandas as pd
 import pytest
 
 from tests.fixtures.mini_dataset import build_mini_dataset
-from worky_engine.identity_resolution import keys, resolve_identity
+from worky_engine.identity_resolution import resolve_identity
 
 
 @pytest.fixture(scope="module")
@@ -222,10 +224,13 @@ def test_fila_completa_de_crosswalk_con_los_tres_ids(mini_result: dict[str, pd.D
     assert row["confidence_tier"] in {"T0", "T1", "T2", "T3"}
 
 
-def test_dos_accounts_al_mismo_master_id_abortan_la_corrida() -> None:
+def test_dos_accounts_al_mismo_master_id_se_contienen_sin_abortar() -> None:
     # Dos accounts con el mismo hubspot_id resuelven ambos por T0 a la
-    # misma empresa: el crosswalk solo tiene una fila por company, asi
-    # que la segunda escritura debe abortar en vez de pisar la primera.
+    # misma empresa: el crosswalk solo tiene una fila por company, y
+    # ahora conserva el primer account_id por orden de entrada (JD-01,
+    # contencion) en vez de abortar la corrida. La segunda decision
+    # queda marcada para revision manual con la evidencia de cual id se
+    # conservo y cual se descarto.
     raw_tables = {
         **_empty_raw_tables(),
         "raw_companies": pd.DataFrame(
@@ -246,15 +251,28 @@ def test_dos_accounts_al_mismo_master_id_abortan_la_corrida() -> None:
         ),
     }
 
-    with pytest.raises(keys.IdentityCollisionError, match="ACC-500001") as exc_info:
-        resolve_identity(raw_tables, existing_crosswalk=None, reuse_crosswalk=True)
-    assert "ACC-500002" in str(exc_info.value)
+    result = resolve_identity(raw_tables, existing_crosswalk=None, reuse_crosswalk=True)
+
+    crosswalk_row = result["identity_crosswalk"]
+    crosswalk_row = crosswalk_row[crosswalk_row["hubspot_id"] == "HS-500002"].iloc[0]
+    assert crosswalk_row["account_id"] == "ACC-500001"
+
+    kept_row = _audit_row(result["match_audit"], "ACC-500001")
+    assert not bool(kept_row["needs_review"])
+    assert "duplicate_link" not in json.loads(kept_row["evidence_json"])
+
+    dropped_row = _audit_row(result["match_audit"], "ACC-500002")
+    assert bool(dropped_row["needs_review"])
+    assert json.loads(dropped_row["evidence_json"])["duplicate_link"] == {
+        "kept": "ACC-500001", "dropped": "ACC-500002", "field": "account_id",
+    }
 
 
-def test_dos_customers_al_mismo_master_id_abortan_la_corrida() -> None:
+def test_dos_customers_al_mismo_master_id_se_contienen_sin_abortar() -> None:
     # Dos customers de Vitally comparten dominio y coinciden por nombre
     # con la unica empresa de ese dominio: ambos resuelven en T1 al
-    # mismo master_id, y la segunda escritura debe abortar.
+    # mismo master_id, y el crosswalk conserva el primer vitally_id por
+    # orden de entrada (JD-01, contencion) en vez de abortar la corrida.
     raw_tables = {
         **_empty_raw_tables(),
         "raw_companies": pd.DataFrame(
@@ -276,9 +294,60 @@ def test_dos_customers_al_mismo_master_id_abortan_la_corrida() -> None:
         ),
     }
 
-    with pytest.raises(keys.IdentityCollisionError, match="cus_500001") as exc_info:
-        resolve_identity(raw_tables, existing_crosswalk=None, reuse_crosswalk=True)
-    assert "cus_500002" in str(exc_info.value)
+    result = resolve_identity(raw_tables, existing_crosswalk=None, reuse_crosswalk=True)
+
+    crosswalk_row = result["identity_crosswalk"]
+    crosswalk_row = crosswalk_row[crosswalk_row["hubspot_id"] == "HS-500001"].iloc[0]
+    assert crosswalk_row["vitally_id"] == "cus_500001"
+
+    kept_row = _audit_row(result["match_audit"], "cus_500001")
+    assert not bool(kept_row["needs_review"])
+    assert "duplicate_link" not in json.loads(kept_row["evidence_json"])
+
+    dropped_row = _audit_row(result["match_audit"], "cus_500002")
+    assert bool(dropped_row["needs_review"])
+    assert json.loads(dropped_row["evidence_json"])["duplicate_link"] == {
+        "kept": "cus_500001", "dropped": "cus_500002", "field": "vitally_id",
+    }
+
+
+def test_mismo_account_id_repetido_se_tolera_en_silencio() -> None:
+    # El mismo account_id (identico, no solo el mismo hubspot_id) puede
+    # llegar dos veces en raw_accounts sin que eso sea una colision real:
+    # ambas filas resuelven al mismo master_id con el mismo id, y ninguna
+    # de las dos debe quedar marcada para revision manual.
+    raw_tables = {
+        **_empty_raw_tables(),
+        "raw_companies": pd.DataFrame(
+            [
+                {
+                    "hubspot_id": "HS-500010", "name": "Repetido SA de CV",
+                    "domain": "repetido510.com.mx", "segment": "SMB", "industry": "Retail",
+                    "mrr": 1000.0, "currency": "MXN", "signup_date": "2022-01-01",
+                    "csm_owner": "X", "plan": "Basico", "state": "CDMX", "churn_date": None,
+                },
+            ]
+        ),
+        "raw_accounts": pd.DataFrame(
+            [
+                {"account_id": "ACC-500010", "hubspot_id": "HS-500010", "account_name": "Repetido", "created_at": "2022-01-01"},
+                {"account_id": "ACC-500010", "hubspot_id": "HS-500010", "account_name": "Repetido", "created_at": "2022-01-01"},
+            ]
+        ),
+    }
+
+    result = resolve_identity(raw_tables, existing_crosswalk=None, reuse_crosswalk=True)
+
+    rows = result["match_audit"]
+    rows = rows[rows["source_id"] == "ACC-500010"]
+    assert len(rows) == 2
+    assert not rows["needs_review"].any()
+    for evidence_json in rows["evidence_json"]:
+        assert "duplicate_link" not in json.loads(evidence_json)
+
+    crosswalk_row = result["identity_crosswalk"]
+    crosswalk_row = crosswalk_row[crosswalk_row["hubspot_id"] == "HS-500010"].iloc[0]
+    assert crosswalk_row["account_id"] == "ACC-500010"
 
 
 def test_cuarentena_vacia_trae_el_esquema_completo_con_cero_filas() -> None:
