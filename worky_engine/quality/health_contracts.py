@@ -98,6 +98,32 @@ def assert_health_flags_match_rates(scores: pd.DataFrame) -> None:
         raise ContractViolation("contrato assert_health_flags_match_rates: las marcas no quedan anidadas")
 
 
+def assert_health_bands_match_thresholds(scores: pd.DataFrame) -> None:
+    """Las bandas siguen a los umbrales: alto es exactamente `flagged_15` y las bandas van en orden de score.
+
+    Revision R3-risk-band-thresholds-unproved: sin este contrato, cambiar
+    los umbrales de lugar o invertir la comparacion dejaria toda la
+    suite en verde. Se exige que "riesgo alto" coincida con `flagged_15`
+    entre las filas con score, y que todo score en alto sea menor o
+    igual que todo score en medio, y este menor o igual que todo score
+    en bajo.
+    """
+    scored = scores[scores["health_score"].notna()]
+    is_alto = scored["risk_band"] == "riesgo alto"
+    if not is_alto.equals(scored["flagged_15"].astype(bool)):
+        raise ContractViolation("contrato assert_health_bands_match_thresholds: 'riesgo alto' no coincide con flagged_15")
+    order = ["riesgo alto", "riesgo medio", "riesgo bajo"]
+    present = [band for band in order if (scored["risk_band"] == band).any()]
+    for lower, upper in zip(present, present[1:]):
+        worst_upper = scored.loc[scored["risk_band"] == upper, "health_score"].min()
+        best_lower = scored.loc[scored["risk_band"] == lower, "health_score"].max()
+        if best_lower > worst_upper:
+            raise ContractViolation(
+                f"contrato assert_health_bands_match_thresholds: un score de '{lower}' ({best_lower}) "
+                f"supera uno de '{upper}' ({worst_upper})"
+            )
+
+
 def assert_health_support_non_negative(scores: pd.DataFrame) -> None:
     """`tickets_window_total`, `tickets_window_urgent` y `activation_score` nunca son negativos, y urgentes <= total."""
     for column in ("tickets_window_total", "tickets_window_urgent"):

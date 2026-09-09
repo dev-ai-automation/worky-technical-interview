@@ -231,3 +231,28 @@ def test_las_tres_marcas_anidadas_con_proporcion_exacta_y_los_ocho_contratos(cap
         hc.assert_health_support_non_negative,
     ):
         check(capacity_scores)
+
+
+def test_las_bandas_siguen_a_los_umbrales_del_libro_activo(capacity_scores: pd.DataFrame) -> None:
+    # R3-risk-band-thresholds-unproved: alto = el 15 % de menor score (M000..M002),
+    # medio = el siguiente 15 % (M003..M005), bajo = el resto; y el orden por score se respeta.
+    bands = capacity_scores.set_index("master_id")["risk_band"]
+    assert set(bands[bands == "riesgo alto"].index) == {"M000", "M001", "M002"}
+    assert set(bands[bands == "riesgo medio"].index) == {"M003", "M004", "M005"}
+    assert (bands.drop(["M000", "M001", "M002", "M003", "M004", "M005"]) == "riesgo bajo").all()
+    scored = capacity_scores.set_index("master_id")["health_score"]
+    assert scored[bands == "riesgo alto"].max() <= scored[bands == "riesgo medio"].min()
+    assert scored[bands == "riesgo medio"].max() <= scored[bands == "riesgo bajo"].min()
+    hc.assert_health_bands_match_thresholds(capacity_scores)
+
+
+def test_el_contrato_de_bandas_detecta_umbrales_invertidos(capacity_scores: pd.DataFrame) -> None:
+    from worky_engine.quality.contracts import ContractViolation
+
+    swapped = capacity_scores.copy()
+    alto = swapped["risk_band"] == "riesgo alto"
+    medio = swapped["risk_band"] == "riesgo medio"
+    swapped.loc[alto, "risk_band"] = "riesgo medio"
+    swapped.loc[medio, "risk_band"] = "riesgo alto"
+    with pytest.raises(ContractViolation, match="assert_health_bands_match_thresholds"):
+        hc.assert_health_bands_match_thresholds(swapped)
