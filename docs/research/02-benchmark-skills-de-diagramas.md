@@ -105,7 +105,7 @@ Quedó en `~/.agents/skills/pretty-mermaid`, con symlink en `~/.claude/skills/pr
 Se generó un ERD mínimo de dos tablas (CLIENTE y PEDIDO, con la relación "realiza") en:
 
 ```
-C:\Users\Lenovo\AppData\Local\Temp\claude\C--Users-Lenovo-Documents-cartera-clientes-21-worky\97e1cd25-198a-4335-8bad-d11032601f00\scratchpad\diagram-smoke\erd-smoke.html
+<directorio temporal de la sesión>/diagram-smoke/erd-smoke.html
 ```
 
 Pasos: se escribió `erd.mmd` con sintaxis `erDiagram`, se renderizó a SVG con `node scripts/render.mjs`, y se incrustó el SVG resultante dentro de una página HTML mínima.
