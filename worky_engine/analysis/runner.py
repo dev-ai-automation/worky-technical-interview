@@ -6,14 +6,15 @@ propia conexion. El orden de ejecucion se declara en una lista, igual
 que `STAGING_FILES` y `MART_FILES` de `master_dataset/assemble.py`, y no
 por orden alfabetico del directorio (decision D6).
 
-PR 1 solo trae tres de las siete consultas de A1 (A1.1, A1.2 y A1.5).
-`a1_00_last_touch.sql`, `a1_03_cohort_retention.sql`,
-`a1_04_attribution.sql` y `a1_06_negative_hours.sql` se agregan en los
-PR siguientes junto con sus propios archivos `.sql`; hasta entonces,
-`ANALYSIS_FILES` y `ANALYSIS_OUTPUTS` solo listan lo que ya existe en el
-repositorio, para que `run_sql_files` nunca intente leer un archivo
-todavia no creado (desviacion de la tarea 1.2, que describia el orden
-final con `a1_00_last_touch.sql` primero).
+PR 2 agrega `a1_00_last_touch.sql` (mart_last_touch, sin salida CSV
+propia), `a1_03_cohort_retention.sql` y `a1_04_attribution.sql` a las
+tres consultas del PR 1 (A1.1, A1.2 y A1.5). `a1_00` va primero porque
+`a1_04` la consume (D6, D7). `a1_06_negative_hours.sql` se agrega en el
+PR 3 junto con su propio archivo `.sql`; hasta entonces, `ANALYSIS_FILES`
+y `ANALYSIS_OUTPUTS` solo listan lo que ya existe en el repositorio,
+para que `run_sql_files` nunca intente leer un archivo todavia no
+creado (desviacion de la tarea 1.2, que describia el orden final con
+`a1_00_last_touch.sql` primero desde el PR 1).
 """
 
 from __future__ import annotations
@@ -26,8 +27,11 @@ import pandas as pd
 from worky_engine.master_dataset.assemble import SQL_DIR, run_sql_files
 
 ANALYSIS_FILES = [
+    "analysis/a1_00_last_touch.sql",
     "analysis/a1_01_active_mrr.sql",
     "analysis/a1_02_usage_drop.sql",
+    "analysis/a1_03_cohort_retention.sql",
+    "analysis/a1_04_attribution.sql",
     "analysis/a1_05_orphan_deals.sql",
 ]
 
@@ -46,6 +50,8 @@ ANALYSIS_OUTPUTS: list[AnalysisOutput] = [
     AnalysisOutput(
         "analysis_a1_02_usage_drop", "a1_02_usage_drop.csv", "CAST(drop_relative AS DOUBLE) DESC NULLS LAST, master_id"
     ),
+    AnalysisOutput("analysis_a1_03_cohort_retention", "a1_03_cohort_retention.csv", "cohort_month, k"),
+    AnalysisOutput("analysis_a1_04_attribution", "a1_04_attribution.csv", "model, channel_rank"),
     AnalysisOutput("analysis_a1_05_orphan_deals", "a1_05_orphan_deals.csv", "deal_id"),
 ]
 

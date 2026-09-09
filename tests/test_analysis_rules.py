@@ -7,8 +7,12 @@ agregar empresas ahi moveria los conteos que ya fijan las pruebas de
 identidad y de imputacion. El fixture ejercita, a proposito: dos
 empresas activas en segmentos distintos para A1.1; cuatro cuentas con
 churn para A1.2 (mes de baja excluido, windows_overlap en una cuenta de
-tres meses, drop_status 'no_usage' y 'final_window_empty'); y un deal
-huerfano mas un deal de un clon en cuarentena para A1.5.
+tres meses, drop_status 'no_usage' y 'final_window_empty'); un deal
+huerfano mas un deal de un clon en cuarentena para A1.5; dos touches con
+la misma fecha (empate por touch_id en los dos extremos) y un deal
+creado antes del primer touch de su empresa para A1.4; y una cohorte de
+alta reciente que fuerza celdas censuradas mas el caso frontera de una
+empresa que hace churn exactamente en el mes k para A1.3.
 """
 
 from __future__ import annotations
@@ -25,7 +29,6 @@ _EMPTY_CUSTOMERS = pd.DataFrame(columns=["vitally_id", "domain", "company_name",
 _EMPTY_TICKETS = pd.DataFrame(
     columns=["ticket_id", "vitally_id", "created_date", "priority", "status", "category", "resolution_hours", "csat_score"]
 )
-_EMPTY_TOUCHES = pd.DataFrame(columns=["touch_id", "hubspot_id", "channel", "touch_date", "campaign"])
 
 
 def _company(hubspot_id: str, name: str, domain: str, segment: str, industry: str, mrr, churn_date=None) -> dict:
@@ -34,6 +37,10 @@ def _company(hubspot_id: str, name: str, domain: str, segment: str, industry: st
         "industry": industry, "mrr": mrr, "currency": "MXN", "signup_date": "2022-01-01",
         "csm_owner": "X", "plan": "Basico", "state": "CDMX", "churn_date": churn_date,
     }
+
+
+def _touch(touch_id: str, hubspot_id: str, channel: str, touch_date: str) -> dict:
+    return {"touch_id": touch_id, "hubspot_id": hubspot_id, "channel": channel, "touch_date": touch_date, "campaign": "camp"}
 
 
 def _usage(account_id: str, month: str, active_users: int) -> dict:
@@ -70,6 +77,24 @@ def _minimal_raw_tables() -> dict[str, pd.DataFrame]:
         # caida relativa es negativa; fijan el orden numerico descendente.
         _company("HS-810014", "Sube Mucho SA de CV", "submucho810.com.mx", "SMB", "Retail", 1000.0, "2024-06-15"),
         _company("HS-810015", "Sube Poco SA de CV", "subpoco810.com.mx", "SMB", "Retail", 1000.0, "2024-06-15"),
+        # HS-810020: alta el mes calendario anterior al cierre de los
+        # datos (que en este fixture cae en 2024-08 por el mes de baja y
+        # el uso de ACC-8110); su cohorte 2024-07 solo cumple k = 1 y
+        # queda censorada en k = 3, 6 y 12. mrr None para no mover el
+        # total de A1.1 (queda 'unresolved', aporta cero pesos).
+        {
+            "hubspot_id": "HS-810020", "name": "Cohorte Reciente SA de CV", "domain": "cohortereciente810.com.mx",
+            "segment": "SMB", "industry": "Retail", "mrr": None, "currency": "MXN", "signup_date": "2024-07-01",
+            "csm_owner": "X", "plan": "Basico", "state": "CDMX", "churn_date": None,
+        },
+        # HS-810021: caso frontera, hace churn exactamente 3 meses
+        # despues de su alta (months_to_churn = 3). Debe seguir activa en
+        # k = 1 y dejar de contar como activa justo en k = 3, 6 y 12.
+        {
+            "hubspot_id": "HS-810021", "name": "Frontera Churn SA de CV", "domain": "fronterachurn810.com.mx",
+            "segment": "SMB", "industry": "Retail", "mrr": None, "currency": "MXN", "signup_date": "2023-01-01",
+            "csm_owner": "X", "plan": "Basico", "state": "CDMX", "churn_date": "2023-04-01",
+        },
     ]
     accounts = [
         {"account_id": "ACC-8110", "hubspot_id": "HS-810010", "account_name": "Excluye Mes Baja", "created_at": "2022-01-01"},
@@ -109,13 +134,33 @@ def _minimal_raw_tables() -> dict[str, pd.DataFrame]:
         # HS-810003 y no debe aparecer como huerfano.
         {"deal_id": "D-810081", "hubspot_id": "HS-900081", "stage": "closedwon", "amount": 300.0,
          "created_date": "2022-02-01", "close_date": "2022-02-10", "pipeline": "New Business", "lead_source": "Web"},
+        # D-8110401: creado despues de los dos touches empatados por
+        # fecha de HS-810001. mart_first_touch (grano empresa, sin
+        # filtro de fecha) rompe el empate por touch_id ascendente,
+        # mart_last_touch (grano deal, touch_date < created_date) lo
+        # rompe por touch_id descendente: los dos extremos del mismo
+        # empate deben dar canales distintos.
+        {"deal_id": "D-8110401", "hubspot_id": "HS-810001", "stage": "open", "amount": 1000.0,
+         "created_date": "2022-02-01", "close_date": "2022-03-01", "pipeline": "New Business", "lead_source": "Web"},
+        # D-8110402: creado antes del unico touch de HS-810002. El
+        # primer touch de la empresa si existe (mart_first_touch no
+        # filtra por fecha), pero el ultimo touch anterior al deal no,
+        # asi que el modelo de ultimo touch debe etiquetarlo
+        # 'no_prior_touch' en vez de 'unknown'.
+        {"deal_id": "D-8110402", "hubspot_id": "HS-810002", "stage": "open", "amount": 800.0,
+         "created_date": "2022-01-01", "close_date": "2022-02-01", "pipeline": "New Business", "lead_source": "Web"},
+    ]
+    touches = [
+        _touch("T-8110301", "HS-810001", "Organic", "2022-01-05"),
+        _touch("T-8110302", "HS-810001", "Paid Search", "2022-01-05"),
+        _touch("T-8110303", "HS-810002", "Webinar", "2022-06-01"),
     ]
     return {
         "raw_companies": pd.DataFrame(companies),
         "raw_accounts": pd.DataFrame(accounts),
         "raw_product_usage": pd.DataFrame(usage),
         "raw_deals": pd.DataFrame(deals),
-        "raw_marketing_touches": _EMPTY_TOUCHES,
+        "raw_marketing_touches": pd.DataFrame(touches),
         "raw_customers": _EMPTY_CUSTOMERS,
         "raw_tickets": _EMPTY_TICKETS,
     }
@@ -224,3 +269,67 @@ def test_a1_02_orden_numerico_descendente_con_negativos(analysis_fixture) -> Non
     assert computed.iloc[-2]["hubspot_id"] == "HS-810015"
     first_uncomputed = usage_drop.index[usage_drop["drop_status"] != "computed"].min()
     assert first_uncomputed > computed.index.max()
+
+
+def test_a1_03_celda_censurada_vacia_en_cohorte_reciente(analysis_fixture) -> None:
+    result, _, _ = analysis_fixture
+    cohort_retention = result.outputs["analysis_a1_03_cohort_retention"]
+    recent = cohort_retention.loc[cohort_retention["cohort_month"] == "2024-07"].set_index("k")
+    assert recent.loc[1, "cell_status"] == "computed"
+    assert recent.loc[1, "retention_pct"] == "100.00"
+    for k in (3, 6, 12):
+        assert recent.loc[k, "cell_status"] == "censored"
+        assert pd.isna(recent.loc[k, "retained"])
+        assert pd.isna(recent.loc[k, "retention_pct"])
+
+
+def test_a1_03_caso_frontera_churn_exacto_en_mes_k(analysis_fixture) -> None:
+    # HS-810021 hace churn a exactamente 3 meses de su alta: sigue activa
+    # en k = 1 (3 > 1) y deja de contar como activa justo en k = 3, 6 y
+    # 12 (3 > k es falso en los tres), sin quedar censorada porque su
+    # cohorte ya acumulo mas de 12 meses desde el alta.
+    result, _, _ = analysis_fixture
+    cohort_retention = result.outputs["analysis_a1_03_cohort_retention"]
+    frontera = cohort_retention.loc[cohort_retention["cohort_month"] == "2023-01"].set_index("k")
+    assert frontera.loc[1, "cell_status"] == "computed"
+    assert int(frontera.loc[1, "retained"]) == 1
+    for k in (3, 6, 12):
+        assert frontera.loc[k, "cell_status"] == "computed"
+        assert int(frontera.loc[k, "retained"]) == 0
+        assert frontera.loc[k, "retention_pct"] == "0.00"
+
+
+def test_a1_04_empate_por_touch_id_en_los_dos_extremos(analysis_fixture) -> None:
+    # Los mismos dos touches de HS-810001 (misma fecha, distinto
+    # touch_id) resuelven a canales distintos en cada modelo: el primer
+    # touch se queda con el touch_id mas chico (Organic), el ultimo
+    # touch con el mas grande (Paid Search), porque cada vista rompe el
+    # empate en el extremo que le corresponde.
+    result, _, _ = analysis_fixture
+    attribution = result.outputs["analysis_a1_04_attribution"]
+    first_touch = attribution.loc[attribution["model"] == "first_touch"].set_index("channel")
+    last_touch = attribution.loc[attribution["model"] == "last_touch"].set_index("channel")
+    assert int(first_touch.loc["Organic", "deals_attributed"]) == 1
+    assert int(last_touch.loc["Paid Search", "deals_attributed"]) == 1
+
+
+def test_a1_04_deal_creado_antes_del_primer_touch_es_no_prior_touch(analysis_fixture) -> None:
+    # D-8110402 se creo antes del unico touch de HS-810002: el primer
+    # touch de la empresa si existe (Webinar), pero ningun touch queda
+    # antes del deal, asi que el ultimo touch lo etiqueta
+    # 'no_prior_touch' en vez de 'unknown'. El deal del clon
+    # remapeado (D-810081, sin ningun touch) tambien cae en
+    # 'no_prior_touch', asi que el canal suma dos deals atribuidos.
+    result, _, _ = analysis_fixture
+    attribution = result.outputs["analysis_a1_04_attribution"]
+    first_touch = attribution.loc[attribution["model"] == "first_touch"].set_index("channel")
+    last_touch = attribution.loc[attribution["model"] == "last_touch"].set_index("channel")
+    assert int(first_touch.loc["Webinar", "deals_attributed"]) == 1
+    assert int(last_touch.loc["no_prior_touch", "deals_attributed"]) == 2
+
+
+def test_a1_04_modelos_cubren_los_mismos_deals(analysis_fixture) -> None:
+    result, _, _ = analysis_fixture
+    attribution = result.outputs["analysis_a1_04_attribution"]
+    totals = attribution.groupby("model")["deals_attributed"].sum()
+    assert totals["first_touch"] == totals["last_touch"] == 3

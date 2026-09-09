@@ -1,13 +1,15 @@
-"""Idempotencia byte a byte de `analyze` (PR 1: A1.1, A1.2 y A1.5), marca `dataset`.
+"""Idempotencia byte a byte de `analyze` (PR 1 y PR 2: A1.1 a A1.5), marca `dataset`.
 
 Corre `python -m worky_engine analyze` dos veces en carpetas temporales
-distintas y compara las tres salidas disponibles en este PR entre si y
-contra la copia commiteada en `outputs/analysis/`, y verifica que el
+distintas y compara las cinco salidas disponibles hasta este PR entre si
+y contra la copia commiteada en `outputs/analysis/`, y verifica que el
 hash de los ocho archivos de `outputs/` (A0, de solo lectura para este
 cambio) es el mismo antes y despues de correr `analyze` (decision D15
-del diseno). Las otras cinco salidas de `analyze` (el resto de las
-consultas, `analysis_exceptions.csv` y `report.md`) se agregan a esta
-comparacion en el PR 2 y el PR 3, cuando sus archivos existen.
+del diseno). `a1_03_cohort_retention.csv` y `a1_04_attribution.csv` se
+agregan en el PR 2 (tarea 2.8; no listada en la tabla de lineas del PR 2
+del diseno, ver "Brechas encontradas en el diseno" en tasks.md). Las
+otras tres salidas (`a1_06_negative_hours.csv`, `analysis_exceptions.csv`
+y `report.md`) se agregan en el PR 3, cuando sus archivos existen.
 """
 
 from __future__ import annotations
@@ -19,7 +21,13 @@ import pytest
 
 from worky_engine.cli import main
 
-OUTPUT_NAMES = ("a1_01_active_mrr.csv", "a1_02_usage_drop.csv", "a1_05_orphan_deals.csv")
+OUTPUT_NAMES = (
+    "a1_01_active_mrr.csv",
+    "a1_02_usage_drop.csv",
+    "a1_03_cohort_retention.csv",
+    "a1_04_attribution.csv",
+    "a1_05_orphan_deals.csv",
+)
 GOLDEN_DIR = Path(__file__).resolve().parent.parent / "outputs" / "analysis"
 A0_OUTPUTS_DIR = Path(__file__).resolve().parent.parent / "outputs"
 A0_OUTPUT_NAMES = (

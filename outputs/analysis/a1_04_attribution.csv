@@ -1,0 +1,16 @@
+model,channel,deals_attributed,deals_won,conversion_rate,channel_rank
+first_touch,Paid Search,120,27,0.225000,1
+first_touch,Organic,129,19,0.147287,2
+first_touch,Webinar,128,16,0.125000,3
+first_touch,Outbound SDR,153,19,0.124183,4
+first_touch,Partner,130,16,0.123077,5
+first_touch,Evento,147,14,0.095238,6
+first_touch,Referral,155,14,0.090323,7
+last_touch,Paid Search,87,20,0.229885,1
+last_touch,Partner,93,13,0.139785,2
+last_touch,no_prior_touch,326,42,0.128834,3
+last_touch,Organic,87,11,0.126437,4
+last_touch,Evento,103,12,0.116505,5
+last_touch,Outbound SDR,95,11,0.115789,6
+last_touch,Webinar,85,8,0.094118,7
+last_touch,Referral,86,8,0.093023,8

@@ -6,6 +6,12 @@ los numeros que el ADR-004 ya publico: 89 cuentas en A1.2 (30 con
 `windows_overlap`), 35 deals por 667,251.00 en A1.5, y el total con
 imputados de A1.1 igual a la suma de `mrr_mxn` de las empresas activas
 en `master_dataset`.
+
+PR 2 agrega los numeros reales de A1.3 y A1.4: los 962 deals atribuidos
+(997 de HubSpot menos los 35 huerfanos de A1.5) son iguales en los dos
+modelos, la monotonia de A1.3 nunca sube de un k al siguiente dentro de
+una cohorte, y el canal ganador medido en cada modelo (que sobre este
+dataset resulta ser el mismo canal en los dos, sin cambio de ganador).
 """
 
 from __future__ import annotations
@@ -71,3 +77,40 @@ def test_a1_01_total_imputado_coincide_con_master_dataset(real_analysis_result) 
     active = master_dataset.loc[master_dataset["churn_status"] == "active", "mrr_mxn"]
     expected = round(pd.to_numeric(active, errors="coerce").fillna(0).sum(), 2)
     assert round(float(total_row["mrr_total_mxn"]), 2) == expected
+
+
+@pytest.mark.dataset
+def test_a1_04_deals_atribuidos_iguales_997_menos_35_huerfanos(real_analysis_result) -> None:
+    """Los dos modelos de atribucion cubren los mismos 962 deals (997 de HubSpot menos los 35 huerfanos de A1.5)."""
+    attribution = real_analysis_result[0].outputs["analysis_a1_04_attribution"]
+    totals = attribution.groupby("model")["deals_attributed"].sum()
+    assert totals["first_touch"] == 962
+    assert totals["last_touch"] == 962
+
+
+@pytest.mark.dataset
+def test_a1_04_canal_ganador_medido_por_modelo(real_analysis_result) -> None:
+    """El canal ganador (channel_rank = 1) de cada modelo, medido sobre el dataset real.
+
+    Sobre este dataset, el ganador es 'Paid Search' en los dos modelos:
+    el canal no cambia. Se fija el numero medido en vez de asumir el
+    cambio de ganador que anticipaba el diseno (decision D12).
+    """
+    attribution = real_analysis_result[0].outputs["analysis_a1_04_attribution"]
+    winners = attribution.loc[attribution["channel_rank"] == 1].set_index("model")
+    assert winners.loc["first_touch", "channel"] == "Paid Search"
+    assert winners.loc["last_touch", "channel"] == "Paid Search"
+    assert winners.loc["first_touch", "channel"] == winners.loc["last_touch", "channel"]
+
+
+@pytest.mark.dataset
+def test_a1_03_monotonia_no_creciente_sobre_dataset_real(real_analysis_result) -> None:
+    """Dentro de cada una de las 30 cohortes, `retained` nunca sube al pasar de un k al siguiente."""
+    cohort_retention = real_analysis_result[0].outputs["analysis_a1_03_cohort_retention"]
+    assert cohort_retention["cohort_month"].nunique() == 30
+    assert len(cohort_retention) == 120
+    assert int((cohort_retention["cell_status"] == "censored").sum()) == 15
+    computed = cohort_retention.loc[cohort_retention["cell_status"] == "computed"].sort_values(["cohort_month", "k"])
+    for cohort_month, group in computed.groupby("cohort_month"):
+        values = group["retained"].astype(int).tolist()
+        assert values == sorted(values, reverse=True), f"retained sube en la cohorte {cohort_month}"
