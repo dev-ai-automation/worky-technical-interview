@@ -20,10 +20,10 @@ phases:
   explore: done (con mediciones de senales corridas por el orquestador)
   research: not_selected
   proposal: done (propuesta escrita; Engram #1888; aprobada por el usuario: "Sí, lanza las dos fases")
-  specs: in_progress
-  design: in_progress
+  specs: done (dominio nuevo health-score: 12 requisitos, 25 escenarios; Engram #1894)
+  design: done (D1 a D21; Engram #1900; spec alineado en mes de cierre derivado de los datos y dominio de risk_band)
   tasks: pending
   apply: pending
   verify: pending
   archive: pending
-next_recommended: sdd-spec y sdd-design en paralelo, luego sdd-tasks
+next_recommended: sdd-tasks, luego revisar el Review Workload Forecast antes de apply
