@@ -17,7 +17,7 @@ El cambio a4-warehouse-model implementó un esquema en estrella de Kimball ejecu
 - **PR3** (`feat/a4-pr3-warehouse-scd2-health`): SCD2 de dimensión empresa, snapshot de health
 - **PR4** (`feat/a4-pr4-warehouse-docs`): documento del modelo, ERD 07, rutas rápidas
 
-Todas las tareas completadas (32/32), todos los requisitos cumplidos (13/13 para identity-resolution delta + 12/12 para warehouse-model), todos los escenarios probados (26/26 identity-resolution + 27/27 warehouse-model), 252 pruebas pasadas (213 de A3 + 39 de A4). Verificación con `pass_with_warnings` sin bloqueadores críticos. Four stacked PRs reviewed under receipt-driven development (RDD on for PR1-PR3, off for PR4); native review receipts recorded for all four.
+Todas las tareas completadas (32/32), todos los requisitos del cambio cumplidos (13/13: 12 de warehouse-model y 1 del delta de identity-resolution) y todos sus escenarios con evidencia (32/32: 27 de warehouse-model y 5 del delta; 31 con prueba o inspección y 1 no aplicable por el diferimiento de la marca de agua, D18), 252 pruebas pasadas (213 de A3 + 39 de A4). Verificación con `pass_with_warnings` sin bloqueadores críticos. Los tres PR con código pasaron por la revisión nativa con receipt-driven development encendido (PR1, PR2 y PR3, cada uno aprobado y reconocido tras una corrección acotada); el PR4, documental, se cerró con el switch apagado y lectura estructural del orquestador.
 
 ---
 
