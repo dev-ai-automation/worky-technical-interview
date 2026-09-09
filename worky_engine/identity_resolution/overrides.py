@@ -59,7 +59,14 @@ def load_overrides(path: str | Path) -> pd.DataFrame:
     contra el crosswalk ni contra las tablas crudas: eso lo hace
     `apply_overrides`, que ya tiene esas referencias en memoria.
     """
-    frame = pd.read_csv(Path(path), dtype=str, keep_default_na=False, encoding="utf-8")
+    try:
+        frame = pd.read_csv(Path(path), dtype=str, keep_default_na=False, encoding="utf-8")
+    except pd.errors.EmptyDataError as error:
+        raise OverrideError(f"identity_overrides: el archivo {path} esta vacio") from error
+    except pd.errors.ParserError as error:
+        raise OverrideError(
+            f"identity_overrides: el archivo {path} no se pudo leer como CSV: {error}"
+        ) from error
 
     columns = list(frame.columns)
     if columns != list(OVERRIDE_COLUMNS):
@@ -148,6 +155,22 @@ def apply_overrides(
         source_id = row["source_id"]
         master_id = row["master_id"]
         id_column, tier_column = _CROSSWALK_COLUMN_BY_SOURCE_SYSTEM[source_system]
+
+        # Si la cascada (o un override anterior en este mismo archivo) ya
+        # habia vinculado este source_id a otro master, hay que soltar ese
+        # vinculo antes de crear el nuevo: si no, dos filas del crosswalk
+        # terminan cargando el mismo account_id/vitally_id, una con tier
+        # 'O' y la otra con su tier original, ya obsoleto.
+        stale_mask = (indexed_crosswalk[id_column] == source_id) & (
+            indexed_crosswalk["master_id"] != master_id
+        )
+        for stale_master_id in indexed_crosswalk.index[stale_mask]:
+            indexed_crosswalk.at[stale_master_id, id_column] = None
+            indexed_crosswalk.at[stale_master_id, tier_column] = None
+            indexed_crosswalk.at[stale_master_id, "confidence_tier"] = _weakest_tier_with_override(
+                indexed_crosswalk.at[stale_master_id, "account_match_tier"],
+                indexed_crosswalk.at[stale_master_id, "vitally_match_tier"],
+            )
 
         indexed_crosswalk.at[master_id, id_column] = source_id
         indexed_crosswalk.at[master_id, tier_column] = OVERRIDE_TIER

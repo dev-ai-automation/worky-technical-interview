@@ -129,6 +129,55 @@ def test_override_fija_el_master_id_y_sale_de_revision_manual(tmp_path: Path) ->
     assert result["quarantine_deals"] is identity_outputs["quarantine_deals"]
 
 
+def test_override_que_repunta_source_id_ya_vinculado_limpia_el_master_anterior(tmp_path: Path) -> None:
+    """R3-001: reapuntar un source_id que la cascada ya vinculo a otro master no debe dejarlo duplicado."""
+    raw_tables = _raw_tables()
+    raw_tables["raw_accounts"] = pd.concat(
+        [
+            raw_tables["raw_accounts"],
+            pd.DataFrame(
+                [
+                    {
+                        "account_id": "ACC-9102",
+                        "hubspot_id": "HS-9101",
+                        "account_name": "Compania Alfa Industrial SA de CV",
+                        "created_at": "2022-01-01",
+                    }
+                ]
+            ),
+        ],
+        ignore_index=True,
+    )
+    identity_outputs = resolve_identity(raw_tables, existing_crosswalk=None, reuse_crosswalk=True)
+    crosswalk = identity_outputs["identity_crosswalk"]
+    master_alfa = _master_id_for(crosswalk, "HS-9101")
+    master_beta = _master_id_for(crosswalk, "HS-9102")
+
+    # confirma la premisa: la cascada ya vinculo ACC-9102 a Alfa por T0 (hubspot_id).
+    alfa_row = crosswalk[crosswalk["master_id"] == master_alfa].iloc[0]
+    assert alfa_row["account_id"] == "ACC-9102"
+    assert alfa_row["account_match_tier"] == "T0"
+
+    overrides_path = _write_overrides(
+        tmp_path / "identity_overrides.csv",
+        [f"product_db,ACC-9102,{master_beta},ana.reyes,2024-08-15,se movio de compania por fusion\n"],
+    )
+    overrides = load_overrides(overrides_path)
+    result = apply_overrides(overrides, identity_outputs, raw_tables)
+
+    crosswalk = result["identity_crosswalk"]
+    beta_row = crosswalk[crosswalk["master_id"] == master_beta].iloc[0]
+    assert beta_row["account_id"] == "ACC-9102"
+    assert beta_row["account_match_tier"] == "O"
+
+    alfa_row = crosswalk[crosswalk["master_id"] == master_alfa].iloc[0]
+    assert not alfa_row["account_id"] or pd.isna(alfa_row["account_id"])
+    assert not alfa_row["account_match_tier"] or pd.isna(alfa_row["account_match_tier"])
+    assert not alfa_row["confidence_tier"] or pd.isna(alfa_row["confidence_tier"])
+
+    assert (crosswalk["account_id"] == "ACC-9102").sum() == 1
+
+
 def test_override_con_master_id_inexistente_se_rechaza(tmp_path: Path) -> None:
     identity_outputs = _identity_outputs()
     overrides_path = _write_overrides(
@@ -218,3 +267,29 @@ def test_decided_at_no_iso_se_rechaza(tmp_path: Path) -> None:
 
     with pytest.raises(OverrideError, match="fecha ISO"):
         load_overrides(path)
+
+
+def test_archivo_vacio_se_rechaza_con_override_error(tmp_path: Path) -> None:
+    """R3-002: un archivo de cero bytes no debe tumbar `pd.read_csv` con una traza cruda."""
+    path = tmp_path / "identity_overrides.csv"
+    path.write_text("", encoding="utf-8")
+
+    with pytest.raises(OverrideError) as error:
+        load_overrides(path)
+    assert str(path) in str(error.value)
+    assert "vacio" in str(error.value)
+
+
+def test_fila_mal_formada_se_rechaza_con_override_error(tmp_path: Path) -> None:
+    """R3-002: una fila con una coma sin comillas (columnas de mas, forma dispareja) no debe tumbar el parser de pandas."""
+    path = tmp_path / "identity_overrides.csv"
+    path.write_text(
+        OVERRIDE_HEADER
+        + "product_db,ACC-9101,abc123456789,ana.reyes,2024-08-15,motivo\n"
+        + "vitally,cus_9101,abc123456789,ana.reyes,2024-08-15,un motivo, con coma sin comillas\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(OverrideError) as error:
+        load_overrides(path)
+    assert str(path) in str(error.value)
