@@ -1,0 +1,53 @@
+schema: gentle-ai.sdd-preproposal/v1
+revision: 1
+change: a3-health-score
+artifact_store: hybrid
+exploration:
+  outcome: done
+  reference:
+    openspec: openspec/changes/a3-health-score/exploration.md
+    engram: sdd/a3-health-score/explore
+research:
+  selected: null
+  request: null
+  classes: []
+  admission: pending_user_choice
+  outcome: pending
+  note: el explorador no la considera necesaria (docs/research/01 ya cubre los patrones de health score de Vitally y Gainsight); se ofrece al usuario junto con las decisiones de producto
+evidence:
+  openspec:
+    - openspec/changes/a3-health-score/measurements.md
+    - docs/decisions/ADR-003-usage-trend-and-leakage-guard.md
+    - docs/decisions/ADR-004-sql-analysis-definitions.md
+    - docs/research/01-bi-revops-data-architecture.md
+    - outputs/backtest_report.md
+    - openspec/specs/trend-backtest-harness/spec.md
+  engram:
+    - sdd/a3-health-score/explore
+    - worky/a0/decision-usage-trend
+    - worky/a3/trend-backtest
+product_decisions: pending
+pending_decisions:
+  - id: A3.asof
+    question: mes de corte para las cuentas activas
+    options: [a, b]
+  - id: A3.signals
+    question: que senales entran al score y cuales se reportan con peso cero
+    options: [a, b, c]
+  - id: A3.weights
+    question: origen de los pesos
+    options: [a, b, c]
+  - id: A3.threshold
+    question: politica de umbral
+    options: [a, b, c]
+  - id: A3.context
+    question: cuentas sin historia y contexto comercial
+    options: [a, b]
+  - id: research
+    question: seleccionar o no la fase sdd-research
+    options: [si, no]
+assumptions_stated:
+  - el entregable espeja el patron analyze (comando health, outputs/health con health_scores.csv, validation.md y goldens)
+  - las senales de soporte usan conteos y CSAT, nunca tiempo de resolucion (ADR-004), y respetan el mes de corte con una vista ventanada nueva
+  - las cuentas sin historia suficiente nunca se reportan como sanas por default (ADR-003)
+proposal_ready: false
