@@ -371,3 +371,22 @@ def test_a1_06_ticket_negativo_en_detalle_y_su_fila_de_excepcion(analysis_fixtur
     assert exception_row["field_name"] == "resolution_hours"
     assert exception_row["original_value"] == "-6.50"
     assert exception_row["applied_value"] == "null"
+
+
+def test_dataset_metadata_con_dataset_maestro_vacio_falla_con_mensaje_claro() -> None:
+    # R3-fetchone-unpack: sin filas en mart_master_dataset, fetchone() regresa None
+    # y el corredor debe decirlo como contrato, no como TypeError.
+    import duckdb
+
+    from worky_engine.analysis.runner import dataset_metadata
+    from worky_engine.quality.contracts import ContractViolation
+
+    con = duckdb.connect()
+    con.execute(
+        "CREATE VIEW mart_master_dataset AS "
+        "SELECT '2024-08-31' AS dataset_asof, '1.0.0' AS ruleset_version WHERE false"
+    )
+    with pytest.raises(ContractViolation, match="mart_master_dataset no tiene filas"):
+        dataset_metadata(con)
+    con.execute("CREATE OR REPLACE VIEW mart_master_dataset AS SELECT '2024-08-31' AS dataset_asof, '1.0.0' AS ruleset_version")
+    assert dataset_metadata(con) == ("2024-08-31", "1.0.0")

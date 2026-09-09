@@ -30,6 +30,7 @@ import duckdb
 import pandas as pd
 
 from worky_engine.master_dataset.assemble import SQL_DIR, run_sql_files
+from worky_engine.quality.contracts import ContractViolation
 
 ANALYSIS_FILES = [
     "analysis/a1_00_last_touch.sql",
@@ -74,6 +75,26 @@ class AnalysisResult:
     ruleset_version: str
 
 
+
+def dataset_metadata(con: duckdb.DuckDBPyConnection) -> tuple[str, str]:
+    """Lee `dataset_asof` y `ruleset_version` de `mart_master_dataset` para el encabezado del reporte.
+
+    Con un dataset maestro vacio `fetchone()` regresa None; en vez de
+    dejar que el desempaque truene con un TypeError sin contexto, se
+    reporta como violacion de contrato con el nombre de la vista, y la
+    CLI lo convierte en un mensaje claro con codigo de salida 1.
+    """
+    row = con.execute(
+        "SELECT dataset_asof, ruleset_version FROM mart_master_dataset LIMIT 1"
+    ).fetchone()
+    if row is None:
+        raise ContractViolation(
+            "contrato analysis_dataset_metadata: mart_master_dataset no tiene filas, "
+            "analyze no puede fechar el reporte"
+        )
+    return str(row[0]), str(row[1])
+
+
 def run_analysis(con: duckdb.DuckDBPyConnection) -> AnalysisResult:
     """Corre `ANALYSIS_FILES` sobre `con` y materializa cada salida de `ANALYSIS_OUTPUTS`.
 
@@ -92,9 +113,7 @@ def run_analysis(con: duckdb.DuckDBPyConnection) -> AnalysisResult:
         relative_path: (SQL_DIR / relative_path).read_text(encoding="utf-8")
         for relative_path in ANALYSIS_FILES
     }
-    dataset_asof, ruleset_version = con.execute(
-        "SELECT dataset_asof, ruleset_version FROM mart_master_dataset LIMIT 1"
-    ).fetchone()
+    dataset_asof, ruleset_version = dataset_metadata(con)
     return AnalysisResult(
         outputs=outputs, sql_text=sql_text, dataset_asof=dataset_asof, ruleset_version=ruleset_version
     )
