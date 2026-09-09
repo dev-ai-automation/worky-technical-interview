@@ -23,9 +23,10 @@ phases:
   design: done
   tasks: done
   apply: done (PR 1, 2, 3a, 3b, 4a y 4b implementados; motor A0 completo con 35 columnas, 128 pruebas y 8 goldens; pendiente sdd-verify)
-  verify: done (PASS: 39/39 requisitos, 55/55 escenarios, 128 pruebas; reporte admitido por sdd-verify-validate; Engram #1781)
+  verify: stale (PASS previo 39/39 y 55/55 en d68c096; despues entraron Judgment Day, la contencion de vinculos duplicados y dos requisitos nuevos en identity-resolution; se repite sdd-verify sobre 41 requisitos y 60 escenarios)
+  judgment_day: done (APPROVED en ronda 2 sobre 00e31b6; ledger judgment-ledger.md, veredicto en 8d063e4)
   archive: pending
-next_recommended: sdd-verify del cambio completo, luego Judgment Day sobre el motor, sdd-archive y merge apilado a main
+next_recommended: sdd-verify del cambio completo sobre HEAD, luego sdd-archive y merge apilado a main
 review_receipts:
   mode: receipt-driven development activado (global) el 2026-09-08 por el usuario
   pr1:
@@ -64,3 +65,15 @@ review_receipts:
     lineage: review-7512f1ca45b3c689
     lens: review-reliability
     result: approved y acknowledged (la primera captura fue rechazada por JSON incompleto del proveedor, misma clase que la issue 3942; el relanzamiento del mismo slot fue admitido)
+  jd_fix:
+    branch: feat/a0-pr4b-support-commercial-harness
+    commit: 8d063e4 (rango 36141a5..8d063e4, correcciones de Judgment Day)
+    lineage: review-7f763053be0ba235
+    lens: review-reliability
+    result: escalated sin recibo (CRITICAL inferencial sobre la politica abort-vs-contencion; sin refutador en el plan); informativo, resuelto por la decision de contencion
+  containment:
+    branch: feat/a0-pr4b-support-commercial-harness
+    commit: 1e01929 (rango 8d063e4..1e01929, contencion + endurecimiento + correccion R3-01)
+    lineage: review-710c4bc1dab46bbe
+    lens: review-reliability
+    result: approved y acknowledged tras una correccion acotada (R3-01, DISTINCT + contrato exceptions_log_unique_exception_id)

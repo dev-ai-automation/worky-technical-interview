@@ -131,6 +131,44 @@ El sistema MUST mover a `quarantine_deals` los 35 deals `HS-9900xx` cuyo `hubspo
 - Cuando el sistema procesa `deals`
 - Entonces los 35 aparecen en `quarantine_deals` con su monto, y ninguno entra al cálculo de revenue del dataset maestro
 
+### Requirement: remapeo de deals que apuntan a un clon
+
+Un deal cuyo `hubspot_id` es el de un clon en cuarentena no es huérfano. El sistema MUST asignarle el `master_id` del sobreviviente de ese clon, MUST incluirlo en el cálculo de revenue y de MRR de esa empresa, y MUST escribir en `exceptions_log` una fila `deal_remapped_from_clone` por cada deal remapeado, con el `hubspot_id` del clon como valor original y el del sobreviviente como valor aplicado. Un deal cuyo `hubspot_id` es el de una empresa real MUST NOT generar esa fila.
+
+#### Scenario: deal de un clon llega al sobreviviente
+
+- Dado un clon `HS-900060` en `quarantine_companies` con sobreviviente `HS-600001`, y un deal `D-6001` con `hubspot_id = HS-900060`
+- Cuando el sistema ensambla el dataset maestro
+- Entonces `D-6001` suma al revenue de `HS-600001`, no aparece en `quarantine_deals`, y `exceptions_log` tiene exactamente una fila `deal_remapped_from_clone` con `source_id = D-6001`
+
+#### Scenario: deal de una empresa real no deja evidencia de remapeo
+
+- Dado un deal cuyo `hubspot_id` es el de una empresa real presente en `identity_crosswalk`
+- Cuando el sistema ensambla el dataset maestro
+- Entonces `exceptions_log` no tiene ninguna fila `deal_remapped_from_clone` para ese deal
+
+### Requirement: contención de vínculos duplicados de una fuente
+
+`identity_crosswalk` tiene una sola fila por empresa. Si dos accounts de Product DB o dos customers de Vitally resuelven al mismo `master_id`, el sistema MUST conservar el primero por orden de entrada, MUST NOT sobrescribirlo ni detener la corrida, MUST marcar la fila de `match_audit` del segundo con `needs_review = true` y la clave `duplicate_link` en `evidence_json` (id conservado, id descartado y campo), y MUST escribir exactamente una fila `duplicate_source_link` en `exceptions_log` por cada id descartado, con `exception_id` único. El mismo id repetido MUST NOT contar como duplicado.
+
+#### Scenario: dos accounts para la misma empresa
+
+- Dado dos accounts `ACC-700001` y `ACC-700002` con el mismo `hubspot_id = HS-700001`
+- Cuando el sistema resuelve la identidad y ensambla el dataset maestro
+- Entonces el crosswalk de `HS-700001` conserva `ACC-700001`, la fila de `match_audit` de `ACC-700002` tiene `needs_review = true` y `duplicate_link`, `exceptions_log` tiene exactamente una fila `duplicate_source_link` con `original_value = ACC-700002` y `applied_value = ACC-700001`, la cola de revisión manual del reporte de cobertura cuenta 1, y el dataset maestro sigue teniendo una sola fila para `HS-700001`
+
+#### Scenario: el mismo id descartado aparece dos veces
+
+- Dado los accounts `ACC-700001`, `ACC-700002` y otra vez `ACC-700002`, los tres con `hubspot_id = HS-700001`
+- Cuando el sistema resuelve la identidad y ensambla el dataset maestro
+- Entonces las dos filas de `match_audit` de `ACC-700002` quedan con `needs_review = true`, `exceptions_log` tiene exactamente una fila `duplicate_source_link`, y ningún `exception_id` se repite
+
+#### Scenario: el mismo account repetido no es un duplicado
+
+- Dado el account `ACC-700001` que aparece dos veces en `accounts` con el mismo `hubspot_id`
+- Cuando el sistema resuelve la identidad
+- Entonces ninguna fila de `match_audit` lleva `needs_review` ni `duplicate_link`, y `exceptions_log` no tiene filas `duplicate_source_link`
+
 ### Requirement: supervivencia de atributos
 
 Cuando dos sistemas discrepan sobre el mismo `master_id`, el sistema MUST resolver el valor final según la tabla siguiente.

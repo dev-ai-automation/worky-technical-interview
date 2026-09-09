@@ -103,3 +103,12 @@ JUDGMENT: APPROVED. Los IDs en `suspect` e `info` quedan como seguimientos docum
 | SUGGESTION: aclarar dónde vive el `ORDER BY` | Cierto | Línea corregida arriba |
 
 Estado tras la corrección: 143 pruebas en verde; ocho goldens byte-idénticos; libro `rdd-containment-hardening` cerrado con `passed`. El candidato resultante se somete a una nueva revisión RDD con consentimiento del usuario.
+
+## Revisión RDD del candidato de contención (linaje `review-710c4bc1dab46bbe`)
+
+- Candidato inicial: `8d063e4..5a578af` (13 archivos, 510 líneas, riesgo medio), consentimiento `granted`.
+- Resultado del lente de confiabilidad: un hallazgo severo, R3-01. Con accounts A, B, B sobre una empresa, las dos filas de B quedan marcadas y la rama `duplicate_source_link` emitía dos filas idénticas con el mismo `exception_id`.
+- Corrección acotada (plan de 60 líneas, commit `1e01929`): `SELECT DISTINCT` en esa rama, contrato `exceptions_log_unique_exception_id` en el build, prueba de integración A, B, B (falla sin el `DISTINCT`) y dos pruebas del contrato. 146 pruebas; goldens intactos.
+- Validación dirigida del proveedor: aprobada. Reconocimiento exacto ejecutado; recibo `gentle-ai.review-acknowledged/v1` sobre el target `sha256:ab630831…`.
+
+Cierre del motor A0 en `1e01929`: Judgment Day APPROVED, revisión RDD aprobada y reconocida, especificación de identidad ampliada con el remapeo de deals de clones y la contención de vínculos duplicados (41 requisitos, 60 escenarios). Queda repetir `sdd-verify` sobre este estado y archivar.
