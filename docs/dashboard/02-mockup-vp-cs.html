@@ -62,7 +62,7 @@
   .nivel-alto { color: var(--alto); }
   .nivel-medio { color: var(--medio); }
   .nivel-bajo { color: var(--bajo); }
-  .sobre-capacidad { color: var(--alto); font-weight: bold; }
+  .sobre-capacidad { font-weight: bold; border: 1px solid var(--border); border-radius: 3px; padding: 0.05rem 0.4rem; }
   .callout { border-left: 4px solid var(--bar); background: var(--tile-bg); padding: 0.75rem 1rem; margin: 0.75rem 0; }
   .csm-row { display: grid; grid-template-columns: 9rem 1fr 4rem; gap: 0.5rem; align-items: center; margin: 0.35rem 0; }
   .csm-bar-track { background: var(--bar-bg); border-radius: 4px; height: 1.1rem; position: relative; }
@@ -130,6 +130,7 @@
 <tr><td>HS-100554</td><td>Mid-Market</td><td>Jorge Ibarra: 21</td><td>$22,464</td><td>más de $20,000</td><td><span class="badge nivel-alto">Alto</span></td><td><svg viewBox="0 0 60 12" width="90" height="18" role="img" aria-label="tendencia 32, cambio 9, caida 68, antiguedad 32"><rect x="0" y="0" width="19.2" height="10" fill="var(--bar)"/><rect x="15" y="0" width="5.4" height="10" fill="var(--bar)"/><rect x="30" y="0" width="40.7" height="10" fill="var(--bar)"/><rect x="45" y="0" width="19.5" height="10" fill="var(--bar)"/></svg></td></tr>
 <tr><td>HS-100332</td><td>Mid-Market</td><td>Marta Díaz: 5</td><td>$22,287</td><td>más de $20,000</td><td><span class="badge nivel-alto">Alto</span></td><td><svg viewBox="0 0 60 12" width="90" height="18" role="img" aria-label="tendencia 10, cambio 13, caida 8, antiguedad 93"><rect x="0" y="0" width="6.1" height="10" fill="var(--bar)"/><rect x="15" y="0" width="7.6" height="10" fill="var(--bar)"/><rect x="30" y="0" width="4.9" height="10" fill="var(--bar)"/><rect x="45" y="0" width="56.0" height="10" fill="var(--bar)"/></svg></td></tr>
 <tr><td>HS-100231</td><td>Mid-Market</td><td>Ana Ruiz: 15</td><td>$21,843</td><td>más de $20,000</td><td><span class="badge nivel-alto">Alto</span></td><td><svg viewBox="0 0 60 12" width="90" height="18" role="img" aria-label="tendencia 34, cambio 42, caida 64, antiguedad 22"><rect x="0" y="0" width="20.3" height="10" fill="var(--bar)"/><rect x="15" y="0" width="25.5" height="10" fill="var(--bar)"/><rect x="30" y="0" width="38.3" height="10" fill="var(--bar)"/><rect x="45" y="0" width="13.0" height="10" fill="var(--bar)"/></svg></td></tr>
+<tr><td>HS-100087</td><td>Mid-Market</td><td>Jorge Ibarra: 21</td><td>$17,943</td><td>de $5,000 a $20,000</td><td><span class="badge nivel-alto">Alto</span></td><td><svg viewBox="0 0 60 12" width="90" height="18" role="img" aria-label="tendencia 12, cambio 46, caida 6, antiguedad 79"><rect x="0" y="0" width="7.0" height="10" fill="var(--bar)"/><rect x="15" y="0" width="27.7" height="10" fill="var(--bar)"/><rect x="30" y="0" width="3.7" height="10" fill="var(--bar)"/><rect x="45" y="0" width="47.1" height="10" fill="var(--bar)"/></svg></td></tr>
 </tbody>
 </table>
 <p class="detalle">Las 58 cuentas restantes de la cola siguen la misma regla de orden por MRR; se listan completas en el CSV fuente y en el apéndice del wireframe.</p>
@@ -219,6 +220,7 @@
 
 <h2>Evidencia del modelo</h2>
 <p>Cuentas que ya se fueron y que el modelo había marcado con anticipación, en un panel separado de la cola de trabajo activa.</p>
+<p class="detalle">145 cuentas en riesgo alto = 78 activas en la cola + 67 que ya se fueron; por eso el nivel de riesgo solo no basta para elegir a quién llamar hoy.</p>
 <div class="kpis">
   <div class="tile">
     <div>Cuentas ya perdidas que el modelo marcó</div>

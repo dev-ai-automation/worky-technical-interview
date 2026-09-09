@@ -68,6 +68,8 @@ LITERAL_FIGURES = (
     "$46,340",
     "35.56",
     "27.68",
+    "145",
+    "quince veces",
 )
 
 

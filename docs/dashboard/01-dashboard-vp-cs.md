@@ -100,7 +100,7 @@ Jorge Ibarra y Ana Ruiz quedan marcados como "sobre capacidad" porque su conteo 
 |---|---|---|---|---|---|
 | Evidencia del modelo | Cuentas que ya se fueron y que el modelo había marcado como riesgo alto, en un panel separado de la cola de trabajo | `health_scores.csv` | `risk_band = 'riesgo alto' AND churned = True` | El VP usa este panel para defender la calidad del modelo, nunca como lista de trabajo | Por corrida |
 
-El panel separa **67 cuentas** ya dadas de baja que el modelo había marcado en riesgo alto; ninguna de ellas aparece en la cola de prioridad de la sección 2, porque la cola solo incluye cuentas activas. Estas 67 cuentas demuestran qué tan bien detecta el modelo el riesgo, no qué debe hacer un CSM hoy. Citando `outputs/health/validation.md`: de las cuentas marcadas al 15 % con historia suficiente para evaluarse también un mes antes (k = 3), **92.9 %** (52 de 56 evaluables) ya estaban marcadas con un mes de anticipación.
+El panel separa **67 cuentas** ya dadas de baja que el modelo había marcado en riesgo alto; ninguna de ellas aparece en la cola de prioridad de la sección 2, porque la cola solo incluye cuentas activas. Estas 67 cuentas demuestran qué tan bien detecta el modelo el riesgo, no qué debe hacer un CSM hoy. En total, `risk_band = 'riesgo alto'` marca **145 cuentas** (78 activas en la cola más 67 ya dadas de baja); usar ese nivel de riesgo solo, sin separar por si la cuenta sigue activa, mezclaría trabajo pendiente con historial cerrado. Citando `outputs/health/validation.md`: de las cuentas marcadas al 15 % con historia suficiente para evaluarse también un mes antes (k = 3), **92.9 %** (52 de 56 evaluables) ya estaban marcadas con un mes de anticipación.
 
 ## 6. Tendencia en el tiempo
 
@@ -185,6 +185,7 @@ proporcion = round(mrr_en_riesgo / mrr_activo * 100, 1)    # 13.7
 
 # risk_band = 'riesgo alto', separado por churned (ADR-007).
 riesgo_alto = df[df["risk_band"] == "riesgo alto"]
+riesgo_alto_total = len(riesgo_alto)                                   # 145
 riesgo_alto_activas = riesgo_alto[riesgo_alto["churned"] == False]     # 78
 riesgo_alto_churn = riesgo_alto[riesgo_alto["churned"] == True]        # 67
 
@@ -204,6 +205,9 @@ por_csm = queue.groupby("csm_owner").size().sort_values(ascending=False)
 # Evidencia viva: HS-100065 y HS-100507.
 ejemplo = df[df["hubspot_id"].isin(["HS-100065", "HS-100507"])]
 print(ejemplo[["hubspot_id", "mrr_mxn", "health_score"]])
+
+# Cuanto pesa HS-100507 contra HS-100065 en el MRR en riesgo (seccion 2.1).
+multiplo_evidencia = round(46340 / 2947)                   # 15 (46340 / 2947 = 15.7)
 ```
 
 La cifra de aviso anticipado (**92.9 %**, 52 de 56 evaluables) no sale de este snippet: se lee directo del encabezado y la sección "Detección temprana en k = 3" de `outputs/health/validation.md`, porque requiere volver a correr el modelo con un mes de corte distinto (k = 3), no solo agregar el CSV ya calculado.
