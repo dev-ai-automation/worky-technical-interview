@@ -8,45 +8,36 @@ exploration:
     openspec: openspec/changes/a1-sql-queries/exploration.md
     engram: sdd/a1-sql-queries/explore
 research:
-  selected: null
+  selected: false
   request: null
   classes: []
-  admission: pending_user_choice
-  outcome: pending
-  note: el explorador no la considera necesaria (trabajo interno al repositorio); se ofrece al usuario junto con las decisiones de producto
+  admission: not_applicable
+  outcome: unselected
+  note: ofrecida y no seleccionada por el usuario el 2026-09-08; el trabajo es interno al repositorio
 evidence:
   openspec:
     - openspec/specs/master-dataset-assembly/spec.md
     - openspec/specs/identity-resolution/spec.md
     - docs/decisions/ADR-002-mrr-imputation-and-normalization.md
+    - docs/decisions/ADR-004-sql-analysis-definitions.md
     - docs/decisions/ADR-003-usage-trend-and-leakage-guard.md
     - docs/data-model/00-as-is-schema-profile.md
   engram:
     - sdd/a1-sql-queries/explore
+    - worky/a1/decision-sql-definitions
     - worky/a0/decision-mrr-imputation
     - worky/a0/decision-usage-trend
-product_decisions: pending
-pending_decisions:
-  - id: A1.1
-    question: forma del desglose de MRR activo y cual total es "el" MRR activo
-    options: [a, b]
-  - id: A1.2
-    question: ventana previa al churn y tratamiento de cuentas con menos de seis meses
-    options: [a, b, c]
-  - id: A1.3
-    question: fecha de cohorte, definicion de activa y cohortes censuradas
-    options: [a, b, c]
-  - id: A1.4
-    question: grano de la conversion a closedwon para la atribucion
-    options: [a, b, c]
-  - id: A1.6
-    question: tratamiento de los 48 tickets con resolution_hours negativo
-    options: [a, b, c]
-  - id: research
-    question: seleccionar o no la fase sdd-research
-    options: [si, no]
+product_decisions: confirmed
+confirmed_decisions:
+  - A1.1 opcion a: una tabla segmento por industria con MRR del CRM y MRR total con imputados, fila de totales; "el" MRR activo es el total con imputados (ADR-004)
+  - A1.2 opcion a: mes de churn excluido, primeros tres meses con uso, las 89 cuentas ordenadas por caida relativa con columna windows_overlap (ADR-004)
+  - A1.3 opcion a: cohorte por mes de signup_date, activa = sin churn a k meses, celdas censuradas vacias, una sola consulta con CTEs (ADR-004)
+  - A1.4 opcion b: grano deal, primer touch de la empresa y ultimo touch anterior a created_date del deal, conversion = closedwon, empates por touch_id, ambos modelos lado a lado (ADR-004)
+  - A1.6 opcion a: resolution_hours negativo a nulo para promedios, ticket conservado para conteos y CSAT, fila en exceptions_log, hallazgo de signo invertido; correccion en origen para A6 (ADR-004)
+  - research: no seleccionada
+  - decision del usuario el 2026-09-08: "Todo lo recomendado, sigue a la propuesta"
 assumptions_stated:
   - A1.5 reporta el SQL equivalente y el monto crudo de 667,251.00 en unidades mezcladas, con la limitacion declarada (no hay forma rigurosa de llevarlo a mensual)
   - A1.7 es una respuesta de diseno (narrativa con DDL ilustrativo), no una consulta ejecutable
   - el entregable sigue la opcion A de la exploracion (sql/analysis + subcomando analyze + goldens en outputs/analysis) salvo que el usuario diga lo contrario en la propuesta
-proposal_ready: false
+proposal_ready: true
