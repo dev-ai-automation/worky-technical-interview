@@ -23,10 +23,10 @@ phases:
   specs: done (dominio nuevo sql-analysis: 10 requisitos, 22 escenarios; Engram sdd/a1-sql-queries/spec)
   design: done (D1 a D15; Engram #1832; spec alineado en --out-dir outputs/analysis y borde months_to_churn > k)
   tasks: done (32 tareas en 3 PR apilados; forecast: decision needed No, chained Yes, riesgo medio; PR1 ~630, PR2 ~405, PR3 ~440 lineas)
-  apply: in_progress (PR 1 hecho: analyze, A1.1, A1.2, A1.5; 160 pruebas; pendientes PR 2 y PR 3)
+  apply: in_progress (PR 1 y PR 2 hechos: analyze, A1.1, A1.2, A1.5, last touch, A1.3, A1.4; 168 pruebas; pendiente PR 3)
   verify: pending
   archive: pending
-next_recommended: sdd-apply PR 2 (feat/a1-pr2-cohort-attribution) apilado sobre el PR 1, luego PR 3
+next_recommended: sdd-apply PR 3 (feat/a1-pr3-exceptions-report) apilado sobre el PR 2, luego sdd-verify y archive
 review_receipts:
   mode: receipt-driven development activado (global)
   pr1:
@@ -35,3 +35,9 @@ review_receipts:
     lineage: review-8bc3a88cddf2ccca
     lens: review-reliability
     result: approved y acknowledged tras una correccion acotada (R3-a1-02: orden numerico de drop_relative, prueba con caidas negativas, golden reordenado)
+  pr2:
+    branch: feat/a1-pr2-cohort-attribution
+    commit: ce5297f (67302d3 codigo, ce5297f docs)
+    lineage: review-19c5d811de3c8e83
+    lens: review-reliability
+    result: approved y acknowledged en primera pasada
