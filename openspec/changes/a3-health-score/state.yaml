@@ -19,11 +19,11 @@ inputs:
 phases:
   explore: done (con mediciones de senales corridas por el orquestador)
   research: not_selected
-  proposal: in_progress
-  specs: pending
-  design: pending
+  proposal: done (propuesta escrita; Engram #1888; aprobada por el usuario: "Sí, lanza las dos fases")
+  specs: in_progress
+  design: in_progress
   tasks: pending
   apply: pending
   verify: pending
   archive: pending
-next_recommended: sdd-propose con las decisiones confirmadas del ADR-005
+next_recommended: sdd-spec y sdd-design en paralelo, luego sdd-tasks
