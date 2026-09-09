@@ -51,4 +51,6 @@ FROM churned c
 LEFT JOIN totals t       ON t.master_id = c.master_id
 LEFT JOIN first_window f ON f.master_id = c.master_id
 LEFT JOIN last_window l  ON l.master_id = c.master_id
-ORDER BY drop_relative DESC NULLS LAST, master_id;
+-- drop_relative es texto con seis decimales para el golden; el orden usa
+-- el valor numerico, si no los negativos se ordenan al reves.
+ORDER BY CAST(drop_relative AS DOUBLE) DESC NULLS LAST, master_id;

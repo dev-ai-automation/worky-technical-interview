@@ -44,7 +44,7 @@ class AnalysisOutput:
 ANALYSIS_OUTPUTS: list[AnalysisOutput] = [
     AnalysisOutput("analysis_a1_01_active_mrr", "a1_01_active_mrr.csv", "row_type, segment, industry"),
     AnalysisOutput(
-        "analysis_a1_02_usage_drop", "a1_02_usage_drop.csv", "drop_relative DESC NULLS LAST, master_id"
+        "analysis_a1_02_usage_drop", "a1_02_usage_drop.csv", "CAST(drop_relative AS DOUBLE) DESC NULLS LAST, master_id"
     ),
     AnalysisOutput("analysis_a1_05_orphan_deals", "a1_05_orphan_deals.csv", "deal_id"),
 ]

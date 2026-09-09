@@ -66,12 +66,18 @@ def _minimal_raw_tables() -> dict[str, pd.DataFrame]:
         _company("HS-810012", "Sin Uso SA de CV", "sinuso810.com.mx", "SMB", "Retail", 1000.0, "2024-06-15"),
         # ACC-8113: uso solo en 2021, muy antes del churn -> ventana final vacia.
         _company("HS-810013", "Ventana Vacia SA de CV", "vvacia810.com.mx", "SMB", "Retail", 1000.0, "2024-06-15"),
+        # ACC-8114 y ACC-8115: el uso sube antes de la baja, asi que la
+        # caida relativa es negativa; fijan el orden numerico descendente.
+        _company("HS-810014", "Sube Mucho SA de CV", "submucho810.com.mx", "SMB", "Retail", 1000.0, "2024-06-15"),
+        _company("HS-810015", "Sube Poco SA de CV", "subpoco810.com.mx", "SMB", "Retail", 1000.0, "2024-06-15"),
     ]
     accounts = [
         {"account_id": "ACC-8110", "hubspot_id": "HS-810010", "account_name": "Excluye Mes Baja", "created_at": "2022-01-01"},
         {"account_id": "ACC-8111", "hubspot_id": "HS-810011", "account_name": "Ventana Tres", "created_at": "2022-01-01"},
         {"account_id": "ACC-8112", "hubspot_id": "HS-810012", "account_name": "Sin Uso", "created_at": "2022-01-01"},
         {"account_id": "ACC-8113", "hubspot_id": "HS-810013", "account_name": "Ventana Vacia", "created_at": "2022-01-01"},
+        {"account_id": "ACC-8114", "hubspot_id": "HS-810014", "account_name": "Sube Mucho", "created_at": "2022-01-01"},
+        {"account_id": "ACC-8115", "hubspot_id": "HS-810015", "account_name": "Sube Poco", "created_at": "2022-01-01"},
     ]
     usage = [
         *[
@@ -88,6 +94,12 @@ def _minimal_raw_tables() -> dict[str, pd.DataFrame]:
         _usage("ACC-8113", "2021-01", 10),
         _usage("ACC-8113", "2021-02", 10),
         _usage("ACC-8113", "2021-03", 10),
+        # ACC-8114: primeros 3 meses 10; ventana final (2024-03 a 2024-05) 10, 20, 60 -> caida -2.0
+        _usage("ACC-8114", "2024-01", 10), _usage("ACC-8114", "2024-02", 10), _usage("ACC-8114", "2024-03", 10),
+        _usage("ACC-8114", "2024-04", 20), _usage("ACC-8114", "2024-05", 60),
+        # ACC-8115: primeros 3 meses 10; ventana final 10, 10, 15 -> caida -0.166667
+        _usage("ACC-8115", "2024-01", 10), _usage("ACC-8115", "2024-02", 10), _usage("ACC-8115", "2024-03", 10),
+        _usage("ACC-8115", "2024-04", 10), _usage("ACC-8115", "2024-05", 15),
     ]
     deals = [
         # Deal huerfano: hubspot_id sin ninguna empresa real ni clon.
@@ -197,3 +209,18 @@ def test_analysis_contracts_pasan_sobre_el_fixture(analysis_fixture) -> None:
     run_analysis_contracts(
         result.outputs, assembly_outputs["master_dataset"], identity_outputs["quarantine_deals"]
     )
+
+
+def test_a1_02_orden_numerico_descendente_con_negativos(analysis_fixture) -> None:
+    # R3-a1-02: drop_relative es texto, pero el orden debe ser numerico:
+    # los negativos van al final de las filas calculadas, del menos al mas negativo.
+    result, _, _ = analysis_fixture
+    usage_drop = result.outputs["analysis_a1_02_usage_drop"]
+    computed = usage_drop[usage_drop["drop_status"] == "computed"]
+    values = [float(v) for v in computed["drop_relative"]]
+    assert values == sorted(values, reverse=True)
+    assert values[-1] == -2.0
+    assert computed.iloc[-1]["hubspot_id"] == "HS-810014"
+    assert computed.iloc[-2]["hubspot_id"] == "HS-810015"
+    first_uncomputed = usage_drop.index[usage_drop["drop_status"] != "computed"].min()
+    assert first_uncomputed > computed.index.max()
