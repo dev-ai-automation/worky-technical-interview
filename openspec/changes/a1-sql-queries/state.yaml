@@ -22,8 +22,8 @@ phases:
   proposal: done (propuesta escrita; Engram #1820; pendiente aprobacion del usuario para lanzar specs y diseno)
   specs: done (dominio nuevo sql-analysis: 10 requisitos, 22 escenarios; Engram sdd/a1-sql-queries/spec)
   design: done (D1 a D15; Engram #1832; spec alineado en --out-dir outputs/analysis y borde months_to_churn > k)
-  tasks: pending
+  tasks: done (32 tareas en 3 PR apilados; forecast: decision needed No, chained Yes, riesgo medio; PR1 ~630, PR2 ~405, PR3 ~440 lineas)
   apply: pending
   verify: pending
   archive: pending
-next_recommended: sdd-tasks, luego revisar el Review Workload Forecast antes de apply
+next_recommended: sdd-apply PR 1 (feat/a1-pr1-analyze-runner) con RDD, luego PR 2 y PR 3 apilados
