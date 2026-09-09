@@ -76,6 +76,39 @@ def _run(con, companies: list[dict], run_date: str) -> tuple[WarehouseResult, di
     return run_warehouse(con, overrides=None, run_date=run_date), identity_outputs
 
 
+def _run_raw(con, raw_tables: dict[str, pd.DataFrame], run_date: str) -> tuple[WarehouseResult, dict[str, pd.DataFrame]]:
+    """Igual que `_run`, pero recibe `raw_tables` ya armado (con hechos), en vez de una lista de companies."""
+    identity_outputs = _identity_outputs(raw_tables)
+    assemble_master_dataset(con, raw_tables, identity_outputs)
+    return run_warehouse(con, overrides=None, run_date=run_date), identity_outputs
+
+
+def _raw_tables_con_hechos(plan: str) -> dict[str, pd.DataFrame]:
+    """Una empresa mas un hecho de cada fuente antes de su primera banda y uno despues de un cambio de plan."""
+    companies = [_company("HS-9301", "Rho SCD SA de CV", "rhoscd.com.mx", plan, "Ana", "2022-01-01")]
+    tables = _raw_tables(companies)
+    tables["raw_accounts"] = pd.DataFrame([{"account_id": "ACC-9301", "hubspot_id": "HS-9301", "account_name": "Rho", "created_at": "2022-01-01"}])
+    tables["raw_customers"] = pd.DataFrame([{"vitally_id": "cus_9301", "domain": "rhoscd.com.mx", "company_name": "Rho SCD SA de CV", "csm_email": "ana@worky.mx"}])
+    tables["raw_tickets"] = pd.DataFrame(
+        [
+            # Antes de la primera banda (2022-06-01): debe unirse con ella via join_effective_from.
+            {"ticket_id": "TK-9301A", "vitally_id": "cus_9301", "created_date": "2021-01-01",
+             "priority": "Urgent", "status": "closed", "category": "bug", "resolution_hours": 2, "csat_score": 4},
+            # Despues del cambio de plan (2023-06-01): debe unirse con la segunda banda.
+            {"ticket_id": "TK-9301B", "vitally_id": "cus_9301", "created_date": "2023-07-01",
+             "priority": "Low", "status": "open", "category": "billing", "resolution_hours": None, "csat_score": None},
+        ]
+    )
+    tables["raw_deals"] = pd.DataFrame([{"deal_id": "D-9301A", "hubspot_id": "HS-9301", "stage": "closedwon", "amount": 1000.0,
+                                        "created_date": "2020-12-01", "close_date": "2021-01-15", "pipeline": "New Business", "lead_source": "Web"}])
+    tables["raw_marketing_touches"] = pd.DataFrame(
+        [{"touch_id": "MT-9301A", "hubspot_id": "HS-9301", "channel": "Organic", "touch_date": "2021-01-01", "campaign": "spring"}]
+    )
+    tables["raw_product_usage"] = pd.DataFrame([{"account_id": "ACC-9301", "month": "2021-01", "active_users": 5, "logins": 20,
+                                                "payroll_runs_completed": 1, "features_used": 2, "api_calls": 100}])
+    return tables
+
+
 def test_el_archivo_sobrevive_a_la_segunda_corrida(tmp_path: Path) -> None:
     """El mismo `.duckdb` se reutiliza en una segunda conexion y conserva la fila cerrada de la primera."""
     db_path = tmp_path / "warehouse.duckdb"
@@ -256,3 +289,39 @@ def test_reemplazo_de_banda_del_mismo_dia(tmp_path: Path) -> None:
     assert rows.iloc[0]["plan"] == "Pro"
     assert bool(rows.iloc[0]["is_current"])
     assert pd.isna(rows.iloc[0]["effective_to"])
+
+
+def test_hecho_anterior_a_la_primera_banda_se_une_con_ella(tmp_path: Path) -> None:
+    """La banda mas vieja se abre hacia atras (dim_company_open_bands): los hechos anteriores a ella se unen
+    con ella y los posteriores a un cambio real de plan con la banda nueva; sin el CASE quedarian en cero."""
+    con = open_warehouse_connection(tmp_path / "warehouse.duckdb")
+    try:
+        raw_v1 = _raw_tables_con_hechos("Basico")
+        _result1, identity = _run_raw(con, raw_v1, "2022-06-01")
+
+        raw_v2 = _raw_tables_con_hechos("Pro")
+        _run_raw(con, raw_v2, "2023-06-01")
+
+        master_id = _master_id_for(identity["identity_crosswalk"], "HS-9301")
+        bands = con.execute(
+            "SELECT company_sk FROM dim_company WHERE master_id = ? ORDER BY effective_from", [master_id]
+        ).df()["company_sk"].tolist()
+        band1_sk, band2_sk = bands  # exactamente dos bandas: la original y la abierta por el cambio de plan
+
+        tickets = con.execute("SELECT ticket_id, company_sk FROM fact_support_tickets ORDER BY ticket_id").df()
+        assert tickets["ticket_id"].is_unique
+        assert tickets.set_index("ticket_id")["company_sk"].to_dict() == {"TK-9301A": band1_sk, "TK-9301B": band2_sk}
+
+        deals = con.execute("SELECT deal_id, company_sk FROM fact_deals").df()
+        assert deals.set_index("deal_id")["company_sk"].to_dict() == {"D-9301A": band1_sk}
+
+        touches = con.execute("SELECT touch_id, company_sk FROM fact_marketing_touches").df()
+        assert touches.set_index("touch_id")["company_sk"].to_dict() == {"MT-9301A": band1_sk}
+
+        usage = con.execute("SELECT month, company_sk FROM fact_usage_monthly").df()
+        assert usage.set_index("month")["company_sk"].to_dict() == {"2021-01": band1_sk}
+
+        revenue = con.execute("SELECT revenue_month, company_sk FROM fact_revenue_monthly").df()
+        assert revenue.set_index("revenue_month")["company_sk"].to_dict() == {"2021-01": band1_sk}
+    finally:
+        con.close()
