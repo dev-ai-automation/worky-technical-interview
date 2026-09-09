@@ -1,13 +1,16 @@
-"""Interfaz de linea de comandos del motor: `build`, `resolve` y `backtest`.
+"""Interfaz de linea de comandos del motor: `build`, `resolve`, `backtest` y `analyze`.
 
 `backtest` (PR 4b, seccion 5.3 del diseno) corre aparte de `build`: no
 depende de `master_dataset.csv` ni de DuckDB, asi que puede reproducirse
 sin haber corrido un build primero, y su golden (`backtest_report.md`)
-se versiona por separado. `resolve_identity`, `assemble_master_dataset`
-y `open_connection` se importan de forma diferida, en el primer uso
-dentro de cada comando, para poder capturar la falta de `rapidfuzz` o
-`duckdb` como un mensaje claro en espanol en vez de un traceback al
-cargar el modulo (requisito de mensajes claros de build-cli).
+se versiona por separado. `analyze` (A1, ADR-004) tampoco depende de
+`build`: abre su propia conexion, resuelve identidad en memoria y nunca
+lee `outputs/` (decisiones D1 y D3 del diseno de `sql-analysis`).
+`resolve_identity`, `assemble_master_dataset` y `open_connection` se
+importan de forma diferida, en el primer uso dentro de cada comando,
+para poder capturar la falta de `rapidfuzz` o `duckdb` como un mensaje
+claro en espanol en vez de un traceback al cargar el modulo (requisito
+de mensajes claros de build-cli).
 """
 
 from __future__ import annotations
@@ -25,6 +28,8 @@ from worky_engine.writers import write_csv, write_markdown
 
 ZIP_NAME = "dataset_caso_v3.zip"
 DEFAULT_DB_PATH = Path(".build") / "worky.duckdb"
+DEFAULT_ANALYSIS_DB_PATH = Path(".build") / "worky_analysis.duckdb"
+DEFAULT_ANALYSIS_OUT_DIR = Path("outputs") / "analysis"
 
 
 def _exit_missing_dependency(error: ImportError) -> None:
@@ -63,6 +68,25 @@ def _import_backtest_dependencies():
     except ImportError as error:
         _exit_missing_dependency(error)
     return run_backtest, format_report
+
+
+def _import_analyze_dependencies():
+    """Importa las piezas de `analyze` en el primer uso: DuckDB, el corredor de A1 y sus contratos."""
+    try:
+        from worky_engine.analysis.runner import ANALYSIS_OUTPUTS, run_analysis
+        from worky_engine.identity_resolution import resolve_identity
+        from worky_engine.master_dataset import assemble_master_dataset, open_connection
+        from worky_engine.quality.analysis_contracts import run_analysis_contracts
+    except ImportError as error:
+        _exit_missing_dependency(error)
+    return (
+        resolve_identity,
+        assemble_master_dataset,
+        open_connection,
+        run_analysis,
+        run_analysis_contracts,
+        ANALYSIS_OUTPUTS,
+    )
 
 
 def _reconfigure_streams_to_utf8() -> None:
@@ -205,6 +229,64 @@ def cmd_backtest(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_analyze(args: argparse.Namespace) -> int:
+    """Corre identidad, ensamblaje y las consultas de A1 disponibles en este PR, sin `build` previo.
+
+    Abre su propia conexion de DuckDB, corre `resolve_identity` en
+    memoria y nunca lee `outputs/` (decisiones D1 y D3 del diseno de
+    `sql-analysis`). Corre los contratos de A0 sobre el dataset que
+    acaba de ensamblar antes de correr los propios de A1 (decision
+    D14), y termina con los mismos codigos de salida que `build`.
+    """
+    (
+        resolve_identity,
+        assemble_master_dataset,
+        open_connection,
+        run_analysis,
+        run_analysis_contracts,
+        analysis_outputs,
+    ) = _import_analyze_dependencies()
+    data_dir = _resolve_data_dir(Path(args.data_dir))
+    out_dir = Path(args.out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    raw_tables = load_raw_tables(data_dir)
+    identity_outputs = resolve_identity(raw_tables, existing_crosswalk=None, reuse_crosswalk=True)
+
+    con = open_connection(args.db_path)
+    try:
+        assembly_outputs = assemble_master_dataset(con, raw_tables, identity_outputs)
+        try:
+            run_contracts(
+                assembly_outputs["master_dataset"],
+                identity_outputs["identity_crosswalk"],
+                assembly_outputs["exceptions_log"],
+                identity_outputs["match_audit"],
+                raw_tables,
+                identity_outputs["quarantine_companies"],
+            )
+        except ContractViolation as error:
+            print(f"analyze: {error}", file=sys.stderr)
+            return 1
+
+        result = run_analysis(con)
+        try:
+            run_analysis_contracts(
+                result.outputs, assembly_outputs["master_dataset"], identity_outputs["quarantine_deals"]
+            )
+        except ContractViolation as error:
+            print(f"analyze: {error}", file=sys.stderr)
+            return 1
+    finally:
+        con.close()
+
+    for item in analysis_outputs:
+        write_csv(result.outputs[item.view], out_dir / item.file_name)
+
+    print(f"analyze: {len(analysis_outputs)} consultas escritas en {out_dir}")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="worky_engine")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -242,6 +324,14 @@ def build_parser() -> argparse.ArgumentParser:
         "--flag-rate", type=float, default=0.20, help="Tasa de marcado para precision/recall (por omision: 0.20)."
     )
     backtest_subparser.set_defaults(func=cmd_backtest)
+
+    analyze_subparser = subparsers.add_parser(
+        "analyze", help="Corre A1.1, A1.2 y A1.5 sobre la sabana (ADR-004), sin build previo."
+    )
+    analyze_subparser.add_argument("--data-dir", required=True)
+    analyze_subparser.add_argument("--out-dir", default=str(DEFAULT_ANALYSIS_OUT_DIR))
+    analyze_subparser.add_argument("--db-path", default=str(DEFAULT_ANALYSIS_DB_PATH))
+    analyze_subparser.set_defaults(func=cmd_analyze)
 
     return parser
 

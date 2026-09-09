@@ -1,0 +1,36 @@
+deal_id,hubspot_id,stage,amount,created_date,close_date,pipeline,lead_source
+D00963,HS-990000,closedwon,11096.00,2024-02-15,2024-03-20,New Business,Webinar
+D00964,HS-990001,closedwon,18094.00,2024-02-15,2024-03-20,New Business,Outbound SDR
+D00965,HS-990002,closedwon,29470.00,2024-02-15,2024-03-20,New Business,Partner
+D00966,HS-990003,closedwon,16926.00,2024-02-15,2024-03-20,New Business,Outbound SDR
+D00967,HS-990004,closedwon,17131.00,2024-02-15,2024-03-20,New Business,Organic
+D00968,HS-990005,closedwon,15490.00,2024-02-15,2024-03-20,New Business,Referral
+D00969,HS-990006,closedwon,7524.00,2024-02-15,2024-03-20,New Business,Referral
+D00970,HS-990007,closedwon,28017.00,2024-02-15,2024-03-20,New Business,Evento
+D00971,HS-990008,closedwon,22638.00,2024-02-15,2024-03-20,New Business,Organic
+D00972,HS-990009,closedwon,8166.00,2024-02-15,2024-03-20,New Business,Partner
+D00973,HS-990010,closedwon,20588.00,2024-02-15,2024-03-20,New Business,Referral
+D00974,HS-990011,closedwon,8434.00,2024-02-15,2024-03-20,New Business,Organic
+D00975,HS-990012,closedwon,28596.00,2024-02-15,2024-03-20,New Business,Partner
+D00976,HS-990013,closedwon,28007.00,2024-02-15,2024-03-20,New Business,Evento
+D00977,HS-990014,closedwon,12338.00,2024-02-15,2024-03-20,New Business,Referral
+D00978,HS-990015,closedwon,23817.00,2024-02-15,2024-03-20,New Business,Outbound SDR
+D00979,HS-990016,closedwon,25277.00,2024-02-15,2024-03-20,New Business,Outbound SDR
+D00980,HS-990017,closedwon,24367.00,2024-02-15,2024-03-20,New Business,Paid Search
+D00981,HS-990018,closedwon,10614.00,2024-02-15,2024-03-20,New Business,Webinar
+D00982,HS-990019,closedwon,19695.00,2024-02-15,2024-03-20,New Business,Partner
+D00983,HS-990020,closedwon,6885.00,2024-02-15,2024-03-20,New Business,Outbound SDR
+D00984,HS-990021,closedwon,28144.00,2024-02-15,2024-03-20,New Business,Paid Search
+D00985,HS-990022,closedwon,27348.00,2024-02-15,2024-03-20,New Business,Paid Search
+D00986,HS-990023,closedwon,28555.00,2024-02-15,2024-03-20,New Business,Webinar
+D00987,HS-990024,closedwon,13257.00,2024-02-15,2024-03-20,New Business,Partner
+D00988,HS-990025,closedwon,24586.00,2024-02-15,2024-03-20,New Business,Outbound SDR
+D00989,HS-990026,closedwon,28075.00,2024-02-15,2024-03-20,New Business,Outbound SDR
+D00990,HS-990027,closedwon,12051.00,2024-02-15,2024-03-20,New Business,Referral
+D00991,HS-990028,closedwon,22642.00,2024-02-15,2024-03-20,New Business,Referral
+D00992,HS-990029,closedwon,12620.00,2024-02-15,2024-03-20,New Business,Evento
+D00993,HS-990030,closedwon,21644.00,2024-02-15,2024-03-20,New Business,Organic
+D00994,HS-990031,closedwon,22682.00,2024-02-15,2024-03-20,New Business,Referral
+D00995,HS-990032,closedwon,5222.00,2024-02-15,2024-03-20,New Business,Paid Search
+D00996,HS-990033,closedwon,28334.00,2024-02-15,2024-03-20,New Business,Webinar
+D00997,HS-990034,closedwon,8921.00,2024-02-15,2024-03-20,New Business,Webinar

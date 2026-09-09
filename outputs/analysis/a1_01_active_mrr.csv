@@ -1,0 +1,38 @@
+segment,industry,companies_active,companies_imputed,companies_unresolved,mrr_crm_mxn,mrr_total_mxn,row_type
+Enterprise,Agroindustria,4,0,0,201508.00,201508.00,segment
+Enterprise,Alimentos,7,0,0,413674.00,413674.00,segment
+Enterprise,Automotriz,9,0,0,642591.00,642591.00,segment
+Enterprise,Construcción,10,1,0,443163.00,522213.00,segment
+Enterprise,Educación,6,2,0,221219.00,1211212.00,segment
+Enterprise,Hospitalidad,7,0,0,421224.00,421224.00,segment
+Enterprise,Logística,6,1,0,898299.50,940691.50,segment
+Enterprise,Manufactura,6,2,0,239486.00,714225.00,segment
+Enterprise,Retail,10,0,0,618214.00,618214.00,segment
+Enterprise,Salud,5,0,0,1199420.00,1199420.00,segment
+Enterprise,Servicios Financieros,9,1,0,467410.00,512460.00,segment
+Enterprise,Tecnología,5,1,0,258385.00,328929.00,segment
+Mid-Market,Agroindustria,14,1,0,265075.00,283742.00,segment
+Mid-Market,Alimentos,21,0,0,609138.00,609138.00,segment
+Mid-Market,Automotriz,15,0,0,713664.00,713664.00,segment
+Mid-Market,Construcción,13,1,0,384188.00,666404.00,segment
+Mid-Market,Educación,16,1,0,749527.00,894127.00,segment
+Mid-Market,Hospitalidad,21,1,0,346462.00,359598.00,segment
+Mid-Market,Logística,11,0,0,646806.50,646806.50,segment
+Mid-Market,Manufactura,18,1,0,752616.00,772439.00,segment
+Mid-Market,Retail,12,0,0,233969.00,233969.00,segment
+Mid-Market,Salud,10,1,0,154039.00,178032.00,segment
+Mid-Market,Servicios Financieros,22,2,0,349097.00,402283.00,segment
+Mid-Market,Tecnología,6,0,0,118893.00,118893.00,segment
+SMB,Agroindustria,28,1,0,144259.00,216283.00,segment
+SMB,Alimentos,17,1,0,245481.00,253324.00,segment
+SMB,Automotriz,31,0,0,242446.50,242446.50,segment
+SMB,Construcción,30,0,0,158445.00,158445.00,segment
+SMB,Educación,32,1,0,268081.50,299965.50,segment
+SMB,Hospitalidad,15,0,0,76154.00,76154.00,segment
+SMB,Logística,29,0,0,163190.00,163190.00,segment
+SMB,Manufactura,17,1,0,231336.00,234469.00,segment
+SMB,Retail,29,3,0,154777.00,171487.00,segment
+SMB,Salud,21,0,0,162576.50,162576.50,segment
+SMB,Servicios Financieros,27,1,0,269827.50,276691.50,segment
+SMB,Tecnología,22,1,0,355138.50,362736.50,segment
+TOTAL,,561,25,0,13819780.50,16223225.50,total

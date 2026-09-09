@@ -1,0 +1,90 @@
+master_id,hubspot_id,company_name,account_id,churn_date,churn_month,usage_months,avg_users_first_3,avg_users_last_3_before_churn,drop_relative,drop_status,windows_overlap
+d3325cc67acf,HS-100156,"Laboratorios Marín, del Río y Garrido",ACC-2155,2024-02-18,2024-02,16,4.33,1.00,0.769231,computed,False
+db6aaecba31f,HS-100083,Ferrer-Bernal e Hijos,ACC-2082,2023-12-09,2023-12,10,5.00,1.33,0.733333,computed,False
+dcf4823a4d63,HS-100614,Tijerina y Laboy S.C.,ACC-2613,2023-07-20,2023-07,11,3.33,1.00,0.700000,computed,False
+8ab5e8824094,HS-100453,Madrid S.A.,ACC-2452,2023-08-16,2023-08,6,6.00,2.00,0.666667,computed,False
+acef081a80f0,HS-100217,Cornejo-Navarrete S.A.,ACC-2216,2024-05-21,2024-05,9,5.00,1.67,0.666667,computed,False
+c14e78b458d1,HS-100072,"Proyectos Jaramillo, Santillán y Solís",ACC-2071,2024-05-01,2024-05,8,11.00,3.67,0.666667,computed,False
+c194e3bdfad5,HS-100311,Tovar A.C.,ACC-2310,2023-10-29,2023-10,13,9.00,3.00,0.666667,computed,False
+d6eff0593968,HS-100101,Grupo Hinojosa y Mojica,ACC-2100,2023-06-13,2023-06,6,3.00,1.00,0.666667,computed,False
+eb78824cdc91,HS-100187,"Marroquín, Leiva y Maya",ACC-2186,2024-02-08,2024-02,12,21.67,7.67,0.646154,computed,False
+6bca486a099d,HS-100336,Laureano-Ocasio,ACC-2335,2024-03-09,2024-03,15,10.33,3.67,0.645161,computed,False
+aa6b09af8aaf,HS-100189,"Industrias Ceballos, Lozada y Nava",ACC-2188,2024-05-02,2024-05,11,15.67,5.67,0.638298,computed,False
+14e457b52fab,HS-100358,Zapata-Moreno,ACC-2357,2023-05-20,2023-05,9,42.00,15.33,0.634921,computed,False
+868d321ac39e,HS-100225,de Jesús y Campos y Asociados,ACC-2224,2024-06-06,2024-06,7,9.00,3.33,0.629630,computed,False
+4cfcbde1f51f,HS-100505,Magaña-Sevilla,ACC-2504,2024-04-21,2024-04,18,47.33,17.67,0.626761,computed,False
+52584d35f5ce,HS-100111,Industrias Puente y Tello,ACC-2110,2024-02-29,2024-02,11,15.00,5.67,0.622222,computed,False
+26ff7d714cea,HS-100270,"Rangel, Arellano y Carreón",ACC-2269,2023-10-11,2023-10,14,7.00,2.67,0.619048,computed,False
+58977cac09cc,HS-100425,"Villareal, Mateo y Griego",ACC-2424,2024-04-06,2024-04,20,14.00,5.33,0.619048,computed,False
+77c327404c72,HS-100613,Proyectos Esquibel-Espinal,ACC-2612,2023-03-09,2023-03,7,42.67,16.33,0.617188,computed,False
+a93e31f7946a,HS-100579,Grupo Almanza-Carrera,ACC-2578,2024-01-15,2024-01,14,7.67,3.00,0.608696,computed,False
+f51f42af8a26,HS-100130,Mayorga-Corona,ACC-2129,2023-04-12,2023-04,8,11.00,4.33,0.606061,computed,False
+793be83a3632,HS-100005,Club Jasso y Puente,ACC-2004,2023-10-20,2023-10,14,8.33,3.33,0.600000,computed,False
+c259030f0a56,HS-100321,Galindo S. R.L. de C.V.,ACC-2320,2023-10-14,2023-10,14,14.00,5.67,0.595238,computed,False
+062df55dccb8,HS-100126,"Grupo Alva, Linares y Mendoza",ACC-2125,2023-07-25,2023-07,8,5.67,2.33,0.588235,computed,False
+21a76877b923,HS-100611,Granados A.C.,ACC-2610,2024-06-28,2024-06,9,4.00,1.67,0.583333,computed,False
+dde4a2325dc6,HS-100506,Robles y Saldivar S.A.,ACC-2505,2024-04-12,2024-04,20,8.00,3.33,0.583333,computed,False
+2cd7d67219cc,HS-100521,Rosas-Rojas e Hijos,ACC-2520,2024-02-05,2024-02,18,34.33,14.33,0.582524,computed,False
+1a1192e17404,HS-100510,"Escobedo, Guzmán y Montaño",ACC-2509,2023-09-08,2023-09,10,36.67,15.33,0.581818,computed,False
+589f42a9c63a,HS-100488,Mojica-Ruelas,ACC-2487,2023-10-02,2023-10,10,6.33,2.67,0.578947,computed,False
+2dee62dca080,HS-100226,Serna y Anaya e Hijos,ACC-2225,2024-06-22,2024-06,14,8.67,3.67,0.576923,computed,False
+5ce69a34518d,HS-100351,Delgadillo-López y Asociados,ACC-2350,2024-06-24,2024-06,6,11.00,4.67,0.575758,computed,False
+6d7170e9789b,HS-100024,"Narváez, Madera y Roldán",ACC-2023,2023-10-17,2023-10,11,11.00,4.67,0.575758,computed,False
+97ee9f62574c,HS-100581,Collazo-Negrón S.C.,ACC-2580,2023-05-29,2023-05,9,13.33,5.67,0.575000,computed,False
+d23090c83713,HS-100450,"Lerma, Juárez y Bonilla",ACC-2449,2024-02-23,2024-02,12,7.00,3.00,0.571429,computed,False
+3dec1c7194aa,HS-100117,Cuellar-Fonseca,ACC-2116,2024-05-16,2024-05,14,45.67,19.67,0.569343,computed,False
+e96833e2c6bb,HS-100449,Escalante y Aguilera A.C.,ACC-2448,2023-03-10,2023-03,6,8.33,3.67,0.560000,computed,False
+7ecb5a47e4a1,HS-100540,Hernádez y Córdova S. R.L. de C.V.,ACC-2539,2024-02-01,2024-02,6,12.00,5.33,0.555556,computed,False
+fa78e5fd572a,HS-100401,"Corporacin Varela, Mesa y Collazo",ACC-2400,2023-08-28,2023-08,7,9.00,4.00,0.555556,computed,False
+cdd0fe341983,HS-100575,"Club Pabón, Serna y Caraballo",ACC-2574,2024-03-11,2024-03,19,27.67,12.33,0.554217,computed,False
+5cb37febc3b4,HS-100222,Jasso-Rangel,ACC-2221,2024-05-03,2024-05,20,52.33,23.33,0.554140,computed,False
+2f26a0da0310,HS-100572,Industrias Centeno y Rosario,ACC-2571,2023-09-19,2023-09,13,48.00,21.67,0.548611,computed,False
+32abb429e0d8,HS-100090,Ríos-Tijerina,ACC-2089,2023-10-21,2023-10,9,8.00,3.67,0.541667,computed,False
+0c092b55cb21,HS-100637,Cavazos y Quiroz S.A. de C.V.,ACC-2636,2024-03-21,2024-03,15,4.33,2.00,0.538462,computed,False
+4b51faa01f35,HS-100016,Cabrera y Galván S. R.L. de C.V.,ACC-2015,2023-12-05,2023-12,6,13.00,6.00,0.538462,computed,False
+078d848b2f9f,HS-100042,Maldonado-Bueno,ACC-2041,2023-04-01,2023-04,6,13.67,6.33,0.536585,computed,False
+3baa0f55645f,HS-100485,"Segura, Zamudio y Baca",ACC-2484,2023-12-25,2023-12,10,27.33,12.67,0.536585,computed,False
+f7b188c45db9,HS-100023,Proyectos Piña-Patiño,ACC-2022,2024-01-10,2024-01,9,12.00,5.67,0.527778,computed,False
+3444de83dd85,HS-100327,Proyectos Guzmán y Quintero,ACC-2326,2023-09-04,2023-09,8,48.33,23.00,0.524138,computed,False
+fca6820379e6,HS-100283,"Magaña, Soto y Alarcón",ACC-2282,2023-07-08,2023-07,6,14.67,7.00,0.522727,computed,False
+8d5d932b0f9b,HS-100415,"Paz, Aguirre y Velásquez",ACC-2414,2023-12-05,2023-12,8,32.67,15.67,0.520408,computed,False
+598275c8d1e3,HS-100230,Cepeda-Arredondo y Asociados,ACC-2229,2024-01-24,2024-01,14,17.33,8.33,0.519231,computed,False
+1657dbc3746e,HS-100093,"Laboratorios Briseño, Toledo y Salgado",ACC-2092,2023-11-12,2023-11,7,45.33,22.33,0.507353,computed,False
+51e97a6e2d0f,HS-100484,Ibarra e Hijos,ACC-2483,2024-02-04,2024-02,15,28.67,14.67,0.488372,computed,False
+02382e1b34e3,HS-100407,Marroquín y Mercado A.C.,ACC-2406,2024-05-10,2024-05,8,9.67,5.00,0.482759,computed,False
+9eb7a3a6657b,HS-100584,Olivo-Parra,ACC-2583,2023-04-12,2023-04,8,6.33,3.33,0.473684,computed,False
+03e9e800144c,HS-100545,"Cervántez, Esparza y Oquendo",ACC-2544,2023-11-21,2023-11,9,42.67,23.00,0.460937,computed,False
+705ac77b56d1,HS-100106,Olmos y Lozano S.C.,ACC-2105,2023-01-14,2023-01,5,5.33,3.00,0.437500,computed,True
+d8cba4a1d43d,HS-100522,"Viera, Griego y Vásquez",ACC-2521,2023-01-26,2023-01,5,5.33,3.00,0.437500,computed,True
+4deb4455b182,HS-100429,Industrias Cazares-Navarro,ACC-2428,2024-04-04,2024-04,5,7.67,4.33,0.434783,computed,True
+79b0014ab30f,HS-100486,Club Nieto-Gaona,ACC-2485,2024-04-05,2024-04,5,136.00,77.67,0.428922,computed,True
+aad8b8edc903,HS-100269,"Club Duarte, Verdugo y Solorzano",ACC-2268,2024-02-27,2024-02,5,7.00,4.00,0.428571,computed,True
+fcb92db97bd8,HS-100458,Laureano y Moreno S.A.,ACC-2457,2024-04-08,2024-04,5,4.67,2.67,0.428571,computed,True
+5788d992991c,HS-100489,"Laboratorios Cardona, Prado y Valverde",ACC-2488,2024-06-10,2024-06,5,110.67,65.00,0.412651,computed,True
+16b237fd6c05,HS-100344,Caraballo S. R.L. de C.V.,ACC-2343,2023-08-19,2023-08,11,10.67,6.33,0.406250,computed,False
+62e862d0ba6b,HS-100526,"Arellano, Abrego y Carrero",ACC-2525,2024-01-24,2024-01,5,1.67,1.00,0.400000,computed,True
+cba7ec6afd2e,HS-100492,Medrano-Coronado,ACC-2491,2023-01-22,2023-01,5,43.33,26.33,0.392308,computed,True
+87ff09647766,HS-100463,Club Toro y Tafoya,ACC-2462,2023-12-02,2023-12,5,13.00,8.00,0.384615,computed,True
+32a352c90e42,HS-100319,Flores-Zapata,ACC-2318,2024-06-19,2024-06,5,5.33,3.33,0.375000,computed,True
+05f6a68d13dc,HS-100294,Serrato-Lomeli,ACC-2293,2023-03-10,2023-03,4,1.67,1.67,0.000000,computed,True
+2f2fd459ddca,HS-100375,Grupo Benavides-Henríquez,ACC-2374,2024-03-04,2024-03,4,4.00,4.00,0.000000,computed,True
+523ef10f815e,HS-100077,"Menéndez, Figueroa y Corral",ACC-2076,2024-04-20,2024-04,4,9.00,9.00,0.000000,computed,True
+61797f4fd29d,HS-100457,Tórrez-Polanco,ACC-2456,2023-04-13,2023-04,4,2.67,2.67,0.000000,computed,True
+69901e51bc3c,HS-100420,Viera S.C.,ACC-2419,2024-05-03,2024-05,4,11.33,11.33,0.000000,computed,True
+79d3b0680edc,HS-100059,Despacho Escobar-Soto,ACC-2058,2022-12-17,2022-12,4,3.00,3.00,0.000000,computed,True
+809d0342d4ed,HS-100641,Rolón S.A. de C.V.,ACC-2640,2023-08-21,2023-08,4,6.33,6.33,0.000000,computed,True
+a99b55b3b218,HS-100114,Bermúdez-Lira,ACC-2113,2023-10-04,2023-10,4,20.33,20.33,0.000000,computed,True
+ccb9abe7b224,HS-100232,Club Briones y Serrano,ACC-2231,2024-06-27,2024-06,4,4.67,4.67,0.000000,computed,True
+d8222a570c5e,HS-100218,Grupo Burgos y Alba,ACC-2217,2024-04-07,2024-04,4,19.00,19.00,0.000000,computed,True
+de0488775bd0,HS-100502,Baeza y Segovia S.A. de C.V.,ACC-2501,2024-06-30,2024-06,4,1.00,1.00,0.000000,computed,True
+f53160415402,HS-100553,Nava S.C.,ACC-2552,2024-06-05,2024-06,4,22.00,22.00,0.000000,computed,True
+7fb38f9e61ff,HS-100562,"Mejía, Paredes y Vargas",ACC-2561,2023-10-26,2023-10,3,1.00,1.50,-0.500000,computed,True
+af6b45260c23,HS-100388,Palomino y Curiel S.A. de C.V.,ACC-2387,2024-05-19,2024-05,3,3.00,4.00,-0.333333,computed,True
+e044425f0f1a,HS-100403,Heredia y Ávila S.C.,ACC-2402,2022-11-12,2022-11,3,3.00,4.00,-0.333333,computed,True
+1d87384d7c5c,HS-100118,Despacho Ochoa y Vega,ACC-2117,2022-11-27,2022-11,3,2.00,2.50,-0.250000,computed,True
+3a6d440d0d78,HS-100203,Corporacin Carrero-Durán,ACC-2202,2024-04-17,2024-04,3,2.67,3.00,-0.125000,computed,True
+8dc56996e31a,HS-100029,Villagómez-de Jesús e Hijos,ACC-2028,2024-01-18,2024-01,3,8.00,9.00,-0.125000,computed,True
+3d464b2bd5fe,HS-100518,Gaitán-Delgadillo,ACC-2517,2022-10-03,2022-10,2,9.50,10.00,-0.052632,computed,True
+651fe741fa3d,HS-100196,Durán S.C.,ACC-2195,2022-07-19,2022-07,0,,,,no_usage,True
+7ed9ffed0ce9,HS-100020,"Espinosa, Valdez y Tamez",ACC-2019,2022-04-19,2022-04,0,,,,no_usage,True
+c6699f5bce6f,HS-100212,Proyectos Acevedo y Rendón,ACC-2211,2022-05-28,2022-05,0,,,,no_usage,True
