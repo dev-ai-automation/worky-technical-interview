@@ -110,12 +110,12 @@ def convert_currency(companies: pd.DataFrame) -> tuple[pd.DataFrame, list[Correc
     esta excepcion se vuelve a emitir en cada corrida porque es un
     reporte, no una correccion (igual que `clone_excluded`).
 
-    Una fila que ya trae `currency_original` (viene de una corrida
-    anterior, D8) no se vuelve a convertir: `mrr` ya quedo en MXN y
-    recalcular con el monto ya convertido perderia el monto y la
-    moneda originales. Solo la moneda no soportada se revisa en cada
-    corrida, porque ahi `currency` nunca cambia de MXN y su excepcion
-    es la unica evidencia de que el contrato la debe dejar pasar.
+    Una fila con `mrr_mxn` ya poblado (viene de una corrida anterior,
+    D8) no se vuelve a convertir: recalcular perderia el monto y la
+    moneda originales. `currency_original` no sirve como esa señal
+    porque tambien se llena cuando `mrr` no es numerico (lo exige
+    `assert_currency_all_mxn`); ese caso se revisa en cada corrida
+    igual que `currency_unsupported`, porque tambien es un reporte.
     """
     result = companies.copy()
     if "currency_original" not in result.columns:
@@ -130,6 +130,7 @@ def convert_currency(companies: pd.DataFrame) -> tuple[pd.DataFrame, list[Correc
         raw_currency = row["currency"]
         hubspot_id = row["hubspot_id"]
         already_audited = row["currency_original"] != ""
+        already_converted = row["mrr_mxn"] != ""
 
         if raw_currency not in _SUPPORTED_CURRENCIES:
             corrections.append(
@@ -154,7 +155,7 @@ def convert_currency(companies: pd.DataFrame) -> tuple[pd.DataFrame, list[Correc
             result.at[index, "currency"] = "MXN"
             continue
 
-        if already_audited:
+        if already_converted:
             # ya se convirtio en una corrida anterior: `mrr` es el monto en
             # MXN, no el original, asi que reprocesarlo perderia el rastro.
             continue

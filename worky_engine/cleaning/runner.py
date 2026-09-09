@@ -225,14 +225,15 @@ def format_cleaning_log(counts: dict) -> str:
         f"{inputs['rows_in']} filas de entrada, {totals['rows_out']} filas de salida. "
         f"De los {inputs['deals_in']} deals leidos, {inputs['deals_matched']} apuntan a una empresa del dataset.",
         "",
-        "| Regla | Columnas | Detectado | Corregido | Ambiguo | Sin resolver |",
-        "|---|---|---|---|---|---|",
+        "| Regla | Columnas | Detectado | Corregido | No numerico | Ambiguo | Sin resolver |",
+        "|---|---|---|---|---|---|---|",
     ]
     for rule in counts["rules"]:
         columns = ", ".join(rule["columns"])
+        not_numeric = rule.get("not_numeric", 0)
         lines.append(
             f"| {rule['rule']} | {columns} | {rule['detected']} | {rule['corrected']} | "
-            f"{rule['ambiguous']} | {rule['unresolved']} |"
+            f"{not_numeric} | {rule['ambiguous']} | {rule['unresolved']} |"
         )
     missing_mrr = next(rule for rule in counts["rules"] if rule["rule"] == "missing_mrr")
     lines.extend(

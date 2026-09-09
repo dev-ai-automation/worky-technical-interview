@@ -623,6 +623,18 @@ def cmd_warehouse(args: argparse.Namespace) -> int:
     return 0
 
 
+def _read_clean_csv(path: Path) -> pd.DataFrame:
+    """Lee un CSV de `clean` en texto puro; un archivo vacio o que no sea UTF-8 termina en 2 sin traceback."""
+    try:
+        return pd.read_csv(path, dtype=str, keep_default_na=False, encoding="utf-8")
+    except pd.errors.EmptyDataError:
+        print(f"clean: '{path}' esta vacio, no se puede leer como CSV", file=sys.stderr)
+        raise SystemExit(2)
+    except UnicodeDecodeError:
+        print(f"clean: '{path}' no esta en UTF-8", file=sys.stderr)
+        raise SystemExit(2)
+
+
 def cmd_clean(args: argparse.Namespace) -> int:
     """Corre las tres detecciones de A6 sobre companies.csv y deals.csv, sin build previo.
 
@@ -632,16 +644,16 @@ def cmd_clean(args: argparse.Namespace) -> int:
     se conecta en PR2), corre los contratos de forma, moneda, fecha,
     unicidad e idempotencia disponibles en este PR y escribe las
     cuatro salidas en `--out-dir`. Mismos codigos de salida que los
-    otros cinco comandos: 2 cuando falta un archivo o una dependencia,
-    1 cuando un contrato se viola.
+    otros cinco comandos: 2 cuando falta un archivo, esta vacio, no
+    esta en UTF-8 o falta una dependencia; 1 cuando un contrato se viola.
     """
     run_clean, run_cleaning_contracts, format_cleaning_log = _import_clean_dependencies()
     companies_path, deals_path = _resolve_clean_inputs(args)
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    companies = pd.read_csv(companies_path, dtype=str, keep_default_na=False, encoding="utf-8")
-    deals = pd.read_csv(deals_path, dtype=str, keep_default_na=False, encoding="utf-8")
+    companies = _read_clean_csv(companies_path)
+    deals = _read_clean_csv(deals_path)
 
     result = run_clean(companies, deals, companies_path.name, deals_path.name)
 

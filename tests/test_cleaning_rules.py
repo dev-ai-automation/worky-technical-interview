@@ -189,6 +189,7 @@ def test_un_clon_no_se_imputa() -> None:
     assert clone_row["mrr_source"] == "clone_excluded"
     assert clone_row["mrr_mxn"] == ""
     clone_exception = result.exceptions[result.exceptions["source_id"] == "HS-900000"]
+    assert len(clone_exception) == 1
     assert (clone_exception["exception_code"] == "clone_excluded").all()
 
 
@@ -322,3 +323,53 @@ def test_mrr_no_numerico_no_se_confunde_con_moneda_no_soportada(hubspot_id: str,
 
     not_numeric_rule = next(rule for rule in result.counts["rules"] if rule["rule"] == "missing_mrr")
     assert not_numeric_rule["not_numeric"] == 1
+
+
+def test_mrr_no_numerico_se_reemite_en_cada_corrida() -> None:
+    """mrr_not_numeric es un reporte, no una correccion: la segunda corrida sobre la salida limpia lo repite igual."""
+    companies = pd.DataFrame([_company("HS-100008", mrr="1,234", currency="MXN")], columns=COMPANIES_COLUMNS)
+    deals = fixture_deals()
+
+    first = run_clean(companies, deals)
+    second = run_clean(first.clean, deals)
+
+    for result in (first, second):
+        exception = result.exceptions[result.exceptions["source_id"] == "HS-100008"]
+        assert len(exception) == 1 and exception.iloc[0]["exception_code"] == "mrr_not_numeric"
+
+    assert second.counts["totals"]["corrections"] == 0
+    assert second.clean.equals(first.clean)
+    assert second.exceptions.equals(first.exceptions)
+
+
+def test_companies_csv_vacio_termina_con_codigo_2_sin_salida(tmp_path: Path, capsys: pytest.CaptureFixture) -> None:
+    """Un companies.csv de 0 bytes termina en 2 con un mensaje que lo nombra, sin escribir salidas."""
+    data_dir = tmp_path / "sistemas"
+    data_dir.mkdir()
+    (data_dir / "crm_hubspot__companies.csv").write_bytes(b"")
+    fixture_deals().to_csv(data_dir / "crm_hubspot__deals.csv", index=False)
+    out_dir = tmp_path / "out"
+
+    with pytest.raises(SystemExit) as exit_info:
+        cli_main(["clean", "--data-dir", str(data_dir), "--out-dir", str(out_dir)])
+    assert exit_info.value.code == 2
+    err = capsys.readouterr().err
+    assert "companies.csv" in err and "vacio" in err
+    assert list(out_dir.glob("*")) == []
+
+
+def test_companies_csv_no_utf8_termina_con_codigo_2_sin_salida(tmp_path: Path, capsys: pytest.CaptureFixture) -> None:
+    """Un companies.csv con un byte Windows-1252 en un nombre termina en 2 con un mensaje que lo nombra."""
+    data_dir = tmp_path / "sistemas"
+    data_dir.mkdir()
+    csv_bytes = fixture_companies().to_csv(index=False).encode("utf-8").replace(b"Empresa HS-100001", b"Empresa HS-100001 \xf1")
+    (data_dir / "crm_hubspot__companies.csv").write_bytes(csv_bytes)
+    fixture_deals().to_csv(data_dir / "crm_hubspot__deals.csv", index=False)
+    out_dir = tmp_path / "out"
+
+    with pytest.raises(SystemExit) as exit_info:
+        cli_main(["clean", "--data-dir", str(data_dir), "--out-dir", str(out_dir)])
+    assert exit_info.value.code == 2
+    err = capsys.readouterr().err
+    assert "companies.csv" in err and "UTF-8" in err
+    assert list(out_dir.glob("*")) == []
