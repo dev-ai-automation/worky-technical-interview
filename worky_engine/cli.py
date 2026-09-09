@@ -11,6 +11,10 @@ importan de forma diferida, en el primer uso dentro de cada comando,
 para poder capturar la falta de `rapidfuzz` o `duckdb` como un mensaje
 claro en espanol en vez de un traceback al cargar el modulo (requisito
 de mensajes claros de build-cli).
+`resolve` y `build` aceptan `--overrides` (A4, D14 y D15 del diseno de
+`a4-warehouse-model`): un CSV opcional que fija manualmente el
+`master_id` de un registro despues de la cascada. Sin el archivo, sus
+salidas quedan identicas a las de antes de este cambio.
 """
 
 from __future__ import annotations
@@ -32,6 +36,7 @@ DEFAULT_ANALYSIS_DB_PATH = Path(".build") / "worky_analysis.duckdb"
 DEFAULT_ANALYSIS_OUT_DIR = Path("outputs") / "analysis"
 DEFAULT_HEALTH_DB_PATH = Path(".build") / "worky_health.duckdb"
 DEFAULT_HEALTH_OUT_DIR = Path("outputs") / "health"
+DEFAULT_OVERRIDES_PATH = Path("data") / "identity_overrides.csv"
 
 
 def _exit_missing_dependency(error: ImportError) -> None:
@@ -45,22 +50,24 @@ def _exit_missing_dependency(error: ImportError) -> None:
 
 
 def _import_resolve_dependency():
-    """Importa `resolve_identity` en el primer uso; solo `resolve` y `build` lo necesitan."""
+    """Importa `resolve_identity` y los overrides en el primer uso; solo `resolve` y `build` los necesitan."""
     try:
         from worky_engine.identity_resolution import resolve_identity
+        from worky_engine.identity_resolution.overrides import apply_overrides, load_overrides
     except ImportError as error:
         _exit_missing_dependency(error)
-    return resolve_identity
+    return resolve_identity, load_overrides, apply_overrides
 
 
 def _import_build_dependencies():
-    """Importa `resolve_identity` y las piezas de DuckDB en el primer uso, solo para `build`."""
+    """Importa `resolve_identity`, los overrides y las piezas de DuckDB en el primer uso, solo para `build`."""
     try:
         from worky_engine.identity_resolution import resolve_identity
+        from worky_engine.identity_resolution.overrides import apply_overrides, load_overrides
         from worky_engine.master_dataset import assemble_master_dataset, open_connection
     except ImportError as error:
         _exit_missing_dependency(error)
-    return resolve_identity, assemble_master_dataset, open_connection
+    return resolve_identity, load_overrides, apply_overrides, assemble_master_dataset, open_connection
 
 
 def _import_backtest_dependencies():
@@ -151,9 +158,42 @@ def _load_existing_crosswalk(out_dir: Path) -> pd.DataFrame | None:
     return None
 
 
+def _apply_overrides_if_present(
+    load_overrides,
+    apply_overrides,
+    overrides_path: Path,
+    identity_outputs: dict[str, pd.DataFrame],
+    raw_tables: dict[str, pd.DataFrame],
+    command_name: str,
+) -> dict[str, pd.DataFrame]:
+    """Aplica `identity_overrides.csv` sobre `identity_outputs` justo despues de la cascada, si el archivo existe.
+
+    Sin archivo, `identity_outputs` regresa sin tocar (D14): las salidas
+    de `resolve`, `build` y `warehouse` quedan identicas a las de antes
+    de este cambio. Una fila invalida termina el comando con codigo de
+    salida 1 y un mensaje que nombra la fila y el motivo, sin escribir
+    nada (requisito "precedencia de overrides sobre la cascada").
+    """
+    if not overrides_path.is_file():
+        return identity_outputs
+
+    from worky_engine.identity_resolution.overrides import OverrideError
+
+    try:
+        overrides = load_overrides(overrides_path)
+        return apply_overrides(overrides, identity_outputs, raw_tables)
+    except OverrideError as error:
+        print(f"{command_name}: {error}", file=sys.stderr)
+        raise SystemExit(1) from error
+
+
 def cmd_resolve(args: argparse.Namespace) -> int:
-    """Corre solo la capa de identidad y escribe sus cuatro salidas en `--out-dir`."""
-    resolve_identity = _import_resolve_dependency()
+    """Corre solo la capa de identidad y escribe sus cuatro salidas en `--out-dir`.
+
+    Aplica `--overrides` justo despues de la cascada y antes de escribir,
+    solo si el archivo existe (D14, D15).
+    """
+    resolve_identity, load_overrides, apply_overrides = _import_resolve_dependency()
     data_dir = _resolve_data_dir(Path(args.data_dir))
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -162,6 +202,9 @@ def cmd_resolve(args: argparse.Namespace) -> int:
     existing_crosswalk = _load_existing_crosswalk(out_dir)
     outputs = resolve_identity(
         raw_tables, existing_crosswalk, reuse_crosswalk=not args.no_reuse_crosswalk
+    )
+    outputs = _apply_overrides_if_present(
+        load_overrides, apply_overrides, Path(args.overrides), outputs, raw_tables, "resolve"
     )
 
     write_csv(outputs["identity_crosswalk"], out_dir / "identity_crosswalk.csv")
@@ -181,9 +224,12 @@ def cmd_build(args: argparse.Namespace) -> int:
     violacion detiene el build con codigo de salida 1 y nombra el
     contrato en el mensaje, segun el requisito de mensajes claros de
     `build-cli`. `coverage_report.md` se genera al final, a partir de las
-    mismas salidas ya materializadas.
+    mismas salidas ya materializadas. Aplica `--overrides` justo despues
+    de la cascada y antes de escribir, solo si el archivo existe (D14, D15).
     """
-    resolve_identity, assemble_master_dataset, open_connection = _import_build_dependencies()
+    resolve_identity, load_overrides, apply_overrides, assemble_master_dataset, open_connection = (
+        _import_build_dependencies()
+    )
     data_dir = _resolve_data_dir(Path(args.data_dir))
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -192,6 +238,9 @@ def cmd_build(args: argparse.Namespace) -> int:
     existing_crosswalk = _load_existing_crosswalk(out_dir)
     identity_outputs = resolve_identity(
         raw_tables, existing_crosswalk, reuse_crosswalk=not args.no_reuse_crosswalk
+    )
+    identity_outputs = _apply_overrides_if_present(
+        load_overrides, apply_overrides, Path(args.overrides), identity_outputs, raw_tables, "build"
     )
     for name, frame in identity_outputs.items():
         write_csv(frame, out_dir / f"{name}.csv")
@@ -381,6 +430,11 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Ignora el identity_crosswalk.csv existente y regenera todos los master_id por hash.",
     )
+    resolve_parser.add_argument(
+        "--overrides",
+        default=str(DEFAULT_OVERRIDES_PATH),
+        help="CSV de identity_overrides; se aplica solo si el archivo existe (por omision: data/identity_overrides.csv).",
+    )
     resolve_parser.set_defaults(func=cmd_resolve)
 
     build_subparser = subparsers.add_parser("build", help="Corre resolve y el ensamblaje del dataset maestro.")
@@ -391,6 +445,11 @@ def build_parser() -> argparse.ArgumentParser:
         "--no-reuse-crosswalk",
         action="store_true",
         help="Ignora el identity_crosswalk.csv existente y regenera todos los master_id por hash.",
+    )
+    build_subparser.add_argument(
+        "--overrides",
+        default=str(DEFAULT_OVERRIDES_PATH),
+        help="CSV de identity_overrides; se aplica solo si el archivo existe (por omision: data/identity_overrides.csv).",
     )
     build_subparser.set_defaults(func=cmd_build)
 
