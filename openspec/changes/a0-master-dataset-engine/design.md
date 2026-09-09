@@ -375,6 +375,8 @@ Idempotente significa que correr el proceso otra vez sobre la misma entrada prod
 
 La barra vertical forma parte de la llave para que el par `("ab", "c")` y el par `("a", "bc")` no puedan producir el mismo id. Después de generar todos los ids, el build verifica que `master_id` sea único entre los registros dorados; una colisión aborta la corrida nombrando las dos llaves. Dos empresas reales con el mismo dominio y el mismo nombre normalizado serían indistinguibles con la evidencia disponible, y detener el build convierte una fusión silenciosa en una pregunta explícita.
 
+Vínculos duplicados de una fuente. El crosswalk tiene una sola fila por empresa, así que si dos accounts de product_db o dos customers de Vitally resuelven al mismo `master_id`, se conserva el primero por orden de entrada y el segundo queda marcado: su fila de `match_audit` lleva `needs_review = true` y la clave `duplicate_link` en `evidence_json` (id conservado, id descartado, campo), y `exceptions_log` recibe una fila `duplicate_source_link`. El build no se detiene; la cola manual del reporte de cobertura cuenta esas filas junto con las del nivel M. El mismo id repetido no cuenta como duplicado. Ver la adenda 1 del ADR-001.
+
 La reutilización del crosswalk se puede apagar con `--no-reuse-crosswalk`. Como la regla de generación es determinista, ambos caminos producen los mismos ids sobre los mismos datos, y la prueba de idempotencia corre los dos y compara.
 
 ### 3.7 Supervivencia por atributo

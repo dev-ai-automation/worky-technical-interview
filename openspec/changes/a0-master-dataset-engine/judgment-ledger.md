@@ -49,7 +49,7 @@ La regla de Judgment Day corrige solo hallazgos severos confirmados por ambos ju
 | ID | Estado tras la ronda 1 | Juez A | Juez B |
 |---|---|---|---|
 | JD-01 | resuelto | `IdentityCollisionError` en ambos bucles, pruebas deterministas con ambos ids en el mensaje | resuelto; una fila repetida con el mismo id no dispara la excepción |
-| JD-02 | resuelto | `COALESCE` al `survivor_master_id`, fila `deal_remapped_from_clone` por deal, pruebas que fallarían sin el arreglo | resuelto; sin fan-out (una fila por clon en `quarantine_companies`), `exceptions_log` con `ORDER BY` explícito |
+| JD-02 | resuelto | `COALESCE` al `survivor_master_id`, fila `deal_remapped_from_clone` por deal, pruebas que fallarían sin el arreglo | resuelto; sin fan-out (una fila por clon en `quarantine_companies`), `exceptions_log` se materializa con `ORDER BY exception_code, source_id` en `assemble.py` |
 
 ### Hallazgo causado por la corrección
 
@@ -85,3 +85,21 @@ skill_resolution: none
 ```
 
 JUDGMENT: APPROVED. Los IDs en `suspect` e `info` quedan como seguimientos documentados; no son severos ni fueron confirmados por ambos jueces. Este veredicto no autoriza entrega: commit, merge y publicación siguen la política ordinaria del repositorio.
+
+## Revisión RDD del rango de corrección (linaje `review-7f763053be0ba235`)
+
+- Candidato: `36141a5..8d063e4` (8 archivos, 299 líneas, riesgo medio), consentimiento `granted`.
+- Resultado: el lente de confiabilidad admitió su captura con un CRITICAL inferencial, cinco WARNING y tres SUGGESTION; sin refutador disponible en este plan, el proveedor cerró la transacción como `escalated` (sin recibo) y el STATUS ligado devolvió `native_stop_required`. Es un resultado informativo; no bloquea la entrega.
+
+| Hallazgo | Verificación del orquestador | Qué se hizo |
+|---|---|---|
+| CRITICAL: el guard de JD-01 aborta toda la corrida; es el único camino sin contención | Válido como diferencia de diseño; `assert_unique_master_ids` también aborta, pero ahí no hay un "primero" que conservar | Decisión del usuario: contención. Commit `366ff29`; ADR-001 adenda 1; diseño 3.6 |
+| WARNING: la tolerancia al mismo id no tenía prueba | Cierto | Prueba de tolerancia agregada |
+| WARNING: `LEFT JOIN quarantine_companies` podría multiplicar filas | Imposible por construcción, pero sin contrato | Contrato `quarantine_companies_unique_hubspot_id` en el build |
+| WARNING: la evidencia de remapeo no exigía que el remapeo ocurriera | Sobreviviente y clon son disjuntos, así que no divergía; la guardia sobra hoy y protege mañana | Condición `d.master_id = q.survivor_master_id` |
+| WARNING: `exceptions_log` sin `ORDER BY` | No es defecto: `assemble.py` materializa con orden explícito; el revisor no vio ese archivo porque no cambió | Redacción del ledger corregida |
+| WARNING: el fixture fusionado no aseveraba claves disjuntas | Cierto | Aserción en ambos fixtures; fixture negativo con la misma forma |
+| SUGGESTION: casos de dos deals sobre un clon y deal sobre empresa real | Útiles | Pruebas agregadas |
+| SUGGESTION: aclarar dónde vive el `ORDER BY` | Cierto | Línea corregida arriba |
+
+Estado tras la corrección: 143 pruebas en verde; ocho goldens byte-idénticos; libro `rdd-containment-hardening` cerrado con `passed`. El candidato resultante se somete a una nueva revisión RDD con consentimiento del usuario.

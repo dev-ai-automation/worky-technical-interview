@@ -108,3 +108,28 @@ Se espera que la cola de revisión manual, el nivel M, se mantenga en un solo d�
 1. Resuelta. Ver [ADR-002: estimar el MRR faltante a partir del monto de los deals, marcado y nunca oculto](./ADR-002-mrr-imputation-and-normalization.md) para saber cómo se llena el MRR de las 28 empresas reales que no tienen MRR en el CRM.
 2. Política de mes de referencia: resuelta el 2026-09-07. Las cuentas con churn usan su mes de churn como mes de referencia (de las 81 empresas con churn que tienen cuenta de producto, 78 tienen filas de uso, y en las 78 el último mes con uso es el mes de churn; las otras 3 no tienen ninguna fila de uso). Las cuentas activas usan 2024-08, el último mes del dataset, y cada una de las 515 cuentas activas en el CRM que tienen cuenta de producto tiene una fila de uso en ese mes. Las series de uso no tienen huecos internos (0 de 647 cuentas) y el uso cero se guarda como un cero explícito, así que una fila faltante significa que la cuenta no fue cliente ese mes.
 3. Resuelta. Ver [ADR-003: medir la tendencia de uso como momentum reciente, nunca en el mes de churn](./ADR-003-usage-trend-and-leakage-guard.md) para la fórmula, la regla de historia mínima y el resguardo contra fuga de datos (leakage guard).
+
+## Adenda 1 (2026-09-09): qué pasa cuando una fuente trae dos registros para la misma empresa
+
+El crosswalk guarda una sola fila por empresa, con un `account_id` de product_db y un `vitally_id` de Vitally. El dataset del caso respeta esa forma: 650 accounts, 650 customers, ninguno repetido. Pero el motor no puede depender de que eso siga siendo cierto. Una revisión adversarial mostró que, si llegaban dos accounts con el mismo `hubspot_id`, el crosswalk se quedaba con el último y perdía el primero sin dejar rastro. La primera corrección hizo que el build abortara en ese caso. Una segunda revisión señaló que ese era el único camino del motor que detenía todo en vez de contener la anomalía, cuando el resto de los problemas de datos van a cuarentena o al registro de excepciones.
+
+Decidimos contener, con estas reglas:
+
+| Regla | Detalle |
+|---|---|
+| El primero gana | El crosswalk conserva el primer vínculo por orden de entrada; el orden es determinista, así que dos corridas dan el mismo resultado. |
+| El segundo queda marcado | Su fila en `match_audit` mantiene su nivel y su `master_id`, pero lleva `needs_review = true` y en `evidence_json` la clave `duplicate_link` con el id conservado, el descartado y el campo. |
+| Queda una excepción | `exceptions_log` recibe una fila `duplicate_source_link` por cada vínculo descartado, con el id descartado como valor original y el conservado como valor aplicado. |
+| Aparece en el reporte | La cola manual del reporte de cobertura cuenta todas las filas con `needs_review`, no solo las del nivel M, así que un vínculo duplicado se ve en la primera lectura. |
+| El mismo id dos veces no es un duplicado | Si el mismo `account_id` aparece dos veces, no hay marca ni excepción. |
+
+Por qué contener y no abortar: un build que se detiene por una empresa deja sin dataset a las otras 649, y el analista tiene que abrir el código para saber qué pasó. Un build que sigue, marca la empresa y escribe la excepción deja la decisión en manos de quien revisa la cola manual, que es donde ya viven las demás preguntas abiertas de identidad. Lo que sí sigue abortando el build es una colisión de `master_id` entre dos empresas distintas, porque ahí no hay un "primero" que tenga sentido conservar.
+
+En la misma corrección se cerró un hueco relacionado: un deal cuyo `hubspot_id` apunta a un clon en cuarentena ahora se remapea al `master_id` del sobreviviente y deja una fila `deal_remapped_from_clone` en `exceptions_log`, solo cuando ese remapeo ocurrió de verdad. Antes ese deal desaparecía de MRR y de revenue sin rastro. Un contrato del build verifica además que `quarantine_companies` tenga una sola fila por `hubspot_id`, para que el remapeo nunca duplique deals.
+
+Lista de verificación para el revisor:
+
+- [ ] Dos accounts con el mismo `hubspot_id`: el crosswalk conserva el primero, el segundo trae `needs_review` y `duplicate_link`, y `exceptions_log` tiene una fila `duplicate_source_link`.
+- [ ] El mismo `account_id` repetido no produce marca ni excepción.
+- [ ] Un deal sobre un clon llega al sobreviviente y deja su fila de remapeo; un deal sobre una empresa real no la deja.
+- [ ] Sobre el dataset del caso no cambia ningún archivo de `outputs/`.
