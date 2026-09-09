@@ -108,6 +108,18 @@ El comando MUST convertir cada monto en USD a MXN usando el tipo de cambio fijo 
 - Cuando el comando la procesa
 - Entonces mrr_mxn es igual a mrr_original (5000) y currency_original queda en MXN
 
+#### Scenario: moneda fuera de USD y MXN no detiene la corrida
+
+- Dado una fila con currency EUR y un monto válido
+- Cuando el comando corre
+- Entonces la fila queda intacta con su moneda original, mrr_mxn vacío y mrr_source unresolved, la excepción currency_unsupported nombra a la empresa, y el comando termina en 0 con las cuatro salidas escritas
+
+#### Scenario: mrr no numérico se reporta aparte
+
+- Dado una fila cuyo mrr trae texto no numérico, como "1,234" o "n/a"
+- Cuando el comando corre
+- Entonces la fila recibe la excepción mrr_not_numeric con el texto original, mrr_mxn queda vacío y mrr_source unresolved, y el texto nunca se copia a mrr_mxn
+
 ### Requirement: imputación de mrr desde deals con anualización
 
 Para cada empresa real con mrr nulo, el comando MUST buscar sus deals en deals.csv, MUST normalizar a mensual cualquier monto que sea exactamente 12 veces otro monto de la misma empresa y MUST registrar esa normalización como una corrección propia en el log, MUST imputar el monto único resultante con mrr_confidence en high cuando la empresa tiene un deal closedwon y medium en cualquier otro caso, y MUST dejar la empresa sin imputar cuando los montos no se resuelven a un único valor o no existen deals. Cada imputación MUST registrar el deal_id de origen.
