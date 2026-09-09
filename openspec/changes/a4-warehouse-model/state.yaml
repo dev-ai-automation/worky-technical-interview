@@ -26,7 +26,17 @@ phases:
   specs: done (warehouse-model nuevo: 12 requisitos, 26 escenarios; delta identity-resolution: 1 requisito agregado, 5 escenarios tras sincronizar la falla cerrada de D17 y el source_id desconocido; Engram #1986 reescrito; marcadores nativos en ingles verificados)
   design: done (D1 a D21; Engram #1991; validador de contrato en contexto fresco: sin referencias inventadas; el orquestador corrigio el presupuesto a 800 por PR, agrego la seccion 12 de cambios por archivo y sincronizo ADR-006, spec delta y propuesta con D15/D17; el archivo design.md es la version autoritativa)
   tasks: done (31 tareas en 4 PR apilados a main: PR1 overrides 5, PR2 estrella 12, PR3 SCD2+health 9, PR4 docs 6; forecast: decision needed No, chained Yes, riesgo Medium; ~255/380/390/200 lineas)
-  apply: blocked
+  apply: in_progress (PR1 done: 5/32 tareas, 529 lineas de autoria + 99 de correccion, 226 pruebas; PR2 en curso)
   verify: blocked
   archive: blocked
-next_recommended: sdd-apply PR1 en feat/a4-pr1-identity-overrides (encender RDD antes de lanzarlo)
+next_recommended: sdd-apply PR2 en feat/a4-pr2-warehouse-star (tareas 2.1 a 2.12)
+review_receipts:
+  mode: receipt-driven development activado (global) el 2026-09-09 para los PR con codigo de A4
+  pr1:
+    branch: feat/a4-pr1-identity-overrides
+    base: 6330709 (ultimo commit de planeacion; committed-only)
+    commits: 54e6663 (codigo), 22343e6 (docs sdd), fcf56d6 (correccion R3-001 y R3-002)
+    lineage: review-176edbac56571164
+    lens: review-reliability
+    result: approved y acknowledged tras una correccion acotada (R3-001 vinculo duplicado al reapuntar un override, R3-002 CSV vacio o mal formado escapaba como traceback); autoridad quemada (gentle-ai.review-acknowledged/v1)
+    advisory: R3-003 a R3-009 informativos (5 warnings, 2 sugerencias) en overrides.py y cli.py; trabajo posterior, no reabren la revision
