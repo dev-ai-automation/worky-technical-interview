@@ -23,10 +23,10 @@ phases:
   design: done
   tasks: done
   apply: done (PR 1, 2, 3a, 3b, 4a y 4b implementados; motor A0 completo con 35 columnas, 128 pruebas y 8 goldens; pendiente sdd-verify)
-  verify: stale (PASS previo 39/39 y 55/55 en d68c096; despues entraron Judgment Day, la contencion de vinculos duplicados y dos requisitos nuevos en identity-resolution; se repite sdd-verify sobre 41 requisitos y 60 escenarios)
+  verify: done (PASS: 41/41 requisitos, 60/60 escenarios, 146 pruebas; builds y backtest byte-identicos; envelope validado por sdd-verify-validate sobre f9e7542)
   judgment_day: done (APPROVED en ronda 2 sobre 00e31b6; ledger judgment-ledger.md, veredicto en 8d063e4)
   archive: pending
-next_recommended: sdd-verify del cambio completo sobre HEAD, luego sdd-archive y merge apilado a main
+next_recommended: sdd-archive, luego merge apilado a main
 review_receipts:
   mode: receipt-driven development activado (global) el 2026-09-08 por el usuario
   pr1:
