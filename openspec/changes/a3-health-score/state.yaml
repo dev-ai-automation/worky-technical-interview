@@ -1,0 +1,29 @@
+# Estado del DAG para el cambio de SDD. Es propiedad del orquestador; se actualiza despues de cada transicion de fase.
+change: a3-health-score
+title: Health score de A3 con validacion contra churn real (comando health, subpuntajes, umbral por capacidad, precision y recall)
+created: 2026-09-08
+artifact_store: hybrid
+engram_project: 21-worky
+preflight:
+  execution_mode: interactive
+  delivery_strategy: auto-chain
+  chain_strategy: stacked-to-main
+  review_budget_lines: 800
+inputs:
+  decisions:
+    - docs/decisions/ADR-003-usage-trend-and-leakage-guard.md
+    - docs/decisions/ADR-004-sql-analysis-definitions.md
+    - docs/decisions/ADR-005-health-score-model.md
+  measurements: openspec/changes/a3-health-score/measurements.md
+  specs_base: openspec/specs/
+phases:
+  explore: done (con mediciones de senales corridas por el orquestador)
+  research: not_selected
+  proposal: in_progress
+  specs: pending
+  design: pending
+  tasks: pending
+  apply: pending
+  verify: pending
+  archive: pending
+next_recommended: sdd-propose con las decisiones confirmadas del ADR-005

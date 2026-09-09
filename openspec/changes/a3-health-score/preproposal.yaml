@@ -8,15 +8,16 @@ exploration:
     openspec: openspec/changes/a3-health-score/exploration.md
     engram: sdd/a3-health-score/explore
 research:
-  selected: null
+  selected: false
   request: null
   classes: []
-  admission: pending_user_choice
-  outcome: pending
-  note: el explorador no la considera necesaria (docs/research/01 ya cubre los patrones de health score de Vitally y Gainsight); se ofrece al usuario junto con las decisiones de producto
+  admission: not_applicable
+  outcome: unselected
+  note: ofrecida y no seleccionada por el usuario el 2026-09-08; docs/research/01 ya cubre los patrones de health score
 evidence:
   openspec:
     - openspec/changes/a3-health-score/measurements.md
+    - docs/decisions/ADR-005-health-score-model.md
     - docs/decisions/ADR-003-usage-trend-and-leakage-guard.md
     - docs/decisions/ADR-004-sql-analysis-definitions.md
     - docs/research/01-bi-revops-data-architecture.md
@@ -24,30 +25,21 @@ evidence:
     - openspec/specs/trend-backtest-harness/spec.md
   engram:
     - sdd/a3-health-score/explore
+    - sdd/a3-health-score/explore-measurements
+    - worky/a3/decision-health-score
     - worky/a0/decision-usage-trend
     - worky/a3/trend-backtest
-product_decisions: pending
-pending_decisions:
-  - id: A3.asof
-    question: mes de corte para las cuentas activas
-    options: [a, b]
-  - id: A3.signals
-    question: que senales entran al score y cuales se reportan con peso cero
-    options: [a, b, c]
-  - id: A3.weights
-    question: origen de los pesos
-    options: [a, b, c]
-  - id: A3.threshold
-    question: politica de umbral
-    options: [a, b, c]
-  - id: A3.context
-    question: cuentas sin historia y contexto comercial
-    options: [a, b]
-  - id: research
-    question: seleccionar o no la fase sdd-research
-    options: [si, no]
+product_decisions: confirmed
+confirmed_decisions:
+  - A3.asof opcion a: mismo k = 2 para bajas y activas; lectura literal reportada como sensibilidad (ADR-005)
+  - A3.signals opcion a: momentum, cambio mes a mes, caida y antiguedad en el score; soporte, activacion, canal y segmento medidos con peso cero (ADR-005)
+  - A3.weights opcion a: 0.35 / 0.20 / 0.15 / 0.30 por juicio, verificados por el harness (AUC >= 0.95 y recall >= 0.85 al 20 %), con la mezcla medida como respaldo (ADR-005)
+  - A3.threshold opcion a: top-N por capacidad al 15 % (81 cuentas, 12 por CSM) con 10 y 20 % de sensibilidad y un corte fijo de referencia (ADR-005)
+  - A3.context opcion a: banda sin historia contada en el denominador del recall; canal y segmento fuera del score como factores aparte (ADR-005)
+  - research: no seleccionada
+  - decision del usuario el 2026-09-08: "Todo lo recomendado, sigue a la propuesta"
 assumptions_stated:
   - el entregable espeja el patron analyze (comando health, outputs/health con health_scores.csv, validation.md y goldens)
   - las senales de soporte usan conteos y CSAT, nunca tiempo de resolucion (ADR-004), y respetan el mes de corte con una vista ventanada nueva
   - las cuentas sin historia suficiente nunca se reportan como sanas por default (ADR-003)
-proposal_ready: false
+proposal_ready: true
