@@ -1,12 +1,15 @@
 """Reglas puras de deteccion y normalizacion de companies.csv, una funcion por regla (D1).
 
-Cada funcion recibe el DataFrame de companies en texto crudo (las
-filas que `runner._passthrough_if_clean` dejo pasar a proceso) y
-devuelve el mismo DataFrame con sus columnas corregidas mas la lista
+Cada funcion recibe el DataFrame completo de companies en texto crudo
+y devuelve el mismo DataFrame con sus columnas corregidas mas la lista
 de `Correction` que describe cada cambio, lista para convertirse en
-una fila de `cleaning_exceptions.csv`. Ninguna funcion escribe a disco
-ni conoce la imputacion del ADR-002: esa regla vive aparte en
-`impute.py` porque es la unica que lee una segunda entrada (D6).
+una fila de `cleaning_exceptions.csv`. Cada regla corre sobre todas
+las filas en cada corrida: no hay atajo por passthrough, asi que la
+idempotencia depende de que cada regla sea convergente por
+construccion (una fecha ISO se queda ISO, una moneda ya en MXN no
+vuelve a corregirse). Ninguna funcion escribe a disco ni conoce la
+imputacion del ADR-002: esa regla vive aparte en `impute.py` porque es
+la unica que lee una segunda entrada (D6).
 """
 
 from __future__ import annotations
@@ -25,6 +28,7 @@ DATE_COLUMNS = ("signup_date", "churn_date")
 
 CLONE_ID_PATTERN = re.compile(r"^HS-9000\d{2}$")
 _DMY_PATTERN = re.compile(r"^(\d{2})/(\d{2})/(\d{4})$")
+_SUPPORTED_CURRENCIES = frozenset({"MXN", "USD"})
 
 
 @dataclass(frozen=True)
@@ -97,44 +101,92 @@ def convert_currency(companies: pd.DataFrame) -> tuple[pd.DataFrame, list[Correc
 
     Una celda de `mrr` vacia no se convierte: solo se fuerza `currency`
     a `MXN`, porque el dominio final de la columna no admite otro valor
-    (`assert_currency_all_mxn`). Una moneda fuera de `{USD, MXN}` no
-    revienta la corrida: la fila queda intacta y sale como excepcion
-    `currency_unsupported`.
+    fuera de una excepcion (`assert_currency_all_mxn`). Un `mrr` que no
+    es numerico (`mrr_not_numeric`) se detecta antes de intentar
+    convertir: la fila conserva su texto original, `mrr_mxn` se queda
+    vacio y nunca recibe el texto crudo. Una moneda fuera de
+    `{USD, MXN}` (`currency_unsupported`) tampoco revienta la corrida:
+    la fila conserva su moneda original y `mrr_mxn` se queda vacio, y
+    esta excepcion se vuelve a emitir en cada corrida porque es un
+    reporte, no una correccion (igual que `clone_excluded`).
+
+    Una fila que ya trae `currency_original` (viene de una corrida
+    anterior, D8) no se vuelve a convertir: `mrr` ya quedo en MXN y
+    recalcular con el monto ya convertido perderia el monto y la
+    moneda originales. Solo la moneda no soportada se revisa en cada
+    corrida, porque ahi `currency` nunca cambia de MXN y su excepcion
+    es la unica evidencia de que el contrato la debe dejar pasar.
     """
     result = companies.copy()
-    result["mrr_original"] = ""
-    result["currency_original"] = result["currency"]
+    if "currency_original" not in result.columns:
+        result["currency_original"] = ""
+    if "mrr_original" not in result.columns:
+        result["mrr_original"] = ""
+    if "mrr_mxn" not in result.columns:
+        result["mrr_mxn"] = ""
     corrections: list[Correction] = []
     for index, row in result.iterrows():
         raw_amount = row["mrr"]
         raw_currency = row["currency"]
-        if raw_amount == "":
-            result.at[index, "currency"] = "MXN"
-            continue
-        try:
-            converted = to_mxn(float(raw_amount), raw_currency)
-        except ValueError:
+        hubspot_id = row["hubspot_id"]
+        already_audited = row["currency_original"] != ""
+
+        if raw_currency not in _SUPPORTED_CURRENCIES:
             corrections.append(
                 Correction(
                     exception_code="currency_unsupported",
                     source_system="crm_hubspot",
-                    source_id=row["hubspot_id"],
+                    source_id=hubspot_id,
                     field_name="currency",
                     original_value=raw_currency,
                     applied_value="",
                     evidence_ref=raw_currency,
                 )
             )
+            if not already_audited:
+                result.at[index, "currency_original"] = raw_currency
             continue
+
+        if not already_audited:
+            result.at[index, "currency_original"] = raw_currency
+
+        if raw_amount == "":
+            result.at[index, "currency"] = "MXN"
+            continue
+
+        if already_audited:
+            # ya se convirtio en una corrida anterior: `mrr` es el monto en
+            # MXN, no el original, asi que reprocesarlo perderia el rastro.
+            continue
+
+        try:
+            amount = float(raw_amount)
+        except ValueError:
+            corrections.append(
+                Correction(
+                    exception_code="mrr_not_numeric",
+                    source_system="crm_hubspot",
+                    source_id=hubspot_id,
+                    field_name="mrr",
+                    original_value=raw_amount,
+                    applied_value="",
+                    evidence_ref=raw_amount,
+                )
+            )
+            result.at[index, "currency"] = "MXN"
+            continue
+
+        converted = to_mxn(amount, raw_currency)
         result.at[index, "mrr"] = format_money(converted.mxn)
         result.at[index, "mrr_original"] = format_money(converted.original_amount)
+        result.at[index, "mrr_mxn"] = format_money(converted.mxn)
         result.at[index, "currency"] = "MXN"
         if raw_currency == "USD":
             corrections.append(
                 Correction(
                     exception_code="currency_converted_to_mxn",
                     source_system="crm_hubspot",
-                    source_id=row["hubspot_id"],
+                    source_id=hubspot_id,
                     field_name="mrr_mxn",
                     original_value=format_money(converted.original_amount),
                     applied_value=format_money(converted.mxn),
@@ -145,24 +197,37 @@ def convert_currency(companies: pd.DataFrame) -> tuple[pd.DataFrame, list[Correc
 
 
 def detect_missing_mrr(companies: pd.DataFrame) -> tuple[pd.DataFrame, list[Correction]]:
-    """Separa las filas clon `HS-9000xx` de las empresas reales con `mrr` nulo (D6, parte de deteccion).
+    """Separa clones, mrr sin resolver y empresas reales con `mrr` nulo (D6, parte de deteccion).
 
-    Una fila con `mrr` presente queda como `mrr_source = 'crm'`. Un
-    clon queda como `clone_excluded` y sale como excepcion, porque el
-    ADR-001 lo manda en cuarentena. Una empresa real con `mrr` nulo
-    queda como `unresolved`: la imputacion del ADR-002 que puede
-    resolverla se conecta en PR2, asi que este PR todavia no intenta
-    resolverla y por lo tanto no emite su excepcion `mrr_unresolved`
-    (esa solo tiene sentido despues de intentar la imputacion).
+    Una fila con `mrr` presente y `mrr_mxn` presente (la conversion de
+    `convert_currency` funciono) queda como `mrr_source = 'crm'`. Una
+    fila con `mrr` presente pero `mrr_mxn` vacio ya trae su propia
+    excepcion `mrr_not_numeric` o `currency_unsupported` de
+    `convert_currency`, asi que aqui solo se marca `unresolved` sin
+    duplicar la excepcion. Un clon con `mrr` vacio queda como
+    `clone_excluded` y sale como excepcion en cada corrida, porque el
+    ADR-001 lo manda en cuarentena y es un reporte, no una correccion.
+    Una empresa real con `mrr` vacio queda como `unresolved`: la
+    imputacion del ADR-002 que puede resolverla se conecta en PR2, asi
+    que este PR todavia no intenta resolverla y por lo tanto no emite
+    su excepcion `mrr_unresolved` (esa solo tiene sentido despues de
+    intentar la imputacion).
     """
     result = companies.copy()
     result["mrr_source"] = "crm"
     result["mrr_confidence"] = "none"
     corrections: list[Correction] = []
     for index, row in result.iterrows():
+        hubspot_id = row["hubspot_id"]
+        # `row.get` porque una llamada aislada a esta funcion (fuera de
+        # `run_clean`) puede no traer todavia la columna `mrr_mxn` de
+        # `convert_currency`; sin ella, el valor por omision repite
+        # `row["mrr"]` y la condicion nunca dispara.
+        if row["mrr"] != "" and row.get("mrr_mxn", row["mrr"]) == "":
+            result.at[index, "mrr_source"] = "unresolved"
+            continue
         if row["mrr"] != "":
             continue
-        hubspot_id = row["hubspot_id"]
         if CLONE_ID_PATTERN.match(hubspot_id):
             result.at[index, "mrr_source"] = "clone_excluded"
             corrections.append(

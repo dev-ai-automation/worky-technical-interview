@@ -20,6 +20,7 @@ import pytest
 from worky_engine.cli import main as cli_main
 from worky_engine.cleaning import run_clean
 from worky_engine.cleaning.rules import convert_currency, detect_missing_mrr, normalize_dates
+from worky_engine.quality.cleaning_contracts import run_cleaning_contracts
 
 COMPANIES_COLUMNS = (
     "hubspot_id",
@@ -249,3 +250,75 @@ def test_convert_currency_no_revienta_con_moneda_no_soportada() -> None:
     assert result.at[0, "mrr"] == "100"
     assert len(corrections) == 1
     assert corrections[0].exception_code == "currency_unsupported"
+
+
+# --- moneda no soportada, tolerante de punta a punta -------------------------
+
+
+def test_moneda_no_soportada_no_aborta_la_corrida_end_to_end() -> None:
+    """Una fila en EUR llega intacta a run_clean, pasa los contratos y escribe las cuatro salidas via cmd_clean."""
+    companies = pd.DataFrame([_company("HS-100007", mrr="300", currency="EUR")], columns=COMPANIES_COLUMNS)
+    deals = fixture_deals()
+    result = run_clean(companies, deals)
+
+    run_cleaning_contracts(result.clean, companies, result.exceptions, result.counts, run_clean, deals)
+
+    row = result.clean.iloc[0]
+    assert row["currency"] == "EUR"
+    assert row["currency_original"] == "EUR"
+    assert row["mrr_mxn"] == ""
+    assert row["mrr_source"] == "unresolved"
+
+    exception = result.exceptions[result.exceptions["source_id"] == "HS-100007"].iloc[0]
+    assert exception["exception_code"] == "currency_unsupported"
+    assert exception["original_value"] == "EUR"
+
+
+def test_moneda_no_soportada_via_cmd_clean(tmp_path: Path) -> None:
+    """El comando clean termina en 0 y escribe las cuatro salidas aunque una fila traiga una moneda no soportada."""
+    companies = pd.DataFrame([_company("HS-100007", mrr="300", currency="EUR")], columns=COMPANIES_COLUMNS)
+    data_dir = tmp_path / "sistemas"
+    data_dir.mkdir()
+    companies.to_csv(data_dir / "crm_hubspot__companies.csv", index=False)
+    fixture_deals().to_csv(data_dir / "crm_hubspot__deals.csv", index=False)
+    out_dir = tmp_path / "out"
+
+    exit_code = cli_main(["clean", "--data-dir", str(data_dir), "--out-dir", str(out_dir)])
+
+    assert exit_code == 0
+    for name in ("companies_clean.csv", "cleaning_exceptions.csv", "cleaning_log.json", "cleaning_log.md"):
+        assert (out_dir / name).is_file()
+
+
+# --- mrr no numerico, distinto de moneda no soportada -------------------------
+
+
+@pytest.mark.parametrize(
+    ("hubspot_id", "raw_mrr", "currency"),
+    [
+        ("HS-100008", "1,234", "MXN"),
+        ("HS-100009", "1,234", "USD"),
+        ("HS-100010", "n/a", "MXN"),
+        ("HS-100011", "n/a", "USD"),
+    ],
+)
+def test_mrr_no_numerico_no_se_confunde_con_moneda_no_soportada(hubspot_id: str, raw_mrr: str, currency: str) -> None:
+    """Un mrr no numerico sale como mrr_not_numeric, nunca como currency_unsupported, y mrr_mxn se queda vacio."""
+    companies = pd.DataFrame([_company(hubspot_id, mrr=raw_mrr, currency=currency)], columns=COMPANIES_COLUMNS)
+    deals = fixture_deals()
+    result = run_clean(companies, deals)
+
+    run_cleaning_contracts(result.clean, companies, result.exceptions, result.counts, run_clean, deals)
+
+    row = result.clean.iloc[0]
+    assert row["mrr"] == raw_mrr
+    assert row["mrr_mxn"] == ""
+    assert row["mrr_source"] == "unresolved"
+    assert row["currency"] == "MXN"
+
+    exception = result.exceptions[result.exceptions["source_id"] == hubspot_id].iloc[0]
+    assert exception["exception_code"] == "mrr_not_numeric"
+    assert exception["original_value"] == raw_mrr
+
+    not_numeric_rule = next(rule for rule in result.counts["rules"] if rule["rule"] == "missing_mrr")
+    assert not_numeric_rule["not_numeric"] == 1

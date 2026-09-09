@@ -20,6 +20,7 @@ import pytest
 from tests.test_cleaning_rules import fixture_companies, fixture_deals
 from worky_engine.cleaning import run_clean
 from worky_engine.cli import main as cli_main
+from worky_engine.quality.cleaning_contracts import run_cleaning_contracts
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 TRACKED_OUTPUT_FILES = (
@@ -66,12 +67,18 @@ def test_orden_determinista() -> None:
 
 
 def test_cero_correcciones_sobre_la_salida_propia() -> None:
-    """Correr clean usando companies_clean.csv como entrada reporta cero correcciones en cada regla."""
-    first = run_clean(fixture_companies(), fixture_deals())
-    second = run_clean(first.clean, fixture_deals())
+    """Correr clean dos veces, usando companies_clean.csv de la primera como entrada de la segunda, no corrige nada."""
+    deals = fixture_deals()
+    first = run_clean(fixture_companies(), deals)
+    second = run_clean(first.clean, deals)
+
+    run_cleaning_contracts(first.clean, fixture_companies(), first.exceptions, first.counts, run_clean, deals)
+    run_cleaning_contracts(second.clean, first.clean, second.exceptions, second.counts, run_clean, deals)
+
     assert second.counts["totals"]["corrections"] == 0
     for rule in second.counts["rules"]:
         assert rule["corrected"] == 0
+    assert first.clean.to_csv(index=False) == second.clean.to_csv(index=False)
 
 
 def test_salidas_identicas_entre_corridas_fixture() -> None:
@@ -82,6 +89,31 @@ def test_salidas_identicas_entre_corridas_fixture() -> None:
     second = run_clean(companies, deals)
     assert first.clean.to_csv(index=False) == second.clean.to_csv(index=False)
     assert first.exceptions.to_csv(index=False) == second.exceptions.to_csv(index=False)
+
+
+def test_cmd_clean_dos_veces_seguidas_produce_el_mismo_companies_clean(tmp_path: Path) -> None:
+    """Correr el comando clean sobre su propia salida (companies_clean.csv como --companies) termina en 0 dos veces."""
+    data_dir = tmp_path / "sistemas"
+    data_dir.mkdir()
+    fixture_companies().to_csv(data_dir / "crm_hubspot__companies.csv", index=False)
+    fixture_deals().to_csv(data_dir / "crm_hubspot__deals.csv", index=False)
+    first_out = tmp_path / "first"
+    second_out = tmp_path / "second"
+
+    exit_first = cli_main(["clean", "--data-dir", str(data_dir), "--out-dir", str(first_out)])
+    assert exit_first == 0
+
+    exit_second = cli_main(
+        [
+            "clean",
+            "--data-dir", str(data_dir),
+            "--companies", str(first_out / "companies_clean.csv"),
+            "--out-dir", str(second_out),
+        ]
+    )
+    assert exit_second == 0
+
+    assert (first_out / "companies_clean.csv").read_bytes() == (second_out / "companies_clean.csv").read_bytes()
 
 
 # --- dataset real -------------------------------------------------------------

@@ -47,6 +47,7 @@ _CODE_TO_COUNT_PATH = {
     "clone_excluded": ("missing_mrr", "excluded_clones"),
     "mrr_imputed_from_deal": ("missing_mrr", "corrected"),
     "mrr_deal_annualized": ("missing_mrr", "annualized_deals"),
+    "mrr_not_numeric": ("missing_mrr", "not_numeric"),
     "mrr_unresolved": ("missing_mrr", "unresolved"),
 }
 
@@ -69,13 +70,30 @@ def assert_clean_columns_and_order(clean: pd.DataFrame) -> None:
         )
 
 
-def assert_currency_all_mxn(clean: pd.DataFrame) -> None:
-    """Toda fila sale con `currency = 'MXN'` y `currency_original` en `{MXN, USD}`."""
-    if (clean["currency"] != "MXN").any():
-        raise ContractViolation("contrato assert_currency_all_mxn: hay filas con currency distinto de 'MXN'")
-    invalid = set(clean["currency_original"]) - {"MXN", "USD"}
-    if invalid:
-        raise ContractViolation(f"contrato assert_currency_all_mxn: currency_original invalido {sorted(invalid)}")
+def assert_currency_all_mxn(clean: pd.DataFrame, exceptions: pd.DataFrame) -> None:
+    """Toda fila sale con `currency = 'MXN'`, salvo la que trae su propia excepcion `currency_unsupported`.
+
+    Una fila con `currency_unsupported` conserva su moneda original en
+    `currency` y `currency_original` (D9): el contrato la deja pasar
+    solo cuando la excepcion existe para ese `hubspot_id`, para no
+    tapar una moneda no soportada que se cuele sin reportarse.
+    """
+    unsupported_ids = (
+        set(exceptions.loc[exceptions["exception_code"] == "currency_unsupported", "source_id"])
+        if not exceptions.empty
+        else set()
+    )
+    for hubspot_id, currency, currency_original in zip(
+        clean["hubspot_id"], clean["currency"], clean["currency_original"]
+    ):
+        if currency == "MXN" and currency_original in {"MXN", "USD"}:
+            continue
+        if hubspot_id in unsupported_ids and currency == currency_original:
+            continue
+        raise ContractViolation(
+            f"contrato assert_currency_all_mxn: '{hubspot_id}' tiene currency='{currency}' "
+            f"currency_original='{currency_original}' sin excepcion currency_unsupported"
+        )
 
 
 def assert_dates_iso_or_empty(clean: pd.DataFrame, exceptions: pd.DataFrame) -> None:
@@ -146,7 +164,7 @@ def run_cleaning_contracts(
     """Corre en orden fijo los contratos de forma, moneda, fecha, unicidad, conteos e idempotencia disponibles en PR1."""
     assert_clean_row_count_preserved(clean, companies_in)
     assert_clean_columns_and_order(clean)
-    assert_currency_all_mxn(clean)
+    assert_currency_all_mxn(clean, exceptions)
     assert_dates_iso_or_empty(clean, exceptions)
     assert_exception_ids_unique(exceptions)
     assert_counts_match_exceptions(counts, exceptions)

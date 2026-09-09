@@ -3,10 +3,12 @@
 La imputacion del ADR-002 se conecta en PR2, justo despues de
 `detect_missing_mrr` (D6 del diseno). `run_clean` tambien arma la
 bitacora completa (`counts`, listo para `cleaning_log.json` y
-`cleaning_log.md`) y aplica `_passthrough_if_clean`: una fila que ya
-trae las cinco columnas de auditoria validas pasa de largo sin
-recalcularse, para que una segunda corrida sobre la propia salida sea
-idempotente (D8).
+`cleaning_log.md`). No hay passthrough: las tres reglas corren sobre
+todas las filas en cada corrida, y la idempotencia (D8) depende de que
+cada regla sea convergente por construccion en vez de un atajo
+estructural (una fecha ISO se queda ISO, una moneda ya en MXN no
+vuelve a corregirse, un clon reporta `clone_excluded` en cada pasada
+porque es un reporte y no una correccion).
 """
 
 from __future__ import annotations
@@ -48,7 +50,6 @@ EXCEPTIONS_COLUMNS = (
     "confidence",
     "ruleset_version",
 )
-_MRR_SOURCE_VALUES = frozenset({"crm", "clone_excluded", "unresolved", "imputed_from_deal"})
 
 
 @dataclass(frozen=True)
@@ -58,14 +59,6 @@ class CleanResult:
     clean: pd.DataFrame
     exceptions: pd.DataFrame
     counts: dict
-
-
-def _passthrough_if_clean(companies: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
-    """Separa las filas que ya traen las cinco columnas de auditoria validas de las que faltan procesar (D8)."""
-    if not set(AUDIT_COLUMNS).issubset(companies.columns):
-        return companies.iloc[0:0].copy(), companies.copy()
-    already_clean_mask = companies["mrr_source"].isin(_MRR_SOURCE_VALUES)
-    return companies[already_clean_mask].copy(), companies[~already_clean_mask].copy()
 
 
 def _exception_id(code: str, source_system: str, source_id: str, field_name: str) -> str:
@@ -128,6 +121,7 @@ def _build_counts(
     # campo `unresolved` del log y para la excepcion `mrr_unresolved` (PR2).
     mrr_pending = int((clean["mrr_source"] == "unresolved").sum())
     mrr_unresolved = _count(corrections, "mrr_unresolved")
+    mrr_not_numeric = _count(corrections, "mrr_not_numeric")
     mrr_detected = mrr_excluded_clones + mrr_corrected + mrr_pending
     mrr_annualized = _count(corrections, "mrr_deal_annualized")
 
@@ -154,6 +148,7 @@ def _build_counts(
                 "corrected": mrr_corrected,
                 "excluded_clones": mrr_excluded_clones,
                 "annualized_deals": mrr_annualized,
+                "not_numeric": mrr_not_numeric,
                 "ambiguous": 0,
                 "unresolved": mrr_unresolved,
             },
@@ -198,15 +193,12 @@ def run_clean(
     PR2.
     """
     rows_in = len(companies)
-    already_clean, to_process = _passthrough_if_clean(companies)
 
-    dated, date_corrections = normalize_dates(to_process)
+    dated, date_corrections = normalize_dates(companies)
     converted, currency_corrections = convert_currency(dated)
     detected, mrr_corrections = detect_missing_mrr(converted)
-    detected["mrr_mxn"] = detected["mrr"]
 
-    combined = pd.concat([already_clean, detected]).sort_index()
-    clean = combined[list(CLEAN_COLUMNS)].reset_index(drop=True)
+    clean = detected[list(CLEAN_COLUMNS)].reset_index(drop=True)
 
     corrections = [*date_corrections, *currency_corrections, *mrr_corrections]
     exceptions = _build_exceptions_frame(corrections)
