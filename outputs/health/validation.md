@@ -69,6 +69,10 @@ AUC del `health_score` en este dataset: 0.997.
 
 El 15 % es el umbral operativo: reparte el trabajo del libro activo entre los CSM. El corte fijo de referencia se reporta aparte, solo como dato adicional, sin sustituir al umbral operativo (ADR-005).
 
+## Regla de aceptación del ADR-005, en este dataset
+
+Umbrales: AUC de al menos 0.95 y recall de al menos 0.85 al 20 % de marcado entre las bajas detectables (Adenda 1 del ADR-005). Medido: AUC 0.997, recall entre detectables 1.000, recall general 0.753 con 22 bajas no detectables. Regla cumplida.
+
 ## Matriz de confusión al 15 %, en este dataset
 
 | Celda | Empresas |
@@ -139,9 +143,9 @@ En este dataset, el error más caro para Worky es un falso negativo en una cuent
 
 ## Referencias
 
-- ADR-003: ventana de tendencia de uso y resguardo de fuga (`docs/decisións/ADR-003-usage-trend-and-leakage-guard.md`).
-- ADR-004: definiciónes de las consultas de A1 (`docs/decisións/ADR-004-sql-analysis-definitions.md`).
-- ADR-005: el modelo del health score, sus pesos y la Adenda 1 sobre el techo del recall (`docs/decisións/ADR-005-health-score-model.md`).
+- ADR-003: ventana de tendencia de uso y resguardo de fuga (`docs/decisions/ADR-003-usage-trend-and-leakage-guard.md`).
+- ADR-004: definiciónes de las consultas de A1 (`docs/decisions/ADR-004-sql-analysis-definitions.md`).
+- ADR-005: el modelo del health score, sus pesos y la Adenda 1 sobre el techo del recall (`docs/decisions/ADR-005-health-score-model.md`).
 
 ## Apéndice: SQL de las vistas de health, tal como está en cada archivo
 

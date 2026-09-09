@@ -216,3 +216,31 @@ def test_seccion_de_no_detectables_sin_bajas_no_divide_entre_cero() -> None:
     text = _undetectable_section(scores)
     assert text.startswith("## Empresas no detectables")
     assert "no tiene bajas" in text
+
+
+def test_seccion_de_aceptacion_presente_con_umbrales_y_veredicto(report_text: str) -> None:
+    # Verificacion de A3: el reporte debe decir la regla, lo medido y si se cumplio.
+    start = report_text.index("## Regla de aceptación del ADR-005")
+    section = report_text[start : report_text.index("## ", start + 5)]
+    assert "0.95" in section and "0.85" in section
+    assert "Regla cumplida." in section or "Regla no cumplida." in section
+
+
+def test_seccion_de_aceptacion_recomienda_la_mezcla_medida_cuando_falla() -> None:
+    # Con un score que no separa, la regla falla y el reporte debe recomendar
+    # la mezcla medida y la adenda, sin cambiar los pesos por su cuenta.
+    from worky_engine.health.report import _acceptance_section
+
+    rows = []
+    for index in range(20):
+        churned = index % 2 == 0
+        rows.append(
+            {
+                "master_id": f"X{index:02d}", "churned": churned, "usage_months_asof": 6,
+                "health_score": float(index), "flagged_20": index < 4, "mrr_mxn": 1000.0,
+                "risk_band": "riesgo alto" if index < 3 else "riesgo bajo",
+            }
+        )
+    text = _acceptance_section(pd.DataFrame(rows))
+    assert "Regla no cumplida." in text
+    assert "mezcla medida" in text and "WEIGHTS" in text

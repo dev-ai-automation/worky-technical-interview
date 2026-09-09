@@ -366,15 +366,44 @@ def _commercial_context_section(scores: pd.DataFrame) -> str:
     )
 
 
+def _acceptance_section(scores: pd.DataFrame) -> str:
+    """Resultado de la regla de aceptacion del ADR-005 (Adenda 1), con la salida de respaldo si falla.
+
+    La regla se mide entre las bajas detectables al 20 % de marcado; si
+    no se cumple, el reporte recomienda la mezcla medida (uso 70 %,
+    antiguedad 15 %, activacion 15 %) y una adenda al ADR-005, que es
+    la salida humana que fija la decision D18: la constante WEIGHTS no
+    cambia sola en tiempo de corrida.
+    """
+    check = hm.acceptance_check(scores)
+    verdict = "cumplida" if check["passed"] else "no cumplida"
+    text = (
+        "## Regla de aceptación del ADR-005, en este dataset\n\n"
+        "Umbrales: AUC de al menos 0.95 y recall de al menos 0.85 al 20 % de marcado entre las bajas "
+        "detectables (Adenda 1 del ADR-005). "
+        f"Medido: AUC {_num(check['auc'])}, recall entre detectables {_num(check['recall_detectable_20'])}, "
+        f"recall general {_num(check['recall_20'])} con {check['undetectable']} bajas no detectables. "
+        f"Regla {verdict}."
+    )
+    if not check["passed"]:
+        text += (
+            " Como la regla no se cumple con los pesos del ADR-005, la recomendación es adoptar la mezcla "
+            "medida (uso 70 %: momentum 0.35, cambio mes a mes 0.20, caída 0.15; antigüedad 15 %; activación "
+            "15 %), cambiar la constante WEIGHTS a mano y dejar una adenda en el ADR-005 con ambos juegos de "
+            "números; el comando no cambia los pesos por su cuenta."
+        )
+    return text
+
+
 def _references_section() -> str:
     return (
         "## Referencias\n\n"
         "- ADR-003: ventana de tendencia de uso y resguardo de fuga "
-        "(`docs/decisións/ADR-003-usage-trend-and-leakage-guard.md`).\n"
+        "(`docs/decisions/ADR-003-usage-trend-and-leakage-guard.md`).\n"
         "- ADR-004: definiciónes de las consultas de A1 "
-        "(`docs/decisións/ADR-004-sql-analysis-definitions.md`).\n"
+        "(`docs/decisions/ADR-004-sql-analysis-definitions.md`).\n"
         "- ADR-005: el modelo del health score, sus pesos y la Adenda 1 sobre el techo del recall "
-        "(`docs/decisións/ADR-005-health-score-model.md`)."
+        "(`docs/decisions/ADR-005-health-score-model.md`)."
     )
 
 
@@ -395,6 +424,7 @@ def format_validation(result) -> str:
         _formula_section(),
         _auc_section(scores),
         _metrics_section(scores),
+        _acceptance_section(scores),
         _confusion_section(scores),
         _undetectable_section(scores),
         _early_detection_section(result),
