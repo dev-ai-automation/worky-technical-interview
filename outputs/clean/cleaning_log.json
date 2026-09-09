@@ -1,0 +1,59 @@
+{
+  "schema": "worky.cleaning-log/v1",
+  "ruleset_version": "1.0.0",
+  "inputs": {
+    "companies": "crm_hubspot__companies.csv",
+    "deals": "crm_hubspot__deals.csv",
+    "rows_in": 678,
+    "deals_in": 997,
+    "deals_matched": 962
+  },
+  "rules": [
+    {
+      "rule": "missing_mrr",
+      "columns": [
+        "mrr"
+      ],
+      "detected": 56,
+      "corrected": 28,
+      "excluded_clones": 28,
+      "annualized_deals": 3,
+      "not_numeric": 0,
+      "ambiguous": 0,
+      "unresolved": 0
+    },
+    {
+      "rule": "currency_to_mxn",
+      "columns": [
+        "mrr",
+        "currency"
+      ],
+      "detected": 22,
+      "corrected": 22,
+      "ambiguous": 0,
+      "unresolved": 0
+    },
+    {
+      "rule": "date_format",
+      "columns": [
+        "signup_date",
+        "churn_date"
+      ],
+      "detected": 31,
+      "corrected": 31,
+      "ambiguous": 12,
+      "unresolved": 0
+    }
+  ],
+  "totals": {
+    "rows_out": 678,
+    "corrections": 84,
+    "exception_rows": 112
+  },
+  "outputs": [
+    "companies_clean.csv",
+    "cleaning_exceptions.csv",
+    "cleaning_log.json",
+    "cleaning_log.md"
+  ]
+}

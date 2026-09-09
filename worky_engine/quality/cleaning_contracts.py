@@ -1,11 +1,8 @@
-"""Contratos de `worky_engine.cleaning` disponibles sin imputacion (seccion 5 del diseno de A6).
+"""Contratos de `worky_engine.cleaning`, incluida la imputacion del ADR-002 (seccion 5 del diseno de A6).
 
 Mismo patron que `worky_engine.quality.contracts`: cada `assert_*`
 valida una sola regla sobre DataFrames ya materializados y lanza
-`ContractViolation` con el nombre del contrato en el mensaje. Los
-contratos que dependen de la imputacion del ADR-002
-(`assert_no_null_mrr_after_imputation`, `assert_clone_deals_absent`)
-llegan en PR2.
+`ContractViolation` con el nombre del contrato en el mensaje.
 """
 
 from __future__ import annotations
@@ -14,6 +11,7 @@ import re
 
 import pandas as pd
 
+from worky_engine.cleaning.rules import CLONE_ID_PATTERN
 from worky_engine.quality.contracts import ContractViolation
 
 CLEAN_COLUMNS = (
@@ -67,6 +65,16 @@ def assert_clean_columns_and_order(clean: pd.DataFrame) -> None:
     if actual != CLEAN_COLUMNS:
         raise ContractViolation(
             f"contrato assert_clean_columns_and_order: columnas {actual}, se esperaban {CLEAN_COLUMNS}"
+        )
+
+
+def assert_no_null_mrr_after_imputation(clean: pd.DataFrame) -> None:
+    """`mrr_mxn` solo puede quedar vacio en filas `unresolved` o `clone_excluded` (D6, D7)."""
+    allowed_empty = {"unresolved", "clone_excluded"}
+    bad = clean[(clean["mrr_mxn"] == "") & (~clean["mrr_source"].isin(allowed_empty))]
+    if not bad.empty:
+        raise ContractViolation(
+            f"contrato assert_no_null_mrr_after_imputation: mrr_mxn vacio sin motivo en {sorted(bad['hubspot_id'])}"
         )
 
 
@@ -153,6 +161,13 @@ def assert_clean_is_idempotent(run_clean, clean: pd.DataFrame, deals: pd.DataFra
         )
 
 
+def assert_clone_deals_absent(deals: pd.DataFrame) -> None:
+    """Ningun deal de `deals.csv` apunta a un `hubspot_id` `HS-9000xx`: el supuesto que sostiene la equivalencia con `mart_mrr` (seccion 3 del diseno)."""
+    clone_ids = sorted(set(deals.loc[deals["hubspot_id"].str.match(CLONE_ID_PATTERN.pattern), "hubspot_id"]))
+    if clone_ids:
+        raise ContractViolation(f"contrato assert_clone_deals_absent: deals.csv trae filas para clones {clone_ids}")
+
+
 def run_cleaning_contracts(
     clean: pd.DataFrame,
     companies_in: pd.DataFrame,
@@ -161,11 +176,13 @@ def run_cleaning_contracts(
     run_clean,
     deals: pd.DataFrame,
 ) -> None:
-    """Corre en orden fijo los contratos de forma, moneda, fecha, unicidad, conteos e idempotencia disponibles en PR1."""
+    """Corre en orden fijo los nueve contratos de forma, imputacion, moneda, fecha, unicidad, conteos e idempotencia."""
     assert_clean_row_count_preserved(clean, companies_in)
     assert_clean_columns_and_order(clean)
+    assert_no_null_mrr_after_imputation(clean)
     assert_currency_all_mxn(clean, exceptions)
     assert_dates_iso_or_empty(clean, exceptions)
     assert_exception_ids_unique(exceptions)
     assert_counts_match_exceptions(counts, exceptions)
     assert_clean_is_idempotent(run_clean, clean, deals)
+    assert_clone_deals_absent(deals)

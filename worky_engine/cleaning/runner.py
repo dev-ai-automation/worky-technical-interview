@@ -1,14 +1,15 @@
-"""Orquestador de la limpieza (D1): encadena fechas, moneda y deteccion de mrr nulo, en ese orden fijo.
+"""Orquestador de la limpieza (D1): encadena fechas, moneda, deteccion y la imputacion del ADR-002, en ese orden fijo.
 
-La imputacion del ADR-002 se conecta en PR2, justo despues de
-`detect_missing_mrr` (D6 del diseno). `run_clean` tambien arma la
-bitacora completa (`counts`, listo para `cleaning_log.json` y
-`cleaning_log.md`). No hay passthrough: las tres reglas corren sobre
-todas las filas en cada corrida, y la idempotencia (D8) depende de que
-cada regla sea convergente por construccion en vez de un atajo
-estructural (una fecha ISO se queda ISO, una moneda ya en MXN no
-vuelve a corregirse, un clon reporta `clone_excluded` en cada pasada
-porque es un reporte y no una correccion).
+`run_clean` conecta `impute.impute_mrr_from_deals` justo despues de
+`detect_missing_mrr` (D6 del diseno). Tambien arma la bitacora completa
+(`counts`, listo para `cleaning_log.json` y `cleaning_log.md`). No hay
+passthrough: las cuatro reglas corren sobre todas las filas en cada
+corrida, y la idempotencia (D8) depende de que cada una sea convergente
+por construccion en vez de un atajo estructural (una fecha ISO se queda
+ISO, una moneda ya en MXN no vuelve a corregirse, un clon reporta
+`clone_excluded` en cada pasada porque es un reporte y no una
+correccion, y una empresa ya imputada preserva su `mrr_source` sin
+reprocesarse).
 """
 
 from __future__ import annotations
@@ -18,6 +19,7 @@ from dataclasses import dataclass
 
 import pandas as pd
 
+from worky_engine.cleaning.impute import impute_mrr_from_deals
 from worky_engine.cleaning.rules import AUDIT_COLUMNS, Correction, convert_currency, detect_missing_mrr, normalize_dates
 
 CLEANING_SCHEMA = "worky.cleaning-log/v1"
@@ -114,11 +116,16 @@ def _build_counts(
     currency_unresolved = _count(corrections, "currency_unsupported")
 
     mrr_excluded_clones = int((clean["mrr_source"] == "clone_excluded").sum())
-    mrr_corrected = int((clean["mrr_source"] == "imputed_from_deal").sum())
-    # `mrr_source == 'unresolved'` en este punto solo significa "todavia no se
-    # intento imputar" (PR1 no conecta impute.py, D6): no es lo mismo que un
-    # intento de imputacion que fallo, que es lo unico que cuenta para el
-    # campo `unresolved` del log y para la excepcion `mrr_unresolved` (PR2).
+    # `corrected` cuenta las imputaciones de ESTA corrida (filas de
+    # `cleaning_exceptions.csv`), no el total de `mrr_source ==
+    # 'imputed_from_deal'` en el marco final: una empresa ya imputada en una
+    # corrida anterior se preserva sin generar excepcion nueva (D8), y contar
+    # por estado del marco en vez de por excepcion rompia la idempotencia
+    # (la segunda pasada seguia reportando las 28 imputaciones ya resueltas).
+    mrr_corrected = _count(corrections, "mrr_imputed_from_deal")
+    # `mrr_source == 'unresolved'` en este punto es una empresa real que
+    # `impute_mrr_from_deals` ya intento resolver y no logro (sin deals o con
+    # montos ambiguos): coincide uno a uno con la excepcion `mrr_unresolved`.
     mrr_pending = int((clean["mrr_source"] == "unresolved").sum())
     mrr_unresolved = _count(corrections, "mrr_unresolved")
     mrr_not_numeric = _count(corrections, "mrr_not_numeric")
@@ -184,23 +191,23 @@ def run_clean(
     companies_filename: str = "crm_hubspot__companies.csv",
     deals_filename: str = "crm_hubspot__deals.csv",
 ) -> CleanResult:
-    """Corre las tres reglas en orden fijo (fechas, moneda, mrr nulo) y arma las tres salidas.
+    """Corre las cuatro reglas en orden fijo (fechas, moneda, mrr nulo, imputacion) y arma las tres salidas.
 
-    `deals` ya es un parametro obligatorio en este PR, aunque la
-    imputacion del ADR-002 todavia no lo consuma: `deals_matched` en
-    `cleaning_log.json` se calcula aqui por una simple pertenencia de
-    `hubspot_id`, sin repetir la logica de `impute.py` que llega en
-    PR2.
+    `deals_matched` en `cleaning_log.json` se calcula aqui por una
+    simple pertenencia de `hubspot_id`, sin repetir la logica de
+    `impute.impute_mrr_from_deals` (que solo mira los deals de las
+    empresas candidatas a imputacion).
     """
     rows_in = len(companies)
 
     dated, date_corrections = normalize_dates(companies)
     converted, currency_corrections = convert_currency(dated)
     detected, mrr_corrections = detect_missing_mrr(converted)
+    imputed, imputation_corrections = impute_mrr_from_deals(detected, deals)
 
-    clean = detected[list(CLEAN_COLUMNS)].reset_index(drop=True)
+    clean = imputed[list(CLEAN_COLUMNS)].reset_index(drop=True)
 
-    corrections = [*date_corrections, *currency_corrections, *mrr_corrections]
+    corrections = [*date_corrections, *currency_corrections, *mrr_corrections, *imputation_corrections]
     exceptions = _build_exceptions_frame(corrections)
     counts = _build_counts(clean, deals, corrections, exceptions, rows_in, companies_filename, deals_filename)
 

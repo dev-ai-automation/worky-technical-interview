@@ -207,18 +207,28 @@ def detect_missing_mrr(companies: pd.DataFrame) -> tuple[pd.DataFrame, list[Corr
     duplicar la excepcion. Un clon con `mrr` vacio queda como
     `clone_excluded` y sale como excepcion en cada corrida, porque el
     ADR-001 lo manda en cuarentena y es un reporte, no una correccion.
-    Una empresa real con `mrr` vacio queda como `unresolved`: la
-    imputacion del ADR-002 que puede resolverla se conecta en PR2, asi
-    que este PR todavia no intenta resolverla y por lo tanto no emite
-    su excepcion `mrr_unresolved` (esa solo tiene sentido despues de
-    intentar la imputacion).
+    Una empresa real con `mrr` vacio queda como `unresolved`, lista
+    para que `impute.py` la resuelva a continuacion (D6).
+
+    Una fila que ya trae `mrr_source == 'imputed_from_deal'` de una
+    corrida anterior (D8, "un mrr_source ya resuelto no produce
+    correccion") se preserva tal cual, con su `mrr_confidence`
+    original: en esa fila `mrr` ya no esta vacio, y sin esta guarda
+    quedaria reclasificada como `crm`, perdiendo la procedencia de la
+    imputacion en cada corrida siguiente.
     """
     result = companies.copy()
+    previous_source = companies["mrr_source"] if "mrr_source" in companies.columns else None
+    previous_confidence = companies["mrr_confidence"] if "mrr_confidence" in companies.columns else None
     result["mrr_source"] = "crm"
     result["mrr_confidence"] = "none"
     corrections: list[Correction] = []
     for index, row in result.iterrows():
         hubspot_id = row["hubspot_id"]
+        if previous_source is not None and previous_source.at[index] == "imputed_from_deal":
+            result.at[index, "mrr_source"] = "imputed_from_deal"
+            result.at[index, "mrr_confidence"] = previous_confidence.at[index]
+            continue
         # `row.get` porque una llamada aislada a esta funcion (fuera de
         # `run_clean`) puede no traer todavia la columna `mrr_mxn` de
         # `convert_currency`; sin ella, el valor por omision repite

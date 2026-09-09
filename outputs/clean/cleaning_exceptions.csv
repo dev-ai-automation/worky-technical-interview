@@ -1,0 +1,113 @@
+exception_id,exception_code,source_system,source_id,field_name,original_value,applied_value,evidence_ref,confidence,ruleset_version
+9fdfdad92fec,clone_excluded,crm_hubspot,HS-900000,mrr_mxn,,,ADR-001 HS-9000xx,,1.0.0
+f2d4f397950f,clone_excluded,crm_hubspot,HS-900001,mrr_mxn,,,ADR-001 HS-9000xx,,1.0.0
+1d4fe943e97e,clone_excluded,crm_hubspot,HS-900002,mrr_mxn,,,ADR-001 HS-9000xx,,1.0.0
+ca3ccd57c847,clone_excluded,crm_hubspot,HS-900003,mrr_mxn,,,ADR-001 HS-9000xx,,1.0.0
+e25f7396c98f,clone_excluded,crm_hubspot,HS-900004,mrr_mxn,,,ADR-001 HS-9000xx,,1.0.0
+3698dc3a8fd1,clone_excluded,crm_hubspot,HS-900005,mrr_mxn,,,ADR-001 HS-9000xx,,1.0.0
+e9c711803880,clone_excluded,crm_hubspot,HS-900006,mrr_mxn,,,ADR-001 HS-9000xx,,1.0.0
+226b5ee247fe,clone_excluded,crm_hubspot,HS-900007,mrr_mxn,,,ADR-001 HS-9000xx,,1.0.0
+dc5466f43b37,clone_excluded,crm_hubspot,HS-900008,mrr_mxn,,,ADR-001 HS-9000xx,,1.0.0
+67eea180b543,clone_excluded,crm_hubspot,HS-900009,mrr_mxn,,,ADR-001 HS-9000xx,,1.0.0
+59fbdd5ccc96,clone_excluded,crm_hubspot,HS-900010,mrr_mxn,,,ADR-001 HS-9000xx,,1.0.0
+54b7f7bc8949,clone_excluded,crm_hubspot,HS-900011,mrr_mxn,,,ADR-001 HS-9000xx,,1.0.0
+aca6933503a5,clone_excluded,crm_hubspot,HS-900012,mrr_mxn,,,ADR-001 HS-9000xx,,1.0.0
+dfb495a7d956,clone_excluded,crm_hubspot,HS-900013,mrr_mxn,,,ADR-001 HS-9000xx,,1.0.0
+8ef8e3cfba24,clone_excluded,crm_hubspot,HS-900014,mrr_mxn,,,ADR-001 HS-9000xx,,1.0.0
+bf2415f11d44,clone_excluded,crm_hubspot,HS-900015,mrr_mxn,,,ADR-001 HS-9000xx,,1.0.0
+0417e7b2c4f5,clone_excluded,crm_hubspot,HS-900016,mrr_mxn,,,ADR-001 HS-9000xx,,1.0.0
+45dbbed67789,clone_excluded,crm_hubspot,HS-900017,mrr_mxn,,,ADR-001 HS-9000xx,,1.0.0
+aa58139b2967,clone_excluded,crm_hubspot,HS-900018,mrr_mxn,,,ADR-001 HS-9000xx,,1.0.0
+be5e3a379145,clone_excluded,crm_hubspot,HS-900019,mrr_mxn,,,ADR-001 HS-9000xx,,1.0.0
+a668370cf015,clone_excluded,crm_hubspot,HS-900020,mrr_mxn,,,ADR-001 HS-9000xx,,1.0.0
+8bae23a8e4ff,clone_excluded,crm_hubspot,HS-900021,mrr_mxn,,,ADR-001 HS-9000xx,,1.0.0
+45aa0beff95d,clone_excluded,crm_hubspot,HS-900022,mrr_mxn,,,ADR-001 HS-9000xx,,1.0.0
+b9713a36cbe4,clone_excluded,crm_hubspot,HS-900023,mrr_mxn,,,ADR-001 HS-9000xx,,1.0.0
+0f759b491e46,clone_excluded,crm_hubspot,HS-900024,mrr_mxn,,,ADR-001 HS-9000xx,,1.0.0
+98e453c09517,clone_excluded,crm_hubspot,HS-900025,mrr_mxn,,,ADR-001 HS-9000xx,,1.0.0
+1cb47a7a8334,clone_excluded,crm_hubspot,HS-900026,mrr_mxn,,,ADR-001 HS-9000xx,,1.0.0
+f4da55e1da55,clone_excluded,crm_hubspot,HS-900027,mrr_mxn,,,ADR-001 HS-9000xx,,1.0.0
+50f87e81715b,currency_converted_to_mxn,crm_hubspot,HS-100092,mrr_mxn,24411.00,451603.50,USD@18.5,,1.0.0
+02efd913d4ea,currency_converted_to_mxn,crm_hubspot,HS-100155,mrr_mxn,51492.00,952602.00,USD@18.5,,1.0.0
+2c15007e51ad,currency_converted_to_mxn,crm_hubspot,HS-100177,mrr_mxn,25034.00,463129.00,USD@18.5,,1.0.0
+f9d46ef8279c,currency_converted_to_mxn,crm_hubspot,HS-100211,mrr_mxn,6362.00,117697.00,USD@18.5,,1.0.0
+7b4a8dbbbc78,currency_converted_to_mxn,crm_hubspot,HS-100226,mrr_mxn,2847.00,52669.50,USD@18.5,,1.0.0
+b29584e5f1af,currency_converted_to_mxn,crm_hubspot,HS-100238,mrr_mxn,3945.00,72982.50,USD@18.5,,1.0.0
+0247b46a362f,currency_converted_to_mxn,crm_hubspot,HS-100258,mrr_mxn,24224.00,448144.00,USD@18.5,,1.0.0
+badb59ee0138,currency_converted_to_mxn,crm_hubspot,HS-100308,mrr_mxn,2897.00,53594.50,USD@18.5,,1.0.0
+ad41e9bb9a18,currency_converted_to_mxn,crm_hubspot,HS-100343,mrr_mxn,2455.00,45417.50,USD@18.5,,1.0.0
+4b3a05e0c93b,currency_converted_to_mxn,crm_hubspot,HS-100351,mrr_mxn,4835.00,89447.50,USD@18.5,,1.0.0
+c3e9adcb952b,currency_converted_to_mxn,crm_hubspot,HS-100353,mrr_mxn,10100.00,186850.00,USD@18.5,,1.0.0
+e67b42beba6b,currency_converted_to_mxn,crm_hubspot,HS-100387,mrr_mxn,7391.00,136733.50,USD@18.5,,1.0.0
+e1e5d8f79813,currency_converted_to_mxn,crm_hubspot,HS-100420,mrr_mxn,23825.00,440762.50,USD@18.5,,1.0.0
+5e7ca0a1aebb,currency_converted_to_mxn,crm_hubspot,HS-100444,mrr_mxn,7767.00,143689.50,USD@18.5,,1.0.0
+7d3499a37032,currency_converted_to_mxn,crm_hubspot,HS-100450,mrr_mxn,7712.00,142672.00,USD@18.5,,1.0.0
+7b95fd319d34,currency_converted_to_mxn,crm_hubspot,HS-100469,mrr_mxn,6475.00,119787.50,USD@18.5,,1.0.0
+7f4603b67dee,currency_converted_to_mxn,crm_hubspot,HS-100475,mrr_mxn,6987.00,129259.50,USD@18.5,,1.0.0
+d66bac7fc71e,currency_converted_to_mxn,crm_hubspot,HS-100482,mrr_mxn,24458.00,452473.00,USD@18.5,,1.0.0
+9222bc7f8609,currency_converted_to_mxn,crm_hubspot,HS-100517,mrr_mxn,7738.00,143153.00,USD@18.5,,1.0.0
+aa0ff3b776ef,currency_converted_to_mxn,crm_hubspot,HS-100533,mrr_mxn,34863.00,644965.50,USD@18.5,,1.0.0
+1d3943517b5f,currency_converted_to_mxn,crm_hubspot,HS-100641,mrr_mxn,2207.00,40829.50,USD@18.5,,1.0.0
+e77b00d04d64,currency_converted_to_mxn,crm_hubspot,HS-100649,mrr_mxn,11440.00,211640.00,USD@18.5,,1.0.0
+febdb9501051,date_normalized,crm_hubspot,HS-100041,signup_date,12/04/2023,2023-04-12,dd_mm_yyyy_ambiguous,,1.0.0
+7050f4d08acd,date_normalized,crm_hubspot,HS-100063,signup_date,12/05/2022,2022-05-12,dd_mm_yyyy_ambiguous,,1.0.0
+a51444040150,date_normalized,crm_hubspot,HS-100076,signup_date,17/03/2023,2023-03-17,dd_mm_yyyy,,1.0.0
+0d586c12c886,date_normalized,crm_hubspot,HS-100078,signup_date,25/11/2022,2022-11-25,dd_mm_yyyy,,1.0.0
+58c660262caa,date_normalized,crm_hubspot,HS-100092,signup_date,14/08/2022,2022-08-14,dd_mm_yyyy,,1.0.0
+388feab5aec5,date_normalized,crm_hubspot,HS-100096,signup_date,07/05/2024,2024-05-07,dd_mm_yyyy_ambiguous,,1.0.0
+07d4e075b495,date_normalized,crm_hubspot,HS-100131,signup_date,13/05/2023,2023-05-13,dd_mm_yyyy,,1.0.0
+dd28374d53e5,date_normalized,crm_hubspot,HS-100141,signup_date,12/10/2022,2022-10-12,dd_mm_yyyy_ambiguous,,1.0.0
+6afad1fbf7fb,date_normalized,crm_hubspot,HS-100158,signup_date,19/03/2024,2024-03-19,dd_mm_yyyy,,1.0.0
+d473c1747e73,date_normalized,crm_hubspot,HS-100194,signup_date,27/03/2023,2023-03-27,dd_mm_yyyy,,1.0.0
+11f19a06766c,date_normalized,crm_hubspot,HS-100207,signup_date,12/01/2024,2024-01-12,dd_mm_yyyy_ambiguous,,1.0.0
+a8f49e88da33,date_normalized,crm_hubspot,HS-100224,signup_date,14/08/2023,2023-08-14,dd_mm_yyyy,,1.0.0
+1bcbe37096a3,date_normalized,crm_hubspot,HS-100227,signup_date,05/06/2024,2024-06-05,dd_mm_yyyy_ambiguous,,1.0.0
+2ecf561cad59,date_normalized,crm_hubspot,HS-100238,signup_date,01/12/2023,2023-12-01,dd_mm_yyyy_ambiguous,,1.0.0
+30bdbeca8b74,date_normalized,crm_hubspot,HS-100249,signup_date,16/03/2024,2024-03-16,dd_mm_yyyy,,1.0.0
+25f8d20a9737,date_normalized,crm_hubspot,HS-100258,signup_date,23/01/2024,2024-01-23,dd_mm_yyyy,,1.0.0
+c6eed960250e,date_normalized,crm_hubspot,HS-100273,signup_date,15/07/2022,2022-07-15,dd_mm_yyyy,,1.0.0
+bc99d2ff648f,date_normalized,crm_hubspot,HS-100344,signup_date,03/10/2022,2022-10-03,dd_mm_yyyy_ambiguous,,1.0.0
+37f72b5f9ceb,date_normalized,crm_hubspot,HS-100363,signup_date,26/04/2023,2023-04-26,dd_mm_yyyy,,1.0.0
+066fa58fbea0,date_normalized,crm_hubspot,HS-100386,signup_date,13/04/2022,2022-04-13,dd_mm_yyyy,,1.0.0
+f11b57c91838,date_normalized,crm_hubspot,HS-100396,signup_date,08/08/2023,2023-08-08,dd_mm_yyyy_ambiguous,,1.0.0
+f6c5d385ae9a,date_normalized,crm_hubspot,HS-100424,signup_date,27/07/2022,2022-07-27,dd_mm_yyyy,,1.0.0
+b2e0ffb53f37,date_normalized,crm_hubspot,HS-100425,signup_date,06/08/2022,2022-08-06,dd_mm_yyyy_ambiguous,,1.0.0
+439919315915,date_normalized,crm_hubspot,HS-100427,signup_date,11/06/2023,2023-06-11,dd_mm_yyyy_ambiguous,,1.0.0
+6e6795d412f3,date_normalized,crm_hubspot,HS-100444,signup_date,23/05/2022,2022-05-23,dd_mm_yyyy,,1.0.0
+3e82e31551b0,date_normalized,crm_hubspot,HS-100559,signup_date,15/07/2023,2023-07-15,dd_mm_yyyy,,1.0.0
+340cf9d08e44,date_normalized,crm_hubspot,HS-100582,signup_date,28/04/2022,2022-04-28,dd_mm_yyyy,,1.0.0
+6f8599342517,date_normalized,crm_hubspot,HS-100621,signup_date,11/01/2024,2024-01-11,dd_mm_yyyy_ambiguous,,1.0.0
+dab015851d2b,date_normalized,crm_hubspot,HS-100622,signup_date,26/04/2024,2024-04-26,dd_mm_yyyy,,1.0.0
+7939539d2cd0,date_normalized,crm_hubspot,HS-100627,signup_date,26/06/2024,2024-06-26,dd_mm_yyyy,,1.0.0
+9b426c1f6b8a,date_normalized,crm_hubspot,HS-100639,signup_date,20/04/2022,2022-04-20,dd_mm_yyyy,,1.0.0
+9ba6ddd3b901,mrr_deal_annualized,crm_hubspot,D00502,amount,224004.00,18667.00,HS-100337,,1.0.0
+9fd6fb868a78,mrr_deal_annualized,crm_hubspot,D00747,amount,540600.00,45050.00,HS-100500,,1.0.0
+2bd76677f408,mrr_deal_annualized,crm_hubspot,D00876,amount,287916.00,23993.00,HS-100585,,1.0.0
+60e480479462,mrr_imputed_from_deal,crm_hubspot,HS-100012,mrr_mxn,,42392.00,D00015,medium,1.0.0
+2efaa50dac28,mrr_imputed_from_deal,crm_hubspot,HS-100021,mrr_mxn,,25635.00,D00026,medium,1.0.0
+52574d3895d2,mrr_imputed_from_deal,crm_hubspot,HS-100030,mrr_mxn,,3949.00,D00037,medium,1.0.0
+6611a1c8794c,mrr_imputed_from_deal,crm_hubspot,HS-100056,mrr_mxn,,86911.00,D00072,medium,1.0.0
+224f5fd28828,mrr_imputed_from_deal,crm_hubspot,HS-100094,mrr_mxn,,13136.00,D00131,medium,1.0.0
+a09f90f93a70,mrr_imputed_from_deal,crm_hubspot,HS-100107,mrr_mxn,,72024.00,D00146,high,1.0.0
+d984d5d3ca88,mrr_imputed_from_deal,crm_hubspot,HS-100119,mrr_mxn,,946020.00,D00163,medium,1.0.0
+482b9110bd9a,mrr_imputed_from_deal,crm_hubspot,HS-100141,mrr_mxn,,43973.00,D00195,medium,1.0.0
+fc1fda26e0e8,mrr_imputed_from_deal,crm_hubspot,HS-100216,mrr_mxn,,4541.00,D00312,medium,1.0.0
+1197e2201ba9,mrr_imputed_from_deal,crm_hubspot,HS-100229,mrr_mxn,,387828.00,D00330,medium,1.0.0
+7d9dd80c7d53,mrr_imputed_from_deal,crm_hubspot,HS-100275,mrr_mxn,,7843.00,D00412,medium,1.0.0
+93a0463c4a15,mrr_imputed_from_deal,crm_hubspot,HS-100311,mrr_mxn,,7738.00,D00469,medium,1.0.0
+8d3ec6268f20,mrr_imputed_from_deal,crm_hubspot,HS-100322,mrr_mxn,,19823.00,D00482,medium,1.0.0
+46923ed63c9c,mrr_imputed_from_deal,crm_hubspot,HS-100337,mrr_mxn,,18667.00,D00503,high,1.0.0
+a03bcab1ed22,mrr_imputed_from_deal,crm_hubspot,HS-100348,mrr_mxn,,31884.00,D00519,medium,1.0.0
+f4607a68edf9,mrr_imputed_from_deal,crm_hubspot,HS-100358,mrr_mxn,,27214.00,D00532,medium,1.0.0
+a5634ceb2f57,mrr_imputed_from_deal,crm_hubspot,HS-100448,mrr_mxn,,144600.00,D00672,medium,1.0.0
+707f0e9fe4a9,mrr_imputed_from_deal,crm_hubspot,HS-100452,mrr_mxn,,27551.00,D00678,medium,1.0.0
+19bb0a340e6c,mrr_imputed_from_deal,crm_hubspot,HS-100465,mrr_mxn,,79050.00,D00697,medium,1.0.0
+1a0a7c40bc73,mrr_imputed_from_deal,crm_hubspot,HS-100500,mrr_mxn,,45050.00,D00746,high,1.0.0
+e784adbca272,mrr_imputed_from_deal,crm_hubspot,HS-100523,mrr_mxn,,70544.00,D00788,medium,1.0.0
+0b670ebdce10,mrr_imputed_from_deal,crm_hubspot,HS-100553,mrr_mxn,,12283.00,D00831,high,1.0.0
+019093384366,mrr_imputed_from_deal,crm_hubspot,HS-100573,mrr_mxn,,6864.00,D00857,medium,1.0.0
+d2724c3b6597,mrr_imputed_from_deal,crm_hubspot,HS-100585,mrr_mxn,,23993.00,D00875,medium,1.0.0
+89c1d1f622e8,mrr_imputed_from_deal,crm_hubspot,HS-100608,mrr_mxn,,3133.00,D00902,medium,1.0.0
+c5630859ba2b,mrr_imputed_from_deal,crm_hubspot,HS-100626,mrr_mxn,,8220.00,D00932,medium,1.0.0
+8bc359e2d9ad,mrr_imputed_from_deal,crm_hubspot,HS-100642,mrr_mxn,,7598.00,D00951,medium,1.0.0
+2f92a13d9e6b,mrr_imputed_from_deal,crm_hubspot,HS-100647,mrr_mxn,,282216.00,D00957,medium,1.0.0

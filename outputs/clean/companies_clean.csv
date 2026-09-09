@@ -1,0 +1,679 @@
+hubspot_id,name,domain,segment,industry,mrr,currency,signup_date,csm_owner,plan,state,churn_date,mrr_mxn,mrr_original,currency_original,mrr_source,mrr_confidence
+HS-100001,"Gaitán, Olmos y Paredes",gaitán115.com.mx,SMB,Automotriz,2204.00,MXN,2022-02-28,Fernanda Solís,Basico,Jalisco,,2204.00,2204.00,MXN,crm,none
+HS-100002,Guillen y Saucedo y Asociados,guillen759.com.mx,Enterprise,Automotriz,66698.00,MXN,2024-01-01,Ana Ruiz,Premium,Jalisco,,66698.00,66698.00,MXN,crm,none
+HS-100003,Granados y Solís e Hijos,granados239.com.mx,Mid-Market,Construcción,9869.00,MXN,2024-05-30,Fernanda Solís,Pro,Chihuahua,,9869.00,9869.00,MXN,crm,none
+HS-100004,Club Medrano y Mercado,club226.com.mx,Mid-Market,Educación,18115.00,MXN,2024-05-13,Diego Ortega,Pro,Nuevo León,,18115.00,18115.00,MXN,crm,none
+HS-100005,Club Jasso y Puente,club433.com.mx,SMB,Agroindustria,4787.00,MXN,2022-09-11,Ana Ruiz,Basico,Jalisco,2023-10-20,4787.00,4787.00,MXN,crm,none
+HS-100006,Cuellar-Ceja e Hijos,cuellarceja100.com.mx,SMB,Educación,4940.00,MXN,2022-02-20,Ana Ruiz,Basico,Yucatán,,4940.00,4940.00,MXN,crm,none
+HS-100007,Cabrera S.C.,cabrera128.com.mx,SMB,Servicios Financieros,5100.00,MXN,2022-06-30,Fernanda Solís,Basico,Sonora,,5100.00,5100.00,MXN,crm,none
+HS-100008,"Frías, Briseño y Molina",frías592.com.mx,Mid-Market,Salud,11279.00,MXN,2023-01-21,Diego Ortega,Pro,Querétaro,,11279.00,11279.00,MXN,crm,none
+HS-100009,González-Serrano A.C.,gonzálezserr876.com.mx,Mid-Market,Retail,12309.00,MXN,2022-11-03,Fernanda Solís,Pro,Guanajuato,,12309.00,12309.00,MXN,crm,none
+HS-100010,"Proyectos Zamora, Amaya y Rosales",proyectos380.com.mx,Mid-Market,Tecnología,15865.00,MXN,2023-06-23,Fernanda Solís,Pro,Jalisco,,15865.00,15865.00,MXN,crm,none
+HS-100011,"Aragón, Rodríguez y Carmona",aragón651.com.mx,SMB,Hospitalidad,3401.00,MXN,2023-01-20,Jorge Ibarra,Basico,Estado de México,,3401.00,3401.00,MXN,crm,none
+HS-100012,Zaragoza y Asociados,zaragoza948.com.mx,Enterprise,Logística,42392.00,MXN,2023-07-29,Diego Ortega,Premium,CDMX,,42392.00,,MXN,imputed_from_deal,medium
+HS-100013,Aguilar-Tejeda,aguilartejed842.com.mx,Mid-Market,Construcción,19336.00,MXN,2022-07-01,Luis Peña,Pro,Sonora,,19336.00,19336.00,MXN,crm,none
+HS-100014,"Zayas, Limón y Tejada",zayas323.com.mx,SMB,Agroindustria,3741.00,MXN,2023-01-12,Fernanda Solís,Basico,Yucatán,,3741.00,3741.00,MXN,crm,none
+HS-100015,"Perea, Vanegas y Mayorga",perea272.com.mx,SMB,Tecnología,3143.00,MXN,2023-04-29,Marta Díaz,Basico,Sonora,,3143.00,3143.00,MXN,crm,none
+HS-100016,Cabrera y Galván S. R.L. de C.V.,cabrera920.com.mx,SMB,Educación,6780.00,MXN,2023-07-28,Carla Nuñez,Basico,Yucatán,2023-12-05,6780.00,6780.00,MXN,crm,none
+HS-100017,"Club Badillo, Ruelas y Almonte",club774.com.mx,SMB,Retail,2385.00,MXN,2024-05-18,Diego Ortega,Basico,Estado de México,,2385.00,2385.00,MXN,crm,none
+HS-100018,Mateo-Rolón S. R.L. de C.V.,mateorolón66.com.mx,SMB,Hospitalidad,5152.00,MXN,2022-03-20,Carla Nuñez,Basico,Querétaro,,5152.00,5152.00,MXN,crm,none
+HS-100019,Laboratorios Ulibarri-Duarte,laboratorios882.com.mx,SMB,Servicios Financieros,2094.00,MXN,2022-11-21,Diego Ortega,Basico,Querétaro,,2094.00,2094.00,MXN,crm,none
+HS-100020,"Espinosa, Valdez y Tamez",espinosa349.com.mx,SMB,Automotriz,2913.00,MXN,2022-02-15,Fernanda Solís,Basico,Querétaro,2022-04-19,2913.00,2913.00,MXN,crm,none
+HS-100021,Rivera y Frías y Asociados,rivera781.com.mx,Mid-Market,Servicios Financieros,25635.00,MXN,2024-05-16,Fernanda Solís,Pro,Querétaro,,25635.00,,MXN,imputed_from_deal,medium
+HS-100022,Castro y Saldaña e Hijos,castro520.com.mx,SMB,Automotriz,6988.00,MXN,2024-06-20,Luis Peña,Basico,Chihuahua,,6988.00,6988.00,MXN,crm,none
+HS-100023,Proyectos Piña-Patiño,proyectos941.com.mx,SMB,Servicios Financieros,2004.00,MXN,2023-05-10,Diego Ortega,Basico,Querétaro,2024-01-10,2004.00,2004.00,MXN,crm,none
+HS-100024,"Narváez, Madera y Roldán",narváez60.com.mx,SMB,Construcción,3973.00,MXN,2022-12-13,Diego Ortega,Basico,Jalisco,2023-10-17,3973.00,3973.00,MXN,crm,none
+HS-100025,Marrero-Prieto,marreropriet785.com.mx,SMB,Servicios Financieros,3030.00,MXN,2022-11-07,Carla Nuñez,Basico,Nuevo León,,3030.00,3030.00,MXN,crm,none
+HS-100026,"Corporacin Sosa, Mora y Villareal",corporacin541.com.mx,Mid-Market,Logística,22865.00,MXN,2024-04-30,Diego Ortega,Pro,Puebla,,22865.00,22865.00,MXN,crm,none
+HS-100027,Laboratorios Godoy y Toledo,laboratorios320.com.mx,SMB,Agroindustria,5268.00,MXN,2024-04-12,Jorge Ibarra,Basico,Jalisco,,5268.00,5268.00,MXN,crm,none
+HS-100028,Sanches y Asociados,sanches231.com.mx,SMB,Construcción,2524.00,MXN,2024-02-15,Luis Peña,Basico,Sonora,,2524.00,2524.00,MXN,crm,none
+HS-100029,Villagómez-de Jesús e Hijos,villagómezde8.com.mx,Mid-Market,Construcción,10929.00,MXN,2023-11-11,Diego Ortega,Pro,Guanajuato,2024-01-18,10929.00,10929.00,MXN,crm,none
+HS-100030,García S. R.L. de C.V.,garcía527.com.mx,SMB,Retail,3949.00,MXN,2024-02-08,Carla Nuñez,Basico,Nuevo León,,3949.00,,MXN,imputed_from_deal,medium
+HS-100031,Casas y Salinas y Asociados,casas958.com.mx,Mid-Market,Agroindustria,27881.00,MXN,2022-11-01,Jorge Ibarra,Pro,Estado de México,,27881.00,27881.00,MXN,crm,none
+HS-100032,Meraz-Cintrón,merazcintrón97.com.mx,SMB,Construcción,2794.00,MXN,2022-06-03,Jorge Ibarra,Basico,CDMX,,2794.00,2794.00,MXN,crm,none
+HS-100033,Heredia-Carrión,herediacarri670.com.mx,SMB,Automotriz,7293.00,MXN,2024-06-29,Marta Díaz,Basico,Jalisco,,7293.00,7293.00,MXN,crm,none
+HS-100034,Proyectos Barraza-Mata,proyectos197.com.mx,Enterprise,Construcción,57400.00,MXN,2022-06-28,Luis Peña,Premium,Querétaro,,57400.00,57400.00,MXN,crm,none
+HS-100035,"Aponte, Bueno y Orosco",aponte256.com.mx,Enterprise,Alimentos,80954.00,MXN,2024-01-13,Carla Nuñez,Premium,Jalisco,,80954.00,80954.00,MXN,crm,none
+HS-100036,Navarrete-Berríos S.A.,navarreteber668.com.mx,Mid-Market,Manufactura,9483.00,MXN,2023-12-05,Diego Ortega,Pro,Puebla,,9483.00,9483.00,MXN,crm,none
+HS-100037,Narváez-Rolón,narváezrolón417.com.mx,SMB,Tecnología,5978.00,MXN,2022-07-19,Ana Ruiz,Basico,Nuevo León,,5978.00,5978.00,MXN,crm,none
+HS-100038,Miramontes y Zambrano S.A. de C.V.,miramontes3.com.mx,SMB,Educación,5198.00,MXN,2022-07-11,Jorge Ibarra,Basico,Querétaro,,5198.00,5198.00,MXN,crm,none
+HS-100039,Enríquez-Olivárez,enríquezoliv714.com.mx,Mid-Market,Educación,27211.00,MXN,2022-01-08,Luis Peña,Pro,Puebla,,27211.00,27211.00,MXN,crm,none
+HS-100040,"Proyectos Quezada, Hernandes y Arce",proyectos223.com.mx,SMB,Logística,2479.00,MXN,2022-03-24,Fernanda Solís,Basico,Guanajuato,,2479.00,2479.00,MXN,crm,none
+HS-100041,Iglesias-Prado A.C.,iglesiasprad52.com.mx,SMB,Manufactura,6785.00,MXN,2023-04-12,Carla Nuñez,Basico,Nuevo León,,6785.00,6785.00,MXN,crm,none
+HS-100042,Maldonado-Bueno,maldonadobue984.com.mx,SMB,Manufactura,6160.00,MXN,2022-11-23,Fernanda Solís,Basico,Puebla,2023-04-01,6160.00,6160.00,MXN,crm,none
+HS-100043,Laboratorios Caldera-Arredondo,laboratorios123.com.mx,SMB,Educación,6666.00,MXN,2022-01-11,Carla Nuñez,Basico,Jalisco,,6666.00,6666.00,MXN,crm,none
+HS-100044,Acosta S.A.,acosta674.com.mx,Enterprise,Educación,62261.00,MXN,2024-06-17,Marta Díaz,Premium,Puebla,,62261.00,62261.00,MXN,crm,none
+HS-100045,"Industrias Soto, Luna y Llamas",industrias734.com.mx,SMB,Automotriz,4573.00,MXN,2022-05-18,Fernanda Solís,Basico,Querétaro,,4573.00,4573.00,MXN,crm,none
+HS-100046,"Figueroa, Villa y Rojo",figueroa324.com.mx,Mid-Market,Alimentos,11377.00,MXN,2023-03-10,Carla Nuñez,Pro,Jalisco,,11377.00,11377.00,MXN,crm,none
+HS-100047,Despacho Fonseca-Toro,despacho551.com.mx,SMB,Retail,3746.00,MXN,2024-04-24,Marta Díaz,Basico,Jalisco,,3746.00,3746.00,MXN,crm,none
+HS-100048,Corporacin Enríquez y Romero,corporacin379.com.mx,SMB,Construcción,4334.00,MXN,2023-01-24,Fernanda Solís,Basico,Querétaro,,4334.00,4334.00,MXN,crm,none
+HS-100049,Arellano-Robles S. R.L. de C.V.,arellanorobl827.com.mx,SMB,Hospitalidad,7357.00,MXN,2022-08-09,Carla Nuñez,Basico,Querétaro,,7357.00,7357.00,MXN,crm,none
+HS-100050,"Arredondo, Mateo y Alcántar",arredondo107.com.mx,SMB,Automotriz,3100.00,MXN,2023-06-18,Fernanda Solís,Basico,Chihuahua,,3100.00,3100.00,MXN,crm,none
+HS-100051,Peña y Aguirre S.C.,peña279.com.mx,Enterprise,Tecnología,75029.00,MXN,2022-01-09,Fernanda Solís,Premium,Querétaro,,75029.00,75029.00,MXN,crm,none
+HS-100052,Cordero S.A.,cordero501.com.mx,Mid-Market,Servicios Financieros,10664.00,MXN,2023-12-22,Diego Ortega,Pro,Querétaro,,10664.00,10664.00,MXN,crm,none
+HS-100053,"Sevilla, Prado y Gálvez",sevilla4.com.mx,Enterprise,Manufactura,69753.00,MXN,2022-07-21,Luis Peña,Premium,Yucatán,,69753.00,69753.00,MXN,crm,none
+HS-100054,Club Soto-Solorio,club723.com.mx,Enterprise,Servicios Financieros,28633.00,MXN,2022-02-01,Fernanda Solís,Premium,Nuevo León,,28633.00,28633.00,MXN,crm,none
+HS-100055,León S.A.,león37.com.mx,Mid-Market,Servicios Financieros,21098.00,MXN,2024-03-17,Jorge Ibarra,Pro,Nuevo León,,21098.00,21098.00,MXN,crm,none
+HS-100056,Industrias Balderas y Yáñez,industrias316.com.mx,Enterprise,Manufactura,86911.00,MXN,2022-06-18,Fernanda Solís,Premium,Puebla,,86911.00,,MXN,imputed_from_deal,medium
+HS-100057,"Proyectos Lara, Garica y Olmos",proyectos106.com.mx,SMB,Automotriz,4897.00,MXN,2023-01-17,Carla Nuñez,Basico,Nuevo León,,4897.00,4897.00,MXN,crm,none
+HS-100058,"Laboratorios Téllez, Sanches y Abreu",laboratorios886.com.mx,SMB,Construcción,3331.00,MXN,2024-02-07,Luis Peña,Basico,Guanajuato,,3331.00,3331.00,MXN,crm,none
+HS-100059,Despacho Escobar-Soto,despacho822.com.mx,SMB,Educación,7487.00,MXN,2022-06-30,Jorge Ibarra,Basico,CDMX,2022-12-17,7487.00,7487.00,MXN,crm,none
+HS-100060,"Corporacin Verduzco, Caraballo y Raya",corporacin228.com.mx,SMB,Alimentos,3634.00,MXN,2023-12-24,Diego Ortega,Basico,Puebla,,3634.00,3634.00,MXN,crm,none
+HS-100061,Grupo Valencia-Alva,grupo25.com.mx,SMB,Construcción,7406.00,MXN,2023-03-12,Diego Ortega,Basico,Jalisco,,7406.00,7406.00,MXN,crm,none
+HS-100062,"Proyectos Olvera, Llamas y Huerta",proyectos360.com.mx,SMB,Logística,7255.00,MXN,2024-04-21,Diego Ortega,Basico,Chihuahua,,7255.00,7255.00,MXN,crm,none
+HS-100063,Cordero y Durán S. R.L. de C.V.,cordero962.com.mx,Mid-Market,Salud,12779.00,MXN,2022-05-12,Luis Peña,Pro,Sonora,,12779.00,12779.00,MXN,crm,none
+HS-100064,Ybarra y Alcaraz S.C.,ybarra40.com.mx,SMB,Logística,2888.00,MXN,2024-06-09,Marta Díaz,Basico,Estado de México,,2888.00,2888.00,MXN,crm,none
+HS-100065,Valladares S.C.,valladares524.com.mx,SMB,Hospitalidad,2947.00,MXN,2023-08-19,Marta Díaz,Basico,CDMX,,2947.00,2947.00,MXN,crm,none
+HS-100066,Villareal S.A. de C.V.,villareal447.com.mx,SMB,Agroindustria,2013.00,MXN,2023-02-11,Fernanda Solís,Basico,Puebla,,2013.00,2013.00,MXN,crm,none
+HS-100067,"Club Santacruz, Valencia y Casas",club442.com.mx,SMB,Salud,2573.00,MXN,2024-02-05,Diego Ortega,Basico,Jalisco,,2573.00,2573.00,MXN,crm,none
+HS-100068,Club Montemayor-Godoy,club922.com.mx,Mid-Market,Agroindustria,25617.00,MXN,2023-01-24,Marta Díaz,Pro,Estado de México,,25617.00,25617.00,MXN,crm,none
+HS-100069,"Despacho Amaya, Arevalo y Reyna",despacho303.com.mx,SMB,Agroindustria,6541.00,MXN,2024-02-01,Jorge Ibarra,Basico,Nuevo León,,6541.00,6541.00,MXN,crm,none
+HS-100070,Mendoza A.C.,mendoza583.com.mx,Enterprise,Hospitalidad,63909.00,MXN,2023-09-28,Marta Díaz,Premium,Querétaro,,63909.00,63909.00,MXN,crm,none
+HS-100071,"Haro, Bahena y Alva",haro441.com.mx,Mid-Market,Construcción,19559.00,MXN,2024-06-19,Fernanda Solís,Pro,Puebla,,19559.00,19559.00,MXN,crm,none
+HS-100072,"Proyectos Jaramillo, Santillán y Solís",proyectos485.com.mx,SMB,Servicios Financieros,8502.00,MXN,2023-10-23,Fernanda Solís,Basico,Sonora,2024-05-01,8502.00,8502.00,MXN,crm,none
+HS-100073,Rangel S.A. de C.V.,rangel96.com.mx,SMB,Salud,8704.00,MXN,2022-05-30,Diego Ortega,Basico,Puebla,,8704.00,8704.00,MXN,crm,none
+HS-100074,Grupo Fonseca y Galarza,grupo26.com.mx,Mid-Market,Tecnología,17023.00,MXN,2024-05-29,Diego Ortega,Pro,Jalisco,,17023.00,17023.00,MXN,crm,none
+HS-100075,Carrera y Crespo y Asociados,carrera425.com.mx,Mid-Market,Alimentos,27863.00,MXN,2022-07-02,Jorge Ibarra,Pro,Yucatán,,27863.00,27863.00,MXN,crm,none
+HS-100076,"Parra, Ybarra y Menéndez",parra250.com.mx,Mid-Market,Educación,9181.00,MXN,2023-03-17,Diego Ortega,Pro,Jalisco,,9181.00,9181.00,MXN,crm,none
+HS-100077,"Menéndez, Figueroa y Corral",menéndez225.com.mx,Mid-Market,Educación,25972.00,MXN,2024-01-20,Diego Ortega,Pro,Jalisco,2024-04-20,25972.00,25972.00,MXN,crm,none
+HS-100078,López e Hijos,lópez137.com.mx,SMB,Alimentos,8565.00,MXN,2022-11-25,Carla Nuñez,Basico,Sonora,,8565.00,8565.00,MXN,crm,none
+HS-100079,Despacho Olivárez-Ruelas,despacho973.com.mx,SMB,Salud,8187.00,MXN,2024-03-26,Carla Nuñez,Basico,Estado de México,,8187.00,8187.00,MXN,crm,none
+HS-100080,"Grupo Carrasco, Toro y Mora",grupo457.com.mx,SMB,Servicios Financieros,3303.00,MXN,2023-04-05,Luis Peña,Basico,Querétaro,,3303.00,3303.00,MXN,crm,none
+HS-100081,"Ojeda, Rivas y Roybal",ojeda497.com.mx,Mid-Market,Servicios Financieros,16839.00,MXN,2023-04-06,Fernanda Solís,Pro,Querétaro,,16839.00,16839.00,MXN,crm,none
+HS-100082,Miramontes y Zarate A.C.,miramontes279.com.mx,Mid-Market,Construcción,19476.00,MXN,2023-05-06,Luis Peña,Pro,Nuevo León,,19476.00,19476.00,MXN,crm,none
+HS-100083,Ferrer-Bernal e Hijos,ferrerbernal393.com.mx,SMB,Construcción,7684.00,MXN,2023-03-12,Jorge Ibarra,Basico,Guanajuato,2023-12-09,7684.00,7684.00,MXN,crm,none
+HS-100084,"de la Crúz, García y Carrillo",de478.com.mx,SMB,Servicios Financieros,5406.00,MXN,2023-04-16,Jorge Ibarra,Basico,Sonora,,5406.00,5406.00,MXN,crm,none
+HS-100085,Carrillo S.C.,carrillo21.com.mx,SMB,Agroindustria,8271.00,MXN,2022-04-08,Marta Díaz,Basico,Querétaro,,8271.00,8271.00,MXN,crm,none
+HS-100086,Laboratorios Herrera y Rodríguez,laboratorios874.com.mx,SMB,Educación,8846.00,MXN,2022-12-28,Carla Nuñez,Basico,Sonora,,8846.00,8846.00,MXN,crm,none
+HS-100087,Rosas-Varela,rosasvarela500.com.mx,Mid-Market,Construcción,17943.00,MXN,2022-08-08,Jorge Ibarra,Pro,Guanajuato,,17943.00,17943.00,MXN,crm,none
+HS-100088,Raya e Hijos,raya696.com.mx,Mid-Market,Automotriz,22248.00,MXN,2022-03-13,Jorge Ibarra,Pro,Nuevo León,,22248.00,22248.00,MXN,crm,none
+HS-100089,Muñiz y Cedillo y Asociados,muñiz547.com.mx,Enterprise,Hospitalidad,66790.00,MXN,2022-09-12,Ana Ruiz,Premium,Jalisco,,66790.00,66790.00,MXN,crm,none
+HS-100090,Ríos-Tijerina,ríostijerina439.com.mx,SMB,Automotriz,3111.00,MXN,2023-02-09,Marta Díaz,Basico,Puebla,2023-10-21,3111.00,3111.00,MXN,crm,none
+HS-100091,Club Gil-Razo,club335.com.mx,SMB,Alimentos,4764.00,MXN,2023-06-23,Diego Ortega,Basico,Estado de México,,4764.00,4764.00,MXN,crm,none
+HS-100092,Club Maya-Vergara,club855.com.mx,Mid-Market,Logística,451603.50,MXN,2022-08-14,Ana Ruiz,Pro,Guanajuato,,451603.50,24411.00,USD,crm,none
+HS-100093,"Laboratorios Briseño, Toledo y Salgado",laboratorios666.com.mx,Mid-Market,Construcción,10319.00,MXN,2023-05-10,Luis Peña,Pro,CDMX,2023-11-12,10319.00,10319.00,MXN,crm,none
+HS-100094,Cervantes-Esquibel,cervantesesq157.com.mx,Mid-Market,Hospitalidad,13136.00,MXN,2022-09-05,Carla Nuñez,Pro,Puebla,,13136.00,,MXN,imputed_from_deal,medium
+HS-100095,Proyectos Escobar-Vigil,proyectos717.com.mx,Mid-Market,Alimentos,21087.00,MXN,2022-05-28,Fernanda Solís,Pro,Jalisco,,21087.00,21087.00,MXN,crm,none
+HS-100096,Flórez-Monroy e Hijos,flórezmonroy988.com.mx,SMB,Tecnología,4548.00,MXN,2024-05-07,Marta Díaz,Basico,Sonora,,4548.00,4548.00,MXN,crm,none
+HS-100097,"Casárez, Carvajal y Laboy",casárez930.com.mx,SMB,Automotriz,5074.00,MXN,2022-12-24,Ana Ruiz,Basico,Sonora,,5074.00,5074.00,MXN,crm,none
+HS-100098,Camacho-Perales,camachoperal851.com.mx,SMB,Agroindustria,7138.00,MXN,2022-03-04,Marta Díaz,Basico,Sonora,,7138.00,7138.00,MXN,crm,none
+HS-100099,Garibay-Tejeda S. R.L. de C.V.,garibaytejed816.com.mx,SMB,Retail,6636.00,MXN,2024-03-26,Fernanda Solís,Basico,Guanajuato,,6636.00,6636.00,MXN,crm,none
+HS-100100,Industrias Baca y Camarillo,industrias519.com.mx,SMB,Retail,7304.00,MXN,2022-12-01,Diego Ortega,Basico,Yucatán,,7304.00,7304.00,MXN,crm,none
+HS-100101,Grupo Hinojosa y Mojica,grupo444.com.mx,SMB,Retail,4967.00,MXN,2023-01-14,Fernanda Solís,Basico,Chihuahua,2023-06-13,4967.00,4967.00,MXN,crm,none
+HS-100102,"Venegas, Cantú y Munguía",venegas277.com.mx,Mid-Market,Automotriz,26634.00,MXN,2023-02-14,Jorge Ibarra,Pro,Sonora,,26634.00,26634.00,MXN,crm,none
+HS-100103,Industrias Ramos-Tejeda,industrias331.com.mx,SMB,Logística,8977.00,MXN,2022-06-20,Marta Díaz,Basico,Yucatán,,8977.00,8977.00,MXN,crm,none
+HS-100104,"Club Villalobos, Rentería y Quintana",club769.com.mx,SMB,Construcción,5806.00,MXN,2022-11-24,Marta Díaz,Basico,CDMX,,5806.00,5806.00,MXN,crm,none
+HS-100105,Grupo Covarrubias y Cruz,grupo872.com.mx,Enterprise,Alimentos,59952.00,MXN,2023-04-16,Diego Ortega,Premium,Querétaro,,59952.00,59952.00,MXN,crm,none
+HS-100106,Olmos y Lozano S.C.,olmos287.com.mx,SMB,Salud,6883.00,MXN,2022-05-04,Ana Ruiz,Basico,Puebla,2023-01-14,6883.00,6883.00,MXN,crm,none
+HS-100107,Bermúdez-Sánchez S.C.,bermúdezsánc417.com.mx,SMB,Agroindustria,72024.00,MXN,2023-01-25,Jorge Ibarra,Basico,Yucatán,,72024.00,,MXN,imputed_from_deal,high
+HS-100108,Santana y Asociados,santana812.com.mx,Mid-Market,Alimentos,12049.00,MXN,2022-03-15,Fernanda Solís,Pro,Puebla,,12049.00,12049.00,MXN,crm,none
+HS-100109,Collazo-Frías e Hijos,collazofrías680.com.mx,SMB,Logística,6764.00,MXN,2022-08-03,Marta Díaz,Basico,Estado de México,,6764.00,6764.00,MXN,crm,none
+HS-100110,Brito-Alvarado,britoalvarad564.com.mx,SMB,Agroindustria,4709.00,MXN,2022-08-26,Marta Díaz,Basico,Querétaro,,4709.00,4709.00,MXN,crm,none
+HS-100111,Industrias Puente y Tello,industrias124.com.mx,SMB,Construcción,7908.00,MXN,2023-04-01,Diego Ortega,Basico,Nuevo León,2024-02-29,7908.00,7908.00,MXN,crm,none
+HS-100112,Prieto y Guardado S.A. de C.V.,prieto222.com.mx,SMB,Construcción,8050.00,MXN,2023-03-10,Diego Ortega,Basico,Chihuahua,,8050.00,8050.00,MXN,crm,none
+HS-100113,Club Espinoza y Magaña,club290.com.mx,Enterprise,Hospitalidad,47414.00,MXN,2024-04-29,Luis Peña,Premium,Querétaro,,47414.00,47414.00,MXN,crm,none
+HS-100114,Bermúdez-Lira,bermúdezlira726.com.mx,Mid-Market,Manufactura,13147.00,MXN,2023-07-09,Carla Nuñez,Pro,Querétaro,2023-10-04,13147.00,13147.00,MXN,crm,none
+HS-100115,Valdez-Manzanares A.C.,valdezmanzan967.com.mx,Mid-Market,Agroindustria,25085.00,MXN,2022-11-22,Carla Nuñez,Pro,Querétaro,,25085.00,25085.00,MXN,crm,none
+HS-100116,Laboratorios Rocha-Casas,laboratorios491.com.mx,Mid-Market,Alimentos,20164.00,MXN,2022-03-20,Marta Díaz,Pro,Yucatán,,20164.00,20164.00,MXN,crm,none
+HS-100117,Cuellar-Fonseca,cuellarfonse842.com.mx,Mid-Market,Retail,22130.00,MXN,2023-04-30,Fernanda Solís,Pro,CDMX,2024-05-16,22130.00,22130.00,MXN,crm,none
+HS-100118,Despacho Ochoa y Vega,despacho153.com.mx,SMB,Tecnología,8644.00,MXN,2022-01-17,Ana Ruiz,Basico,Chihuahua,2022-11-27,8644.00,8644.00,MXN,crm,none
+HS-100119,Campos y Solano S.A.,campos621.com.mx,Enterprise,Educación,946020.00,MXN,2022-09-13,Jorge Ibarra,Premium,Yucatán,,946020.00,,MXN,imputed_from_deal,medium
+HS-100120,Miramontes-Madera,miramontesma881.com.mx,SMB,Logística,6821.00,MXN,2023-09-05,Ana Ruiz,Basico,Sonora,,6821.00,6821.00,MXN,crm,none
+HS-100121,Laboratorios Velásquez-Aponte,laboratorios102.com.mx,Mid-Market,Agroindustria,15808.00,MXN,2022-07-05,Fernanda Solís,Pro,Jalisco,,15808.00,15808.00,MXN,crm,none
+HS-100122,"Ojeda, Carbajal y Venegas",ojeda246.com.mx,Enterprise,Tecnología,32919.00,MXN,2024-06-21,Jorge Ibarra,Premium,Yucatán,,32919.00,32919.00,MXN,crm,none
+HS-100123,Aragón y Monroy A.C.,aragón609.com.mx,SMB,Agroindustria,5849.00,MXN,2023-11-26,Fernanda Solís,Basico,Querétaro,,5849.00,5849.00,MXN,crm,none
+HS-100124,"Meraz, Ordóñez y Anaya",meraz881.com.mx,SMB,Agroindustria,5719.00,MXN,2023-08-17,Marta Díaz,Basico,Sonora,,5719.00,5719.00,MXN,crm,none
+HS-100125,Durán y Carrillo S. R.L. de C.V.,durán824.com.mx,SMB,Automotriz,3620.00,MXN,2022-01-13,Fernanda Solís,Basico,Nuevo León,,3620.00,3620.00,MXN,crm,none
+HS-100126,"Grupo Alva, Linares y Mendoza",grupo847.com.mx,SMB,Logística,3165.00,MXN,2022-12-20,Carla Nuñez,Basico,Sonora,2023-07-25,3165.00,3165.00,MXN,crm,none
+HS-100127,Club Anaya-Valencia,club450.com.mx,Mid-Market,Logística,24358.00,MXN,2023-07-04,Jorge Ibarra,Pro,Querétaro,,24358.00,24358.00,MXN,crm,none
+HS-100128,Valencia-Guardado e Hijos,valenciaguar553.com.mx,Mid-Market,Servicios Financieros,23344.00,MXN,2022-09-01,Jorge Ibarra,Pro,Guanajuato,,23344.00,23344.00,MXN,crm,none
+HS-100129,Reséndez S.A. de C.V.,reséndez257.com.mx,SMB,Hospitalidad,2211.00,MXN,2024-05-10,Diego Ortega,Basico,Sonora,,2211.00,2211.00,MXN,crm,none
+HS-100130,Mayorga-Corona,mayorgacoron974.com.mx,SMB,Hospitalidad,2169.00,MXN,2022-08-16,Jorge Ibarra,Basico,Chihuahua,2023-04-12,2169.00,2169.00,MXN,crm,none
+HS-100131,Apodaca-Puga S.A. de C.V.,apodacapuga453.com.mx,SMB,Automotriz,4278.00,MXN,2023-05-13,Diego Ortega,Basico,Yucatán,,4278.00,4278.00,MXN,crm,none
+HS-100132,Lebrón-Alonso S.A.,lebrónalonso482.com.mx,SMB,Retail,4850.00,MXN,2024-01-20,Ana Ruiz,Basico,Nuevo León,,4850.00,4850.00,MXN,crm,none
+HS-100133,"Serrato, Acosta y Granados",serrato422.com.mx,SMB,Salud,7682.00,MXN,2023-07-11,Jorge Ibarra,Basico,Chihuahua,,7682.00,7682.00,MXN,crm,none
+HS-100134,Pizarro S.A.,pizarro466.com.mx,SMB,Manufactura,2721.00,MXN,2024-04-02,Diego Ortega,Basico,Estado de México,,2721.00,2721.00,MXN,crm,none
+HS-100135,Muñiz-Guardado,muñizguardad845.com.mx,Enterprise,Servicios Financieros,58276.00,MXN,2023-12-29,Luis Peña,Premium,Chihuahua,,58276.00,58276.00,MXN,crm,none
+HS-100136,Marín-Pérez,marínpérez638.com.mx,SMB,Salud,8196.00,MXN,2022-07-22,Ana Ruiz,Basico,Puebla,,8196.00,8196.00,MXN,crm,none
+HS-100137,"Ruelas, Lugo y Camacho",ruelas563.com.mx,SMB,Logística,3073.00,MXN,2024-01-16,Jorge Ibarra,Basico,Jalisco,,3073.00,3073.00,MXN,crm,none
+HS-100138,Industrias Arellano-Cedillo,industrias997.com.mx,Mid-Market,Manufactura,16841.00,MXN,2023-10-03,Carla Nuñez,Pro,CDMX,,16841.00,16841.00,MXN,crm,none
+HS-100139,Curiel-Valentín e Hijos,curielvalent418.com.mx,SMB,Servicios Financieros,2763.00,MXN,2024-02-15,Jorge Ibarra,Basico,Jalisco,,2763.00,2763.00,MXN,crm,none
+HS-100140,Grupo Bahena y Barragán,grupo853.com.mx,Enterprise,Automotriz,89122.00,MXN,2023-07-30,Carla Nuñez,Premium,Querétaro,,89122.00,89122.00,MXN,crm,none
+HS-100141,Laboratorios Salas y Carrera,laboratorios855.com.mx,Enterprise,Educación,43973.00,MXN,2022-10-12,Luis Peña,Premium,Estado de México,,43973.00,,MXN,imputed_from_deal,medium
+HS-100142,"Proyectos Leal, Casares y Galván",proyectos944.com.mx,SMB,Construcción,6910.00,MXN,2024-06-05,Diego Ortega,Basico,Jalisco,,6910.00,6910.00,MXN,crm,none
+HS-100143,Puente e Hijos,puente792.com.mx,SMB,Logística,8471.00,MXN,2023-08-16,Carla Nuñez,Basico,Querétaro,,8471.00,8471.00,MXN,crm,none
+HS-100144,Club Guillen y Serrato,club290.com.mx,SMB,Manufactura,7947.00,MXN,2022-10-04,Fernanda Solís,Basico,Yucatán,,7947.00,7947.00,MXN,crm,none
+HS-100145,Paredes-Angulo,paredesangul458.com.mx,SMB,Tecnología,6412.00,MXN,2023-12-29,Diego Ortega,Basico,Chihuahua,,6412.00,6412.00,MXN,crm,none
+HS-100146,"Sotelo, Montemayor y Vásquez",sotelo467.com.mx,SMB,Educación,4636.00,MXN,2023-09-10,Jorge Ibarra,Basico,Puebla,,4636.00,4636.00,MXN,crm,none
+HS-100147,Polanco-Terán e Hijos,polancoterán45.com.mx,Mid-Market,Educación,24498.00,MXN,2022-02-26,Jorge Ibarra,Pro,Estado de México,,24498.00,24498.00,MXN,crm,none
+HS-100148,Corona y Gaytán S.C.,corona812.com.mx,SMB,Automotriz,8723.00,MXN,2024-03-17,Luis Peña,Basico,Chihuahua,,8723.00,8723.00,MXN,crm,none
+HS-100149,Corporacin Madrigal-Lozano,corporacin340.com.mx,SMB,Hospitalidad,2822.00,MXN,2024-06-24,Jorge Ibarra,Basico,CDMX,,2822.00,2822.00,MXN,crm,none
+HS-100150,Véliz-Matías,vélizmatías148.com.mx,SMB,Agroindustria,5358.00,MXN,2022-09-02,Marta Díaz,Basico,Guanajuato,,5358.00,5358.00,MXN,crm,none
+HS-100151,Muñoz A.C.,muñoz710.com.mx,Enterprise,Hospitalidad,83821.00,MXN,2023-08-06,Fernanda Solís,Premium,Chihuahua,,83821.00,83821.00,MXN,crm,none
+HS-100152,Narváez-Casillas S. R.L. de C.V.,narváezcasil978.com.mx,SMB,Educación,4594.00,MXN,2023-10-12,Carla Nuñez,Basico,Jalisco,,4594.00,4594.00,MXN,crm,none
+HS-100153,Industrias Cedillo-Olvera,industrias647.com.mx,SMB,Construcción,7606.00,MXN,2024-02-09,Jorge Ibarra,Basico,Jalisco,,7606.00,7606.00,MXN,crm,none
+HS-100154,"Despacho Aranda, Corona y Guzmán",despacho721.com.mx,SMB,Automotriz,2823.00,MXN,2022-09-08,Ana Ruiz,Basico,CDMX,,2823.00,2823.00,MXN,crm,none
+HS-100155,"Rivero, Arroyo y Guevara",rivero816.com.mx,Enterprise,Salud,952602.00,MXN,2023-10-31,Luis Peña,Premium,Puebla,,952602.00,51492.00,USD,crm,none
+HS-100156,"Laboratorios Marín, del Río y Garrido",laboratorios422.com.mx,SMB,Servicios Financieros,6636.00,MXN,2022-11-24,Carla Nuñez,Basico,Puebla,2024-02-18,6636.00,6636.00,MXN,crm,none
+HS-100157,Grupo Montoya-Canales,grupo935.com.mx,Mid-Market,Alimentos,13689.00,MXN,2022-09-10,Marta Díaz,Pro,Yucatán,,13689.00,13689.00,MXN,crm,none
+HS-100158,Barajas-Regalado e Hijos,barajasregal683.com.mx,Mid-Market,Logística,24245.00,MXN,2024-03-19,Carla Nuñez,Pro,Nuevo León,,24245.00,24245.00,MXN,crm,none
+HS-100159,Chapa S.C.,chapa453.com.mx,SMB,Retail,4830.00,MXN,2022-11-27,Fernanda Solís,Basico,Querétaro,,4830.00,4830.00,MXN,crm,none
+HS-100160,Corporacin Tejeda-Baeza,corporacin866.com.mx,Mid-Market,Alimentos,15527.00,MXN,2023-08-11,Ana Ruiz,Pro,Puebla,,15527.00,15527.00,MXN,crm,none
+HS-100161,Covarrubias-Rosario S.A. de C.V.,covarrubiasr586.com.mx,SMB,Educación,4940.00,MXN,2022-01-06,Marta Díaz,Basico,CDMX,,4940.00,4940.00,MXN,crm,none
+HS-100162,Malave-Delgado,malavedelgad406.com.mx,Mid-Market,Automotriz,9265.00,MXN,2023-09-28,Diego Ortega,Pro,CDMX,,9265.00,9265.00,MXN,crm,none
+HS-100163,"Grupo Gastélum, Manzanares y Lira",grupo764.com.mx,Mid-Market,Hospitalidad,18378.00,MXN,2023-03-07,Carla Nuñez,Pro,Guanajuato,,18378.00,18378.00,MXN,crm,none
+HS-100164,Industrias Pacheco y Correa,industrias652.com.mx,SMB,Construcción,3557.00,MXN,2023-10-17,Diego Ortega,Basico,Nuevo León,,3557.00,3557.00,MXN,crm,none
+HS-100165,Dueñas S. R.L. de C.V.,dueñas100.com.mx,SMB,Automotriz,7140.00,MXN,2023-03-31,Ana Ruiz,Basico,Sonora,,7140.00,7140.00,MXN,crm,none
+HS-100166,Soto-Canales,sotocanales750.com.mx,Mid-Market,Salud,11953.00,MXN,2024-03-31,Fernanda Solís,Pro,Estado de México,,11953.00,11953.00,MXN,crm,none
+HS-100167,Collazo-Prieto,collazopriet206.com.mx,SMB,Tecnología,3082.00,MXN,2022-07-11,Carla Nuñez,Basico,Chihuahua,,3082.00,3082.00,MXN,crm,none
+HS-100168,"Corporacin Solorzano, Ramírez y Zavala",corporacin851.com.mx,SMB,Logística,3347.00,MXN,2024-02-01,Jorge Ibarra,Basico,Querétaro,,3347.00,3347.00,MXN,crm,none
+HS-100169,Proyectos Garibay-Espinosa,proyectos892.com.mx,SMB,Agroindustria,4774.00,MXN,2024-02-04,Luis Peña,Basico,Puebla,,4774.00,4774.00,MXN,crm,none
+HS-100170,Valenzuela-Rodríquez,valenzuelaro742.com.mx,Mid-Market,Automotriz,22022.00,MXN,2023-01-19,Marta Díaz,Pro,Jalisco,,22022.00,22022.00,MXN,crm,none
+HS-100171,"Proyectos Armenta, Holguín y Rubio",proyectos15.com.mx,Mid-Market,Educación,26582.00,MXN,2023-04-23,Fernanda Solís,Pro,Querétaro,,26582.00,26582.00,MXN,crm,none
+HS-100172,Despacho Garrido-Quintana,despacho391.com.mx,SMB,Hospitalidad,8737.00,MXN,2022-07-22,Jorge Ibarra,Basico,CDMX,,8737.00,8737.00,MXN,crm,none
+HS-100173,Apodaca-Saucedo S.A.,apodacasauce906.com.mx,SMB,Hospitalidad,6599.00,MXN,2023-10-20,Fernanda Solís,Basico,Jalisco,,6599.00,6599.00,MXN,crm,none
+HS-100174,"Pacheco, Granados y Espinosa",pacheco844.com.mx,SMB,Automotriz,5803.00,MXN,2022-07-02,Luis Peña,Basico,CDMX,,5803.00,5803.00,MXN,crm,none
+HS-100175,"Proyectos Miramontes, Santiago y Quesada",proyectos312.com.mx,Mid-Market,Manufactura,12805.00,MXN,2023-08-13,Carla Nuñez,Pro,Nuevo León,,12805.00,12805.00,MXN,crm,none
+HS-100176,"Grupo Patiño, Huerta y Tafoya",grupo465.com.mx,SMB,Educación,5039.00,MXN,2022-02-23,Fernanda Solís,Basico,Nuevo León,,5039.00,5039.00,MXN,crm,none
+HS-100177,Proyectos Ramos y Cazares,proyectos671.com.mx,Mid-Market,Educación,463129.00,MXN,2023-07-13,Marta Díaz,Pro,CDMX,,463129.00,25034.00,USD,crm,none
+HS-100178,Aparicio-Garica,apariciogari380.com.mx,SMB,Agroindustria,3779.00,MXN,2023-09-10,Diego Ortega,Basico,Guanajuato,,3779.00,3779.00,MXN,crm,none
+HS-100179,Laboratorios Leyva y Ojeda,laboratorios703.com.mx,Enterprise,Retail,87093.00,MXN,2022-11-13,Marta Díaz,Premium,CDMX,,87093.00,87093.00,MXN,crm,none
+HS-100180,"Nazario, Almaraz y Sandoval",nazario283.com.mx,SMB,Educación,3554.00,MXN,2024-03-21,Ana Ruiz,Basico,Puebla,,3554.00,3554.00,MXN,crm,none
+HS-100181,Naranjo S.A. de C.V.,naranjo655.com.mx,SMB,Automotriz,6891.00,MXN,2022-02-10,Luis Peña,Basico,Nuevo León,,6891.00,6891.00,MXN,crm,none
+HS-100182,Otero y Ontiveros y Asociados,otero211.com.mx,SMB,Hospitalidad,2562.00,MXN,2024-05-29,Diego Ortega,Basico,Puebla,,2562.00,2562.00,MXN,crm,none
+HS-100183,Laboratorios Briseño-Esparza,laboratorios793.com.mx,Enterprise,Salud,46171.00,MXN,2024-03-10,Luis Peña,Premium,Nuevo León,,46171.00,46171.00,MXN,crm,none
+HS-100184,"Club Cotto, Flores y Chavarría",club257.com.mx,Mid-Market,Servicios Financieros,14717.00,MXN,2022-11-10,Ana Ruiz,Pro,Nuevo León,,14717.00,14717.00,MXN,crm,none
+HS-100185,"Grupo Castellanos, Loya y Tamayo",grupo367.com.mx,SMB,Manufactura,8471.00,MXN,2023-07-25,Luis Peña,Basico,Querétaro,,8471.00,8471.00,MXN,crm,none
+HS-100186,Club Mejía-Carrera,club130.com.mx,Mid-Market,Manufactura,22794.00,MXN,2024-04-09,Ana Ruiz,Pro,Yucatán,,22794.00,22794.00,MXN,crm,none
+HS-100187,"Marroquín, Leiva y Maya",marroquín797.com.mx,Mid-Market,Alimentos,25817.00,MXN,2023-03-28,Luis Peña,Pro,Sonora,2024-02-08,25817.00,25817.00,MXN,crm,none
+HS-100188,Crespo y Borrego S. R.L. de C.V.,crespo745.com.mx,Mid-Market,Manufactura,26086.00,MXN,2023-02-02,Ana Ruiz,Pro,CDMX,,26086.00,26086.00,MXN,crm,none
+HS-100189,"Industrias Ceballos, Lozada y Nava",industrias868.com.mx,SMB,Alimentos,5290.00,MXN,2023-07-20,Ana Ruiz,Basico,Jalisco,2024-05-02,5290.00,5290.00,MXN,crm,none
+HS-100190,"Despacho Ontiveros, Montañez y Colón",despacho623.com.mx,SMB,Salud,3215.00,MXN,2023-08-23,Fernanda Solís,Basico,Sonora,,3215.00,3215.00,MXN,crm,none
+HS-100191,"Proyectos Padrón, Saavedra y Solís",proyectos730.com.mx,SMB,Servicios Financieros,4663.00,MXN,2023-01-24,Jorge Ibarra,Basico,Chihuahua,,4663.00,4663.00,MXN,crm,none
+HS-100192,Corporacin Ruelas-Feliciano,corporacin441.com.mx,Enterprise,Hospitalidad,83888.00,MXN,2023-04-15,Diego Ortega,Premium,Chihuahua,,83888.00,83888.00,MXN,crm,none
+HS-100193,Batista-de León S. R.L. de C.V.,batistade887.com.mx,Enterprise,Agroindustria,57593.00,MXN,2024-06-12,Jorge Ibarra,Premium,Guanajuato,,57593.00,57593.00,MXN,crm,none
+HS-100194,Acosta A.C.,acosta409.com.mx,Mid-Market,Alimentos,12115.00,MXN,2023-03-27,Fernanda Solís,Pro,Querétaro,,12115.00,12115.00,MXN,crm,none
+HS-100195,"Ávila, Palomo y Pizarro",ávila977.com.mx,SMB,Salud,3250.00,MXN,2024-05-15,Ana Ruiz,Basico,Jalisco,,3250.00,3250.00,MXN,crm,none
+HS-100196,Durán S.C.,durán99.com.mx,SMB,Educación,8099.00,MXN,2022-03-20,Carla Nuñez,Basico,Chihuahua,2022-07-19,8099.00,8099.00,MXN,crm,none
+HS-100197,"Ayala, Valle y Fuentes",ayala338.com.mx,Mid-Market,Servicios Financieros,13005.00,MXN,2023-07-13,Fernanda Solís,Pro,Estado de México,,13005.00,13005.00,MXN,crm,none
+HS-100198,Industrias Arce-Rentería,industrias53.com.mx,Enterprise,Agroindustria,51045.00,MXN,2023-12-07,Carla Nuñez,Premium,Puebla,,51045.00,51045.00,MXN,crm,none
+HS-100199,Menchaca-Estrada S.A.,menchacaestr673.com.mx,Enterprise,Tecnología,83527.00,MXN,2023-11-05,Diego Ortega,Premium,Chihuahua,,83527.00,83527.00,MXN,crm,none
+HS-100200,Club Torres-Trujillo,club118.com.mx,Mid-Market,Salud,18128.00,MXN,2023-06-29,Jorge Ibarra,Pro,Chihuahua,,18128.00,18128.00,MXN,crm,none
+HS-100201,Grupo Arellano-Luna,grupo629.com.mx,Mid-Market,Hospitalidad,27243.00,MXN,2023-06-11,Fernanda Solís,Pro,Querétaro,,27243.00,27243.00,MXN,crm,none
+HS-100202,Elizondo-Vergara S.A.,elizondoverg185.com.mx,SMB,Manufactura,4238.00,MXN,2023-06-09,Ana Ruiz,Basico,Nuevo León,,4238.00,4238.00,MXN,crm,none
+HS-100203,Corporacin Carrero-Durán,corporacin580.com.mx,SMB,Tecnología,7384.00,MXN,2024-02-14,Ana Ruiz,Basico,Chihuahua,2024-04-17,7384.00,7384.00,MXN,crm,none
+HS-100204,Proyectos Amaya y Osorio,proyectos386.com.mx,Enterprise,Construcción,50340.00,MXN,2022-04-05,Marta Díaz,Premium,Guanajuato,,50340.00,50340.00,MXN,crm,none
+HS-100205,"Corporacin Armendáriz, Sepúlveda y Villagómez",corporacin611.com.mx,Mid-Market,Hospitalidad,10723.00,MXN,2023-03-12,Carla Nuñez,Pro,CDMX,,10723.00,10723.00,MXN,crm,none
+HS-100206,"Toro, Valentín y Villareal",toro84.com.mx,SMB,Automotriz,4229.00,MXN,2024-04-21,Carla Nuñez,Basico,Yucatán,,4229.00,4229.00,MXN,crm,none
+HS-100207,"Madrigal, Pacheco y Malave",madrigal280.com.mx,SMB,Educación,3765.00,MXN,2024-01-12,Ana Ruiz,Basico,Querétaro,,3765.00,3765.00,MXN,crm,none
+HS-100208,Aguilera-Matos,aguileramato695.com.mx,Mid-Market,Automotriz,24945.00,MXN,2023-01-29,Ana Ruiz,Pro,Puebla,,24945.00,24945.00,MXN,crm,none
+HS-100209,Laboratorios Valdivia-Ornelas,laboratorios614.com.mx,SMB,Educación,2448.00,MXN,2022-07-07,Luis Peña,Basico,Nuevo León,,2448.00,2448.00,MXN,crm,none
+HS-100210,Ceballos-Reyna S.C.,ceballosreyn297.com.mx,SMB,Logística,4687.00,MXN,2022-05-23,Jorge Ibarra,Basico,Nuevo León,,4687.00,4687.00,MXN,crm,none
+HS-100211,Zambrano-Navarrete,zambranonava390.com.mx,SMB,Tecnología,117697.00,MXN,2023-07-03,Fernanda Solís,Basico,Guanajuato,,117697.00,6362.00,USD,crm,none
+HS-100212,Proyectos Acevedo y Rendón,proyectos407.com.mx,Mid-Market,Retail,10386.00,MXN,2022-01-09,Diego Ortega,Pro,Guanajuato,2022-05-28,10386.00,10386.00,MXN,crm,none
+HS-100213,Industrias Abreu y Granado,industrias440.com.mx,Mid-Market,Hospitalidad,22252.00,MXN,2022-10-04,Marta Díaz,Pro,Jalisco,,22252.00,22252.00,MXN,crm,none
+HS-100214,"Cavazos, Zavala y Villareal",cavazos22.com.mx,SMB,Educación,4660.00,MXN,2024-04-20,Jorge Ibarra,Basico,Guanajuato,,4660.00,4660.00,MXN,crm,none
+HS-100215,Herrera-Delgadillo,herreradelga448.com.mx,Mid-Market,Retail,12468.00,MXN,2023-12-28,Jorge Ibarra,Pro,Chihuahua,,12468.00,12468.00,MXN,crm,none
+HS-100216,Trejo y Aparicio S.A. de C.V.,trejo406.com.mx,SMB,Retail,4541.00,MXN,2023-05-13,Luis Peña,Basico,Jalisco,,4541.00,,MXN,imputed_from_deal,medium
+HS-100217,Cornejo-Navarrete S.A.,cornejonavar649.com.mx,SMB,Servicios Financieros,2934.00,MXN,2023-09-06,Marta Díaz,Basico,Guanajuato,2024-05-21,2934.00,2934.00,MXN,crm,none
+HS-100218,Grupo Burgos y Alba,grupo982.com.mx,Mid-Market,Agroindustria,13839.00,MXN,2024-01-06,Luis Peña,Pro,Nuevo León,2024-04-07,13839.00,13839.00,MXN,crm,none
+HS-100219,"Grupo Tijerina, Ponce y Mares",grupo157.com.mx,Mid-Market,Hospitalidad,11469.00,MXN,2023-06-03,Fernanda Solís,Pro,Yucatán,,11469.00,11469.00,MXN,crm,none
+HS-100220,"Industrias Cotto, Rentería y de la Garza",industrias773.com.mx,Mid-Market,Alimentos,27988.00,MXN,2022-09-05,Carla Nuñez,Pro,Sonora,,27988.00,27988.00,MXN,crm,none
+HS-100221,Negrete-Acosta,negreteacost885.com.mx,Mid-Market,Salud,19359.00,MXN,2022-09-04,Jorge Ibarra,Pro,Yucatán,,19359.00,19359.00,MXN,crm,none
+HS-100222,Jasso-Rangel,jassorangel311.com.mx,Mid-Market,Automotriz,18000.00,MXN,2022-10-02,Ana Ruiz,Pro,Querétaro,2024-05-03,18000.00,18000.00,MXN,crm,none
+HS-100223,Pulido-Olivárez,pulidoolivár463.com.mx,SMB,Alimentos,2308.00,MXN,2022-09-03,Ana Ruiz,Basico,Jalisco,,2308.00,2308.00,MXN,crm,none
+HS-100224,"Peres, Contreras y Valdez",peres609.com.mx,SMB,Hospitalidad,6153.00,MXN,2023-08-14,Diego Ortega,Basico,CDMX,,6153.00,6153.00,MXN,crm,none
+HS-100225,de Jesús y Campos y Asociados,de931.com.mx,SMB,Alimentos,8634.00,MXN,2023-12-08,Carla Nuñez,Basico,Nuevo León,2024-06-06,8634.00,8634.00,MXN,crm,none
+HS-100226,Serna y Anaya e Hijos,serna462.com.mx,SMB,Manufactura,52669.50,MXN,2023-05-29,Luis Peña,Basico,CDMX,2024-06-22,52669.50,2847.00,USD,crm,none
+HS-100227,"Berríos, Carranza y Nazario",berríos725.com.mx,Enterprise,Construcción,62345.00,MXN,2024-06-05,Luis Peña,Premium,Guanajuato,,62345.00,62345.00,MXN,crm,none
+HS-100228,"Tórrez, Sotelo y Muñoz",tórrez940.com.mx,SMB,Salud,4317.00,MXN,2022-06-08,Fernanda Solís,Basico,Sonora,,4317.00,4317.00,MXN,crm,none
+HS-100229,"Industrias Ríos, Saucedo y Salcido",industrias809.com.mx,Enterprise,Manufactura,387828.00,MXN,2024-05-17,Carla Nuñez,Premium,Estado de México,,387828.00,,MXN,imputed_from_deal,medium
+HS-100230,Cepeda-Arredondo y Asociados,cepedaarredo259.com.mx,Mid-Market,Logística,13927.00,MXN,2022-12-21,Luis Peña,Pro,Guanajuato,2024-01-24,13927.00,13927.00,MXN,crm,none
+HS-100231,"Club Valdés, Oquendo y Alcántar",club991.com.mx,Mid-Market,Logística,21843.00,MXN,2024-02-06,Ana Ruiz,Pro,Querétaro,,21843.00,21843.00,MXN,crm,none
+HS-100232,Club Briones y Serrano,club386.com.mx,SMB,Servicios Financieros,7271.00,MXN,2024-03-15,Diego Ortega,Basico,Chihuahua,2024-06-27,7271.00,7271.00,MXN,crm,none
+HS-100233,Club Aranda y Arroyo,club662.com.mx,Mid-Market,Retail,22874.00,MXN,2022-06-07,Marta Díaz,Pro,Querétaro,,22874.00,22874.00,MXN,crm,none
+HS-100234,Valles-Nazario,vallesnazari974.com.mx,SMB,Tecnología,3754.00,MXN,2023-08-05,Luis Peña,Basico,Nuevo León,,3754.00,3754.00,MXN,crm,none
+HS-100235,Montenegro-Nieto A.C.,montenegroni80.com.mx,SMB,Tecnología,4423.00,MXN,2023-05-16,Diego Ortega,Basico,Chihuahua,,4423.00,4423.00,MXN,crm,none
+HS-100236,"Despacho Quiñones, Chacón y Rosado",despacho678.com.mx,Mid-Market,Manufactura,13294.00,MXN,2023-08-26,Luis Peña,Pro,Nuevo León,,13294.00,13294.00,MXN,crm,none
+HS-100237,"Proyectos Perales, Narváez y Nazario",proyectos790.com.mx,SMB,Agroindustria,7117.00,MXN,2024-03-01,Jorge Ibarra,Basico,Guanajuato,,7117.00,7117.00,MXN,crm,none
+HS-100238,Grupo Nieto-Ortiz,grupo737.com.mx,SMB,Automotriz,72982.50,MXN,2023-12-01,Fernanda Solís,Basico,Yucatán,,72982.50,3945.00,USD,crm,none
+HS-100239,Villaseñor y Palomino S.A.,villaseñor547.com.mx,Mid-Market,Construcción,19140.00,MXN,2022-05-29,Diego Ortega,Pro,Puebla,,19140.00,19140.00,MXN,crm,none
+HS-100240,Chacón-Jaimes,chacónjaimes695.com.mx,SMB,Salud,6672.00,MXN,2023-07-10,Diego Ortega,Basico,Estado de México,,6672.00,6672.00,MXN,crm,none
+HS-100241,Grupo Longoria-Velázquez,grupo541.com.mx,Enterprise,Servicios Financieros,81535.00,MXN,2022-07-30,Carla Nuñez,Premium,Nuevo León,,81535.00,81535.00,MXN,crm,none
+HS-100242,Alemán-Palomino,alemánpalomi54.com.mx,Enterprise,Logística,85286.00,MXN,2023-08-12,Ana Ruiz,Premium,Chihuahua,,85286.00,85286.00,MXN,crm,none
+HS-100243,"Godoy, Santiago y Gollum",godoy292.com.mx,Enterprise,Retail,45877.00,MXN,2022-02-06,Carla Nuñez,Premium,Nuevo León,,45877.00,45877.00,MXN,crm,none
+HS-100244,Galindo S. R.L. de C.V.,galindo94.com.mx,SMB,Educación,3818.00,MXN,2022-07-12,Ana Ruiz,Basico,Estado de México,,3818.00,3818.00,MXN,crm,none
+HS-100245,Leyva-Aponte,leyvaaponte406.com.mx,SMB,Manufactura,6112.00,MXN,2024-01-20,Ana Ruiz,Basico,Guanajuato,,6112.00,6112.00,MXN,crm,none
+HS-100246,Arellano y Armas S.C.,arellano29.com.mx,Enterprise,Construcción,82996.00,MXN,2022-05-21,Marta Díaz,Premium,Nuevo León,,82996.00,82996.00,MXN,crm,none
+HS-100247,Abrego S.C.,abrego40.com.mx,SMB,Tecnología,4350.00,MXN,2022-10-01,Diego Ortega,Basico,Yucatán,,4350.00,4350.00,MXN,crm,none
+HS-100248,"Arriaga, Navarrete y Rangel",arriaga631.com.mx,Enterprise,Alimentos,29245.00,MXN,2024-01-09,Diego Ortega,Premium,Nuevo León,,29245.00,29245.00,MXN,crm,none
+HS-100249,Club Alvarez-Ferrer,club963.com.mx,Enterprise,Servicios Financieros,55738.00,MXN,2024-03-16,Marta Díaz,Premium,Puebla,,55738.00,55738.00,MXN,crm,none
+HS-100250,Correa-Garibay,correagariba125.com.mx,Mid-Market,Logística,16813.00,MXN,2023-01-19,Carla Nuñez,Pro,Yucatán,,16813.00,16813.00,MXN,crm,none
+HS-100251,Carrillo-Ceja,carrilloceja114.com.mx,SMB,Retail,8854.00,MXN,2024-05-27,Fernanda Solís,Basico,Chihuahua,,8854.00,8854.00,MXN,crm,none
+HS-100252,Casárez-Granado,casárezgrana248.com.mx,SMB,Hospitalidad,7886.00,MXN,2022-03-04,Carla Nuñez,Basico,Guanajuato,,7886.00,7886.00,MXN,crm,none
+HS-100253,Proyectos Mateo y Tejeda,proyectos585.com.mx,Mid-Market,Construcción,15137.00,MXN,2023-07-16,Carla Nuñez,Pro,Guanajuato,,15137.00,15137.00,MXN,crm,none
+HS-100254,"Laboratorios Ulibarri, Delgadillo y Madrigal",laboratorios977.com.mx,SMB,Retail,6309.00,MXN,2022-06-16,Carla Nuñez,Basico,Chihuahua,,6309.00,6309.00,MXN,crm,none
+HS-100255,Corporacin Becerra-Salas,corporacin400.com.mx,SMB,Manufactura,5851.00,MXN,2022-10-26,Marta Díaz,Basico,Querétaro,,5851.00,5851.00,MXN,crm,none
+HS-100256,"Despacho Montalvo, Carrera y Pedraza",despacho17.com.mx,Mid-Market,Agroindustria,11213.00,MXN,2022-04-07,Fernanda Solís,Pro,Jalisco,,11213.00,11213.00,MXN,crm,none
+HS-100257,"Canales, Guzmán y Gonzales",canales753.com.mx,Enterprise,Hospitalidad,36743.00,MXN,2024-05-22,Carla Nuñez,Premium,Guanajuato,,36743.00,36743.00,MXN,crm,none
+HS-100258,Laboratorios Montaño y Carvajal,laboratorios180.com.mx,Mid-Market,Automotriz,448144.00,MXN,2024-01-23,Luis Peña,Pro,Nuevo León,,448144.00,24224.00,USD,crm,none
+HS-100259,Mata-Gálvez S. R.L. de C.V.,matagálvez734.com.mx,Mid-Market,Retail,23997.00,MXN,2023-04-15,Ana Ruiz,Pro,Puebla,,23997.00,23997.00,MXN,crm,none
+HS-100260,"Despacho de la Torre, Pichardo y Robledo",despacho324.com.mx,SMB,Manufactura,4540.00,MXN,2023-08-01,Carla Nuñez,Basico,Yucatán,,4540.00,4540.00,MXN,crm,none
+HS-100261,Rodarte y Madrigal S.C.,rodarte38.com.mx,Mid-Market,Logística,15262.00,MXN,2024-06-29,Diego Ortega,Pro,CDMX,,15262.00,15262.00,MXN,crm,none
+HS-100262,"Proyectos Franco, Gálvez y Valenzuela",proyectos340.com.mx,Enterprise,Automotriz,80385.00,MXN,2022-09-12,Jorge Ibarra,Premium,Yucatán,,80385.00,80385.00,MXN,crm,none
+HS-100263,Industrias Bétancourt y Sisneros,industrias348.com.mx,SMB,Educación,3530.00,MXN,2022-11-04,Diego Ortega,Basico,Chihuahua,,3530.00,3530.00,MXN,crm,none
+HS-100264,Pacheco y Marroquín y Asociados,pacheco821.com.mx,SMB,Logística,2676.00,MXN,2022-09-26,Diego Ortega,Basico,Nuevo León,,2676.00,2676.00,MXN,crm,none
+HS-100265,Ferrer-Vallejo,ferrervallej301.com.mx,Mid-Market,Servicios Financieros,12361.00,MXN,2023-11-07,Marta Díaz,Pro,Querétaro,,12361.00,12361.00,MXN,crm,none
+HS-100266,Garica-Díaz,garicadíaz618.com.mx,Mid-Market,Alimentos,22962.00,MXN,2024-06-09,Marta Díaz,Pro,Yucatán,,22962.00,22962.00,MXN,crm,none
+HS-100267,"Casanova, Portillo y Tamayo",casanova745.com.mx,Mid-Market,Manufactura,23252.00,MXN,2023-09-13,Diego Ortega,Pro,CDMX,,23252.00,23252.00,MXN,crm,none
+HS-100268,Grupo Ceja y Galván,grupo688.com.mx,Mid-Market,Retail,22310.00,MXN,2023-12-16,Fernanda Solís,Pro,Nuevo León,,22310.00,22310.00,MXN,crm,none
+HS-100269,"Club Duarte, Verdugo y Solorzano",club147.com.mx,SMB,Manufactura,8952.00,MXN,2023-10-30,Diego Ortega,Basico,Guanajuato,2024-02-27,8952.00,8952.00,MXN,crm,none
+HS-100270,"Rangel, Arellano y Carreón",rangel393.com.mx,SMB,Salud,6646.00,MXN,2022-05-09,Marta Díaz,Basico,Guanajuato,2023-10-11,6646.00,6646.00,MXN,crm,none
+HS-100271,Laboratorios Tafoya y Sanches,laboratorios782.com.mx,Mid-Market,Alimentos,27806.00,MXN,2022-05-10,Jorge Ibarra,Pro,Guanajuato,,27806.00,27806.00,MXN,crm,none
+HS-100272,"Valdivia, Curiel y Ibarra",valdivia286.com.mx,Mid-Market,Automotriz,12717.00,MXN,2023-10-22,Jorge Ibarra,Pro,Chihuahua,,12717.00,12717.00,MXN,crm,none
+HS-100273,Zepeda-Partida,zepedapartid936.com.mx,Mid-Market,Educación,12858.00,MXN,2022-07-15,Fernanda Solís,Pro,Yucatán,,12858.00,12858.00,MXN,crm,none
+HS-100274,Grupo Arias-Valle,grupo627.com.mx,Enterprise,Construcción,41118.00,MXN,2023-11-15,Diego Ortega,Premium,Jalisco,,41118.00,41118.00,MXN,crm,none
+HS-100275,"Proyectos Muñiz, Benavídez y Rivero",proyectos177.com.mx,SMB,Alimentos,7843.00,MXN,2022-08-10,Diego Ortega,Basico,Guanajuato,,7843.00,,MXN,imputed_from_deal,medium
+HS-100276,"Grupo Estévez, Tamayo y Raya",grupo356.com.mx,SMB,Automotriz,7812.00,MXN,2024-02-13,Marta Díaz,Basico,Nuevo León,,7812.00,7812.00,MXN,crm,none
+HS-100277,Club de la Torre-Olivas,club727.com.mx,Mid-Market,Agroindustria,14704.00,MXN,2022-01-19,Luis Peña,Pro,Jalisco,,14704.00,14704.00,MXN,crm,none
+HS-100278,Arias-Rosales,ariasrosales812.com.mx,Mid-Market,Construcción,16757.00,MXN,2022-10-29,Marta Díaz,Pro,Chihuahua,,16757.00,16757.00,MXN,crm,none
+HS-100279,Grupo Arevalo-Loera,grupo378.com.mx,Mid-Market,Hospitalidad,27076.00,MXN,2022-07-29,Ana Ruiz,Pro,Jalisco,,27076.00,27076.00,MXN,crm,none
+HS-100280,Archuleta-Perea,archuletaper408.com.mx,Mid-Market,Logística,24684.00,MXN,2023-03-21,Jorge Ibarra,Pro,Sonora,,24684.00,24684.00,MXN,crm,none
+HS-100281,Granado y Ponce y Asociados,granado129.com.mx,Enterprise,Retail,57489.00,MXN,2024-03-01,Carla Nuñez,Premium,Guanajuato,,57489.00,57489.00,MXN,crm,none
+HS-100282,Luevano-Mota e Hijos,luevanomota900.com.mx,SMB,Tecnología,8791.00,MXN,2022-05-02,Diego Ortega,Basico,Nuevo León,,8791.00,8791.00,MXN,crm,none
+HS-100283,"Magaña, Soto y Alarcón",magaña515.com.mx,SMB,Educación,2453.00,MXN,2023-02-14,Luis Peña,Basico,Guanajuato,2023-07-08,2453.00,2453.00,MXN,crm,none
+HS-100284,Corporacin Caldera y Blanco,corporacin231.com.mx,SMB,Agroindustria,4834.00,MXN,2023-04-04,Ana Ruiz,Basico,Querétaro,,4834.00,4834.00,MXN,crm,none
+HS-100285,de la O-Niño,de651.com.mx,Mid-Market,Construcción,17993.00,MXN,2023-04-28,Carla Nuñez,Pro,Chihuahua,,17993.00,17993.00,MXN,crm,none
+HS-100286,Club Zambrano y Terrazas,club515.com.mx,SMB,Retail,7250.00,MXN,2023-03-14,Luis Peña,Basico,Nuevo León,,7250.00,7250.00,MXN,crm,none
+HS-100287,Burgos y Rosales S.C.,burgos640.com.mx,SMB,Automotriz,7903.00,MXN,2022-06-04,Ana Ruiz,Basico,CDMX,,7903.00,7903.00,MXN,crm,none
+HS-100288,Fernández-de la Garza,fernándezde47.com.mx,SMB,Retail,7254.00,MXN,2022-09-23,Diego Ortega,Basico,Sonora,,7254.00,7254.00,MXN,crm,none
+HS-100289,Quintanilla-Hernádez,quintanillah633.com.mx,SMB,Educación,7234.00,MXN,2022-05-23,Carla Nuñez,Basico,Querétaro,,7234.00,7234.00,MXN,crm,none
+HS-100290,Despacho Campos y Gamez,despacho980.com.mx,Mid-Market,Automotriz,24825.00,MXN,2023-11-19,Fernanda Solís,Pro,Estado de México,,24825.00,24825.00,MXN,crm,none
+HS-100291,Carreón-Garay e Hijos,carreóngaray465.com.mx,SMB,Logística,2597.00,MXN,2022-05-02,Jorge Ibarra,Basico,Yucatán,,2597.00,2597.00,MXN,crm,none
+HS-100292,Laureano-Gil,laureanogil349.com.mx,SMB,Construcción,6969.00,MXN,2024-03-25,Marta Díaz,Basico,Guanajuato,,6969.00,6969.00,MXN,crm,none
+HS-100293,Enríquez e Hijos,enríquez134.com.mx,Mid-Market,Educación,21141.00,MXN,2022-04-24,Marta Díaz,Pro,Puebla,,21141.00,21141.00,MXN,crm,none
+HS-100294,Serrato-Lomeli,serratolomel126.com.mx,SMB,Alimentos,4191.00,MXN,2022-12-15,Marta Díaz,Basico,Estado de México,2023-03-10,4191.00,4191.00,MXN,crm,none
+HS-100295,"Despacho Posada, Saldivar y Alcántar",despacho429.com.mx,SMB,Hospitalidad,4033.00,MXN,2022-01-06,Carla Nuñez,Basico,Guanajuato,,4033.00,4033.00,MXN,crm,none
+HS-100296,Industrias Jaramillo-Jaime,industrias782.com.mx,SMB,Construcción,3305.00,MXN,2022-07-09,Marta Díaz,Basico,Yucatán,,3305.00,3305.00,MXN,crm,none
+HS-100297,Despacho Sánchez-Carmona,despacho93.com.mx,Mid-Market,Manufactura,25562.00,MXN,2022-11-18,Luis Peña,Pro,Sonora,,25562.00,25562.00,MXN,crm,none
+HS-100298,Corporacin Casárez y Fuentes,corporacin50.com.mx,SMB,Salud,2414.00,MXN,2023-05-30,Diego Ortega,Basico,Yucatán,,2414.00,2414.00,MXN,crm,none
+HS-100299,León y Becerra S.A. de C.V.,león550.com.mx,Mid-Market,Logística,12522.00,MXN,2024-06-17,Marta Díaz,Pro,Guanajuato,,12522.00,12522.00,MXN,crm,none
+HS-100300,Laboratorios Villalpando y Limón,laboratorios375.com.mx,SMB,Educación,2370.00,MXN,2023-07-20,Luis Peña,Basico,Guanajuato,,2370.00,2370.00,MXN,crm,none
+HS-100301,Nava-Mondragón S.A. de C.V.,navamondragó296.com.mx,SMB,Servicios Financieros,2602.00,MXN,2023-04-13,Carla Nuñez,Basico,Querétaro,,2602.00,2602.00,MXN,crm,none
+HS-100302,Alcaraz-Mayorga S.A.,alcarazmayor697.com.mx,SMB,Hospitalidad,7005.00,MXN,2022-01-05,Jorge Ibarra,Basico,Guanajuato,,7005.00,7005.00,MXN,crm,none
+HS-100303,Corporacin Aragón-Rivas,corporacin572.com.mx,SMB,Salud,4995.00,MXN,2023-04-02,Jorge Ibarra,Basico,Chihuahua,,4995.00,4995.00,MXN,crm,none
+HS-100304,Guzmán-Salcido,guzmánsalcid47.com.mx,Mid-Market,Manufactura,13490.00,MXN,2023-03-28,Jorge Ibarra,Pro,Chihuahua,,13490.00,13490.00,MXN,crm,none
+HS-100305,"Club Quiroz, Aranda y Cardenas",club153.com.mx,Mid-Market,Alimentos,25892.00,MXN,2022-06-13,Carla Nuñez,Pro,Guanajuato,,25892.00,25892.00,MXN,crm,none
+HS-100306,Borrego y Arenas S.C.,borrego403.com.mx,Enterprise,Tecnología,66910.00,MXN,2023-03-01,Diego Ortega,Premium,Chihuahua,,66910.00,66910.00,MXN,crm,none
+HS-100307,Mayorga-Montemayor S.C.,mayorgamonte502.com.mx,SMB,Servicios Financieros,7805.00,MXN,2022-07-24,Ana Ruiz,Basico,Guanajuato,,7805.00,7805.00,MXN,crm,none
+HS-100308,Laboratorios Escobar-Gómez,laboratorios690.com.mx,SMB,Salud,53594.50,MXN,2024-04-10,Fernanda Solís,Basico,CDMX,,53594.50,2897.00,USD,crm,none
+HS-100309,"Grupo Beltrán, Garza y Bahena",grupo486.com.mx,Mid-Market,Hospitalidad,27955.00,MXN,2023-12-07,Ana Ruiz,Pro,Sonora,,27955.00,27955.00,MXN,crm,none
+HS-100310,"Carreón, Alonso y Castellanos",carreón175.com.mx,SMB,Alimentos,6294.00,MXN,2022-08-23,Luis Peña,Basico,CDMX,,6294.00,6294.00,MXN,crm,none
+HS-100311,Tovar A.C.,tovar971.com.mx,SMB,Hospitalidad,7738.00,MXN,2022-10-13,Jorge Ibarra,Basico,Nuevo León,2023-10-29,7738.00,,MXN,imputed_from_deal,medium
+HS-100312,Molina y Asociados,molina708.com.mx,SMB,Educación,3670.00,MXN,2023-05-18,Jorge Ibarra,Basico,CDMX,,3670.00,3670.00,MXN,crm,none
+HS-100313,"Carrión, Mejía y Aparicio",carrión142.com.mx,SMB,Agroindustria,6249.00,MXN,2022-06-15,Fernanda Solís,Basico,Yucatán,,6249.00,6249.00,MXN,crm,none
+HS-100314,Centeno-Sandoval S.A. de C.V.,centenosando386.com.mx,Enterprise,Servicios Financieros,58124.00,MXN,2022-04-09,Marta Díaz,Premium,Chihuahua,,58124.00,58124.00,MXN,crm,none
+HS-100315,"Almanza, Dávila y Sanches",almanza693.com.mx,Mid-Market,Salud,17662.00,MXN,2023-02-13,Luis Peña,Pro,Querétaro,,17662.00,17662.00,MXN,crm,none
+HS-100316,Club de Jesús-Verduzco,club306.com.mx,Mid-Market,Servicios Financieros,18752.00,MXN,2022-06-14,Luis Peña,Pro,Yucatán,,18752.00,18752.00,MXN,crm,none
+HS-100317,Ocampo y Rocha S. R.L. de C.V.,ocampo492.com.mx,SMB,Salud,4857.00,MXN,2023-08-10,Fernanda Solís,Basico,Querétaro,,4857.00,4857.00,MXN,crm,none
+HS-100318,"Espinal, de la Rosa y Guerra",espinal125.com.mx,SMB,Logística,6697.00,MXN,2022-08-13,Jorge Ibarra,Basico,Guanajuato,,6697.00,6697.00,MXN,crm,none
+HS-100319,Flores-Zapata,floreszapata298.com.mx,SMB,Tecnología,2344.00,MXN,2024-02-24,Fernanda Solís,Basico,Querétaro,2024-06-19,2344.00,2344.00,MXN,crm,none
+HS-100320,Corporacin Aguirre y Jaime,corporacin491.com.mx,SMB,Agroindustria,3752.00,MXN,2023-12-12,Carla Nuñez,Basico,Querétaro,,3752.00,3752.00,MXN,crm,none
+HS-100321,Galindo S. R.L. de C.V.,galindo112.com.mx,SMB,Tecnología,7043.00,MXN,2022-02-18,Luis Peña,Basico,Puebla,2023-10-14,7043.00,7043.00,MXN,crm,none
+HS-100322,Montez-Peres,montezperes103.com.mx,Mid-Market,Manufactura,19823.00,MXN,2023-10-04,Fernanda Solís,Pro,Nuevo León,,19823.00,,MXN,imputed_from_deal,medium
+HS-100323,Olivares S.C.,olivares988.com.mx,Mid-Market,Manufactura,14175.00,MXN,2022-12-31,Jorge Ibarra,Pro,Yucatán,,14175.00,14175.00,MXN,crm,none
+HS-100324,"Proyectos Orozco, Rivera y Abreu",proyectos205.com.mx,SMB,Automotriz,8192.00,MXN,2022-11-20,Ana Ruiz,Basico,Jalisco,,8192.00,8192.00,MXN,crm,none
+HS-100325,"Zayas, Guajardo y García",zayas588.com.mx,Enterprise,Automotriz,76410.00,MXN,2022-07-07,Ana Ruiz,Premium,Nuevo León,,76410.00,76410.00,MXN,crm,none
+HS-100326,Orta-Estévez,ortaestévez904.com.mx,Mid-Market,Educación,14760.00,MXN,2024-02-27,Diego Ortega,Pro,Estado de México,,14760.00,14760.00,MXN,crm,none
+HS-100327,Proyectos Guzmán y Quintero,proyectos191.com.mx,Mid-Market,Alimentos,18485.00,MXN,2023-02-04,Carla Nuñez,Pro,Sonora,2023-09-04,18485.00,18485.00,MXN,crm,none
+HS-100328,Arriaga-Armenta,arriagaarmen951.com.mx,Mid-Market,Retail,18324.00,MXN,2022-12-27,Carla Nuñez,Pro,Chihuahua,,18324.00,18324.00,MXN,crm,none
+HS-100329,Delgado y Asociados,delgado911.com.mx,SMB,Alimentos,3099.00,MXN,2022-10-09,Diego Ortega,Basico,Jalisco,,3099.00,3099.00,MXN,crm,none
+HS-100330,Terán-Negrete,teránnegrete167.com.mx,SMB,Salud,7989.00,MXN,2022-01-31,Luis Peña,Basico,CDMX,,7989.00,7989.00,MXN,crm,none
+HS-100331,Corporacin Alcántar-Carranza,corporacin346.com.mx,SMB,Agroindustria,8477.00,MXN,2022-07-22,Luis Peña,Basico,Nuevo León,,8477.00,8477.00,MXN,crm,none
+HS-100332,Corporacin Quintanilla-Macías,corporacin877.com.mx,Mid-Market,Hospitalidad,22287.00,MXN,2022-03-18,Marta Díaz,Pro,Jalisco,,22287.00,22287.00,MXN,crm,none
+HS-100333,Colón-Peña S.C.,colónpeña686.com.mx,SMB,Educación,2781.00,MXN,2023-08-29,Luis Peña,Basico,CDMX,,2781.00,2781.00,MXN,crm,none
+HS-100334,Grupo Guzmán-de Anda,grupo393.com.mx,SMB,Logística,3929.00,MXN,2023-09-01,Marta Díaz,Basico,Querétaro,,3929.00,3929.00,MXN,crm,none
+HS-100335,Laboratorios Murillo y Castañeda,laboratorios741.com.mx,SMB,Hospitalidad,6693.00,MXN,2022-08-16,Fernanda Solís,Basico,Puebla,,6693.00,6693.00,MXN,crm,none
+HS-100336,Laureano-Ocasio,laureanoocas684.com.mx,SMB,Manufactura,2968.00,MXN,2023-01-23,Carla Nuñez,Basico,Querétaro,2024-03-09,2968.00,2968.00,MXN,crm,none
+HS-100337,Rivero-Ortiz,riveroortiz121.com.mx,Mid-Market,Agroindustria,18667.00,MXN,2024-04-10,Luis Peña,Pro,Nuevo León,,18667.00,,MXN,imputed_from_deal,high
+HS-100338,"Grupo Vallejo, Arriaga y Tejada",grupo157.com.mx,Mid-Market,Alimentos,21242.00,MXN,2022-07-02,Jorge Ibarra,Pro,Chihuahua,,21242.00,21242.00,MXN,crm,none
+HS-100339,Zedillo S.C.,zedillo846.com.mx,SMB,Automotriz,3789.00,MXN,2023-01-23,Diego Ortega,Basico,Jalisco,,3789.00,3789.00,MXN,crm,none
+HS-100340,Prado-Castillo A.C.,pradocastill458.com.mx,SMB,Servicios Financieros,6326.00,MXN,2023-01-24,Ana Ruiz,Basico,CDMX,,6326.00,6326.00,MXN,crm,none
+HS-100341,Ureña S. R.L. de C.V.,ureña925.com.mx,SMB,Servicios Financieros,6140.00,MXN,2022-07-09,Luis Peña,Basico,Guanajuato,,6140.00,6140.00,MXN,crm,none
+HS-100342,"Ceja, Longoria y Alonso",ceja453.com.mx,SMB,Servicios Financieros,2952.00,MXN,2022-08-31,Ana Ruiz,Basico,Chihuahua,,2952.00,2952.00,MXN,crm,none
+HS-100343,"Amaya, Cadena y Prieto",amaya829.com.mx,SMB,Alimentos,45417.50,MXN,2022-11-15,Jorge Ibarra,Basico,Sonora,,45417.50,2455.00,USD,crm,none
+HS-100344,Caraballo S. R.L. de C.V.,caraballo573.com.mx,SMB,Manufactura,5787.00,MXN,2022-10-03,Diego Ortega,Basico,CDMX,2023-08-19,5787.00,5787.00,MXN,crm,none
+HS-100345,"Lebrón, Vallejo y Polanco",lebrón224.com.mx,SMB,Agroindustria,6737.00,MXN,2022-08-27,Fernanda Solís,Basico,Jalisco,,6737.00,6737.00,MXN,crm,none
+HS-100346,Grijalva-Regalado,grijalvarega62.com.mx,Mid-Market,Servicios Financieros,24468.00,MXN,2022-04-17,Luis Peña,Pro,Nuevo León,,24468.00,24468.00,MXN,crm,none
+HS-100347,"Proyectos Carranza, Ramón y Olmos",proyectos747.com.mx,Mid-Market,Automotriz,22774.00,MXN,2023-02-13,Jorge Ibarra,Pro,Yucatán,,22774.00,22774.00,MXN,crm,none
+HS-100348,Zelaya y Marrero S. R.L. de C.V.,zelaya385.com.mx,SMB,Educación,31884.00,MXN,2022-10-19,Marta Díaz,Basico,Jalisco,,31884.00,,MXN,imputed_from_deal,medium
+HS-100349,"Cabán, Olivárez y Tamayo",cabán551.com.mx,SMB,Tecnología,5219.00,MXN,2023-06-24,Luis Peña,Basico,CDMX,,5219.00,5219.00,MXN,crm,none
+HS-100350,Marín-Bernal,marínbernal306.com.mx,Mid-Market,Manufactura,26840.00,MXN,2022-12-13,Diego Ortega,Pro,Puebla,,26840.00,26840.00,MXN,crm,none
+HS-100351,Delgadillo-López y Asociados,delgadilloló472.com.mx,SMB,Construcción,89447.50,MXN,2024-01-24,Diego Ortega,Basico,Jalisco,2024-06-24,89447.50,4835.00,USD,crm,none
+HS-100352,"Estévez, Covarrubias y Ramírez",estévez829.com.mx,Mid-Market,Manufactura,22737.00,MXN,2023-08-01,Ana Ruiz,Pro,Puebla,,22737.00,22737.00,MXN,crm,none
+HS-100353,"Proyectos Saldivar, Tejeda y de la Torre",proyectos69.com.mx,Mid-Market,Construcción,186850.00,MXN,2024-05-12,Fernanda Solís,Pro,CDMX,,186850.00,10100.00,USD,crm,none
+HS-100354,"Proyectos Loera, Vergara y Torres",proyectos759.com.mx,SMB,Construcción,2362.00,MXN,2023-05-28,Luis Peña,Basico,CDMX,,2362.00,2362.00,MXN,crm,none
+HS-100355,"Bétancourt, Macías y Terán",bétancourt516.com.mx,SMB,Tecnología,4369.00,MXN,2023-11-23,Carla Nuñez,Basico,Guanajuato,,4369.00,4369.00,MXN,crm,none
+HS-100356,Jáquez S.A.,jáquez613.com.mx,Mid-Market,Hospitalidad,19507.00,MXN,2023-02-24,Luis Peña,Pro,Chihuahua,,19507.00,19507.00,MXN,crm,none
+HS-100357,Club Vera-Pelayo,club424.com.mx,SMB,Construcción,4461.00,MXN,2022-06-09,Carla Nuñez,Basico,Nuevo León,,4461.00,4461.00,MXN,crm,none
+HS-100358,Zapata-Moreno,zapatamoreno696.com.mx,Mid-Market,Automotriz,27214.00,MXN,2022-04-03,Fernanda Solís,Pro,Estado de México,2023-05-20,27214.00,,MXN,imputed_from_deal,medium
+HS-100359,Urrutia y Trejo S.A. de C.V.,urrutia327.com.mx,Enterprise,Servicios Financieros,54755.00,MXN,2023-02-17,Jorge Ibarra,Premium,Nuevo León,,54755.00,54755.00,MXN,crm,none
+HS-100360,Chacón-Flores S.C.,chacónflores485.com.mx,Mid-Market,Servicios Financieros,16384.00,MXN,2024-04-20,Luis Peña,Pro,Yucatán,,16384.00,16384.00,MXN,crm,none
+HS-100361,Despacho Hernández-Aponte,despacho576.com.mx,SMB,Manufactura,5380.00,MXN,2022-10-09,Jorge Ibarra,Basico,Puebla,,5380.00,5380.00,MXN,crm,none
+HS-100362,"Grupo Armas, Matías y Cruz",grupo209.com.mx,Mid-Market,Logística,11590.00,MXN,2024-03-15,Marta Díaz,Pro,Jalisco,,11590.00,11590.00,MXN,crm,none
+HS-100363,Mercado-Roldán S.A. de C.V.,mercadoroldá742.com.mx,SMB,Servicios Financieros,8794.00,MXN,2023-04-26,Fernanda Solís,Basico,Sonora,,8794.00,8794.00,MXN,crm,none
+HS-100364,Laboratorios Mejía y Bustos,laboratorios41.com.mx,SMB,Hospitalidad,2596.00,MXN,2023-04-16,Fernanda Solís,Basico,Chihuahua,,2596.00,2596.00,MXN,crm,none
+HS-100365,Ávalos S.C.,ávalos491.com.mx,Enterprise,Construcción,47869.00,MXN,2023-03-16,Ana Ruiz,Premium,Puebla,,47869.00,47869.00,MXN,crm,none
+HS-100366,Villarreal y Robles S. R.L. de C.V.,villarreal986.com.mx,SMB,Construcción,8074.00,MXN,2022-07-03,Jorge Ibarra,Basico,Puebla,,8074.00,8074.00,MXN,crm,none
+HS-100367,"Maestas, de la Garza y Aragón",maestas619.com.mx,Enterprise,Agroindustria,53993.00,MXN,2022-11-30,Carla Nuñez,Premium,Guanajuato,,53993.00,53993.00,MXN,crm,none
+HS-100368,Proyectos Soliz y Trejo,proyectos390.com.mx,Enterprise,Logística,70514.00,MXN,2024-06-22,Marta Díaz,Premium,Guanajuato,,70514.00,70514.00,MXN,crm,none
+HS-100369,Angulo y Asociados,angulo904.com.mx,SMB,Servicios Financieros,6073.00,MXN,2024-05-25,Fernanda Solís,Basico,Yucatán,,6073.00,6073.00,MXN,crm,none
+HS-100370,Industrias Zamora-Vera,industrias937.com.mx,SMB,Salud,3664.00,MXN,2022-01-08,Carla Nuñez,Basico,Puebla,,3664.00,3664.00,MXN,crm,none
+HS-100371,Laboratorios Santacruz y Elizondo,laboratorios150.com.mx,SMB,Agroindustria,2132.00,MXN,2023-05-27,Carla Nuñez,Basico,Estado de México,,2132.00,2132.00,MXN,crm,none
+HS-100372,"Grupo Casanova, Franco y Jurado",grupo157.com.mx,SMB,Logística,3607.00,MXN,2023-07-02,Diego Ortega,Basico,Puebla,,3607.00,3607.00,MXN,crm,none
+HS-100373,Soria y Quiroz e Hijos,soria564.com.mx,SMB,Alimentos,7362.00,MXN,2024-01-21,Jorge Ibarra,Basico,Yucatán,,7362.00,7362.00,MXN,crm,none
+HS-100374,Lira y Barrera S.A. de C.V.,lira173.com.mx,Mid-Market,Alimentos,20540.00,MXN,2023-11-22,Carla Nuñez,Pro,Yucatán,,20540.00,20540.00,MXN,crm,none
+HS-100375,Grupo Benavides-Henríquez,grupo939.com.mx,SMB,Tecnología,6441.00,MXN,2023-12-16,Diego Ortega,Basico,CDMX,2024-03-04,6441.00,6441.00,MXN,crm,none
+HS-100376,"Club Marrero, Guzmán y Vela",club423.com.mx,SMB,Manufactura,3126.00,MXN,2023-06-22,Ana Ruiz,Basico,Puebla,,3126.00,3126.00,MXN,crm,none
+HS-100377,"Corporacin Fierro, Cardenas y Galván",corporacin467.com.mx,Mid-Market,Servicios Financieros,10980.00,MXN,2023-01-02,Carla Nuñez,Pro,Yucatán,,10980.00,10980.00,MXN,crm,none
+HS-100378,Proyectos Quezada-Fernández,proyectos500.com.mx,SMB,Automotriz,2128.00,MXN,2022-02-08,Ana Ruiz,Basico,CDMX,,2128.00,2128.00,MXN,crm,none
+HS-100379,"Montoya, Cardona y Villanueva",montoya740.com.mx,Mid-Market,Servicios Financieros,26555.00,MXN,2024-05-31,Diego Ortega,Pro,Estado de México,,26555.00,26555.00,MXN,crm,none
+HS-100380,Mata S.C.,mata110.com.mx,SMB,Tecnología,2789.00,MXN,2024-05-19,Carla Nuñez,Basico,Chihuahua,,2789.00,2789.00,MXN,crm,none
+HS-100381,Gurule-Jurado,gurulejurado835.com.mx,SMB,Logística,4903.00,MXN,2022-08-12,Marta Díaz,Basico,Estado de México,,4903.00,4903.00,MXN,crm,none
+HS-100382,Batista S.C.,batista579.com.mx,Mid-Market,Alimentos,16400.00,MXN,2024-02-16,Diego Ortega,Pro,Jalisco,,16400.00,16400.00,MXN,crm,none
+HS-100383,Garay y Garay S. R.L. de C.V.,garay879.com.mx,Mid-Market,Automotriz,10038.00,MXN,2024-03-19,Jorge Ibarra,Pro,Chihuahua,,10038.00,10038.00,MXN,crm,none
+HS-100384,Garza-Arriaga S.A. de C.V.,garzaarriaga58.com.mx,Mid-Market,Alimentos,9309.00,MXN,2023-12-05,Jorge Ibarra,Pro,Estado de México,,9309.00,9309.00,MXN,crm,none
+HS-100385,"Club Zarate, Peña y Gaona",club804.com.mx,Mid-Market,Automotriz,27541.00,MXN,2023-07-08,Carla Nuñez,Pro,CDMX,,27541.00,27541.00,MXN,crm,none
+HS-100386,"Ordóñez, Limón y Arias",ordóñez217.com.mx,Mid-Market,Construcción,27572.00,MXN,2022-04-13,Ana Ruiz,Pro,Querétaro,,27572.00,27572.00,MXN,crm,none
+HS-100387,Laboratorios Herrera-Fuentes,laboratorios578.com.mx,SMB,Servicios Financieros,136733.50,MXN,2023-11-19,Marta Díaz,Basico,CDMX,,136733.50,7391.00,USD,crm,none
+HS-100388,Palomino y Curiel S.A. de C.V.,palomino602.com.mx,SMB,Construcción,3181.00,MXN,2024-03-10,Carla Nuñez,Basico,Puebla,2024-05-19,3181.00,3181.00,MXN,crm,none
+HS-100389,Segovia y Esquivel S.A. de C.V.,segovia855.com.mx,Mid-Market,Hospitalidad,21751.00,MXN,2022-01-14,Marta Díaz,Pro,Estado de México,,21751.00,21751.00,MXN,crm,none
+HS-100390,"Balderas, Galván y Espinal",balderas144.com.mx,Mid-Market,Agroindustria,11569.00,MXN,2022-05-20,Marta Díaz,Pro,CDMX,,11569.00,11569.00,MXN,crm,none
+HS-100391,Rocha-Posada,rochaposada448.com.mx,Enterprise,Retail,50321.00,MXN,2022-12-20,Carla Nuñez,Premium,Sonora,,50321.00,50321.00,MXN,crm,none
+HS-100392,"Corporacin Merino, Orosco y Jaimes",corporacin993.com.mx,SMB,Educación,8336.00,MXN,2024-04-15,Diego Ortega,Basico,Yucatán,,8336.00,8336.00,MXN,crm,none
+HS-100393,Chávez-Colón,chávezcolón234.com.mx,SMB,Alimentos,4914.00,MXN,2023-02-07,Luis Peña,Basico,Sonora,,4914.00,4914.00,MXN,crm,none
+HS-100394,Proyectos Baca y Becerra,proyectos390.com.mx,Mid-Market,Automotriz,18678.00,MXN,2022-07-24,Ana Ruiz,Pro,Jalisco,,18678.00,18678.00,MXN,crm,none
+HS-100395,Laboratorios Olivares-Castro,laboratorios158.com.mx,SMB,Logística,5112.00,MXN,2023-01-01,Marta Díaz,Basico,Jalisco,,5112.00,5112.00,MXN,crm,none
+HS-100396,Cedillo-de la Torre y Asociados,cedillode6.com.mx,Enterprise,Retail,51587.00,MXN,2023-08-08,Ana Ruiz,Premium,Nuevo León,,51587.00,51587.00,MXN,crm,none
+HS-100397,Saldivar-Rangel,saldivarrang192.com.mx,Mid-Market,Retail,23707.00,MXN,2022-09-10,Jorge Ibarra,Pro,Jalisco,,23707.00,23707.00,MXN,crm,none
+HS-100398,Grupo Armenta-Ledesma,grupo92.com.mx,SMB,Manufactura,4899.00,MXN,2022-02-28,Diego Ortega,Basico,Guanajuato,,4899.00,4899.00,MXN,crm,none
+HS-100399,Chavarría y Santiago S.A.,chavarría13.com.mx,Mid-Market,Educación,22559.00,MXN,2023-04-02,Fernanda Solís,Pro,Chihuahua,,22559.00,22559.00,MXN,crm,none
+HS-100400,Guevara S.A. de C.V.,guevara586.com.mx,Mid-Market,Construcción,14556.00,MXN,2022-06-08,Luis Peña,Pro,Querétaro,,14556.00,14556.00,MXN,crm,none
+HS-100401,"Corporacin Varela, Mesa y Collazo",corporacin275.com.mx,SMB,Logística,6039.00,MXN,2023-02-08,Jorge Ibarra,Basico,Querétaro,2023-08-28,6039.00,6039.00,MXN,crm,none
+HS-100402,Flores-Reyes S. R.L. de C.V.,floresreyes802.com.mx,Enterprise,Alimentos,44495.00,MXN,2022-06-10,Fernanda Solís,Premium,Yucatán,,44495.00,44495.00,MXN,crm,none
+HS-100403,Heredia y Ávila S.C.,heredia632.com.mx,SMB,Hospitalidad,3601.00,MXN,2022-09-07,Jorge Ibarra,Basico,Guanajuato,2022-11-12,3601.00,3601.00,MXN,crm,none
+HS-100404,"Márquez, Adame y Cepeda",márquez390.com.mx,Mid-Market,Hospitalidad,19798.00,MXN,2022-04-26,Diego Ortega,Pro,Sonora,,19798.00,19798.00,MXN,crm,none
+HS-100405,Industrias Fajardo y Patiño,industrias308.com.mx,SMB,Tecnología,4626.00,MXN,2023-04-22,Jorge Ibarra,Basico,Guanajuato,,4626.00,4626.00,MXN,crm,none
+HS-100406,"Castro, Collado y Villalpando",castro753.com.mx,Enterprise,Logística,65740.00,MXN,2023-11-17,Marta Díaz,Premium,Estado de México,,65740.00,65740.00,MXN,crm,none
+HS-100407,Marroquín y Mercado A.C.,marroquín837.com.mx,SMB,Logística,8437.00,MXN,2023-10-19,Luis Peña,Basico,Sonora,2024-05-10,8437.00,8437.00,MXN,crm,none
+HS-100408,"Grupo Quintanilla, Trejo y Batista",grupo185.com.mx,SMB,Servicios Financieros,7584.00,MXN,2022-12-18,Jorge Ibarra,Basico,Puebla,,7584.00,7584.00,MXN,crm,none
+HS-100409,Rangel y Alfaro e Hijos,rangel817.com.mx,Enterprise,Alimentos,81671.00,MXN,2022-10-12,Diego Ortega,Premium,Estado de México,,81671.00,81671.00,MXN,crm,none
+HS-100410,Laboratorios Garrido-Quiñónez,laboratorios512.com.mx,SMB,Automotriz,3140.00,MXN,2022-01-08,Luis Peña,Basico,Estado de México,,3140.00,3140.00,MXN,crm,none
+HS-100411,"Núñez, Laureano y Casillas",núñez76.com.mx,SMB,Educación,5678.00,MXN,2023-07-13,Carla Nuñez,Basico,Estado de México,,5678.00,5678.00,MXN,crm,none
+HS-100412,Industrias Robledo-Rivero,industrias38.com.mx,Enterprise,Servicios Financieros,73982.00,MXN,2023-12-29,Carla Nuñez,Premium,Sonora,,73982.00,73982.00,MXN,crm,none
+HS-100413,Quiroz-Aponte,quirozaponte937.com.mx,Enterprise,Automotriz,78394.00,MXN,2023-12-11,Fernanda Solís,Premium,Guanajuato,,78394.00,78394.00,MXN,crm,none
+HS-100414,Carmona y Adame y Asociados,carmona663.com.mx,Mid-Market,Tecnología,10451.00,MXN,2024-04-23,Fernanda Solís,Pro,Estado de México,,10451.00,10451.00,MXN,crm,none
+HS-100415,"Paz, Aguirre y Velásquez",paz989.com.mx,Mid-Market,Salud,23105.00,MXN,2023-05-27,Luis Peña,Pro,Chihuahua,2023-12-05,23105.00,23105.00,MXN,crm,none
+HS-100416,"Club Henríquez, Lara y Aragón",club532.com.mx,SMB,Agroindustria,6571.00,MXN,2022-08-16,Jorge Ibarra,Basico,Yucatán,,6571.00,6571.00,MXN,crm,none
+HS-100417,"Grupo Macías, Canales y Rolón",grupo603.com.mx,SMB,Automotriz,7656.00,MXN,2023-01-22,Ana Ruiz,Basico,Yucatán,,7656.00,7656.00,MXN,crm,none
+HS-100418,Luna-Burgos S. R.L. de C.V.,lunaburgos303.com.mx,SMB,Retail,5407.00,MXN,2022-10-13,Fernanda Solís,Basico,Nuevo León,,5407.00,5407.00,MXN,crm,none
+HS-100419,Ruelas S.A.,ruelas320.com.mx,Mid-Market,Salud,23920.00,MXN,2023-08-05,Jorge Ibarra,Pro,Guanajuato,,23920.00,23920.00,MXN,crm,none
+HS-100420,Viera S.C.,viera100.com.mx,Mid-Market,Alimentos,440762.50,MXN,2024-02-28,Diego Ortega,Pro,Jalisco,2024-05-03,440762.50,23825.00,USD,crm,none
+HS-100421,Club Mascareñas-Moya,club870.com.mx,Mid-Market,Manufactura,12583.00,MXN,2023-04-10,Fernanda Solís,Pro,Puebla,,12583.00,12583.00,MXN,crm,none
+HS-100422,Alonso-Paredes S.C.,alonsoparede179.com.mx,Mid-Market,Servicios Financieros,14247.00,MXN,2023-08-19,Jorge Ibarra,Pro,Puebla,,14247.00,14247.00,MXN,crm,none
+HS-100423,"Proyectos León, Salazar y Noriega",proyectos645.com.mx,SMB,Educación,3511.00,MXN,2023-01-15,Jorge Ibarra,Basico,CDMX,,3511.00,3511.00,MXN,crm,none
+HS-100424,Limón y Vanegas A.C.,limón629.com.mx,SMB,Agroindustria,3616.00,MXN,2022-07-27,Ana Ruiz,Basico,Puebla,,3616.00,3616.00,MXN,crm,none
+HS-100425,"Villareal, Mateo y Griego",villareal286.com.mx,SMB,Construcción,8163.00,MXN,2022-08-06,Luis Peña,Basico,Guanajuato,2024-04-06,8163.00,8163.00,MXN,crm,none
+HS-100426,Villarreal y Asociados,villarreal202.com.mx,SMB,Salud,5748.00,MXN,2024-03-13,Jorge Ibarra,Basico,Chihuahua,,5748.00,5748.00,MXN,crm,none
+HS-100427,Nieves S.A. de C.V.,nieves321.com.mx,SMB,Automotriz,6890.00,MXN,2023-06-11,Ana Ruiz,Basico,Guanajuato,,6890.00,6890.00,MXN,crm,none
+HS-100428,Industrias Delgadillo-Zapata,industrias866.com.mx,Enterprise,Salud,81329.00,MXN,2023-07-02,Diego Ortega,Premium,Querétaro,,81329.00,81329.00,MXN,crm,none
+HS-100429,Industrias Cazares-Navarro,industrias605.com.mx,SMB,Hospitalidad,2694.00,MXN,2023-12-27,Ana Ruiz,Basico,Nuevo León,2024-04-04,2694.00,2694.00,MXN,crm,none
+HS-100430,"Alonso, Bañuelos y Paredes",alonso711.com.mx,SMB,Salud,3158.00,MXN,2023-06-26,Luis Peña,Basico,Sonora,,3158.00,3158.00,MXN,crm,none
+HS-100431,Márquez-Coronado,márquezcoron434.com.mx,SMB,Educación,3521.00,MXN,2022-03-08,Fernanda Solís,Basico,Nuevo León,,3521.00,3521.00,MXN,crm,none
+HS-100432,Cavazos-Figueroa,cavazosfigue171.com.mx,Mid-Market,Servicios Financieros,18464.00,MXN,2023-07-17,Diego Ortega,Pro,Yucatán,,18464.00,18464.00,MXN,crm,none
+HS-100433,"Duarte, Guillen y Gaona",duarte55.com.mx,Mid-Market,Hospitalidad,9314.00,MXN,2023-09-08,Diego Ortega,Pro,Estado de México,,9314.00,9314.00,MXN,crm,none
+HS-100434,Santillán y Abreu e Hijos,santillán518.com.mx,SMB,Servicios Financieros,7349.00,MXN,2023-01-18,Jorge Ibarra,Basico,Yucatán,,7349.00,7349.00,MXN,crm,none
+HS-100435,Corporacin Galindo-Niño,corporacin172.com.mx,SMB,Alimentos,2677.00,MXN,2022-12-17,Luis Peña,Basico,Querétaro,,2677.00,2677.00,MXN,crm,none
+HS-100436,Laboy-Aguilar e Hijos,laboyaguilar282.com.mx,Mid-Market,Manufactura,26616.00,MXN,2024-04-17,Jorge Ibarra,Pro,Sonora,,26616.00,26616.00,MXN,crm,none
+HS-100437,Meléndez S.A. de C.V.,meléndez792.com.mx,SMB,Agroindustria,8274.00,MXN,2022-12-06,Carla Nuñez,Basico,Jalisco,,8274.00,8274.00,MXN,crm,none
+HS-100438,Aparicio S. R.L. de C.V.,aparicio794.com.mx,Mid-Market,Logística,21021.00,MXN,2024-05-02,Ana Ruiz,Pro,Yucatán,,21021.00,21021.00,MXN,crm,none
+HS-100439,"Prieto, Alejandro y Tamayo",prieto224.com.mx,Mid-Market,Servicios Financieros,12355.00,MXN,2024-04-21,Diego Ortega,Pro,Puebla,,12355.00,12355.00,MXN,crm,none
+HS-100440,Montoya S.A.,montoya896.com.mx,SMB,Logística,2264.00,MXN,2022-08-11,Diego Ortega,Basico,Jalisco,,2264.00,2264.00,MXN,crm,none
+HS-100441,"Grupo Jáquez, Pulido y Sánchez",grupo887.com.mx,SMB,Alimentos,2961.00,MXN,2024-04-11,Carla Nuñez,Basico,Guanajuato,,2961.00,2961.00,MXN,crm,none
+HS-100442,"Toro, Paredes y Montenegro",toro625.com.mx,Enterprise,Agroindustria,38877.00,MXN,2022-08-21,Diego Ortega,Premium,Puebla,,38877.00,38877.00,MXN,crm,none
+HS-100443,Corporacin Menéndez-Castañeda,corporacin825.com.mx,SMB,Construcción,2486.00,MXN,2024-02-01,Carla Nuñez,Basico,Chihuahua,,2486.00,2486.00,MXN,crm,none
+HS-100444,Robles S.A. de C.V.,robles332.com.mx,SMB,Tecnología,143689.50,MXN,2022-05-23,Diego Ortega,Basico,Chihuahua,,143689.50,7767.00,USD,crm,none
+HS-100445,"Bueno, Dávila y Sáenz",bueno835.com.mx,Mid-Market,Automotriz,13442.00,MXN,2022-12-06,Ana Ruiz,Pro,Querétaro,,13442.00,13442.00,MXN,crm,none
+HS-100446,Despacho Flórez-Hernandes,despacho130.com.mx,Enterprise,Automotriz,44362.00,MXN,2022-03-28,Marta Díaz,Premium,Puebla,,44362.00,44362.00,MXN,crm,none
+HS-100447,Amaya y Razo e Hijos,amaya403.com.mx,Enterprise,Automotriz,65842.00,MXN,2023-05-09,Fernanda Solís,Premium,Estado de México,,65842.00,65842.00,MXN,crm,none
+HS-100448,Rentería-Madera,renteríamade463.com.mx,Mid-Market,Educación,144600.00,MXN,2024-01-01,Marta Díaz,Pro,Guanajuato,,144600.00,,MXN,imputed_from_deal,medium
+HS-100449,Escalante y Aguilera A.C.,escalante974.com.mx,SMB,Alimentos,5998.00,MXN,2022-10-06,Fernanda Solís,Basico,Yucatán,2023-03-10,5998.00,5998.00,MXN,crm,none
+HS-100450,"Lerma, Juárez y Bonilla",lerma681.com.mx,SMB,Automotriz,142672.00,MXN,2023-03-27,Jorge Ibarra,Basico,Puebla,2024-02-23,142672.00,7712.00,USD,crm,none
+HS-100451,Rentería-Contreras,renteríacont845.com.mx,Mid-Market,Educación,25210.00,MXN,2024-02-06,Marta Díaz,Pro,Guanajuato,,25210.00,25210.00,MXN,crm,none
+HS-100452,"Corporacin Vanegas, Esparza y Villalpando",corporacin592.com.mx,Mid-Market,Servicios Financieros,27551.00,MXN,2024-05-06,Marta Díaz,Pro,CDMX,,27551.00,,MXN,imputed_from_deal,medium
+HS-100453,Madrid S.A.,madrid102.com.mx,SMB,Manufactura,7129.00,MXN,2023-03-29,Jorge Ibarra,Basico,Yucatán,2023-08-16,7129.00,7129.00,MXN,crm,none
+HS-100454,Despacho Gamboa y Espinoza,despacho982.com.mx,Enterprise,Manufactura,73127.00,MXN,2024-01-22,Fernanda Solís,Premium,Querétaro,,73127.00,73127.00,MXN,crm,none
+HS-100455,Proyectos Frías-Sánchez,proyectos896.com.mx,SMB,Tecnología,4244.00,MXN,2022-06-14,Ana Ruiz,Basico,Guanajuato,,4244.00,4244.00,MXN,crm,none
+HS-100456,Verdugo y Esquibel S.C.,verdugo926.com.mx,SMB,Automotriz,7315.00,MXN,2022-01-02,Marta Díaz,Basico,Puebla,,7315.00,7315.00,MXN,crm,none
+HS-100457,Tórrez-Polanco,tórrezpolanc672.com.mx,SMB,Educación,2747.00,MXN,2023-01-04,Luis Peña,Basico,Sonora,2023-04-13,2747.00,2747.00,MXN,crm,none
+HS-100458,Laureano y Moreno S.A.,laureano532.com.mx,SMB,Construcción,7570.00,MXN,2023-12-27,Diego Ortega,Basico,Jalisco,2024-04-08,7570.00,7570.00,MXN,crm,none
+HS-100459,Magaña y Peres y Asociados,magaña711.com.mx,SMB,Educación,3082.00,MXN,2022-02-28,Ana Ruiz,Basico,Jalisco,,3082.00,3082.00,MXN,crm,none
+HS-100460,Rojas y Marrero e Hijos,rojas321.com.mx,SMB,Retail,5011.00,MXN,2023-03-29,Diego Ortega,Basico,Nuevo León,,5011.00,5011.00,MXN,crm,none
+HS-100461,Chavarría-Cedillo,chavarríaced694.com.mx,SMB,Automotriz,3170.00,MXN,2022-03-13,Carla Nuñez,Basico,Nuevo León,,3170.00,3170.00,MXN,crm,none
+HS-100462,Bahena-Dávila,bahenadávila360.com.mx,Mid-Market,Alimentos,15981.00,MXN,2024-04-10,Jorge Ibarra,Pro,Sonora,,15981.00,15981.00,MXN,crm,none
+HS-100463,Club Toro y Tafoya,club454.com.mx,Mid-Market,Automotriz,11840.00,MXN,2023-08-01,Carla Nuñez,Pro,Estado de México,2023-12-02,11840.00,11840.00,MXN,crm,none
+HS-100464,"Lovato, Cortés y Abreu",lovato987.com.mx,Mid-Market,Salud,19305.00,MXN,2023-03-25,Marta Díaz,Pro,Jalisco,,19305.00,19305.00,MXN,crm,none
+HS-100465,Bravo-Terán,bravoterán567.com.mx,Enterprise,Construcción,79050.00,MXN,2022-02-07,Ana Ruiz,Premium,Querétaro,,79050.00,,MXN,imputed_from_deal,medium
+HS-100466,"Industrias Esquivel, Olivares y Casárez",industrias531.com.mx,SMB,Construcción,6971.00,MXN,2022-10-21,Marta Díaz,Basico,CDMX,,6971.00,6971.00,MXN,crm,none
+HS-100467,Olivas-Casas,olivascasas507.com.mx,SMB,Construcción,5161.00,MXN,2023-07-02,Carla Nuñez,Basico,Jalisco,,5161.00,5161.00,MXN,crm,none
+HS-100468,Montalvo y Márquez y Asociados,montalvo911.com.mx,Mid-Market,Servicios Financieros,20832.00,MXN,2022-05-25,Jorge Ibarra,Pro,Sonora,,20832.00,20832.00,MXN,crm,none
+HS-100469,Calderón S.A.,calderón375.com.mx,SMB,Educación,119787.50,MXN,2024-05-08,Diego Ortega,Basico,Jalisco,,119787.50,6475.00,USD,crm,none
+HS-100470,Bétancourt-Sánchez y Asociados,bétancourtsá602.com.mx,Enterprise,Manufactura,45182.00,MXN,2022-12-11,Ana Ruiz,Premium,Estado de México,,45182.00,45182.00,MXN,crm,none
+HS-100471,"Corporacin Villalpando, Parra y Barajas",corporacin294.com.mx,SMB,Servicios Financieros,7149.00,MXN,2023-01-26,Fernanda Solís,Basico,Estado de México,,7149.00,7149.00,MXN,crm,none
+HS-100472,Industrias Delgadillo-Vaca,industrias656.com.mx,Enterprise,Retail,68373.00,MXN,2024-04-04,Ana Ruiz,Premium,Querétaro,,68373.00,68373.00,MXN,crm,none
+HS-100473,Medina-Mena,medinamena524.com.mx,SMB,Retail,3664.00,MXN,2023-11-19,Carla Nuñez,Basico,Jalisco,,3664.00,3664.00,MXN,crm,none
+HS-100474,"Barraza, Naranjo y Valdez",barraza716.com.mx,Enterprise,Logística,31794.00,MXN,2023-02-02,Jorge Ibarra,Premium,Jalisco,,31794.00,31794.00,MXN,crm,none
+HS-100475,"Corporacin Moreno, Luevano y Burgos",corporacin627.com.mx,SMB,Alimentos,129259.50,MXN,2022-07-18,Fernanda Solís,Basico,Nuevo León,,129259.50,6987.00,USD,crm,none
+HS-100476,Grupo Alba-Toledo,grupo13.com.mx,Enterprise,Retail,73973.00,MXN,2024-06-11,Jorge Ibarra,Premium,Guanajuato,,73973.00,73973.00,MXN,crm,none
+HS-100477,Romero-Franco A.C.,romerofranco530.com.mx,SMB,Servicios Financieros,8414.00,MXN,2023-04-25,Fernanda Solís,Basico,Querétaro,,8414.00,8414.00,MXN,crm,none
+HS-100478,Luevano y Lucero S.A.,luevano908.com.mx,Mid-Market,Agroindustria,9961.00,MXN,2022-03-12,Marta Díaz,Pro,Chihuahua,,9961.00,9961.00,MXN,crm,none
+HS-100479,Industrias Gurule-Holguín,industrias270.com.mx,Enterprise,Retail,69125.00,MXN,2023-02-11,Jorge Ibarra,Premium,Chihuahua,,69125.00,69125.00,MXN,crm,none
+HS-100480,"Ceja, Sanches y Berríos",ceja57.com.mx,SMB,Salud,6092.00,MXN,2023-12-19,Marta Díaz,Basico,Jalisco,,6092.00,6092.00,MXN,crm,none
+HS-100481,Ozuna y Castillo y Asociados,ozuna691.com.mx,Mid-Market,Hospitalidad,12779.00,MXN,2023-03-12,Ana Ruiz,Pro,CDMX,,12779.00,12779.00,MXN,crm,none
+HS-100482,Solorio y Cisneros A.C.,solorio251.com.mx,Mid-Market,Manufactura,452473.00,MXN,2023-08-02,Luis Peña,Pro,Nuevo León,,452473.00,24458.00,USD,crm,none
+HS-100483,Gamez-Otero,gamezotero567.com.mx,SMB,Manufactura,8579.00,MXN,2023-01-19,Jorge Ibarra,Basico,Guanajuato,,8579.00,8579.00,MXN,crm,none
+HS-100484,Ibarra e Hijos,ibarra846.com.mx,Mid-Market,Logística,27728.00,MXN,2022-12-27,Ana Ruiz,Pro,Nuevo León,2024-02-04,27728.00,27728.00,MXN,crm,none
+HS-100485,"Segura, Zamudio y Baca",segura824.com.mx,Mid-Market,Construcción,10504.00,MXN,2023-03-02,Diego Ortega,Pro,Querétaro,2023-12-25,10504.00,10504.00,MXN,crm,none
+HS-100486,Club Nieto-Gaona,club336.com.mx,Enterprise,Logística,57933.00,MXN,2023-12-16,Marta Díaz,Premium,Sonora,2024-04-05,57933.00,57933.00,MXN,crm,none
+HS-100487,Jurado-Aguilar,juradoaguila758.com.mx,SMB,Logística,7101.00,MXN,2024-06-29,Jorge Ibarra,Basico,Puebla,,7101.00,7101.00,MXN,crm,none
+HS-100488,Mojica-Ruelas,mojicaruelas923.com.mx,SMB,Agroindustria,6477.00,MXN,2023-01-06,Ana Ruiz,Basico,Puebla,2023-10-02,6477.00,6477.00,MXN,crm,none
+HS-100489,"Laboratorios Cardona, Prado y Valverde",laboratorios355.com.mx,Enterprise,Servicios Financieros,49955.00,MXN,2024-02-23,Diego Ortega,Premium,Querétaro,2024-06-10,49955.00,49955.00,MXN,crm,none
+HS-100490,Manzanares y Zapata y Asociados,manzanares211.com.mx,Enterprise,Retail,55513.00,MXN,2022-01-11,Ana Ruiz,Premium,Nuevo León,,55513.00,55513.00,MXN,crm,none
+HS-100491,Espinal-Coronado,espinalcoron287.com.mx,SMB,Agroindustria,2762.00,MXN,2024-03-29,Diego Ortega,Basico,Chihuahua,,2762.00,2762.00,MXN,crm,none
+HS-100492,Medrano-Coronado,medranocoron718.com.mx,Mid-Market,Educación,24022.00,MXN,2022-08-18,Carla Nuñez,Pro,Nuevo León,2023-01-22,24022.00,24022.00,MXN,crm,none
+HS-100493,Menchaca-Suárez S.C.,menchacasuár840.com.mx,SMB,Automotriz,5230.00,MXN,2022-08-07,Jorge Ibarra,Basico,Nuevo León,,5230.00,5230.00,MXN,crm,none
+HS-100494,Rosario-Delgado,rosariodelga299.com.mx,SMB,Construcción,4138.00,MXN,2024-03-01,Fernanda Solís,Basico,Guanajuato,,4138.00,4138.00,MXN,crm,none
+HS-100495,Meza y Riojas y Asociados,meza464.com.mx,SMB,Salud,4227.00,MXN,2022-10-19,Luis Peña,Basico,Sonora,,4227.00,4227.00,MXN,crm,none
+HS-100496,Grupo Salcedo-Valles,grupo160.com.mx,SMB,Retail,2865.00,MXN,2024-03-06,Jorge Ibarra,Basico,Jalisco,,2865.00,2865.00,MXN,crm,none
+HS-100497,Club Ávila y Trujillo,club367.com.mx,Mid-Market,Servicios Financieros,15803.00,MXN,2022-10-02,Marta Díaz,Pro,Jalisco,,15803.00,15803.00,MXN,crm,none
+HS-100498,"Club Saldaña, Lira y Heredia",club162.com.mx,SMB,Retail,8615.00,MXN,2023-04-13,Carla Nuñez,Basico,CDMX,,8615.00,8615.00,MXN,crm,none
+HS-100499,"Industrias Juárez, Portillo y Serrano",industrias856.com.mx,Enterprise,Construcción,33977.00,MXN,2023-07-12,Marta Díaz,Premium,Estado de México,,33977.00,33977.00,MXN,crm,none
+HS-100500,Arenas e Hijos,arenas51.com.mx,Enterprise,Servicios Financieros,45050.00,MXN,2022-02-09,Luis Peña,Premium,CDMX,,45050.00,,MXN,imputed_from_deal,high
+HS-100501,Villalpando A.C.,villalpando876.com.mx,Mid-Market,Educación,27217.00,MXN,2024-04-27,Ana Ruiz,Pro,Yucatán,,27217.00,27217.00,MXN,crm,none
+HS-100502,Baeza y Segovia S.A. de C.V.,baeza824.com.mx,SMB,Retail,8502.00,MXN,2024-03-13,Luis Peña,Basico,Nuevo León,2024-06-30,8502.00,8502.00,MXN,crm,none
+HS-100503,Zambrano-Cabán S.C.,zambranocabá844.com.mx,SMB,Construcción,5281.00,MXN,2023-07-04,Fernanda Solís,Basico,Jalisco,,5281.00,5281.00,MXN,crm,none
+HS-100504,Baeza S.A. de C.V.,baeza601.com.mx,Mid-Market,Hospitalidad,11457.00,MXN,2022-09-10,Luis Peña,Pro,Yucatán,,11457.00,11457.00,MXN,crm,none
+HS-100505,Magaña-Sevilla,magañasevill95.com.mx,Mid-Market,Tecnología,19864.00,MXN,2022-11-06,Ana Ruiz,Pro,Nuevo León,2024-04-21,19864.00,19864.00,MXN,crm,none
+HS-100506,Robles y Saldivar S.A.,robles444.com.mx,SMB,Hospitalidad,8731.00,MXN,2022-03-15,Jorge Ibarra,Basico,Nuevo León,2024-04-12,8731.00,8731.00,MXN,crm,none
+HS-100507,"Escamilla, Malave y Garrido",escamilla220.com.mx,Enterprise,Salud,46340.00,MXN,2024-03-04,Luis Peña,Premium,CDMX,,46340.00,46340.00,MXN,crm,none
+HS-100508,Porras-Arredondo S.A.,porrasarredo635.com.mx,Mid-Market,Hospitalidad,17053.00,MXN,2024-06-19,Jorge Ibarra,Pro,Chihuahua,,17053.00,17053.00,MXN,crm,none
+HS-100509,Maestas-Bustos A.C.,maestasbusto63.com.mx,Enterprise,Alimentos,53101.00,MXN,2024-06-12,Luis Peña,Premium,Chihuahua,,53101.00,53101.00,MXN,crm,none
+HS-100510,"Escobedo, Guzmán y Montaño",escobedo646.com.mx,Mid-Market,Construcción,26814.00,MXN,2022-12-27,Diego Ortega,Pro,Guanajuato,2023-09-08,26814.00,26814.00,MXN,crm,none
+HS-100511,Saldaña y Munguía e Hijos,saldaña558.com.mx,Mid-Market,Alimentos,24881.00,MXN,2024-05-03,Carla Nuñez,Pro,Guanajuato,,24881.00,24881.00,MXN,crm,none
+HS-100512,Despacho Olivárez y Toro,despacho277.com.mx,SMB,Educación,3473.00,MXN,2022-02-11,Ana Ruiz,Basico,Querétaro,,3473.00,3473.00,MXN,crm,none
+HS-100513,Proyectos Carrasco-Cabrera,proyectos829.com.mx,Enterprise,Manufactura,51424.00,MXN,2023-05-10,Luis Peña,Premium,Nuevo León,,51424.00,51424.00,MXN,crm,none
+HS-100514,"Club Samaniego, Rosado y Arias",club254.com.mx,Mid-Market,Retail,16902.00,MXN,2022-09-01,Diego Ortega,Pro,CDMX,,16902.00,16902.00,MXN,crm,none
+HS-100515,de la Fuente y Olivárez A.C.,de590.com.mx,SMB,Construcción,8934.00,MXN,2023-06-30,Diego Ortega,Basico,Nuevo León,,8934.00,8934.00,MXN,crm,none
+HS-100516,Naranjo-Limón A.C.,naranjolimón243.com.mx,SMB,Tecnología,6853.00,MXN,2022-03-11,Marta Díaz,Basico,Sonora,,6853.00,6853.00,MXN,crm,none
+HS-100517,de la Torre-Rosas,de721.com.mx,SMB,Manufactura,143153.00,MXN,2023-10-04,Carla Nuñez,Basico,Puebla,,143153.00,7738.00,USD,crm,none
+HS-100518,Gaitán-Delgadillo,gaitándelgad556.com.mx,Mid-Market,Alimentos,14752.00,MXN,2022-06-08,Luis Peña,Pro,Sonora,2022-10-03,14752.00,14752.00,MXN,crm,none
+HS-100519,Amaya y Vázquez y Asociados,amaya21.com.mx,Enterprise,Construcción,28044.00,MXN,2023-07-01,Carla Nuñez,Premium,Puebla,,28044.00,28044.00,MXN,crm,none
+HS-100520,Peralta-Cabán,peraltacabán349.com.mx,SMB,Tecnología,7873.00,MXN,2022-01-24,Diego Ortega,Basico,Guanajuato,,7873.00,7873.00,MXN,crm,none
+HS-100521,Rosas-Rojas e Hijos,rosasrojas23.com.mx,Mid-Market,Manufactura,13641.00,MXN,2022-06-17,Diego Ortega,Pro,Guanajuato,2024-02-05,13641.00,13641.00,MXN,crm,none
+HS-100522,"Viera, Griego y Vásquez",viera383.com.mx,SMB,Retail,7771.00,MXN,2022-01-22,Marta Díaz,Basico,Nuevo León,2023-01-26,7771.00,7771.00,MXN,crm,none
+HS-100523,"Corporacin Borrego, Torres y Lomeli",corporacin750.com.mx,Enterprise,Tecnología,70544.00,MXN,2023-02-14,Fernanda Solís,Premium,Chihuahua,,70544.00,,MXN,imputed_from_deal,medium
+HS-100524,Industrias Reyna-Feliciano,industrias911.com.mx,Mid-Market,Agroindustria,20692.00,MXN,2022-01-31,Diego Ortega,Pro,Nuevo León,,20692.00,20692.00,MXN,crm,none
+HS-100525,Fernández S.C.,fernández315.com.mx,Mid-Market,Educación,18650.00,MXN,2024-05-27,Ana Ruiz,Pro,Sonora,,18650.00,18650.00,MXN,crm,none
+HS-100526,"Arellano, Abrego y Carrero",arellano872.com.mx,SMB,Educación,8314.00,MXN,2023-09-05,Diego Ortega,Basico,Sonora,2024-01-24,8314.00,8314.00,MXN,crm,none
+HS-100527,"Grupo Lira, Maya y Vera",grupo655.com.mx,SMB,Construcción,6632.00,MXN,2022-09-14,Marta Díaz,Basico,Jalisco,,6632.00,6632.00,MXN,crm,none
+HS-100528,"Club Segovia, Santana y Vela",club356.com.mx,SMB,Construcción,4617.00,MXN,2023-07-27,Ana Ruiz,Basico,Guanajuato,,4617.00,4617.00,MXN,crm,none
+HS-100529,Vaca y Borrego S. R.L. de C.V.,vaca12.com.mx,SMB,Alimentos,4172.00,MXN,2023-11-20,Marta Díaz,Basico,Querétaro,,4172.00,4172.00,MXN,crm,none
+HS-100530,"Despacho Montalvo, Garza y Salazar",despacho738.com.mx,Mid-Market,Retail,10577.00,MXN,2022-03-27,Jorge Ibarra,Pro,Nuevo León,,10577.00,10577.00,MXN,crm,none
+HS-100531,Zelaya S. R.L. de C.V.,zelaya505.com.mx,Mid-Market,Educación,20509.00,MXN,2024-04-11,Diego Ortega,Pro,Yucatán,,20509.00,20509.00,MXN,crm,none
+HS-100532,Industrias Calderón y Casares,industrias667.com.mx,Enterprise,Hospitalidad,38659.00,MXN,2024-02-23,Diego Ortega,Premium,CDMX,,38659.00,38659.00,MXN,crm,none
+HS-100533,"Rivero, Castellanos y Anaya",rivero21.com.mx,Enterprise,Logística,644965.50,MXN,2024-06-10,Luis Peña,Premium,Estado de México,,644965.50,34863.00,USD,crm,none
+HS-100534,Saldivar y Rojo S.A.,saldivar750.com.mx,Mid-Market,Tecnología,26925.00,MXN,2022-01-24,Ana Ruiz,Pro,Guanajuato,,26925.00,26925.00,MXN,crm,none
+HS-100535,Valle-Valencia S.C.,vallevalenci629.com.mx,Mid-Market,Hospitalidad,10015.00,MXN,2022-08-04,Luis Peña,Pro,Sonora,,10015.00,10015.00,MXN,crm,none
+HS-100536,Guajardo y Chacón S.A.,guajardo161.com.mx,Enterprise,Educación,49698.00,MXN,2022-10-03,Luis Peña,Premium,Estado de México,,49698.00,49698.00,MXN,crm,none
+HS-100537,Casanova S.A.,casanova568.com.mx,Mid-Market,Agroindustria,26698.00,MXN,2022-03-07,Marta Díaz,Pro,Puebla,,26698.00,26698.00,MXN,crm,none
+HS-100538,Alvarez y Salcido S.A. de C.V.,alvarez51.com.mx,SMB,Retail,5218.00,MXN,2023-02-03,Luis Peña,Basico,CDMX,,5218.00,5218.00,MXN,crm,none
+HS-100539,Laboratorios Sandoval-Tijerina,laboratorios4.com.mx,SMB,Salud,5502.00,MXN,2022-11-24,Fernanda Solís,Basico,Sonora,,5502.00,5502.00,MXN,crm,none
+HS-100540,Hernádez y Córdova S. R.L. de C.V.,hernádez205.com.mx,SMB,Alimentos,2794.00,MXN,2023-09-20,Ana Ruiz,Basico,Yucatán,2024-02-01,2794.00,2794.00,MXN,crm,none
+HS-100541,Arevalo-Orta,arevaloorta316.com.mx,Enterprise,Retail,58863.00,MXN,2022-02-23,Fernanda Solís,Premium,Querétaro,,58863.00,58863.00,MXN,crm,none
+HS-100542,Sepúlveda y Cisneros y Asociados,sepúlveda658.com.mx,Mid-Market,Retail,21698.00,MXN,2023-03-24,Jorge Ibarra,Pro,Guanajuato,,21698.00,21698.00,MXN,crm,none
+HS-100543,Tijerina y Rangel A.C.,tijerina457.com.mx,SMB,Tecnología,2365.00,MXN,2022-10-22,Luis Peña,Basico,Querétaro,,2365.00,2365.00,MXN,crm,none
+HS-100544,Zamora-Luna,zamoraluna64.com.mx,Mid-Market,Hospitalidad,12168.00,MXN,2023-06-16,Diego Ortega,Pro,Chihuahua,,12168.00,12168.00,MXN,crm,none
+HS-100545,"Cervántez, Esparza y Oquendo",cervántez995.com.mx,Mid-Market,Educación,16455.00,MXN,2023-03-08,Diego Ortega,Pro,Chihuahua,2023-11-21,16455.00,16455.00,MXN,crm,none
+HS-100546,"Tejada, Cortez y León",tejada989.com.mx,SMB,Educación,6386.00,MXN,2023-02-19,Jorge Ibarra,Basico,Querétaro,,6386.00,6386.00,MXN,crm,none
+HS-100547,Godoy y Fierro y Asociados,godoy405.com.mx,SMB,Retail,8995.00,MXN,2022-03-27,Carla Nuñez,Basico,Sonora,,8995.00,8995.00,MXN,crm,none
+HS-100548,Balderas-Espinoza e Hijos,balderasespi636.com.mx,Mid-Market,Automotriz,12941.00,MXN,2024-02-16,Luis Peña,Pro,Puebla,,12941.00,12941.00,MXN,crm,none
+HS-100549,Varela-Gallegos,varelagalleg130.com.mx,SMB,Construcción,2349.00,MXN,2023-09-25,Jorge Ibarra,Basico,Puebla,,2349.00,2349.00,MXN,crm,none
+HS-100550,Ledesma-Rolón S.A.,ledesmarolón152.com.mx,Mid-Market,Automotriz,17450.00,MXN,2024-04-09,Diego Ortega,Pro,Jalisco,,17450.00,17450.00,MXN,crm,none
+HS-100551,Club Cuellar-Leiva,club398.com.mx,SMB,Retail,6557.00,MXN,2022-03-21,Marta Díaz,Basico,Chihuahua,,6557.00,6557.00,MXN,crm,none
+HS-100552,Laboratorios Ramírez y Villalpando,laboratorios940.com.mx,Mid-Market,Alimentos,26123.00,MXN,2023-05-20,Jorge Ibarra,Pro,Nuevo León,,26123.00,26123.00,MXN,crm,none
+HS-100553,Nava S.C.,nava581.com.mx,Mid-Market,Tecnología,12283.00,MXN,2024-03-31,Diego Ortega,Pro,Querétaro,2024-06-05,12283.00,,MXN,imputed_from_deal,high
+HS-100554,Laboratorios Olivárez-Camarillo,laboratorios902.com.mx,Mid-Market,Servicios Financieros,22464.00,MXN,2023-11-28,Jorge Ibarra,Pro,Sonora,,22464.00,22464.00,MXN,crm,none
+HS-100555,"Proyectos González, Carrasco y Rivera",proyectos485.com.mx,Mid-Market,Hospitalidad,14642.00,MXN,2022-08-03,Carla Nuñez,Pro,Sonora,,14642.00,14642.00,MXN,crm,none
+HS-100556,Corporacin Porras-Regalado,corporacin711.com.mx,SMB,Automotriz,5290.00,MXN,2024-03-17,Marta Díaz,Basico,Puebla,,5290.00,5290.00,MXN,crm,none
+HS-100557,"Ocampo, Osorio y Oquendo",ocampo764.com.mx,SMB,Manufactura,5892.00,MXN,2023-05-06,Marta Díaz,Basico,Querétaro,,5892.00,5892.00,MXN,crm,none
+HS-100558,de la Rosa-Molina,de288.com.mx,SMB,Logística,8904.00,MXN,2022-11-21,Ana Ruiz,Basico,Puebla,,8904.00,8904.00,MXN,crm,none
+HS-100559,"Corporacin Valdez, Samaniego y Sotelo",corporacin308.com.mx,Mid-Market,Tecnología,23519.00,MXN,2023-07-15,Marta Díaz,Pro,Estado de México,,23519.00,23519.00,MXN,crm,none
+HS-100560,Velásquez y Anaya S. R.L. de C.V.,velásquez662.com.mx,Mid-Market,Hospitalidad,15158.00,MXN,2023-02-22,Diego Ortega,Pro,Estado de México,,15158.00,15158.00,MXN,crm,none
+HS-100561,"Corporacin Almanza, Vargas y Benavides",corporacin497.com.mx,Mid-Market,Agroindustria,25924.00,MXN,2024-02-23,Ana Ruiz,Pro,Chihuahua,,25924.00,25924.00,MXN,crm,none
+HS-100562,"Mejía, Paredes y Vargas",mejía68.com.mx,SMB,Tecnología,4548.00,MXN,2023-08-13,Luis Peña,Basico,Puebla,2023-10-26,4548.00,4548.00,MXN,crm,none
+HS-100563,Quintanilla y Soto S.A. de C.V.,quintanilla858.com.mx,SMB,Construcción,2472.00,MXN,2023-08-09,Marta Díaz,Basico,Puebla,,2472.00,2472.00,MXN,crm,none
+HS-100564,Urbina y Cedillo S.A.,urbina378.com.mx,SMB,Logística,8746.00,MXN,2022-09-28,Ana Ruiz,Basico,CDMX,,8746.00,8746.00,MXN,crm,none
+HS-100565,Rubio y Saiz S.C.,rubio382.com.mx,SMB,Construcción,6004.00,MXN,2022-09-30,Jorge Ibarra,Basico,Sonora,,6004.00,6004.00,MXN,crm,none
+HS-100566,"Cordero, Zamora y Salcido",cordero359.com.mx,Mid-Market,Servicios Financieros,14358.00,MXN,2022-06-10,Fernanda Solís,Pro,Jalisco,,14358.00,14358.00,MXN,crm,none
+HS-100567,Laboratorios Solano-Corrales,laboratorios29.com.mx,SMB,Logística,5166.00,MXN,2023-03-05,Diego Ortega,Basico,Puebla,,5166.00,5166.00,MXN,crm,none
+HS-100568,Corporacin Saavedra-García,corporacin663.com.mx,SMB,Construcción,3844.00,MXN,2023-10-05,Carla Nuñez,Basico,CDMX,,3844.00,3844.00,MXN,crm,none
+HS-100569,Batista-Hernádez S.A. de C.V.,batistaherná10.com.mx,Enterprise,Automotriz,70426.00,MXN,2024-02-01,Diego Ortega,Premium,CDMX,,70426.00,70426.00,MXN,crm,none
+HS-100570,"Grupo Portillo, del Río y Valdivia",grupo259.com.mx,SMB,Construcción,6983.00,MXN,2024-01-14,Fernanda Solís,Basico,Querétaro,,6983.00,6983.00,MXN,crm,none
+HS-100571,Corporacin Toledo y Anguiano,corporacin917.com.mx,SMB,Educación,5084.00,MXN,2022-01-25,Jorge Ibarra,Basico,Querétaro,,5084.00,5084.00,MXN,crm,none
+HS-100572,Industrias Centeno y Rosario,industrias534.com.mx,Mid-Market,Automotriz,22013.00,MXN,2022-02-13,Fernanda Solís,Pro,Guanajuato,2023-09-19,22013.00,22013.00,MXN,crm,none
+HS-100573,Ulibarri-Pacheco e Hijos,ulibarripach663.com.mx,SMB,Servicios Financieros,6864.00,MXN,2023-09-15,Jorge Ibarra,Basico,Jalisco,,6864.00,,MXN,imputed_from_deal,medium
+HS-100574,Vera-Maya A.C.,veramaya284.com.mx,Mid-Market,Salud,19654.00,MXN,2022-06-27,Fernanda Solís,Pro,Querétaro,,19654.00,19654.00,MXN,crm,none
+HS-100575,"Club Pabón, Serna y Caraballo",club154.com.mx,Mid-Market,Construcción,16874.00,MXN,2022-05-07,Jorge Ibarra,Pro,Guanajuato,2024-03-11,16874.00,16874.00,MXN,crm,none
+HS-100576,Nieto-Briones,nietobriones144.com.mx,Enterprise,Automotriz,70952.00,MXN,2022-01-07,Marta Díaz,Premium,Querétaro,,70952.00,70952.00,MXN,crm,none
+HS-100577,Villanueva e Hijos,villanueva415.com.mx,SMB,Educación,5180.00,MXN,2022-10-03,Carla Nuñez,Basico,Puebla,,5180.00,5180.00,MXN,crm,none
+HS-100578,Villaseñor-Marrero e Hijos,villaseñorma744.com.mx,Enterprise,Salud,72978.00,MXN,2023-02-04,Diego Ortega,Premium,Yucatán,,72978.00,72978.00,MXN,crm,none
+HS-100579,Grupo Almanza-Carrera,grupo368.com.mx,SMB,Automotriz,6155.00,MXN,2022-12-15,Carla Nuñez,Basico,Nuevo León,2024-01-15,6155.00,6155.00,MXN,crm,none
+HS-100580,Alarcón A.C.,alarcón100.com.mx,SMB,Logística,5856.00,MXN,2023-05-21,Diego Ortega,Basico,Chihuahua,,5856.00,5856.00,MXN,crm,none
+HS-100581,Collazo-Negrón S.C.,collazonegró970.com.mx,SMB,Tecnología,7568.00,MXN,2022-04-01,Luis Peña,Basico,Querétaro,2023-05-29,7568.00,7568.00,MXN,crm,none
+HS-100582,"Tejeda, Rivera y Abrego",tejeda808.com.mx,Enterprise,Educación,45076.00,MXN,2022-04-28,Jorge Ibarra,Premium,Jalisco,,45076.00,45076.00,MXN,crm,none
+HS-100583,Industrias Mares y López,industrias55.com.mx,SMB,Alimentos,7196.00,MXN,2024-02-02,Carla Nuñez,Basico,Jalisco,,7196.00,7196.00,MXN,crm,none
+HS-100584,Olivo-Parra,olivoparra391.com.mx,SMB,Automotriz,6340.00,MXN,2022-09-10,Luis Peña,Basico,Puebla,2023-04-12,6340.00,6340.00,MXN,crm,none
+HS-100585,"Sosa, Sosa y Acuña",sosa420.com.mx,Mid-Market,Salud,23993.00,MXN,2023-01-19,Fernanda Solís,Pro,Nuevo León,,23993.00,,MXN,imputed_from_deal,medium
+HS-100586,Bahena-Collado,bahenacollad500.com.mx,SMB,Retail,4724.00,MXN,2022-06-21,Ana Ruiz,Basico,Yucatán,,4724.00,4724.00,MXN,crm,none
+HS-100587,"Club Pizarro, Bernal y Díaz",club215.com.mx,SMB,Logística,8235.00,MXN,2023-12-02,Jorge Ibarra,Basico,Jalisco,,8235.00,8235.00,MXN,crm,none
+HS-100588,Despacho Urrutia y Gollum,despacho630.com.mx,SMB,Tecnología,5552.00,MXN,2023-07-28,Jorge Ibarra,Basico,Estado de México,,5552.00,5552.00,MXN,crm,none
+HS-100589,Cadena-Cantú y Asociados,cadenacantú39.com.mx,SMB,Manufactura,6372.00,MXN,2023-11-09,Ana Ruiz,Basico,Guanajuato,,6372.00,6372.00,MXN,crm,none
+HS-100590,Saldivar-Longoria,saldivarlong196.com.mx,SMB,Servicios Financieros,2146.00,MXN,2023-12-22,Luis Peña,Basico,Guanajuato,,2146.00,2146.00,MXN,crm,none
+HS-100591,Vela y Carranza e Hijos,vela133.com.mx,SMB,Logística,2841.00,MXN,2023-07-21,Luis Peña,Basico,Jalisco,,2841.00,2841.00,MXN,crm,none
+HS-100592,Laboratorios Zepeda y Domínguez,laboratorios306.com.mx,Mid-Market,Manufactura,23939.00,MXN,2023-08-17,Carla Nuñez,Pro,Guanajuato,,23939.00,23939.00,MXN,crm,none
+HS-100593,Gil S.A.,gil910.com.mx,SMB,Educación,7626.00,MXN,2023-04-10,Jorge Ibarra,Basico,Guanajuato,,7626.00,7626.00,MXN,crm,none
+HS-100594,Grupo Urías-Romero,grupo169.com.mx,SMB,Construcción,8651.00,MXN,2022-05-23,Fernanda Solís,Basico,Nuevo León,,8651.00,8651.00,MXN,crm,none
+HS-100595,"Despacho Alvarado, Ceballos y Farías",despacho752.com.mx,Enterprise,Construcción,39074.00,MXN,2022-04-29,Fernanda Solís,Premium,CDMX,,39074.00,39074.00,MXN,crm,none
+HS-100596,"Despacho Terán, Orta y Páez",despacho898.com.mx,SMB,Educación,7245.00,MXN,2023-12-21,Ana Ruiz,Basico,Sonora,,7245.00,7245.00,MXN,crm,none
+HS-100597,"Quintero, Escobedo y Carrillo",quintero678.com.mx,Mid-Market,Manufactura,9646.00,MXN,2022-03-05,Jorge Ibarra,Pro,Yucatán,,9646.00,9646.00,MXN,crm,none
+HS-100598,Vera S. R.L. de C.V.,vera127.com.mx,SMB,Educación,6483.00,MXN,2023-12-05,Luis Peña,Basico,CDMX,,6483.00,6483.00,MXN,crm,none
+HS-100599,Industrias Rosado-Gaona,industrias431.com.mx,SMB,Logística,7420.00,MXN,2023-05-10,Carla Nuñez,Basico,Sonora,,7420.00,7420.00,MXN,crm,none
+HS-100600,Club Meza y Madera,club141.com.mx,SMB,Agroindustria,5431.00,MXN,2022-07-18,Ana Ruiz,Basico,Querétaro,,5431.00,5431.00,MXN,crm,none
+HS-100601,Echeverría-Valdez,echeverríava804.com.mx,SMB,Retail,2870.00,MXN,2022-09-17,Diego Ortega,Basico,Querétaro,,2870.00,2870.00,MXN,crm,none
+HS-100602,Grupo Tejada-Rivas,grupo997.com.mx,SMB,Servicios Financieros,3652.00,MXN,2022-10-29,Luis Peña,Basico,CDMX,,3652.00,3652.00,MXN,crm,none
+HS-100603,Casárez-Murillo,casárezmuril509.com.mx,SMB,Servicios Financieros,3701.00,MXN,2022-10-04,Ana Ruiz,Basico,Jalisco,,3701.00,3701.00,MXN,crm,none
+HS-100604,"Calvillo, Burgos y Alemán",calvillo856.com.mx,SMB,Retail,6703.00,MXN,2023-06-26,Diego Ortega,Basico,Chihuahua,,6703.00,6703.00,MXN,crm,none
+HS-100605,Guardado-Chapa,guardadochap741.com.mx,SMB,Retail,7927.00,MXN,2023-02-09,Luis Peña,Basico,Yucatán,,7927.00,7927.00,MXN,crm,none
+HS-100606,Club González-Jasso,club271.com.mx,SMB,Logística,5803.00,MXN,2022-08-20,Diego Ortega,Basico,CDMX,,5803.00,5803.00,MXN,crm,none
+HS-100607,Alcala-Magaña,alcalamagaña369.com.mx,SMB,Logística,8566.00,MXN,2022-10-10,Ana Ruiz,Basico,CDMX,,8566.00,8566.00,MXN,crm,none
+HS-100608,Club Solorzano y Mireles,club873.com.mx,SMB,Manufactura,3133.00,MXN,2022-08-24,Jorge Ibarra,Basico,Sonora,,3133.00,,MXN,imputed_from_deal,medium
+HS-100609,Corporacin Urías-Lerma,corporacin900.com.mx,SMB,Logística,8005.00,MXN,2023-10-03,Luis Peña,Basico,Jalisco,,8005.00,8005.00,MXN,crm,none
+HS-100610,Batista-Briseño S.A.,batistabrise410.com.mx,Mid-Market,Educación,17907.00,MXN,2023-04-12,Diego Ortega,Pro,Yucatán,,17907.00,17907.00,MXN,crm,none
+HS-100611,Granados A.C.,granados665.com.mx,SMB,Educación,8528.00,MXN,2023-10-27,Ana Ruiz,Basico,Nuevo León,2024-06-28,8528.00,8528.00,MXN,crm,none
+HS-100612,Soria-Heredia,soriaheredia427.com.mx,Mid-Market,Retail,24816.00,MXN,2022-07-27,Jorge Ibarra,Pro,Nuevo León,,24816.00,24816.00,MXN,crm,none
+HS-100613,Proyectos Esquibel-Espinal,proyectos389.com.mx,Mid-Market,Hospitalidad,20750.00,MXN,2022-08-28,Jorge Ibarra,Pro,Yucatán,2023-03-09,20750.00,20750.00,MXN,crm,none
+HS-100614,Tijerina y Laboy S.C.,tijerina909.com.mx,SMB,Retail,5369.00,MXN,2022-07-04,Ana Ruiz,Basico,Chihuahua,2023-07-20,5369.00,5369.00,MXN,crm,none
+HS-100615,Romo S.A.,romo591.com.mx,Mid-Market,Agroindustria,27514.00,MXN,2024-04-07,Fernanda Solís,Pro,Guanajuato,,27514.00,27514.00,MXN,crm,none
+HS-100616,Colón y Muñiz S.C.,colón536.com.mx,Enterprise,Servicios Financieros,56367.00,MXN,2023-07-05,Luis Peña,Premium,Yucatán,,56367.00,56367.00,MXN,crm,none
+HS-100617,Laboratorios Armendáriz y Páez,laboratorios680.com.mx,SMB,Salud,7540.00,MXN,2023-12-24,Carla Nuñez,Basico,Sonora,,7540.00,7540.00,MXN,crm,none
+HS-100618,Cornejo-Villareal,cornejovilla12.com.mx,SMB,Manufactura,7270.00,MXN,2022-05-23,Diego Ortega,Basico,Yucatán,,7270.00,7270.00,MXN,crm,none
+HS-100619,Grupo Sanches-Quiñónez,grupo77.com.mx,Mid-Market,Tecnología,25110.00,MXN,2023-08-08,Marta Díaz,Pro,CDMX,,25110.00,25110.00,MXN,crm,none
+HS-100620,"Estrada, Rincón y Zavala",estrada229.com.mx,Mid-Market,Servicios Financieros,21407.00,MXN,2023-09-15,Ana Ruiz,Pro,Yucatán,,21407.00,21407.00,MXN,crm,none
+HS-100621,Proyectos Pineda y Villaseñor,proyectos821.com.mx,SMB,Alimentos,6694.00,MXN,2024-01-11,Jorge Ibarra,Basico,Guanajuato,,6694.00,6694.00,MXN,crm,none
+HS-100622,Proyectos Gonzales-Lebrón,proyectos510.com.mx,SMB,Retail,8104.00,MXN,2024-04-26,Ana Ruiz,Basico,Chihuahua,,8104.00,8104.00,MXN,crm,none
+HS-100623,Rangel y Asociados,rangel1.com.mx,SMB,Servicios Financieros,8765.00,MXN,2022-08-14,Carla Nuñez,Basico,Querétaro,,8765.00,8765.00,MXN,crm,none
+HS-100624,"Laboratorios Pizarro, Tamez y Rosario",laboratorios576.com.mx,SMB,Servicios Financieros,3694.00,MXN,2024-02-11,Ana Ruiz,Basico,Puebla,,3694.00,3694.00,MXN,crm,none
+HS-100625,Sevilla-Rocha S.C.,sevillarocha340.com.mx,Mid-Market,Alimentos,24503.00,MXN,2024-05-15,Fernanda Solís,Pro,Yucatán,,24503.00,24503.00,MXN,crm,none
+HS-100626,Almaraz y Sanches S.A.,almaraz100.com.mx,SMB,Retail,8220.00,MXN,2022-01-12,Diego Ortega,Basico,Querétaro,,8220.00,,MXN,imputed_from_deal,medium
+HS-100627,"Aguayo, Arellano y Treviño",aguayo535.com.mx,SMB,Servicios Financieros,5062.00,MXN,2024-06-26,Jorge Ibarra,Basico,Nuevo León,,5062.00,5062.00,MXN,crm,none
+HS-100628,Santillán S.C.,santillán761.com.mx,Mid-Market,Agroindustria,22409.00,MXN,2022-08-16,Luis Peña,Pro,Puebla,,22409.00,22409.00,MXN,crm,none
+HS-100629,Amaya-Prado,amayaprado953.com.mx,SMB,Retail,8981.00,MXN,2023-06-25,Diego Ortega,Basico,Puebla,,8981.00,8981.00,MXN,crm,none
+HS-100630,Lovato-Montañez,lovatomontañ347.com.mx,SMB,Agroindustria,2882.00,MXN,2024-02-18,Diego Ortega,Basico,Sonora,,2882.00,2882.00,MXN,crm,none
+HS-100631,Grupo Cordero-Gaitán,grupo791.com.mx,Mid-Market,Retail,23987.00,MXN,2024-01-15,Carla Nuñez,Pro,Nuevo León,,23987.00,23987.00,MXN,crm,none
+HS-100632,Club Perea y Salcido,club5.com.mx,Enterprise,Alimentos,64256.00,MXN,2023-10-04,Diego Ortega,Premium,Sonora,,64256.00,64256.00,MXN,crm,none
+HS-100633,Proyectos Carreón-Tijerina,proyectos947.com.mx,SMB,Alimentos,6164.00,MXN,2024-01-01,Fernanda Solís,Basico,Nuevo León,,6164.00,6164.00,MXN,crm,none
+HS-100634,"Regalado, Valverde y Lugo",regalado397.com.mx,SMB,Retail,7386.00,MXN,2023-08-21,Jorge Ibarra,Basico,Sonora,,7386.00,7386.00,MXN,crm,none
+HS-100635,Rincón y Jaimes S.A. de C.V.,rincón781.com.mx,SMB,Agroindustria,4033.00,MXN,2024-04-17,Marta Díaz,Basico,Yucatán,,4033.00,4033.00,MXN,crm,none
+HS-100636,Aparicio y Asociados,aparicio142.com.mx,SMB,Tecnología,5381.00,MXN,2022-08-06,Carla Nuñez,Basico,Guanajuato,,5381.00,5381.00,MXN,crm,none
+HS-100637,Cavazos y Quiroz S.A. de C.V.,cavazos755.com.mx,SMB,Agroindustria,6534.00,MXN,2023-01-21,Marta Díaz,Basico,Guanajuato,2024-03-21,6534.00,6534.00,MXN,crm,none
+HS-100638,Industrias Zaragoza-Lira,industrias136.com.mx,SMB,Automotriz,7819.00,MXN,2024-04-29,Fernanda Solís,Basico,Guanajuato,,7819.00,7819.00,MXN,crm,none
+HS-100639,Club Baeza-Jaramillo,club119.com.mx,SMB,Agroindustria,8232.00,MXN,2022-04-20,Carla Nuñez,Basico,Estado de México,,8232.00,8232.00,MXN,crm,none
+HS-100640,Bañuelos-Gallegos,bañuelosgall766.com.mx,SMB,Automotriz,8892.00,MXN,2022-05-10,Jorge Ibarra,Basico,CDMX,,8892.00,8892.00,MXN,crm,none
+HS-100641,Rolón S.A. de C.V.,rolón110.com.mx,SMB,Servicios Financieros,40829.50,MXN,2023-05-25,Luis Peña,Basico,Querétaro,2023-08-21,40829.50,2207.00,USD,crm,none
+HS-100642,Muñiz-Pelayo,muñizpelayo294.com.mx,SMB,Tecnología,7598.00,MXN,2024-05-16,Fernanda Solís,Basico,Querétaro,,7598.00,,MXN,imputed_from_deal,medium
+HS-100643,"Prado, Ozuna y Orellana",prado772.com.mx,SMB,Construcción,6433.00,MXN,2023-02-10,Ana Ruiz,Basico,Sonora,,6433.00,6433.00,MXN,crm,none
+HS-100644,Corporacin Nieto-Pantoja,corporacin758.com.mx,SMB,Automotriz,6602.00,MXN,2022-12-23,Jorge Ibarra,Basico,Puebla,,6602.00,6602.00,MXN,crm,none
+HS-100645,Jimínez e Hijos,jimínez804.com.mx,SMB,Servicios Financieros,8527.00,MXN,2022-10-13,Jorge Ibarra,Basico,Estado de México,,8527.00,8527.00,MXN,crm,none
+HS-100646,Club Morales y Portillo,club980.com.mx,Enterprise,Educación,64184.00,MXN,2022-02-01,Fernanda Solís,Premium,Querétaro,,64184.00,64184.00,MXN,crm,none
+HS-100647,Industrias Arce-Iglesias,industrias636.com.mx,Mid-Market,Construcción,282216.00,MXN,2022-12-14,Fernanda Solís,Pro,Guanajuato,,282216.00,,MXN,imputed_from_deal,medium
+HS-100648,Gallardo-Bustamante S.A.,gallardobust560.com.mx,Mid-Market,Hospitalidad,15437.00,MXN,2023-04-30,Luis Peña,Pro,Querétaro,,15437.00,15437.00,MXN,crm,none
+HS-100649,Reséndez-Estévez S. R.L. de C.V.,reséndezesté182.com.mx,Mid-Market,Alimentos,211640.00,MXN,2022-08-25,Fernanda Solís,Pro,Chihuahua,,211640.00,11440.00,USD,crm,none
+HS-100650,"Laboratorios Acevedo, Roldán y Quezada",laboratorios387.com.mx,SMB,Retail,2332.00,MXN,2024-03-23,Luis Peña,Basico,Nuevo León,,2332.00,2332.00,MXN,crm,none
+HS-900000,"Marroquín, Leiva y Maya SA DE CV",marroquín797.com.mx,Mid-Market,Alimentos,,MXN,2023-03-28,Luis Peña,Pro,Sonora,2024-02-08,,,MXN,clone_excluded,none
+HS-900001,CALDERÓN S.A.,calderón375.com.mx,SMB,Educación,,MXN,2024-05-08,Diego Ortega,Basico,Jalisco,,,,MXN,clone_excluded,none
+HS-900002,LAUREANO-OCASIO,laureanoocas684.com.mx,SMB,Manufactura,,MXN,2023-01-23,Carla Nuñez,Basico,Querétaro,2024-03-09,,,MXN,clone_excluded,none
+HS-900003,Maestas-Bustos A.C. SA DE CV,maestasbusto63.com.mx,Enterprise,Alimentos,,MXN,2024-06-12,Luis Peña,Premium,Chihuahua,,,,MXN,clone_excluded,none
+HS-900004,VELA Y CARRANZA E HIJOS,vela133.com.mx,SMB,Logística,,MXN,2023-07-21,Luis Peña,Basico,Jalisco,,,,MXN,clone_excluded,none
+HS-900005,INDUSTRIAS ARCE-IGLESIAS,industrias636.com.mx,Mid-Market,Construcción,,MXN,2022-12-14,Fernanda Solís,Pro,Guanajuato,,,,MXN,clone_excluded,none
+HS-900006,Proyectos Garibay-Espinosa SA DE CV,proyectos892.com.mx,SMB,Agroindustria,,MXN,2024-02-04,Luis Peña,Basico,Puebla,,,,MXN,clone_excluded,none
+HS-900007,"Laboratorios Téllez, Sanches y Abreu SA DE CV",laboratorios886.com.mx,SMB,Construcción,,MXN,2024-02-07,Luis Peña,Basico,Guanajuato,,,,MXN,clone_excluded,none
+HS-900008,"LABORATORIOS MARÍN, DEL RÍO Y GARRIDO",laboratorios422.com.mx,SMB,Servicios Financieros,,MXN,2022-11-24,Carla Nuñez,Basico,Puebla,2024-02-18,,,MXN,clone_excluded,none
+HS-900009,DESPACHO HERNÁNDEZ-APONTE,despacho576.com.mx,SMB,Manufactura,,MXN,2022-10-09,Jorge Ibarra,Basico,Puebla,,,,MXN,clone_excluded,none
+HS-900010,PUENTE E HIJOS,puente792.com.mx,SMB,Logística,,MXN,2023-08-16,Carla Nuñez,Basico,Querétaro,,,,MXN,clone_excluded,none
+HS-900011,Grupo Guzmán-de Anda SA DE CV,grupo393.com.mx,SMB,Logística,,MXN,2023-09-01,Marta Díaz,Basico,Querétaro,,,,MXN,clone_excluded,none
+HS-900012,"Márquez, Adame y Cepeda SA DE CV",márquez390.com.mx,Mid-Market,Hospitalidad,,MXN,2022-04-26,Diego Ortega,Pro,Sonora,,,,MXN,clone_excluded,none
+HS-900013,VILLARREAL Y ROBLES S. R.L. DE C.V.,villarreal986.com.mx,SMB,Construcción,,MXN,2022-07-03,Jorge Ibarra,Basico,Puebla,,,,MXN,clone_excluded,none
+HS-900014,Tijerina y Laboy S.C. SA DE CV,tijerina909.com.mx,SMB,Retail,,MXN,2022-07-04,Ana Ruiz,Basico,Chihuahua,2023-07-20,,,MXN,clone_excluded,none
+HS-900015,CORPORACIN CARRERO-DURÁN,corporacin580.com.mx,SMB,Tecnología,,MXN,2024-02-14,Ana Ruiz,Basico,Chihuahua,2024-04-17,,,MXN,clone_excluded,none
+HS-900016,Industrias Bétancourt y Sisneros SA DE CV,industrias348.com.mx,SMB,Educación,,MXN,2022-11-04,Diego Ortega,Basico,Chihuahua,,,,MXN,clone_excluded,none
+HS-900017,Pulido-Olivárez SA DE CV,pulidoolivár463.com.mx,SMB,Alimentos,,MXN,2022-09-03,Ana Ruiz,Basico,Jalisco,,,,MXN,clone_excluded,none
+HS-900018,Correa-Garibay SA DE CV,correagariba125.com.mx,Mid-Market,Logística,,MXN,2023-01-19,Carla Nuñez,Pro,Yucatán,,,,MXN,clone_excluded,none
+HS-900019,BRITO-ALVARADO,britoalvarad564.com.mx,SMB,Agroindustria,,MXN,2022-08-26,Marta Díaz,Basico,Querétaro,,,,MXN,clone_excluded,none
+HS-900020,CLUB GONZÁLEZ-JASSO,club271.com.mx,SMB,Logística,,MXN,2022-08-20,Diego Ortega,Basico,CDMX,,,,MXN,clone_excluded,none
+HS-900021,Zapata-Moreno SA DE CV,zapatamoreno696.com.mx,Mid-Market,Automotriz,,MXN,2022-04-03,Fernanda Solís,Pro,Estado de México,2023-05-20,,,MXN,clone_excluded,none
+HS-900022,"CLUB MARRERO, GUZMÁN Y VELA",club423.com.mx,SMB,Manufactura,,MXN,2023-06-22,Ana Ruiz,Basico,Puebla,,,,MXN,clone_excluded,none
+HS-900023,GIL S.A.,gil910.com.mx,SMB,Educación,,MXN,2023-04-10,Jorge Ibarra,Basico,Guanajuato,,,,MXN,clone_excluded,none
+HS-900024,Amaya y Vázquez y Asociados SA DE CV,amaya21.com.mx,Enterprise,Construcción,,MXN,2023-07-01,Carla Nuñez,Premium,Puebla,,,,MXN,clone_excluded,none
+HS-900025,POLANCO-TERÁN E HIJOS,polancoterán45.com.mx,Mid-Market,Educación,,MXN,2022-02-26,Jorge Ibarra,Pro,Estado de México,,,,MXN,clone_excluded,none
+HS-900026,Corporacin Ruelas-Feliciano SA DE CV,corporacin441.com.mx,Enterprise,Hospitalidad,,MXN,2023-04-15,Diego Ortega,Premium,Chihuahua,,,,MXN,clone_excluded,none
+HS-900027,"Tejada, Cortez y León SA DE CV",tejada989.com.mx,SMB,Educación,,MXN,2023-02-19,Jorge Ibarra,Basico,Querétaro,,,,MXN,clone_excluded,none

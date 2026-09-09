@@ -1,12 +1,13 @@
-"""Idempotencia de `worky_engine.cleaning`, version parcial (sin imputacion, seccion 7 del diseno de A6).
+"""Idempotencia de `worky_engine.cleaning`, con la imputacion del ADR-002 activa (seccion 7 del diseno de A6).
 
 Los dos primeros escenarios corren sobre la fixture minima de
 `tests/test_cleaning_rules.py`, sin marca `dataset`. Los otros dos
-corren sobre el dataset real y confirman que `clean` nunca toca los
-veinte archivos ya versionados bajo `outputs/` (`git ls-files outputs/`
-en este repositorio). La comparacion byte a byte de los cuatro archivos
-de `outputs/clean/` sobre el dataset real, con la imputacion activa, se
-completa en PR2 (task 2.7): este PR ya la corre sin imputacion.
+corren sobre el dataset real: confirman que las cuatro salidas de
+`outputs/clean/` salen identicas byte a byte entre dos corridas con
+imputacion activa, que una tercera pasada sobre `companies_clean.csv`
+reporta cero correcciones, y que `clean` nunca toca los veinte archivos
+ya versionados bajo `outputs/` (`git ls-files outputs/` en este
+repositorio).
 """
 
 from __future__ import annotations

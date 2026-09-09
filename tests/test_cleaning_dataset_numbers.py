@@ -1,10 +1,9 @@
 """Pruebas de conteo exacto de `worky_engine.cleaning` sobre el dataset real (marca `dataset`).
 
-Version parcial de esta suite (seccion 9 del diseno de
-`a6-cleaning-script`): sin la imputacion del ADR-002, que llega en
-PR2. Los cinco conteos que este PR ya puede verificar sobre las 678
-filas reales son 56, 28, 22, 31 y 12; los deals anualizados (3) y las
-112 filas totales de `cleaning_exceptions.csv` se completan en PR2.
+Cubre los ocho conteos de la seccion 9 del diseno de
+`a6-cleaning-script` sobre las 678 filas reales: 56 mrr nulo (28
+clones, 28 imputados), 22 USD, 31 fechas normalizadas (12 ambiguas), 3
+deals anualizados y las 112 filas totales de `cleaning_exceptions.csv`.
 """
 
 from __future__ import annotations
@@ -31,13 +30,15 @@ def clean_result(data_dir: Path):
 
 
 def test_conteo_exacto_sobre_el_dataset(clean_result) -> None:
-    """56 filas con mrr nulo, de las cuales 28 son clones HS-9000xx y 28 son empresas reales imputables."""
+    """56 filas con mrr nulo, de las cuales 28 son clones HS-9000xx y 28 quedan imputadas desde sus deals."""
     clean = clean_result.clean
     assert int((clean["mrr_source"] == "clone_excluded").sum()) == 28
-    assert int((clean["mrr_source"] == "unresolved").sum()) == 28
+    assert int((clean["mrr_source"] == "imputed_from_deal").sum()) == 28
+    assert int((clean["mrr_source"] == "unresolved").sum()) == 0
     missing_mrr_rule = next(rule for rule in clean_result.counts["rules"] if rule["rule"] == "missing_mrr")
     assert missing_mrr_rule["detected"] == 56
     assert missing_mrr_rule["excluded_clones"] == 28
+    assert missing_mrr_rule["corrected"] == 28
 
 
 def test_conteo_exacto_de_usd(clean_result) -> None:
@@ -64,7 +65,7 @@ def test_churn_date_sin_mezcla_de_formatos(clean_result) -> None:
 
 
 def test_conteos_exactos_en_json_y_en_md(clean_result) -> None:
-    """cleaning_log.json trae los conteos exactos 56, 28, 22, 31 y 12 (version parcial, sin deals anualizados)."""
+    """cleaning_log.json trae los conteos exactos 56, 28, 22, 31, 12 y 3 deals anualizados, con 112 filas de bitacora."""
     from worky_engine.cleaning import format_cleaning_log
 
     counts = clean_result.counts
@@ -74,10 +75,13 @@ def test_conteos_exactos_en_json_y_en_md(clean_result) -> None:
 
     assert missing_mrr_rule["detected"] == 56
     assert missing_mrr_rule["excluded_clones"] == 28
+    assert missing_mrr_rule["corrected"] == 28
+    assert missing_mrr_rule["annualized_deals"] == 3
+    assert missing_mrr_rule["unresolved"] == 0
     assert currency_rule["detected"] == 22
     assert date_rule["corrected"] == 31
     assert date_rule["ambiguous"] == 12
-    assert missing_mrr_rule["annualized_deals"] == 0
+    assert counts["totals"]["exception_rows"] == 112
 
     markdown = format_cleaning_log(counts)
     assert "56" in markdown
@@ -85,3 +89,4 @@ def test_conteos_exactos_en_json_y_en_md(clean_result) -> None:
     assert "22" in markdown
     assert "31" in markdown
     assert "12" in markdown
+    assert "3" in markdown

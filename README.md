@@ -45,6 +45,12 @@ Requiere Python 3.12 o superior. El dataset del caso (`fundation-docs/dataset_ca
    python -m worky_engine warehouse --data-dir fundation-docs --out-dir outputs/warehouse
    ```
 
+7. Corre la limpieza automática de `companies.csv` de A6 (ADR-002), sin haber corrido `build` antes. Detecta y corrige fechas, montos en USD y `mrr` nulo, e imputa el `mrr` faltante desde los deals de cada empresa; el wrapper `scripts/clean_companies.py` acepta los mismos argumentos y produce exactamente la misma salida:
+
+   ```bash
+   python -m worky_engine clean --data-dir fundation-docs --out-dir outputs/clean
+   ```
+
 ## Qué produce
 
 | Archivo en `outputs/` | Qué es |
@@ -62,6 +68,10 @@ Requiere Python 3.12 o superior. El dataset del caso (`fundation-docs/dataset_ca
 | `health/validation.md` | La validación medida del health score contra `churn_date`: AUC por señal, precisión, recall, recall ponderado por MRR, sensibilidades y la respuesta a A3.4 |
 | `warehouse/dim_company.csv` | 650 empresas vigentes, una fila por banda de SCD2 sobre `plan` y `csm_owner` (ADR-006) |
 | `warehouse/map_source_identity.csv` | Un vínculo por sistema origen a `master_id`, marcado `cascade` u `override` |
+| `clean/companies_clean.csv` | Las 678 filas de `companies.csv` con fechas, moneda y `mrr` corregidos, más `mrr_mxn`, `mrr_original`, `currency_original`, `mrr_source` y `mrr_confidence` (A6, ADR-002) |
+| `clean/cleaning_exceptions.csv` | 112 filas, una por corrección o reporte: mrr imputado, deal anualizado, USD convertido, fecha normalizada o clon excluido |
+| `clean/cleaning_log.json` | Los conteos exactos por regla, en el esquema `worky.cleaning-log/v1` |
+| `clean/cleaning_log.md` | El mismo resumen en español, en una tabla por regla |
 
 ## Dónde está cada cosa
 
