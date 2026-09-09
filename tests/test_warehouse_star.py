@@ -285,14 +285,28 @@ def test_ticket_y_touch_de_fechas_distintas_ven_csm_distinto(warehouse_setup) ->
     }
 
 
-def test_marts_y_staging_sin_cambios(warehouse_setup) -> None:
-    """Ningun archivo de `sql/staging/` ni de `sql/marts/` cambia una linea al correr `warehouse`."""
+def test_marts_y_staging_sin_cambios(tmp_path: Path) -> None:
+    """Ningun archivo de `sql/staging/` ni de `sql/marts/` cambia una linea al correr `warehouse`.
+
+    Los hashes se toman antes de ensamblar y correr el warehouse, y se
+    vuelven a tomar despues; la corrida ocurre en medio, dentro de la
+    propia prueba, para que la comparacion pueda fallar de verdad.
+    """
     staging_files = sorted((SQL_DIR / "staging").glob("*.sql"))
     mart_files = sorted((SQL_DIR / "marts").glob("*.sql"))
     assert staging_files, "se esperaban archivos de staging"
     assert mart_files, "se esperaban archivos de marts"
     before = {path: hashlib.sha256(path.read_bytes()).hexdigest() for path in staging_files + mart_files}
-    # `warehouse_setup` ya corrio `run_warehouse` antes de llegar aqui.
+
+    raw_tables = _raw_tables()
+    identity_outputs = _identity_outputs(raw_tables)
+    con = _open_assembled_connection(tmp_path, raw_tables, identity_outputs)
+    try:
+        result = run_warehouse(con, overrides=None)
+    finally:
+        con.close()
+    assert result is not None
+
     after = {path: hashlib.sha256(path.read_bytes()).hexdigest() for path in staging_files + mart_files}
     assert before == after
 
