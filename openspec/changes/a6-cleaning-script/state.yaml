@@ -22,7 +22,7 @@ phases:
   explore: done (el sub-agente no pudo guardar en Engram por ambiguedad de sesion; el orquestador materializo exploration.md, guardo el topic con la sesion manual y verifico las cifras contra los CSV reales)
   research: not_selected (el usuario eligio todas las recomendaciones el 2026-09-09)
   proposal: done (gate inline del orquestador: capacidad nueva declarada, sin modificadas, cifras verificadas)
-  specs: in_progress
+  specs: done (data-cleaning nuevo: 11 requisitos, 26 escenarios; deals.csv obligatorio; marcadores nativos verificados)
   design: in_progress
   tasks: blocked
   apply: blocked
