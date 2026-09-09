@@ -25,7 +25,15 @@ phases:
   specs: done (data-cleaning nuevo: 11 requisitos, 26 escenarios; deals.csv obligatorio; marcadores nativos verificados)
   design: done (D1 a D12; validador en contexto fresco: bloqueo de esquema del log resuelto alineando spec y diseno en diez columnas con confidence y evidence_ref; escenario de dependencia reescrito; deals_in 997 y deals_matched 962; D8 con dueno en runner.py)
   tasks: done (21 tareas en dos PR apilados: PR1 feat/a6-pr1-clean-rules reglas, log y comando; PR2 feat/a6-pr2-clean-impute imputacion ADR-002, contratos, equivalencia, idempotencia y goldens; forecast ~500/~400, riesgo Medium)
-  apply: in_progress (PR1 en el arbol principal; RDD apagado durante el apply y encendido solo para revisar cada candidato comprometido)
+  apply: in_progress (PR1 done: 11/21 tareas, 1,190 lineas de autoria con size:exception aceptada, correccion de diez hallazgos de la revision nativa en dcb188c; PR2 en curso)
   verify: blocked
   archive: blocked
 next_recommended: sdd-apply PR1; revision nativa; PR2; verify; archive
+review_receipts:
+  pr1:
+    branch: feat/a6-pr1-clean-rules
+    base: main 680edc7 (committed-only)
+    commits: 47c30c8 (codigo), e24639d (docs sdd), dcb188c (correccion), 59242df (diseno D8 y spec 11/28 sincronizados)
+    size_exception: aceptada por el usuario (1,190 lineas de autoria)
+    lineage: review-a1ac5a1a71fed293 (riesgo alto, cuatro lentes): correction_required con diez CRITICAL en tres causas raiz, corregidos; recuperado como review-a6pr1-recovered (scope_changed por un PDF ajeno sin versionar que aparecio en la raiz y se movio fuera con permiso del usuario)
+    result: sin recibo: las cuatro capturas del linaje recuperado fallaron ocho veces por rechazo del proveedor del modelo (salvaguardas de Opus 5); los cuatro lentes se declararon no alcanzables (provider_safeguard_refusal) por decision del usuario; entrega por politica ordinaria (pruebas 275, verify independiente y verificador en contexto fresco por riesgo alto)
