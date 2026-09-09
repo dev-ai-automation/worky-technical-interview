@@ -22,8 +22,8 @@ phases:
   proposal: done (propuesta escrita; Engram #1888; aprobada por el usuario: "Sí, lanza las dos fases")
   specs: done (dominio nuevo health-score: 12 requisitos, 25 escenarios; Engram #1894)
   design: done (D1 a D21; Engram #1900; spec alineado en mes de cierre derivado de los datos y dominio de risk_band)
-  tasks: pending
+  tasks: done (28 tareas en 3 PR apilados; forecast: decision needed No, chained Yes, riesgo medio; PR1 ~600, PR2 ~560, PR3 ~470 lineas)
   apply: pending
   verify: pending
   archive: pending
-next_recommended: sdd-tasks, luego revisar el Review Workload Forecast antes de apply
+next_recommended: sdd-apply PR 1 (feat/a3-pr1-health-scoring) con RDD, luego PR 2 y PR 3 apilados
