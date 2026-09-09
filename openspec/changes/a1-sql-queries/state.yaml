@@ -20,10 +20,10 @@ phases:
   explore: done
   research: not_selected
   proposal: done (propuesta escrita; Engram #1820; pendiente aprobacion del usuario para lanzar specs y diseno)
-  specs: pending
-  design: pending
+  specs: done (dominio nuevo sql-analysis: 10 requisitos, 22 escenarios; Engram sdd/a1-sql-queries/spec)
+  design: done (D1 a D15; Engram #1832; spec alineado en --out-dir outputs/analysis y borde months_to_churn > k)
   tasks: pending
   apply: pending
   verify: pending
   archive: pending
-next_recommended: aprobar la propuesta y lanzar sdd-spec y sdd-design en paralelo
+next_recommended: sdd-tasks, luego revisar el Review Workload Forecast antes de apply
