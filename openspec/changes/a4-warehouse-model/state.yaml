@@ -25,8 +25,8 @@ phases:
   proposal: done (Engram #1979; ajustada por el orquestador tras el gate: build y resolve tambien aplican overrides, identity-resolution como capacidad modificada; aprobada por el usuario: "Si, build tambien")
   specs: done (warehouse-model nuevo: 12 requisitos, 26 escenarios; delta identity-resolution: 1 requisito agregado, 5 escenarios tras sincronizar la falla cerrada de D17 y el source_id desconocido; Engram #1986 reescrito; marcadores nativos en ingles verificados)
   design: done (D1 a D21; Engram #1991; validador de contrato en contexto fresco: sin referencias inventadas; el orquestador corrigio el presupuesto a 800 por PR, agrego la seccion 12 de cambios por archivo y sincronizo ADR-006, spec delta y propuesta con D15/D17; el archivo design.md es la version autoritativa)
-  tasks: in_progress
+  tasks: done (31 tareas en 4 PR apilados a main: PR1 overrides 5, PR2 estrella 12, PR3 SCD2+health 9, PR4 docs 6; forecast: decision needed No, chained Yes, riesgo Medium; ~255/380/390/200 lineas)
   apply: blocked
   verify: blocked
   archive: blocked
-next_recommended: sdd-tasks (auto-chain; confirmar chain_strategy stacked-to-main)
+next_recommended: sdd-apply PR1 en feat/a4-pr1-identity-overrides (encender RDD antes de lanzarlo)
