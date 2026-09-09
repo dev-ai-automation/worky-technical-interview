@@ -30,6 +30,8 @@ ZIP_NAME = "dataset_caso_v3.zip"
 DEFAULT_DB_PATH = Path(".build") / "worky.duckdb"
 DEFAULT_ANALYSIS_DB_PATH = Path(".build") / "worky_analysis.duckdb"
 DEFAULT_ANALYSIS_OUT_DIR = Path("outputs") / "analysis"
+DEFAULT_HEALTH_DB_PATH = Path(".build") / "worky_health.duckdb"
+DEFAULT_HEALTH_OUT_DIR = Path("outputs") / "health"
 
 
 def _exit_missing_dependency(error: ImportError) -> None:
@@ -89,6 +91,18 @@ def _import_analyze_dependencies():
         ANALYSIS_OUTPUTS,
         format_report,
     )
+
+
+def _import_health_dependencies():
+    """Importa las piezas de `health` en el primer uso: DuckDB, el corredor de A3 y sus contratos."""
+    try:
+        from worky_engine.health.runner import run_health
+        from worky_engine.identity_resolution import resolve_identity
+        from worky_engine.master_dataset import assemble_master_dataset, open_connection
+        from worky_engine.quality.health_contracts import run_health_contracts
+    except ImportError as error:
+        _exit_missing_dependency(error)
+    return resolve_identity, assemble_master_dataset, open_connection, run_health, run_health_contracts
 
 
 def _reconfigure_streams_to_utf8() -> None:
@@ -296,6 +310,62 @@ def cmd_analyze(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_health(args: argparse.Namespace) -> int:
+    """Corre identidad, ensamblaje y las tres corridas de A3 (ADR-005), sin `build` previo.
+
+    Mismo orden que `cmd_analyze`: importacion diferida, `_resolve_data_dir`,
+    `load_raw_tables`, `resolve_identity` en memoria, `open_connection`
+    propio, `assemble_master_dataset`, `run_contracts` de A0 sobre el
+    dataset recien ensamblado, `run_health`, `run_health_contracts` y
+    `write_csv`. En este PR solo escribe `health_scores.csv`:
+    `validation.md` llega en el PR 3 con `report.py`, el mismo patron
+    incremental que ya siguio `cmd_analyze` en A1 (brecha documentada
+    en tasks.md). Mismos codigos de salida que `build` y `analyze`.
+    """
+    (
+        resolve_identity, assemble_master_dataset, open_connection, run_health, run_health_contracts,
+    ) = _import_health_dependencies()
+    data_dir = _resolve_data_dir(Path(args.data_dir))
+    out_dir = Path(args.out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    raw_tables = load_raw_tables(data_dir)
+    identity_outputs = resolve_identity(raw_tables, existing_crosswalk=None, reuse_crosswalk=True)
+
+    con = open_connection(args.db_path)
+    try:
+        assembly_outputs = assemble_master_dataset(con, raw_tables, identity_outputs)
+        try:
+            run_contracts(
+                assembly_outputs["master_dataset"],
+                identity_outputs["identity_crosswalk"],
+                assembly_outputs["exceptions_log"],
+                identity_outputs["match_audit"],
+                raw_tables,
+                identity_outputs["quarantine_companies"],
+            )
+        except ContractViolation as error:
+            print(f"health: {error}", file=sys.stderr)
+            return 1
+
+        result = run_health(con)
+        try:
+            run_health_contracts(result.scores, result.formatted, assembly_outputs["master_dataset"])
+        except ContractViolation as error:
+            print(f"health: {error}", file=sys.stderr)
+            return 1
+    finally:
+        con.close()
+
+    write_csv(result.formatted, out_dir / "health_scores.csv")
+
+    print(
+        f"health: {len(result.formatted)} empresas puntuadas, health_scores.csv en {out_dir} "
+        "(validation.md llega en el PR 3)"
+    )
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="worky_engine")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -341,6 +411,14 @@ def build_parser() -> argparse.ArgumentParser:
     analyze_subparser.add_argument("--out-dir", default=str(DEFAULT_ANALYSIS_OUT_DIR))
     analyze_subparser.add_argument("--db-path", default=str(DEFAULT_ANALYSIS_DB_PATH))
     analyze_subparser.set_defaults(func=cmd_analyze)
+
+    health_subparser = subparsers.add_parser(
+        "health", help="Corre el health score de A3 (ADR-005) y escribe health_scores.csv, sin build previo."
+    )
+    health_subparser.add_argument("--data-dir", required=True)
+    health_subparser.add_argument("--out-dir", default=str(DEFAULT_HEALTH_OUT_DIR))
+    health_subparser.add_argument("--db-path", default=str(DEFAULT_HEALTH_DB_PATH))
+    health_subparser.set_defaults(func=cmd_health)
 
     return parser
 

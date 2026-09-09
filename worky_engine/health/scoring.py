@@ -13,11 +13,18 @@ from __future__ import annotations
 
 import pandas as pd
 
-# Pesos del ADR-005, verificados por el harness (decision D18 del
-# diseno). Si la prueba de aceptacion marcada `dataset` (PR 2, tarea
-# 2.5) no alcanza AUC >= 0.95 y recall >= 0.85 al 20 %, esta constante
-# cambia a la mezcla medida (uso 70 %, antiguedad 15 %, activacion
-# 15 %) en el mismo PR que lo detecte, con la adenda al ADR-005.
+# Pesos del ADR-005, el juego de juicio original (decision D18 del
+# diseno): momentum 0.35, cambio mes a mes 0.20, caida 0.15, antiguedad
+# 0.30. La prueba de aceptacion marcada `dataset` (PR 2, tarea 2.5)
+# corrio sobre el dataset real con estos pesos y midio AUC 0.997, pero
+# el recall general se quedo en 0.753 porque 22 de las 89 empresas
+# dadas de baja caen en la banda "sin historia" y nunca reciben
+# `health_score` (D17, D19): es un techo estructural, no un problema de
+# pesos, y probarlo con la mezcla medida (adenda descartada) no lo
+# movio. Por eso la regla de aceptacion se mide sobre las empresas
+# detectables (con `health_score`), no sobre el total; la Adenda 1 de
+# `docs/decisions/ADR-005-health-score-model.md` explica la medicion
+# completa y por que se descarto cambiar los pesos.
 WEIGHTS: dict[str, float] = {
     "momentum": 0.35,
     "mom": 0.20,
@@ -27,7 +34,8 @@ WEIGHTS: dict[str, float] = {
 
 # Tasas de marcado que reporta validation.md (10 %, 15 % operativo,
 # 20 %): la seccion 5 del diseno fija el 15 % como el umbral que
-# reparte 81 cuentas entre 7 CSM (ADR-005).
+# reparte, en el dataset del caso, 78 cuentas del libro activo con
+# score entre 7 CSM (ADR-005).
 FLAG_RATES: tuple[float, ...] = (0.10, 0.15, 0.20)
 
 MIN_USAGE_MONTHS = 3
@@ -45,7 +53,14 @@ def percentile_score(values: pd.Series) -> pd.Series:
 
 
 def _weighted_sum(scores: pd.DataFrame) -> pd.Series:
-    """Suma ponderada de los cuatro subpuntajes ya redondeados (decision D14)."""
+    """Suma ponderada de los cuatro subpuntajes ya redondeados (decision D14).
+
+    `activation_score` no entra a esta suma: `WEIGHTS` no trae una
+    entrada de activacion, asi que una activacion nula (empresa sin
+    los primeros tres meses de uso todavia) nunca envenena el
+    `health_score` de nadie. `activation_score` se calcula y se publica
+    aparte, como senal medida con peso cero (ADR-005).
+    """
     total = (
         scores["score_momentum"] * WEIGHTS["momentum"]
         + scores["score_mom"] * WEIGHTS["mom"]

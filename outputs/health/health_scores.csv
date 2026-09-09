@@ -1,0 +1,651 @@
+master_id,hubspot_id,segment,acquisition_channel,mrr_mxn,churned,reference_month,asof_month,usage_months_asof,score_momentum,score_mom,score_drawdown,score_tenure,tickets_window_total,tickets_window_urgent,csat_window_avg,activation_score,health_score,risk_band,flagged_10,flagged_15,flagged_20
+8ab5e8824094,HS-100453,SMB,Referral,7129.00,True,2023-08,2023-06,4,4.19,3.42,3.93,17.31,0,0,,4.53,7.93,riesgo alto,True,True,True
+d6eff0593968,HS-100101,SMB,Paid Search,4967.00,True,2023-06,2023-04,4,4.19,3.42,3.93,17.31,0,0,,3.76,7.93,riesgo alto,True,True,True
+c14e78b458d1,HS-100072,SMB,Partner,8502.00,True,2024-05,2024-03,6,1.88,1.11,2.56,25.31,0,0,,37.18,8.86,riesgo alto,True,True,True
+acef081a80f0,HS-100217,SMB,Webinar,2934.00,True,2024-05,2024-03,7,0.51,0.17,1.54,29.08,0,0,,14.87,9.17,riesgo alto,True,True,True
+5ce69a34518d,HS-100351,SMB,Evento,89447.50,True,2024-06,2024-04,4,5.81,3.42,10.77,17.31,0,0,,37.95,9.53,riesgo alto,True,True,True
+868d321ac39e,HS-100225,SMB,Paid Search,8634.00,True,2024-06,2024-04,5,4.96,3.42,6.67,21.62,0,0,,36.92,9.91,riesgo alto,True,True,True
+fa78e5fd572a,HS-100401,SMB,Organic,6039.00,True,2023-08,2023-06,5,5.98,0.51,8.72,21.62,0,0,,40.77,9.99,riesgo alto,True,True,True
+fca6820379e6,HS-100283,SMB,Paid Search,2453.00,True,2023-07,2023-05,4,8.21,1.71,12.65,17.31,0,0,,57.78,10.31,riesgo alto,True,True,True
+078d848b2f9f,HS-100042,SMB,Paid Search,6160.00,True,2023-04,2023-02,4,7.86,5.21,10.60,17.31,0,0,,48.12,10.58,riesgo alto,True,True,True
+db6aaecba31f,HS-100083,SMB,Referral,7684.00,True,2023-12,2023-10,8,0.34,0.34,4.53,32.46,1,0,3.00,10.60,10.60,riesgo alto,True,True,True
+77c327404c72,HS-100613,Mid-Market,Evento,20750.00,True,2023-03,2023-01,5,4.79,2.05,6.50,25.31,1,1,4.00,78.80,10.65,riesgo alto,True,True,True
+062df55dccb8,HS-100126,SMB,Organic,3165.00,True,2023-07,2023-05,6,5.30,0.68,8.46,25.31,0,0,,12.56,10.85,riesgo alto,True,True,True
+e96833e2c6bb,HS-100449,SMB,Webinar,5998.00,True,2023-03,2023-01,4,8.03,10.68,11.28,17.31,0,0,,40.77,11.83,riesgo alto,True,True,True
+1657dbc3746e,HS-100093,Mid-Market,Outbound SDR,10319.00,True,2023-11,2023-09,5,8.38,1.88,14.87,21.62,3,0,1.00,83.93,12.03,riesgo alto,True,True,True
+6d7170e9789b,HS-100024,SMB,Webinar,3973.00,True,2023-10,2023-08,9,2.74,1.54,2.05,35.00,0,0,,36.75,12.07,riesgo alto,True,True,True
+f51f42af8a26,HS-100130,SMB,Webinar,2169.00,True,2023-04,2023-02,6,3.93,6.41,5.98,29.08,1,0,4.00,45.73,12.28,riesgo alto,True,True,True
+32abb429e0d8,HS-100090,SMB,Organic,3111.00,True,2023-10,2023-08,7,6.32,1.11,14.53,29.08,1,0,2.00,33.08,13.34,riesgo alto,True,True,True
+3444de83dd85,HS-100327,Mid-Market,Outbound SDR,18485.00,True,2023-09,2023-07,6,7.18,5.90,14.19,25.31,0,0,,79.66,13.41,riesgo alto,True,True,True
+dcf4823a4d63,HS-100614,SMB,Referral,5369.00,True,2023-07,2023-05,9,1.03,3.42,2.74,40.23,1,1,4.00,1.62,13.52,riesgo alto,True,True,True
+9eb7a3a6657b,HS-100584,SMB,Organic,6340.00,True,2023-04,2023-02,6,8.55,3.42,15.90,25.31,0,0,,18.46,13.65,riesgo alto,True,True,True
+1a1192e17404,HS-100510,Mid-Market,Referral,26814.00,True,2023-09,2023-07,8,4.44,10.68,3.08,32.46,1,0,5.00,73.33,13.89,riesgo alto,True,True,True
+c194e3bdfad5,HS-100311,SMB,Evento,7738.00,True,2023-10,2023-08,11,0.68,7.69,0.34,40.23,0,0,,34.70,13.90,riesgo alto,True,True,True
+3baa0f55645f,HS-100485,Mid-Market,Partner,10504.00,True,2023-12,2023-10,8,6.67,6.84,3.42,32.46,3,1,2.00,65.30,13.95,riesgo alto,True,True,True
+4b51faa01f35,HS-100016,SMB,Outbound SDR,6780.00,True,2023-12,2023-10,4,8.72,19.49,12.14,17.31,0,0,,43.42,13.96,riesgo alto,True,True,True
+eb78824cdc91,HS-100187,Mid-Market,Outbound SDR,25817.00,True,2024-02,2023-12,10,1.71,10.68,0.51,37.23,0,0,,61.54,13.98,riesgo alto,True,True,True
+21a76877b923,HS-100611,SMB,Partner,8528.00,True,2024-06,2024-04,7,7.69,10.68,3.93,29.08,1,0,1.00,10.26,14.14,riesgo alto,True,True,True
+aa6b09af8aaf,HS-100189,SMB,Outbound SDR,5290.00,True,2024-05,2024-03,9,3.76,10.68,1.37,35.00,0,0,,57.61,14.16,riesgo alto,True,True,True
+52584d35f5ce,HS-100111,SMB,Referral,7908.00,True,2024-02,2023-12,9,3.42,10.68,2.22,35.00,1,0,,54.27,14.17,riesgo alto,True,True,True
+3dec1c7194aa,HS-100117,Mid-Market,Referral,22130.00,True,2024-05,2024-03,12,1.54,0.85,2.91,44.69,0,0,,73.50,14.55,riesgo alto,True,True,True
+f7b188c45db9,HS-100023,SMB,Webinar,2004.00,True,2024-01,2023-11,7,7.52,10.68,7.52,29.08,0,0,,46.67,14.62,riesgo alto,True,True,True
+598275c8d1e3,HS-100230,Mid-Market,Webinar,13927.00,True,2024-01,2023-11,12,2.39,1.37,1.03,44.69,0,0,,51.28,14.67,riesgo alto,True,True,True
+793be83a3632,HS-100005,SMB,Webinar,4787.00,True,2023-10,2023-08,12,2.05,3.42,0.68,44.69,0,0,,44.96,14.91,riesgo alto,True,True,True
+03e9e800144c,HS-100545,Mid-Market,Organic,16455.00,True,2023-11,2023-09,7,9.06,5.90,12.48,29.08,0,0,,81.03,14.95,riesgo alto,True,True,True
+d23090c83713,HS-100450,SMB,Paid Search,142672.00,True,2024-02,2023-12,10,4.62,7.69,7.01,37.23,1,0,,31.71,15.38,riesgo alto,True,True,True
+14e457b52fab,HS-100358,Mid-Market,Outbound SDR,27214.00,True,2023-05,2023-03,7,3.25,4.62,1.88,44.69,2,0,,69.91,15.75,riesgo alto,True,True,True
+a93e31f7946a,HS-100579,SMB,Paid Search,6155.00,True,2024-01,2023-11,12,2.22,7.69,0.85,44.69,0,0,,33.68,15.85,riesgo alto,True,True,True
+8d5d932b0f9b,HS-100415,Mid-Market,Organic,23105.00,True,2023-12,2023-10,6,8.89,19.83,9.06,25.31,0,0,,66.67,16.03,riesgo alto,True,True,True
+d3325cc67acf,HS-100156,SMB,Partner,6636.00,True,2024-02,2023-12,14,0.17,3.42,0.17,51.08,1,0,5.00,5.13,16.09,riesgo alto,True,True,True
+589f42a9c63a,HS-100488,SMB,Organic,6477.00,True,2023-10,2023-08,8,6.50,16.92,5.13,32.46,0,0,,20.51,16.17,riesgo alto,True,True,True
+dfdbf0b4c7e0,HS-100406,Enterprise,Webinar,65740.00,False,2024-08,2024-06,8,11.97,8.89,10.43,32.46,0,0,,97.95,17.27,riesgo alto,True,True,True
+16b237fd6c05,HS-100344,SMB,Partner,5787.00,True,2023-08,2023-06,9,9.91,5.21,16.58,35.00,0,0,,29.83,17.50,riesgo alto,True,True,True
+97ee9f62574c,HS-100581,SMB,Webinar,7568.00,True,2023-05,2023-03,7,6.84,7.69,4.79,44.69,1,0,1.00,55.73,18.06,riesgo alto,True,True,True
+6bca486a099d,HS-100336,SMB,Organic,2968.00,True,2024-03,2024-01,13,2.56,10.68,3.25,48.54,0,0,,45.30,18.08,riesgo alto,True,True,True
+2dee62dca080,HS-100226,SMB,Evento,52669.50,True,2024-06,2024-04,12,5.13,10.68,5.64,44.69,0,0,,25.30,18.18,riesgo alto,True,True,True
+02382e1b34e3,HS-100407,SMB,Organic,8437.00,True,2024-05,2024-03,6,10.94,16.92,24.27,25.31,0,0,,35.47,18.45,riesgo alto,True,True,True
+7ecb5a47e4a1,HS-100540,SMB,Outbound SDR,2794.00,True,2024-02,2023-12,4,10.26,31.20,23.25,17.31,0,0,,42.82,18.51,riesgo alto,True,True,True
+4cfcbde1f51f,HS-100505,Mid-Market,Webinar,19864.00,True,2024-04,2024-02,16,1.37,4.79,1.20,57.31,0,0,,82.22,18.81,riesgo alto,True,True,True
+51e97a6e2d0f,HS-100484,Mid-Market,Referral,27728.00,True,2024-02,2023-12,13,7.35,5.64,11.11,48.54,1,0,,69.40,19.93,riesgo alto,True,True,True
+4deb4455b182,HS-100429,SMB,Outbound SDR,2694.00,True,2024-04,2024-02,3,9.23,3.42,90.09,12.15,0,0,,11.03,21.07,riesgo alto,True,True,True
+32a352c90e42,HS-100319,SMB,Partner,2344.00,True,2024-06,2024-04,3,10.77,3.42,90.09,12.15,0,0,,6.32,21.61,riesgo alto,True,True,True
+0c092b55cb21,HS-100637,SMB,Referral,6534.00,True,2024-03,2024-01,13,7.01,3.42,29.23,48.54,0,0,,11.54,22.08,riesgo alto,True,True,True
+aad8b8edc903,HS-100269,SMB,Webinar,8952.00,True,2024-02,2023-12,3,10.43,6.41,90.09,12.15,0,0,,15.98,22.09,riesgo alto,True,True,True
+62e862d0ba6b,HS-100526,SMB,Referral,8314.00,True,2024-01,2023-11,3,12.31,3.42,90.09,12.15,0,0,,0.17,22.15,riesgo alto,True,True,True
+cba7ec6afd2e,HS-100492,Mid-Market,Partner,24022.00,True,2023-01,2022-11,3,9.74,2.22,90.09,17.31,0,0,,80.17,22.56,riesgo alto,True,True,True
+87ff09647766,HS-100463,Mid-Market,Organic,11840.00,True,2023-12,2023-10,3,11.79,6.41,90.09,12.15,1,0,3.00,37.78,22.57,riesgo alto,True,True,True
+2cd7d67219cc,HS-100521,Mid-Market,Evento,13641.00,True,2024-02,2023-12,16,3.08,4.96,5.30,66.31,2,0,4.00,71.11,22.76,riesgo alto,True,True,True
+26ff7d714cea,HS-100270,SMB,Referral,6646.00,True,2023-10,2023-08,12,5.47,16.92,4.53,57.31,0,0,,24.02,23.17,riesgo alto,True,True,True
+1ece7b99e449,HS-100120,SMB,Webinar,6821.00,False,2024-08,2024-06,10,15.38,28.03,7.78,37.23,0,0,,21.45,23.32,riesgo alto,True,True,True
+79b0014ab30f,HS-100486,Enterprise,Paid Search,57933.00,True,2024-04,2024-02,3,10.60,13.33,90.09,12.15,0,0,,89.40,23.53,riesgo alto,True,True,True
+d34f4904aa84,HS-100178,SMB,Referral,3779.00,False,2024-08,2024-06,10,13.85,5.47,43.59,37.23,0,0,,53.59,23.65,riesgo alto,True,True,True
+58977cac09cc,HS-100425,SMB,Partner,8163.00,True,2024-04,2024-02,18,1.20,16.92,1.71,66.31,0,0,,44.70,23.95,riesgo alto,True,True,True
+c259030f0a56,HS-100321,SMB,Webinar,7043.00,True,2023-10,2023-08,12,3.59,10.68,4.96,66.31,0,0,,46.15,24.03,riesgo alto,True,True,True
+5788d992991c,HS-100489,Enterprise,Organic,49955.00,True,2024-06,2024-04,3,11.45,14.53,90.09,12.15,2,0,2.00,90.26,24.07,riesgo alto,True,True,True
+94be9c45cdf6,HS-100267,Mid-Market,Referral,23252.00,False,2024-08,2024-06,10,13.68,10.68,40.85,37.23,0,0,,67.35,24.22,riesgo alto,True,True,True
+5cb37febc3b4,HS-100222,Mid-Market,Webinar,18000.00,True,2024-05,2024-03,18,5.64,12.31,5.81,63.23,0,0,,85.47,24.28,riesgo alto,True,True,True
+fcb92db97bd8,HS-100458,SMB,Partner,7570.00,True,2024-04,2024-02,3,11.11,16.92,90.09,12.15,0,0,,8.72,24.43,riesgo alto,True,True,True
+cdd0fe341983,HS-100575,Mid-Market,Outbound SDR,16874.00,True,2024-03,2024-01,17,2.91,6.41,3.93,71.92,1,0,5.00,68.72,24.47,riesgo alto,True,True,True
+aa00b58df5b0,HS-100621,SMB,Evento,6694.00,False,2024-08,2024-06,6,12.99,56.07,7.78,25.31,0,0,,22.56,24.52,riesgo alto,True,True,True
+92b7a8a7cdc7,HS-100185,SMB,Paid Search,8471.00,False,2024-08,2024-06,12,16.07,7.69,33.59,44.69,0,0,,13.16,25.61,riesgo alto,True,True,True
+6eabad2f9e44,HS-100373,SMB,Webinar,7362.00,False,2024-08,2024-06,6,29.23,10.68,40.85,25.31,0,0,,0.77,26.09,riesgo alto,True,True,True
+dde4a2325dc6,HS-100506,SMB,Organic,8731.00,True,2024-04,2024-02,18,0.85,3.42,2.39,82.54,0,0,,21.20,26.10,riesgo alto,True,True,True
+f60394aa4454,HS-100245,SMB,Evento,6112.00,False,2024-08,2024-06,6,24.96,7.69,55.30,25.31,0,0,,33.93,26.16,riesgo alto,True,True,True
+9b86c5d697a4,HS-100242,Enterprise,Organic,85286.00,False,2024-08,2024-06,11,16.24,16.92,35.04,40.23,0,0,,95.90,26.39,riesgo alto,True,True,True
+8a1b676db0e4,HS-100433,Mid-Market,Referral,9314.00,False,2024-08,2024-06,10,18.80,27.52,21.37,37.23,1,0,2.00,72.31,26.46,riesgo alto,True,True,True
+7964d8b4df3d,HS-100549,SMB,Webinar,2349.00,False,2024-08,2024-06,10,20.51,10.68,40.85,37.23,1,0,3.00,3.76,26.61,riesgo alto,True,True,True
+705ac77b56d1,HS-100106,SMB,Organic,6883.00,True,2023-01,2022-11,3,9.49,7.69,90.09,29.08,0,0,,4.87,27.10,riesgo alto,True,True,True
+531b08e15995,HS-100081,Mid-Market,Evento,16839.00,False,2024-08,2024-06,15,14.87,15.56,18.63,54.00,0,0,,68.55,27.31,riesgo alto,True,True,True
+e622c23e2951,HS-100435,SMB,Paid Search,2677.00,False,2024-08,2024-06,19,12.48,10.68,6.32,66.31,0,0,,22.22,27.34,riesgo alto,True,True,True
+0196867379d8,HS-100062,SMB,Outbound SDR,7255.00,False,2024-08,2024-06,3,21.71,14.02,90.09,12.15,0,0,,22.05,27.56,riesgo alto,True,True,True
+67298e35c7b4,HS-100481,Mid-Market,Outbound SDR,12779.00,False,2024-08,2024-06,16,15.73,8.55,21.11,57.31,0,0,,59.66,27.58,riesgo alto,True,True,True
+d0cc2b9c1ce9,HS-100507,Enterprise,Outbound SDR,46340.00,False,2024-08,2024-06,4,23.08,14.36,76.92,17.31,1,0,,91.11,27.68,riesgo alto,True,True,True
+bee384ef88de,HS-100158,Mid-Market,Evento,24245.00,False,2024-08,2024-06,4,26.50,12.99,70.85,17.31,0,0,,67.01,27.69,riesgo alto,True,True,True
+2f26a0da0310,HS-100572,Mid-Market,Outbound SDR,22013.00,True,2023-09,2023-07,11,6.15,29.06,7.18,63.23,1,0,,72.14,28.01,riesgo alto,True,True,True
+a565c66b9bc6,HS-100517,SMB,Webinar,143153.00,False,2024-08,2024-06,9,25.64,25.04,24.87,35.00,0,0,,18.80,28.21,riesgo alto,True,True,True
+785078eeba1d,HS-100320,SMB,Webinar,3752.00,False,2024-08,2024-06,7,19.66,56.07,20.26,29.08,0,0,,9.66,29.86,riesgo alto,True,True,True
+d591a4e10426,HS-100568,SMB,Partner,3844.00,False,2024-08,2024-06,9,19.15,56.07,9.74,35.00,0,0,,3.76,29.88,riesgo alto,True,True,True
+cced8c3d305b,HS-100137,SMB,Outbound SDR,3073.00,False,2024-08,2024-06,6,25.30,39.49,38.55,25.31,0,0,,49.40,30.13,riesgo alto,True,True,True
+76bafd451e9e,HS-100197,Mid-Market,Evento,13005.00,False,2024-08,2024-06,12,15.21,47.44,12.82,44.69,0,0,,83.42,30.14,riesgo alto,True,True,True
+6853f3d6a4dc,HS-100259,Mid-Market,Partner,23997.00,False,2024-08,2024-06,15,15.56,12.82,39.66,54.00,0,0,,72.48,30.16,riesgo alto,True,True,True
+d8cba4a1d43d,HS-100522,SMB,Referral,7771.00,True,2023-01,2022-11,3,9.49,7.69,90.09,40.23,0,0,,9.15,30.44,riesgo alto,True,True,True
+aa269e39c32a,HS-100272,Mid-Market,Partner,12717.00,False,2024-08,2024-06,9,24.79,43.50,19.83,35.00,0,0,,62.05,30.85,riesgo alto,True,True,True
+d7f2491cbf17,HS-100480,SMB,Paid Search,6092.00,False,2024-08,2024-06,7,21.03,56.07,24.87,29.08,0,0,,19.66,31.03,riesgo alto,True,True,True
+517840039522,HS-100160,Mid-Market,Evento,15527.00,False,2024-08,2024-06,11,24.62,31.20,27.52,40.23,1,0,1.00,72.99,31.05,riesgo alto,True,True,True
+f43c5b31b192,HS-100194,Mid-Market,Partner,12115.00,False,2024-08,2024-06,16,20.17,26.24,12.14,57.31,1,0,1.00,61.20,31.32,riesgo alto,True,True,True
+b16fd3de8400,HS-100205,Mid-Market,Paid Search,10723.00,False,2024-08,2024-06,16,17.95,13.68,34.19,57.31,0,0,,69.74,31.34,riesgo alto,True,True,True
+295d85bd00ea,HS-100405,SMB,Outbound SDR,4626.00,False,2024-08,2024-06,15,22.39,15.13,30.09,54.00,0,0,,42.82,31.58,riesgo alto,True,True,True
+766e960f8f0e,HS-100146,SMB,Referral,4636.00,False,2024-08,2024-06,10,17.61,56.07,21.11,37.23,0,0,,30.94,31.71,riesgo alto,True,True,True
+dcbec6838ba3,HS-100585,Mid-Market,Paid Search,23993.00,False,2024-08,2024-06,18,18.97,15.38,20.26,63.23,0,0,,66.50,31.72,riesgo alto,True,True,True
+3d9c9189ef8b,HS-100423,SMB,Evento,3511.00,False,2024-08,2024-06,18,14.53,25.04,18.12,63.23,0,0,,29.83,31.78,riesgo alto,True,True,True
+838250379fa3,HS-100333,SMB,Evento,2781.00,False,2024-08,2024-06,11,29.40,7.69,55.30,40.23,1,0,,7.44,32.19,riesgo alto,True,True,True
+4dfb9ec0ce11,HS-100248,Enterprise,Partner,29245.00,False,2024-08,2024-06,6,31.62,47.69,27.35,25.31,1,0,2.00,89.74,32.30,riesgo alto,True,True,True
+701a7145499e,HS-100462,Mid-Market,Partner,15981.00,False,2024-08,2024-06,3,26.67,29.57,90.09,12.15,0,0,,58.12,32.41,riesgo alto,True,True,True
+0950a3eaca02,HS-100340,SMB,Evento,6326.00,False,2024-08,2024-06,18,20.85,10.68,27.86,63.23,1,0,2.00,25.30,32.58,riesgo alto,True,True,True
+9d8fc5e5d801,HS-100207,SMB,Referral,3765.00,False,2024-08,2024-06,6,30.26,25.04,62.65,25.31,0,0,,50.09,32.59,riesgo alto,True,True,True
+d0d1124d8f9a,HS-100359,Enterprise,Evento,54755.00,False,2024-08,2024-06,17,11.28,48.72,6.84,60.15,0,0,,99.66,32.76,riesgo alto,True,True,True
+92f4e669bfdd,HS-100554,Mid-Market,Partner,22464.00,False,2024-08,2024-06,8,31.97,9.06,67.86,32.46,0,0,,77.09,32.92,riesgo alto,True,True,True
+cd022db07256,HS-100617,SMB,Organic,7540.00,False,2024-08,2024-06,7,31.28,22.56,58.63,29.08,1,0,3.00,56.84,32.98,riesgo alto,True,True,True
+6dd0a835084b,HS-100214,SMB,Referral,4660.00,False,2024-08,2024-06,3,34.02,22.56,90.09,12.15,0,0,,55.56,33.58,riesgo alto,True,True,True
+9ce98b1e53c8,HS-100422,Mid-Market,Referral,14247.00,False,2024-08,2024-06,11,26.84,33.59,37.26,40.23,0,0,,68.03,33.77,riesgo alto,True,True,True
+0b632556c614,HS-100134,SMB,Webinar,2721.00,False,2024-08,2024-06,3,40.51,13.16,90.09,12.15,0,0,,36.07,33.97,riesgo alto,True,True,True
+c82c8b5945bb,HS-100598,SMB,Paid Search,6483.00,False,2024-08,2024-06,7,26.32,56.07,32.14,29.08,0,0,,13.33,33.97,riesgo alto,True,True,True
+ebaae71bb69b,HS-100650,SMB,Partner,2332.00,False,2024-08,2024-06,4,40.00,31.20,58.63,17.31,0,0,,50.34,34.23,riesgo alto,True,True,True
+5ad0321274f2,HS-100164,SMB,Paid Search,3557.00,False,2024-08,2024-06,9,32.99,14.02,64.27,35.00,0,0,,38.12,34.49,riesgo alto,True,True,True
+a1b6591a36c2,HS-100426,SMB,Referral,5748.00,False,2024-08,2024-06,4,48.21,21.28,55.30,17.31,1,0,,7.44,34.62,riesgo alto,True,True,True
+d3d6430ce9c4,HS-100028,SMB,Paid Search,2524.00,False,2024-08,2024-06,5,28.89,56.07,46.41,21.62,0,0,,27.44,34.77,riesgo alto,True,True,True
+9aab1444c5d3,HS-100041,SMB,Referral,6785.00,False,2024-08,2024-06,15,17.44,26.84,47.69,54.00,0,0,,57.26,34.83,riesgo alto,True,True,True
+7c9b0514c9d6,HS-100132,SMB,Outbound SDR,4850.00,False,2024-08,2024-06,6,29.06,37.86,65.30,25.31,0,0,,52.56,35.13,riesgo alto,True,True,True
+6e00c339a03e,HS-100332,Mid-Market,Paid Search,22287.00,False,2024-08,2024-06,22,10.09,12.65,8.21,93.31,2,1,4.00,86.32,35.29,riesgo alto,True,True,True
+7c99b8a3ebf7,HS-100392,SMB,Outbound SDR,8336.00,False,2024-08,2024-06,3,35.21,29.06,90.09,12.15,0,0,,50.68,35.29,riesgo alto,True,True,True
+1db97fc7c4a3,HS-100208,Mid-Market,Outbound SDR,24945.00,False,2024-08,2024-06,18,17.09,19.49,43.25,63.23,0,0,,59.06,35.34,riesgo alto,False,True,True
+78fc9da31292,HS-100323,Mid-Market,Evento,14175.00,False,2024-08,2024-06,19,17.78,37.44,11.62,66.31,1,0,,80.34,35.35,riesgo alto,False,True,True
+4566eb75d1d3,HS-100622,SMB,Partner,8104.00,False,2024-08,2024-06,3,42.56,16.92,90.09,12.15,0,0,,5.30,35.44,riesgo alto,False,True,True
+3f8121a01f52,HS-100065,SMB,Referral,2947.00,False,2024-08,2024-06,11,36.75,16.92,48.29,40.23,0,0,,7.78,35.56,riesgo alto,False,True,True
+2f9a572a5bab,HS-100573,SMB,Referral,6864.00,False,2024-08,2024-06,10,38.80,19.49,46.15,37.23,0,0,,53.16,35.57,riesgo alto,False,True,True
+2abb19d06446,HS-100012,Enterprise,Outbound SDR,42392.00,False,2024-08,2024-06,12,28.38,29.91,42.05,44.69,0,0,,94.70,35.63,riesgo alto,False,True,True
+780a87c8c2a0,HS-100191,SMB,Paid Search,4663.00,False,2024-08,2024-06,18,13.16,56.07,8.89,63.23,0,0,,37.61,36.12,riesgo alto,False,True,True
+59a59dbb5c8d,HS-100548,Mid-Market,Partner,12941.00,False,2024-08,2024-06,5,37.44,24.10,78.12,21.62,0,0,,79.32,36.13,riesgo alto,False,True,True
+03ba89cf14b9,HS-100273,Mid-Market,Paid Search,12858.00,False,2024-08,2024-06,22,14.36,21.28,14.70,82.54,1,0,,55.90,36.25,riesgo alto,False,True,True
+9d663f9ec56a,HS-100408,SMB,Organic,7584.00,False,2024-08,2024-06,19,25.13,10.68,36.24,66.31,0,0,,4.87,36.26,riesgo alto,False,True,True
+967e6f7023fc,HS-100523,Enterprise,Organic,70544.00,False,2024-08,2024-06,17,16.58,45.98,22.22,60.15,1,0,5.00,97.78,36.38,riesgo alto,False,True,True
+9407c3c1d5b4,HS-100231,Mid-Market,Webinar,21843.00,False,2024-08,2024-06,5,33.85,42.48,63.76,21.62,2,0,1.50,64.10,36.39,riesgo alto,False,True,True
+267f7ba8567b,HS-100155,Enterprise,Webinar,952602.00,False,2024-08,2024-06,9,37.61,41.37,31.11,35.00,1,0,2.00,98.97,36.60,riesgo alto,False,True,True
+37211eeb762c,HS-100624,SMB,Outbound SDR,3694.00,False,2024-08,2024-06,5,41.71,23.85,76.15,21.62,1,0,1.00,47.52,37.28,riesgo alto,False,True,True
+3ed1dd022bbe,HS-100503,SMB,Evento,5281.00,False,2024-08,2024-06,12,27.18,40.85,42.22,44.69,1,0,3.00,60.77,37.42,riesgo alto,False,True,True
+fa963456da9c,HS-100558,SMB,Webinar,8904.00,False,2024-08,2024-06,20,22.91,25.04,24.87,68.92,0,0,,14.87,37.43,riesgo alto,False,True,True
+772649d900e7,HS-100186,Mid-Market,Partner,22794.00,False,2024-08,2024-06,3,37.95,35.56,90.09,12.15,0,0,,74.70,37.55,riesgo alto,False,True,True
+794d03d90ea6,HS-100087,Mid-Market,Outbound SDR,17943.00,False,2024-08,2024-06,22,11.62,46.24,6.15,78.54,0,0,,63.33,37.80,riesgo alto,False,True,True
+48633a3c243e,HS-100052,Mid-Market,Outbound SDR,10664.00,False,2024-08,2024-06,7,36.41,42.74,53.68,29.08,0,0,,78.97,38.07,riesgo alto,False,True,True
+73791fb3cf09,HS-100557,SMB,Evento,5892.00,False,2024-08,2024-06,14,23.59,25.04,64.27,51.08,1,0,1.00,17.44,38.23,riesgo alto,False,True,True
+b898e16bae56,HS-100434,SMB,Evento,7349.00,False,2024-08,2024-06,18,21.37,39.49,27.18,63.23,0,0,,54.02,38.42,riesgo alto,False,True,True
+5ca575bf5963,HS-100317,SMB,Outbound SDR,4857.00,False,2024-08,2024-06,11,30.94,56.07,29.23,40.23,0,0,,14.44,38.50,riesgo alto,False,True,True
+de3394369082,HS-100430,SMB,Referral,3158.00,False,2024-08,2024-06,13,22.22,56.07,33.59,48.54,0,0,,6.84,38.59,riesgo alto,False,True,True
+5aadc6d9beb8,HS-100140,Enterprise,Referral,89122.00,False,2024-08,2024-06,12,24.44,64.27,26.15,44.69,0,0,,97.26,38.74,riesgo alto,False,True,True
+b8ff0ac62b88,HS-100473,SMB,Referral,3664.00,False,2024-08,2024-06,8,41.03,56.07,23.25,32.46,0,0,,32.22,38.80,riesgo alto,False,True,True
+1fca191b2c4a,HS-100496,SMB,Paid Search,2865.00,False,2024-08,2024-06,4,33.33,56.07,72.91,17.31,1,0,1.00,40.43,39.01,riesgo alto,False,True,True
+7673a68d1cc4,HS-100011,SMB,Webinar,3401.00,False,2024-08,2024-06,18,21.88,56.07,9.74,63.23,1,0,4.00,6.84,39.30,riesgo medio,False,False,True
+ca4b97d0cb79,HS-100026,Mid-Market,Webinar,22865.00,False,2024-08,2024-06,3,42.74,37.26,90.09,12.15,1,0,3.00,82.05,39.57,riesgo medio,False,False,True
+13d2b5cf6ea2,HS-100228,SMB,Partner,4317.00,False,2024-08,2024-06,22,23.25,10.68,23.25,86.15,1,0,2.00,33.08,39.61,riesgo medio,False,False,True
+0d6202950750,HS-100152,SMB,Organic,4594.00,False,2024-08,2024-06,9,34.53,56.07,39.40,35.00,2,0,,40.17,39.71,riesgo medio,False,False,True
+12031a79d1d3,HS-100460,SMB,Partner,5011.00,False,2024-08,2024-06,16,23.76,56.07,20.26,57.31,0,0,,4.27,39.76,riesgo medio,False,False,True
+d6e7796e9cfc,HS-100334,SMB,Paid Search,3929.00,False,2024-08,2024-06,10,37.26,56.07,29.23,37.23,0,0,,14.44,39.81,riesgo medio,False,False,True
+247338856c13,HS-100138,Mid-Market,Organic,16841.00,False,2024-08,2024-06,9,43.08,32.99,51.28,35.00,0,0,,81.71,39.87,riesgo medio,False,False,True
+2856f6708652,HS-100387,SMB,Evento,136733.50,False,2024-08,2024-06,8,45.30,16.92,72.91,32.46,0,0,,34.36,39.91,riesgo medio,False,False,True
+b7214f7de0d2,HS-100515,SMB,Evento,8934.00,False,2024-08,2024-06,13,28.03,56.07,29.23,48.54,1,0,,8.29,39.97,riesgo medio,False,False,True
+b11ab648f308,HS-100615,Mid-Market,Evento,27514.00,False,2024-08,2024-06,3,33.50,56.07,90.09,12.15,0,0,,74.87,40.10,riesgo medio,False,False,True
+04887d0f3f7c,HS-100607,SMB,Webinar,8566.00,False,2024-08,2024-06,21,16.75,56.07,9.74,71.92,2,0,5.00,19.15,40.11,riesgo medio,False,False,True
+36fd3dae4ce6,HS-100078,SMB,Webinar,8565.00,False,2024-08,2024-06,20,27.69,26.84,29.23,68.92,1,0,,41.11,40.12,riesgo medio,False,False,True
+d996f9b6f1f8,HS-100171,Mid-Market,Paid Search,26582.00,False,2024-08,2024-06,15,32.14,44.44,25.47,54.00,1,0,2.00,67.69,40.16,riesgo medio,False,False,True
+da3f37a71944,HS-100432,Mid-Market,Referral,18464.00,False,2024-08,2024-06,12,27.86,73.68,15.38,44.69,1,0,1.00,62.56,40.20,riesgo medio,False,False,True
+621d856f0a4b,HS-100045,SMB,Referral,4573.00,False,2024-08,2024-06,22,18.46,21.28,19.06,88.92,0,0,,8.72,40.25,riesgo medio,False,False,True
+c173e9322576,HS-100234,SMB,Paid Search,3754.00,False,2024-08,2024-06,11,39.66,18.46,70.85,40.23,0,0,,51.11,40.27,riesgo medio,False,False,True
+8fd0cb9bb127,HS-100136,SMB,Evento,8196.00,False,2024-08,2024-06,22,32.65,10.68,13.42,82.54,0,0,,0.77,40.34,riesgo medio,False,False,True
+f4738f0dd8aa,HS-100237,SMB,Evento,7117.00,False,2024-08,2024-06,4,30.77,73.16,65.30,17.31,0,0,,53.33,40.39,riesgo medio,False,False,True
+84b433c4b3b9,HS-100177,Mid-Market,Evento,463129.00,False,2024-08,2024-06,12,34.70,22.56,69.06,44.69,1,0,3.00,42.56,40.42,riesgo medio,False,False,True
+57430e054ca2,HS-100623,SMB,Paid Search,8765.00,False,2024-08,2024-06,22,19.49,37.86,16.92,78.54,0,0,,51.45,40.49,riesgo medio,False,False,True
+6c0b2c4e1901,HS-100632,Enterprise,Paid Search,64256.00,False,2024-08,2024-06,9,38.63,68.38,18.80,35.00,0,0,,99.15,40.52,riesgo medio,False,False,True
+69a9c5b9b867,HS-100183,Enterprise,Partner,46171.00,False,2024-08,2024-06,4,35.73,65.81,64.79,17.31,0,0,,92.65,40.58,riesgo medio,False,False,True
+49ce3285ee46,HS-100646,Enterprise,Outbound SDR,64184.00,False,2024-08,2024-06,22,12.82,22.91,18.46,95.85,1,0,4.00,96.24,40.59,riesgo medio,False,False,True
+1f5adba0a272,HS-100564,SMB,Evento,8746.00,False,2024-08,2024-06,22,14.70,56.07,11.45,75.15,1,1,,14.87,40.62,riesgo medio,False,False,True
+835f374d427c,HS-100569,Enterprise,Referral,70426.00,False,2024-08,2024-06,5,33.68,76.24,47.52,21.62,0,0,,89.57,40.65,riesgo medio,False,False,True
+da2408f43334,HS-100040,SMB,Outbound SDR,2479.00,False,2024-08,2024-06,22,20.68,8.72,25.90,93.31,0,0,,38.38,40.86,riesgo medio,False,False,True
+3967f5213479,HS-100597,Mid-Market,Referral,9646.00,False,2024-08,2024-06,22,16.92,16.92,23.93,93.31,1,0,3.00,69.23,40.89,riesgo medio,False,False,False
+00902f986641,HS-100325,Enterprise,Paid Search,76410.00,False,2024-08,2024-06,22,17.26,36.41,19.32,82.54,0,0,,94.53,40.98,riesgo medio,False,False,False
+e48d5b78a86a,HS-100337,Mid-Market,Outbound SDR,18667.00,False,2024-08,2024-06,3,54.70,23.85,90.09,12.15,1,1,,44.36,41.07,riesgo medio,False,False,False
+a6735df00d27,HS-100131,SMB,Outbound SDR,4278.00,False,2024-08,2024-06,14,40.85,39.49,24.10,51.08,0,0,,35.21,41.13,riesgo medio,False,False,False
+de73c32fa777,HS-100364,SMB,Partner,2596.00,False,2024-08,2024-06,15,35.90,14.02,64.27,54.00,0,0,,45.30,41.21,riesgo medio,False,False,False
+34a9ffde0fc0,HS-100107,SMB,Evento,72024.00,False,2024-08,2024-06,18,16.41,56.07,36.24,63.23,0,0,,0.34,41.36,riesgo medio,False,False,False
+f08eb23cc0db,HS-100143,SMB,Webinar,8471.00,False,2024-08,2024-06,11,44.96,31.20,50.68,40.23,0,0,,30.94,41.65,riesgo medio,False,False,False
+a79430c11e48,HS-100595,Enterprise,Outbound SDR,39074.00,False,2024-08,2024-06,22,21.20,13.50,28.55,91.08,0,0,,95.04,41.73,riesgo medio,False,False,False
+c7b8e3dd3d9e,HS-100466,SMB,Organic,6971.00,False,2024-08,2024-06,21,31.11,21.28,33.59,71.92,0,0,,10.26,41.76,riesgo medio,False,False,False
+d003a5126727,HS-100067,SMB,Webinar,2573.00,False,2024-08,2024-06,5,50.94,20.17,90.09,21.62,1,0,,34.19,41.86,riesgo medio,False,False,False
+de3af92df17a,HS-100313,SMB,Organic,6249.00,False,2024-08,2024-06,22,12.14,56.07,3.93,86.15,0,0,,25.30,41.90,riesgo medio,False,False,False
+9a0d4f0c47f7,HS-100398,SMB,Outbound SDR,4899.00,False,2024-08,2024-06,22,20.34,23.08,9.74,95.85,0,0,,42.39,41.95,riesgo medio,False,False,False
+5ad6ce2d765a,HS-100036,Mid-Market,Paid Search,9483.00,False,2024-08,2024-06,7,55.56,32.48,48.72,29.08,0,0,,64.44,41.97,riesgo medio,False,False,False
+6709cae3efd1,HS-100570,SMB,Webinar,6983.00,False,2024-08,2024-06,6,40.68,56.07,59.74,25.31,0,0,,16.41,42.01,riesgo medio,False,False,False
+e37c074286d9,HS-100339,SMB,Evento,3789.00,False,2024-08,2024-06,18,34.87,40.85,17.78,63.23,1,0,,33.33,42.01,riesgo medio,False,False,False
+3f41a4432bea,HS-100280,Mid-Market,Organic,24684.00,False,2024-08,2024-06,16,41.37,19.15,43.93,57.31,1,0,4.00,61.88,42.09,riesgo medio,False,False,False
+f5dc072a79ed,HS-100440,SMB,Organic,2264.00,False,2024-08,2024-06,22,18.29,37.86,32.14,78.54,0,0,,54.87,42.36,riesgo medio,False,False,False
+97081fd75d7e,HS-100436,Mid-Market,Organic,26616.00,False,2024-08,2024-06,3,47.01,44.10,90.09,12.15,0,0,,73.16,42.43,riesgo medio,False,False,False
+cde501cb7a7d,HS-100082,Mid-Market,Webinar,19476.00,False,2024-08,2024-06,14,37.09,36.92,45.47,51.08,0,0,,83.08,42.51,riesgo medio,False,False,False
+e0ed9bc3304b,HS-100494,SMB,Paid Search,4138.00,False,2024-08,2024-06,4,54.02,25.04,90.09,17.31,0,0,,9.66,42.62,riesgo medio,False,False,False
+d60d16238ec6,HS-100235,SMB,Paid Search,4423.00,False,2024-08,2024-06,14,18.63,98.46,7.35,51.08,0,0,,5.98,42.64,riesgo medio,False,False,False
+7d5032d842ab,HS-100201,Mid-Market,Evento,27243.00,False,2024-08,2024-06,13,25.81,66.15,38.89,48.54,2,0,3.00,74.27,42.66,riesgo medio,False,False,False
+699ff55001cc,HS-100097,SMB,Webinar,5074.00,False,2024-08,2024-06,19,25.98,56.07,16.58,66.31,0,0,,39.57,42.69,riesgo medio,False,False,False
+baf649016fa9,HS-100500,Enterprise,Paid Search,45050.00,False,2024-08,2024-06,22,19.83,23.59,15.21,95.85,1,0,,98.80,42.70,riesgo medio,False,False,False
+4140e64c6083,HS-100371,SMB,Webinar,2132.00,False,2024-08,2024-06,14,37.78,28.03,57.44,51.08,0,0,,36.24,42.77,riesgo medio,False,False,False
+396128940af3,HS-100174,SMB,Outbound SDR,5803.00,False,2024-08,2024-06,22,12.65,56.07,15.90,82.54,1,0,,27.95,42.79,riesgo medio,False,False,False
+a2f4b7cd7eb1,HS-100630,SMB,Paid Search,2882.00,False,2024-08,2024-06,5,42.91,56.07,68.12,21.62,1,0,,25.90,42.94,riesgo medio,False,False,False
+b24de45006f0,HS-100192,Enterprise,Paid Search,83888.00,False,2024-08,2024-06,15,26.15,66.41,29.23,54.00,0,0,,90.60,43.02,riesgo medio,False,False,False
+2cc32419a667,HS-100009,Mid-Market,Evento,12309.00,False,2024-08,2024-06,20,30.43,35.90,30.68,68.92,1,0,1.00,59.83,43.11,riesgo medio,False,False,False
+dd8109cf375b,HS-100070,Enterprise,Evento,63909.00,False,2024-08,2024-06,10,49.23,27.35,61.88,37.23,1,0,5.00,96.07,43.15,riesgo medio,False,False,False
+79cd2764ab4f,HS-100455,SMB,Referral,4244.00,False,2024-08,2024-06,22,13.33,56.07,9.74,86.15,0,0,,6.50,43.19,riesgo medio,False,False,False
+eab9d5094af3,HS-100318,SMB,Evento,6697.00,False,2024-08,2024-06,22,18.12,56.07,15.90,78.54,2,0,2.50,46.50,43.50,riesgo medio,False,False,False
+f7c843dcd62a,HS-100301,SMB,Evento,2602.00,False,2024-08,2024-06,15,32.31,56.07,32.14,54.00,0,0,,20.94,43.54,riesgo medio,False,False,False
+953a1fa5f1e4,HS-100493,SMB,Webinar,5230.00,False,2024-08,2024-06,22,21.54,56.07,8.46,78.54,0,0,,12.56,43.58,riesgo medio,False,False,False
+c12476e908d2,HS-100091,SMB,Organic,4764.00,False,2024-08,2024-06,13,49.06,18.80,54.19,48.54,0,0,,42.05,43.62,riesgo medio,False,False,False
+62f2df8d7d2e,HS-100180,SMB,Partner,3554.00,False,2024-08,2024-06,4,59.49,21.28,90.09,17.31,0,0,,39.91,43.78,riesgo medio,False,False,False
+879a22cf656a,HS-100382,Mid-Market,Outbound SDR,16400.00,False,2024-08,2024-06,5,55.04,23.25,90.09,21.62,2,0,4.00,69.06,43.91,riesgo medio,False,False,False
+d81850081a01,HS-100384,Mid-Market,Webinar,9309.00,False,2024-08,2024-06,7,47.18,34.10,79.49,29.08,1,0,2.00,65.98,43.98,riesgo medio,False,False,False
+f9d56b104a2b,HS-100544,Mid-Market,Referral,12168.00,False,2024-08,2024-06,13,22.56,88.80,26.50,48.54,0,0,,66.84,44.19,riesgo medio,False,False,False
+2d38af661686,HS-100123,SMB,Evento,5849.00,False,2024-08,2024-06,8,41.54,71.97,37.44,32.46,1,1,,57.09,44.29,riesgo medio,False,False,False
+f34cb98c7172,HS-100561,Mid-Market,Webinar,25924.00,False,2024-08,2024-06,5,51.11,40.85,78.80,21.62,0,0,,67.18,44.36,riesgo medio,False,False,False
+0b42fd3d0ae2,HS-100167,SMB,Partner,3082.00,False,2024-08,2024-06,22,15.90,56.07,20.26,82.54,0,0,,13.76,44.58,riesgo medio,False,False,False
+db9bc2d200e6,HS-100601,SMB,Organic,2870.00,False,2024-08,2024-06,22,28.21,14.79,61.37,75.15,0,0,,56.07,44.58,riesgo medio,False,False,False
+b454b2f7bd1c,HS-100566,Mid-Market,Partner,14358.00,False,2024-08,2024-06,22,22.05,42.48,17.26,86.15,0,0,,59.49,44.65,riesgo medio,False,False,False
+446b01c1b10d,HS-100066,SMB,Evento,2013.00,False,2024-08,2024-06,17,36.92,56.07,16.58,60.15,0,0,,11.03,44.67,riesgo medio,False,False,False
+b4c838eb089c,HS-100602,SMB,Evento,3652.00,False,2024-08,2024-06,21,24.27,56.07,23.25,71.92,0,0,,2.65,44.77,riesgo medio,False,False,False
+118a77d9045d,HS-100559,Mid-Market,Outbound SDR,23519.00,False,2024-08,2024-06,12,41.88,56.07,37.09,44.69,0,0,,70.77,44.84,riesgo medio,False,False,False
+2f23ed120ca5,HS-100352,Mid-Market,Evento,22737.00,False,2024-08,2024-06,11,34.19,66.92,49.57,40.23,1,0,1.00,84.96,44.85,riesgo medio,False,False,False
+bfcc93c1234c,HS-100008,Mid-Market,Referral,11279.00,False,2024-08,2024-06,18,22.74,79.66,13.42,63.23,0,0,,83.59,44.87,riesgo medio,False,False,False
+237b3e09b789,HS-100349,SMB,Webinar,5219.00,False,2024-08,2024-06,13,32.48,74.62,28.03,48.54,2,0,1.00,47.18,45.06,riesgo medio,False,False,False
+e883c54c8ca8,HS-100084,SMB,Paid Search,5406.00,False,2024-08,2024-06,15,38.12,56.07,29.23,54.00,0,0,,12.05,45.14,riesgo medio,False,False,False
+0b0baf334770,HS-100402,Enterprise,Referral,44495.00,False,2024-08,2024-06,22,14.02,63.42,11.79,86.15,0,0,,91.28,45.20,riesgo medio,False,False,False
+0014df720942,HS-100421,Mid-Market,Organic,12583.00,False,2024-08,2024-06,15,29.91,87.44,8.03,54.00,0,0,,78.12,45.36,riesgo bajo,False,False,False
+3f9a1cc61de5,HS-100055,Mid-Market,Evento,21098.00,False,2024-08,2024-06,4,61.03,35.90,77.61,17.31,0,0,,64.62,45.37,riesgo bajo,False,False,False
+3b117610596f,HS-100326,Mid-Market,Outbound SDR,14760.00,False,2024-08,2024-06,5,43.93,67.18,67.69,21.62,0,0,,75.90,45.45,riesgo bajo,False,False,False
+790c661f3ba2,HS-100258,Mid-Market,Webinar,448144.00,False,2024-08,2024-06,6,44.79,64.10,63.25,25.31,0,0,,76.24,45.58,riesgo bajo,False,False,False
+5382574560dc,HS-100535,Mid-Market,Webinar,10015.00,False,2024-08,2024-06,22,27.01,46.84,22.05,78.54,1,0,4.00,71.62,45.69,riesgo bajo,False,False,False
+c87b1eef63b3,HS-100431,SMB,Evento,3521.00,False,2024-08,2024-06,22,24.10,36.92,12.99,93.31,0,0,,32.22,45.76,riesgo bajo,False,False,False
+eb0b897c470a,HS-100639,SMB,Organic,8232.00,False,2024-08,2024-06,22,15.04,56.07,13.42,91.08,0,0,,1.97,45.82,riesgo bajo,False,False,False
+2c678f4bf9d9,HS-100451,Mid-Market,Partner,25210.00,False,2024-08,2024-06,5,60.34,36.58,74.70,21.62,0,0,,66.15,46.13,riesgo bajo,False,False,False
+392bdeef86e1,HS-100360,Mid-Market,Organic,16384.00,False,2024-08,2024-06,3,57.95,43.50,90.09,12.15,1,1,,58.80,46.14,riesgo bajo,False,False,False
+279ab800ac35,HS-100550,Mid-Market,Paid Search,17450.00,False,2024-08,2024-06,3,57.09,46.50,90.09,12.15,1,0,5.00,86.84,46.44,riesgo bajo,False,False,False
+5020089d9965,HS-100168,SMB,Webinar,3347.00,False,2024-08,2024-06,5,53.33,74.62,43.93,21.62,0,0,,43.08,46.66,riesgo bajo,False,False,False
+72c0afa9c950,HS-100411,SMB,Evento,5678.00,False,2024-08,2024-06,12,61.54,15.13,57.95,44.69,0,0,,24.70,46.66,riesgo bajo,False,False,False
+51b8827af99f,HS-100002,Enterprise,Organic,66698.00,False,2024-08,2024-06,6,60.51,32.65,76.41,25.31,1,1,2.00,100.00,46.76,riesgo bajo,False,False,False
+5469ca09097a,HS-100467,SMB,Partner,5161.00,False,2024-08,2024-06,12,38.97,56.07,57.01,44.69,0,0,,15.73,46.81,riesgo bajo,False,False,False
+b514dcb01651,HS-100154,SMB,Partner,2823.00,False,2024-08,2024-06,22,39.15,16.92,48.29,75.15,0,0,,5.81,46.88,riesgo bajo,False,False,False
+e43a3fafab38,HS-100372,SMB,Outbound SDR,3607.00,False,2024-08,2024-06,12,43.59,56.07,47.35,44.69,2,0,5.00,28.72,46.98,riesgo bajo,False,False,False
+34fc60602415,HS-100618,SMB,Paid Search,7270.00,False,2024-08,2024-06,22,29.74,39.49,13.85,88.92,0,0,,46.15,47.06,riesgo bajo,False,False,False
+80297dea2bcb,HS-100260,SMB,Partner,4540.00,False,2024-08,2024-06,11,45.98,39.49,74.02,40.23,0,0,,34.87,47.16,riesgo bajo,False,False,False
+c564e6bc20a2,HS-100080,SMB,Paid Search,3303.00,False,2024-08,2024-06,15,49.91,37.86,40.85,54.00,1,1,5.00,37.44,47.37,riesgo bajo,False,False,False
+5284a262a4a1,HS-100018,SMB,Organic,5152.00,False,2024-08,2024-06,22,19.32,56.07,9.74,93.31,0,0,,1.28,47.43,riesgo bajo,False,False,False
+dc75715a3853,HS-100529,SMB,Organic,4172.00,False,2024-08,2024-06,8,51.45,31.20,90.09,32.46,0,0,,16.75,47.50,riesgo bajo,False,False,False
+0c0316a141aa,HS-100628,Mid-Market,Outbound SDR,22409.00,False,2024-08,2024-06,22,35.56,23.42,45.64,78.54,0,0,,75.73,47.54,riesgo bajo,False,False,False
+7efaa9165fad,HS-100265,Mid-Market,Webinar,12361.00,False,2024-08,2024-06,8,44.62,64.79,63.59,32.46,0,0,,78.46,47.85,riesgo bajo,False,False,False
+87653c642368,HS-100089,Enterprise,Outbound SDR,66790.00,False,2024-08,2024-06,22,28.72,68.21,10.94,75.15,0,0,,97.44,47.88,riesgo bajo,False,False,False
+c722bd70bb6d,HS-100580,SMB,Referral,5856.00,False,2024-08,2024-06,14,57.44,28.03,46.84,51.08,0,0,,22.39,48.06,riesgo bajo,False,False,False
+762274061052,HS-100236,Mid-Market,Referral,13294.00,False,2024-08,2024-06,11,43.42,71.97,42.91,40.23,1,0,3.00,82.91,48.10,riesgo bajo,False,False,False
+4bfe1795911a,HS-100075,Mid-Market,Evento,27863.00,False,2024-08,2024-06,22,36.07,21.28,43.42,82.54,1,0,4.00,79.15,48.16,riesgo bajo,False,False,False
+1344cdebacd2,HS-100498,SMB,Referral,8615.00,False,2024-08,2024-06,15,52.65,56.07,18.12,54.00,0,0,,51.97,48.56,riesgo bajo,False,False,False
+9e718ad7d560,HS-100577,SMB,Referral,5180.00,False,2024-08,2024-06,21,40.34,41.79,30.09,71.92,0,0,,48.46,48.57,riesgo bajo,False,False,False
+3764f7701b9c,HS-100099,SMB,Evento,6636.00,False,2024-08,2024-06,4,44.10,73.16,90.09,17.31,1,0,4.00,48.12,48.77,riesgo bajo,False,False,False
+0fda0433e133,HS-100472,Enterprise,Outbound SDR,68373.00,False,2024-08,2024-06,3,43.25,82.56,90.09,12.15,1,0,2.00,95.73,48.81,riesgo bajo,False,False,False
+6ea450b057ac,HS-100206,SMB,Partner,4229.00,False,2024-08,2024-06,3,39.83,89.40,90.09,12.15,1,0,,54.27,48.98,riesgo bajo,False,False,False
+20e77f6284f1,HS-100312,SMB,Evento,3670.00,False,2024-08,2024-06,14,64.79,39.49,22.56,51.08,0,0,,46.84,49.28,riesgo bajo,False,False,False
+890c3cae550f,HS-100035,Enterprise,Organic,80954.00,False,2024-08,2024-06,6,68.89,20.34,90.09,25.31,0,0,,90.94,49.29,riesgo bajo,False,False,False
+3af530a7679a,HS-100638,SMB,Organic,7819.00,False,2024-08,2024-06,3,69.74,39.49,90.09,12.15,0,0,,29.32,49.47,riesgo bajo,False,False,False
+88cf09ccad92,HS-100499,Enterprise,Webinar,33977.00,False,2024-08,2024-06,12,47.69,44.44,69.91,44.69,1,0,5.00,88.21,49.47,riesgo bajo,False,False,False
+691d1dc17baa,HS-100302,SMB,Paid Search,7005.00,False,2024-08,2024-06,22,29.57,26.84,28.29,98.54,1,0,4.00,49.06,49.52,riesgo bajo,False,False,False
+1c09f8474886,HS-100465,Enterprise,Paid Search,79050.00,False,2024-08,2024-06,22,25.47,20.00,52.56,95.85,1,0,3.00,98.29,49.55,riesgo bajo,False,False,False
+9c3ead02df0b,HS-100424,SMB,Paid Search,3616.00,False,2024-08,2024-06,22,13.50,93.33,9.74,82.54,0,0,,8.72,49.61,riesgo bajo,False,False,False
+efdc46580159,HS-100268,Mid-Market,Organic,22310.00,False,2024-08,2024-06,7,58.97,43.50,77.78,29.08,0,0,,57.44,49.73,riesgo bajo,False,False,False
+34932df15d7b,HS-100361,SMB,Webinar,5380.00,False,2024-08,2024-06,21,46.15,31.20,38.89,71.92,0,0,,21.45,49.80,riesgo bajo,False,False,False
+1197d211e7e1,HS-100127,Mid-Market,Webinar,24358.00,False,2024-08,2024-06,12,51.62,45.73,61.54,44.69,0,0,,63.08,49.85,riesgo bajo,False,False,False
+c22a9a5e32c4,HS-100370,SMB,Outbound SDR,3664.00,False,2024-08,2024-06,22,31.79,21.28,33.59,98.54,0,0,,7.78,49.98,riesgo bajo,False,False,False
+7a5802bb88f1,HS-100133,SMB,Webinar,7682.00,False,2024-08,2024-06,12,58.63,56.07,32.74,44.69,0,0,,34.53,50.05,riesgo bajo,False,False,False
+e7259d79b184,HS-100139,SMB,Evento,2763.00,False,2024-08,2024-06,5,49.74,87.44,57.95,21.62,1,0,,14.02,50.08,riesgo bajo,False,False,False
+e79544859377,HS-100162,Mid-Market,Referral,9265.00,False,2024-08,2024-06,10,66.84,18.63,78.63,37.23,1,0,,58.46,50.08,riesgo bajo,False,False,False
+0f853c61d098,HS-100300,SMB,Outbound SDR,2370.00,False,2024-08,2024-06,12,62.05,33.25,56.24,44.69,0,0,,29.57,50.21,riesgo bajo,False,False,False
+55d38d912444,HS-100184,Mid-Market,Organic,14717.00,False,2024-08,2024-06,20,36.24,35.04,66.50,68.92,1,0,,60.51,50.34,riesgo bajo,False,False,False
+59a8da5bbd25,HS-100537,Mid-Market,Webinar,26698.00,False,2024-08,2024-06,22,23.42,47.09,31.62,93.31,1,0,1.00,74.53,50.35,riesgo bajo,False,False,False
+bad845ea6ecb,HS-100443,SMB,Paid Search,2486.00,False,2024-08,2024-06,5,75.04,31.20,76.15,21.62,1,0,,33.93,50.41,riesgo bajo,False,False,False
+695d5be4f470,HS-100100,SMB,Organic,7304.00,False,2024-08,2024-06,19,30.09,87.44,17.09,66.31,0,0,,43.68,50.48,riesgo bajo,False,False,False
+daa4aa7c8cad,HS-100393,SMB,Organic,4914.00,False,2024-08,2024-06,17,33.16,87.44,23.25,60.15,0,0,,20.26,50.63,riesgo bajo,False,False,False
+b3a24e63f76b,HS-100173,SMB,Referral,6599.00,False,2024-08,2024-06,9,56.24,73.68,38.21,35.00,0,0,,40.43,50.65,riesgo bajo,False,False,False
+47165a293fc0,HS-100238,SMB,Paid Search,72982.50,False,2024-08,2024-06,7,49.57,56.07,90.09,29.08,0,0,,11.54,50.80,riesgo bajo,False,False,False
+4b99f2dd30ed,HS-100076,Mid-Market,Webinar,9181.00,False,2024-08,2024-06,16,45.47,79.40,14.36,57.31,0,0,,83.76,51.14,riesgo bajo,False,False,False
+6978c5309efe,HS-100589,SMB,Organic,6372.00,False,2024-08,2024-06,8,54.36,56.07,75.04,32.46,1,0,2.00,27.69,51.23,riesgo bajo,False,False,False
+b8a43530cf08,HS-100616,Enterprise,Partner,56367.00,False,2024-08,2024-06,12,63.93,25.98,68.72,44.69,1,0,2.00,97.61,51.29,riesgo bajo,False,False,False
+0b0c556bec93,HS-100348,SMB,Referral,31884.00,False,2024-08,2024-06,21,44.44,31.20,53.33,71.92,2,0,3.00,19.49,51.37,riesgo bajo,False,False,False
+e552d9325009,HS-100383,Mid-Market,Partner,10038.00,False,2024-08,2024-06,4,56.41,65.81,90.09,17.31,1,0,4.00,87.18,51.61,riesgo bajo,False,False,False
+81215df16b9d,HS-100527,SMB,Evento,6632.00,False,2024-08,2024-06,22,35.04,56.07,37.78,75.15,0,0,,24.02,51.69,riesgo bajo,False,False,False
+566ce673d067,HS-100115,Mid-Market,Paid Search,25085.00,False,2024-08,2024-06,20,46.32,34.10,53.85,68.92,0,0,,81.88,51.79,riesgo bajo,False,False,False
+40cbcd1a5e9b,HS-100524,Mid-Market,Outbound SDR,20692.00,False,2024-08,2024-06,22,14.19,67.95,25.30,98.54,2,0,2.00,84.79,51.91,riesgo bajo,False,False,False
+dbef19a6cece,HS-100290,Mid-Market,Webinar,24825.00,False,2024-08,2024-06,8,56.58,88.80,31.37,32.46,0,0,,71.97,52.01,riesgo bajo,False,False,False
+9382f00dc8c8,HS-100389,Mid-Market,Referral,21751.00,False,2024-08,2024-06,22,20.00,67.44,14.02,98.54,0,0,,62.74,52.15,riesgo bajo,False,False,False
+89399b82116c,HS-100170,Mid-Market,Evento,22022.00,False,2024-08,2024-06,18,39.32,70.60,35.38,63.23,1,0,5.00,85.64,52.16,riesgo bajo,False,False,False
+99d92d07b60e,HS-100249,Enterprise,Organic,55738.00,False,2024-08,2024-06,4,70.26,45.47,90.09,17.31,0,0,,98.12,52.39,riesgo bajo,False,False,False
+efe6dcc1eacd,HS-100470,Enterprise,Evento,45182.00,False,2024-08,2024-06,19,47.86,36.24,56.75,66.31,0,0,,92.14,52.40,riesgo bajo,False,False,False
+1288cafbc1fe,HS-100439,Mid-Market,Paid Search,12355.00,False,2024-08,2024-06,3,73.85,47.44,90.09,12.15,2,0,2.50,77.78,52.49,riesgo bajo,False,False,False
+16541ff794fd,HS-100088,Mid-Market,Paid Search,22248.00,False,2024-08,2024-06,22,32.82,35.90,39.15,93.31,1,0,3.00,63.93,52.53,riesgo bajo,False,False,False
+87418077620e,HS-100263,SMB,Organic,3530.00,False,2024-08,2024-06,20,50.09,56.07,21.71,68.92,0,0,,16.92,52.68,riesgo bajo,False,False,False
+cfa499631566,HS-100094,Mid-Market,Paid Search,13136.00,False,2024-08,2024-06,22,42.22,18.29,78.46,75.15,0,0,,56.84,52.75,riesgo bajo,False,False,False
+eb6e17931ac2,HS-100605,SMB,Partner,7927.00,False,2024-08,2024-06,17,28.55,56.07,90.09,60.15,0,0,,23.25,52.76,riesgo bajo,False,False,False
+93f094f73363,HS-100365,Enterprise,Referral,47869.00,False,2024-08,2024-06,16,53.85,34.53,65.98,57.31,0,0,,93.16,52.84,riesgo bajo,False,False,False
+ef0e67d8ffaf,HS-100297,Mid-Market,Referral,25562.00,False,2024-08,2024-06,20,48.89,43.50,43.08,68.92,1,0,,81.20,52.95,riesgo bajo,False,False,False
+4ad2695790da,HS-100381,SMB,Organic,4903.00,False,2024-08,2024-06,22,52.31,25.04,40.85,78.54,0,0,,18.12,53.01,riesgo bajo,False,False,False
+3280fc910c85,HS-100144,SMB,Paid Search,7947.00,False,2024-08,2024-06,21,50.43,35.04,46.41,71.92,0,0,,32.22,53.20,riesgo bajo,False,False,False
+77af4118522b,HS-100547,SMB,Organic,8995.00,False,2024-08,2024-06,22,30.60,56.07,21.88,93.31,1,0,4.00,30.51,53.20,riesgo bajo,False,False,False
+c7e410d860dd,HS-100532,Enterprise,Outbound SDR,38659.00,False,2024-08,2024-06,5,59.83,83.50,62.39,21.62,1,0,1.00,91.97,53.48,riesgo bajo,False,False,False
+73a7137f9426,HS-100536,Enterprise,Paid Search,49698.00,False,2024-08,2024-06,21,41.20,40.34,64.96,71.92,1,0,,93.68,53.81,riesgo bajo,False,False,False
+98bbb9b1f4ec,HS-100634,SMB,Referral,7386.00,False,2024-08,2024-06,11,52.14,89.40,38.55,40.23,0,0,,49.74,53.98,riesgo bajo,False,False,False
+ab838c4c08e3,HS-100305,Mid-Market,Partner,25892.00,False,2024-08,2024-06,22,42.39,46.67,27.01,86.15,0,0,,65.13,54.07,riesgo bajo,False,False,False
+b60f62d4c3c4,HS-100328,Mid-Market,Organic,18324.00,False,2024-08,2024-06,19,65.30,26.24,40.85,66.31,1,0,5.00,41.54,54.12,riesgo bajo,False,False,False
+e8f392fbcfbd,HS-100322,Mid-Market,Partner,19823.00,False,2024-08,2024-06,9,69.06,29.74,90.09,35.00,1,0,3.00,75.47,54.13,riesgo bajo,False,False,False
+3499a7868775,HS-100148,SMB,Webinar,8723.00,False,2024-08,2024-06,4,69.23,56.07,90.09,17.31,1,0,5.00,13.76,54.15,riesgo bajo,False,False,False
+4748fb3a478f,HS-100542,Mid-Market,Evento,21698.00,False,2024-08,2024-06,16,56.75,45.13,54.19,57.31,0,0,,63.33,54.21,riesgo bajo,False,False,False
+ef28de0cbaf4,HS-100247,SMB,Organic,4350.00,False,2024-08,2024-06,21,60.00,40.85,23.25,71.92,0,0,,55.38,54.23,riesgo bajo,False,False,False
+8fcd350ed2a1,HS-100151,Enterprise,Outbound SDR,83821.00,False,2024-08,2024-06,11,61.71,64.44,52.14,40.23,0,0,,92.99,54.38,riesgo bajo,False,False,False
+ed5931954b72,HS-100531,Mid-Market,Paid Search,20509.00,False,2024-08,2024-06,3,63.76,74.62,90.09,12.15,0,0,,55.04,54.40,riesgo bajo,False,False,False
+559a1afd0e44,HS-100444,SMB,Organic,143689.50,False,2024-08,2024-06,22,38.29,25.04,62.99,88.92,0,0,,15.38,54.53,riesgo bajo,False,False,False
+9c83b29dabc8,HS-100588,SMB,Webinar,5552.00,False,2024-08,2024-06,12,63.42,41.79,70.43,44.69,0,0,,42.05,54.53,riesgo bajo,False,False,False
+3e0eaa7298aa,HS-100284,SMB,Outbound SDR,4834.00,False,2024-08,2024-06,15,58.80,56.07,44.44,54.00,0,0,,42.05,54.66,riesgo bajo,False,False,False
+00fd17d94d91,HS-100010,Mid-Market,Outbound SDR,15865.00,False,2024-08,2024-06,13,47.35,98.46,25.90,48.54,1,0,2.00,61.03,54.71,riesgo bajo,False,False,False
+f9258b3410f9,HS-100590,SMB,Webinar,2146.00,False,2024-08,2024-06,7,57.61,98.46,40.85,29.08,1,0,,2.65,54.71,riesgo bajo,False,False,False
+1e08214c6d84,HS-100397,Mid-Market,Evento,23707.00,False,2024-08,2024-06,22,44.27,69.06,20.85,75.15,0,0,,71.28,54.98,riesgo bajo,False,False,False
+a6d940689369,HS-100461,SMB,Partner,3170.00,False,2024-08,2024-06,22,31.45,56.07,33.59,93.31,0,0,,11.54,55.25,riesgo bajo,False,False,False
+0df07dc09d21,HS-100456,SMB,Webinar,7315.00,False,2024-08,2024-06,22,23.93,56.07,40.85,98.54,0,0,,18.63,55.28,riesgo bajo,False,False,False
+7b530221112a,HS-100304,Mid-Market,Webinar,13490.00,False,2024-08,2024-06,16,48.03,69.74,48.89,57.31,0,0,,76.07,55.28,riesgo bajo,False,False,False
+28e7c24cd4cb,HS-100629,SMB,Paid Search,8981.00,False,2024-08,2024-06,13,61.20,29.06,90.09,48.54,0,0,,36.50,55.31,riesgo bajo,False,False,False
+43aa39bba634,HS-100163,Mid-Market,Partner,18378.00,False,2024-08,2024-06,16,48.38,68.72,49.83,57.31,0,0,,58.29,55.34,riesgo bajo,False,False,False
+7c71e1e60120,HS-100594,SMB,Organic,8651.00,False,2024-08,2024-06,22,34.36,56.07,36.24,88.92,0,0,,28.29,55.35,riesgo bajo,False,False,False
+f1a6ca1331db,HS-100032,SMB,Referral,2794.00,False,2024-08,2024-06,22,42.05,56.07,24.44,86.15,2,1,1.50,32.22,55.44,riesgo bajo,False,False,False
+f268910f164f,HS-100015,SMB,Webinar,3143.00,False,2024-08,2024-06,15,55.21,79.83,26.32,54.00,0,0,,38.38,55.44,riesgo bajo,False,False,False
+d57e35ff96ea,HS-100150,SMB,Referral,5358.00,False,2024-08,2024-06,22,40.17,56.07,51.79,75.15,0,0,,47.78,55.59,riesgo bajo,False,False,False
+9ae028b62042,HS-100277,Mid-Market,Partner,14704.00,False,2024-08,2024-06,22,27.35,47.09,47.18,98.54,2,0,3.50,79.49,55.63,riesgo bajo,False,False,False
+f618418fca35,HS-100157,Mid-Market,Outbound SDR,13689.00,False,2024-08,2024-06,22,47.52,44.44,51.62,75.15,3,0,2.67,74.02,55.81,riesgo bajo,False,False,False
+723875008eb9,HS-100578,Enterprise,Paid Search,72978.00,False,2024-08,2024-06,17,68.21,12.48,76.75,60.15,1,1,5.00,89.06,55.93,riesgo bajo,False,False,False
+ed0225bd89c5,HS-100593,SMB,Paid Search,7626.00,False,2024-08,2024-06,15,48.72,93.33,26.75,54.00,1,0,4.00,7.18,55.93,riesgo bajo,False,False,False
+093598bb9373,HS-100490,Enterprise,Referral,55513.00,False,2024-08,2024-06,22,39.49,22.05,55.90,98.54,0,0,,96.92,56.18,riesgo bajo,False,False,False
+afea25b3f304,HS-100215,Mid-Market,Referral,12468.00,False,2024-08,2024-06,7,66.50,56.07,90.09,29.08,0,0,,39.57,56.73,riesgo bajo,False,False,False
+99340d33f3fb,HS-100037,SMB,Referral,5978.00,False,2024-08,2024-06,22,53.68,21.28,59.74,82.54,0,0,,13.50,56.77,riesgo bajo,False,False,False
+9d7de9537b7e,HS-100635,SMB,Outbound SDR,4033.00,False,2024-08,2024-06,3,72.82,70.60,90.09,12.15,1,0,,50.68,56.77,riesgo bajo,False,False,False
+c518f6a1dc57,HS-100419,Mid-Market,Organic,23920.00,False,2024-08,2024-06,11,57.26,56.07,90.09,40.23,0,0,,56.24,56.84,riesgo bajo,False,False,False
+b585e4ebcc98,HS-100316,Mid-Market,Partner,18752.00,False,2024-08,2024-06,22,43.76,45.73,43.93,86.15,0,0,,71.45,56.90,riesgo bajo,False,False,False
+7c22a127f33f,HS-100176,SMB,Webinar,5039.00,False,2024-08,2024-06,22,35.38,56.07,31.37,95.85,0,0,,24.96,57.06,riesgo bajo,False,False,False
+0d4cd09dfa99,HS-100221,Mid-Market,Organic,19359.00,False,2024-08,2024-06,22,66.67,31.20,32.99,75.15,1,0,4.00,86.67,57.07,riesgo bajo,False,False,False
+21f411028416,HS-100169,SMB,Organic,4774.00,False,2024-08,2024-06,5,74.10,56.07,90.09,21.62,0,0,,10.26,57.15,riesgo bajo,False,False,False
+58660e0d4e6c,HS-100153,SMB,Webinar,7606.00,False,2024-08,2024-06,5,74.10,56.07,90.09,21.62,0,0,,8.29,57.15,riesgo bajo,False,False,False
+3dc38ff1f062,HS-100058,SMB,Webinar,3331.00,False,2024-08,2024-06,5,83.76,39.49,90.09,21.62,0,0,,51.62,57.21,riesgo bajo,False,False,False
+bcbbeb996730,HS-100495,SMB,Organic,4227.00,False,2024-08,2024-06,21,53.50,29.06,75.47,71.92,0,0,,52.56,57.43,riesgo bajo,False,False,False
+95b0e7ccdb63,HS-100281,Enterprise,Evento,57489.00,False,2024-08,2024-06,4,73.50,65.30,90.09,17.31,2,1,4.00,85.98,57.49,riesgo bajo,False,False,False
+34c5037c1d22,HS-100198,Enterprise,Outbound SDR,51045.00,False,2024-08,2024-06,7,68.72,56.07,90.09,29.08,1,0,5.00,88.03,57.50,riesgo bajo,False,False,False
+652a84cfe5c1,HS-100631,Mid-Market,Paid Search,23987.00,False,2024-08,2024-06,6,65.13,81.71,71.97,25.31,0,0,,62.91,57.53,riesgo bajo,False,False,False
+a888ac2fc626,HS-100190,SMB,Webinar,3215.00,False,2024-08,2024-06,11,62.56,87.44,42.74,40.23,0,0,,52.82,57.86,riesgo bajo,False,False,False
+659b8fb24c41,HS-100141,Enterprise,Webinar,43973.00,False,2024-08,2024-06,21,59.66,47.86,40.00,71.92,0,0,,94.19,58.03,riesgo bajo,False,False,False
+48c20dcf6fe4,HS-100619,Mid-Market,Evento,25110.00,False,2024-08,2024-06,11,83.25,48.38,47.86,40.23,0,0,,84.10,58.06,riesgo bajo,False,False,False
+572d46de8d86,HS-100255,SMB,Webinar,5851.00,False,2024-08,2024-06,21,45.81,93.33,12.14,71.92,0,0,,20.68,58.10,riesgo bajo,False,False,False
+937eb80b0184,HS-100633,SMB,Paid Search,6164.00,False,2024-08,2024-06,6,87.01,32.82,90.09,25.31,0,0,,53.59,58.12,riesgo bajo,False,False,False
+c29e32af3d21,HS-100609,SMB,Organic,8005.00,False,2024-08,2024-06,9,71.62,71.97,55.30,35.00,1,0,,45.73,58.26,riesgo bajo,False,False,False
+88a8efcac170,HS-100047,SMB,Referral,3746.00,False,2024-08,2024-06,3,64.44,93.33,90.09,12.15,1,0,4.00,9.15,58.38,riesgo bajo,False,False,False
+419e91f90223,HS-100172,SMB,Evento,8737.00,False,2024-08,2024-06,22,65.64,16.92,50.68,82.54,0,0,,21.79,58.72,riesgo bajo,False,False,False
+6e9112a3a693,HS-100147,Mid-Market,Webinar,24498.00,False,2024-08,2024-06,22,51.28,22.22,51.45,95.85,1,0,2.00,76.41,58.86,riesgo bajo,False,False,False
+70ea0c23bdb2,HS-100038,SMB,Evento,5198.00,False,2024-08,2024-06,22,45.13,25.04,90.09,82.54,0,0,,16.58,59.08,riesgo bajo,False,False,False
+538f62518bf7,HS-100448,Mid-Market,Evento,144600.00,False,2024-08,2024-06,6,72.65,70.60,80.00,25.31,0,0,,79.83,59.14,riesgo bajo,False,False,False
+16c951b00315,HS-100060,SMB,Paid Search,3634.00,False,2024-08,2024-06,7,72.48,98.46,36.24,29.08,2,0,2.00,1.28,59.22,riesgo bajo,False,False,False
+664b9e778e26,HS-100377,Mid-Market,Evento,10980.00,False,2024-08,2024-06,18,52.48,90.94,25.64,63.23,1,0,1.00,63.76,59.37,riesgo bajo,False,False,False
+1a38af8fa679,HS-100446,Enterprise,Referral,44362.00,False,2024-08,2024-06,22,27.52,85.98,30.43,93.31,2,0,,91.45,59.39,riesgo bajo,False,False,False
+99787ccefdee,HS-100233,Mid-Market,Referral,22874.00,False,2024-08,2024-06,22,59.15,26.84,49.83,86.15,0,0,,62.22,59.39,riesgo bajo,False,False,False
+c92187f76a50,HS-100092,Mid-Market,Referral,451603.50,False,2024-08,2024-06,22,58.29,18.97,77.95,78.54,3,0,4.00,80.85,59.45,riesgo bajo,False,False,False
+5211255cc108,HS-100468,Mid-Market,Outbound SDR,20832.00,False,2024-08,2024-06,22,54.53,42.91,34.36,88.92,1,0,1.00,86.50,59.50,riesgo bajo,False,False,False
+789c81ac0120,HS-100356,Mid-Market,Evento,19507.00,False,2024-08,2024-06,17,67.69,43.50,60.43,60.15,1,0,3.00,78.29,59.50,riesgo bajo,False,False,False
+14c82590fbd2,HS-100324,SMB,Outbound SDR,8192.00,False,2024-08,2024-06,20,76.24,26.84,45.21,68.92,0,0,,49.23,59.51,riesgo bajo,False,False,False
+8c5f19b3b0d6,HS-100069,SMB,Partner,6541.00,False,2024-08,2024-06,5,70.09,95.56,64.27,21.62,0,0,,26.32,59.77,riesgo bajo,False,False,False
+cc7284c118af,HS-100199,Enterprise,Referral,83527.00,False,2024-08,2024-06,8,62.22,85.64,74.36,32.46,1,0,1.00,89.23,59.80,riesgo bajo,False,False,False
+f2bfbed8aeda,HS-100200,Mid-Market,Organic,18128.00,False,2024-08,2024-06,13,70.77,35.04,90.09,48.54,1,0,5.00,70.51,59.85,riesgo bajo,False,False,False
+2e1dc645f108,HS-100240,SMB,Paid Search,6672.00,False,2024-08,2024-06,12,68.38,56.07,75.47,44.69,0,0,,47.78,59.87,riesgo bajo,False,False,False
+cbf0d50a86e7,HS-100256,Mid-Market,Referral,11213.00,False,2024-08,2024-06,22,36.58,72.56,35.21,91.08,1,0,5.00,80.00,59.92,riesgo bajo,False,False,False
+6b9938219d8f,HS-100608,SMB,Evento,3133.00,False,2024-08,2024-06,22,48.55,93.33,5.47,78.54,0,0,,29.32,60.04,riesgo bajo,False,False,False
+7098e946d95f,HS-100179,Enterprise,Referral,87093.00,False,2024-08,2024-06,20,51.79,63.76,56.58,68.92,0,0,,93.50,60.04,riesgo bajo,False,False,False
+7cd86d7f8789,HS-100574,Mid-Market,Paid Search,19654.00,False,2024-08,2024-06,22,54.87,44.96,41.71,86.15,1,0,,77.61,60.30,riesgo bajo,False,False,False
+0e7b9d22a314,HS-100306,Enterprise,Outbound SDR,66910.00,False,2024-08,2024-06,16,60.85,80.34,39.83,57.31,1,0,2.00,98.63,60.53,riesgo bajo,False,False,False
+c8d1b8b01b16,HS-100582,Enterprise,Outbound SDR,45076.00,False,2024-08,2024-06,22,46.84,68.55,22.39,91.08,1,0,1.00,98.46,60.79,riesgo bajo,False,False,False
+f278c285db4a,HS-100113,Enterprise,Evento,47414.00,False,2024-08,2024-06,3,76.92,84.10,90.09,12.15,1,0,,91.62,60.90,riesgo bajo,False,False,False
+567a1080b6c7,HS-100477,SMB,Webinar,8414.00,False,2024-08,2024-06,15,80.51,56.07,35.56,54.00,0,0,,27.95,60.93,riesgo bajo,False,False,False
+87428c0f5a32,HS-100497,Mid-Market,Paid Search,15803.00,False,2024-08,2024-06,21,50.26,56.07,71.62,71.92,1,1,5.00,64.27,61.12,riesgo bajo,False,False,False
+ba0e4a372968,HS-100591,SMB,Webinar,2841.00,False,2024-08,2024-06,12,65.81,56.07,90.09,44.69,0,0,,9.66,61.17,riesgo bajo,False,False,False
+4852e6665bc7,HS-100516,SMB,Organic,6853.00,False,2024-08,2024-06,22,58.12,31.20,44.96,93.31,0,0,,54.53,61.32,riesgo bajo,False,False,False
+c80df26f0cb2,HS-100119,Enterprise,Referral,946020.00,False,2024-08,2024-06,22,45.64,99.66,19.49,75.15,1,0,2.00,99.83,61.37,riesgo bajo,False,False,False
+f4369dc52865,HS-100644,SMB,Webinar,6602.00,False,2024-08,2024-06,19,56.92,93.33,20.68,66.31,1,0,4.00,27.18,61.58,riesgo bajo,False,False,False
+a62f0320022a,HS-100414,Mid-Market,Outbound SDR,10451.00,False,2024-08,2024-06,3,74.53,91.79,90.09,12.15,0,0,,68.38,61.60,riesgo bajo,False,False,False
+dbb9781b47c5,HS-100447,Enterprise,Organic,65842.00,False,2024-08,2024-06,14,72.31,48.55,77.44,51.08,0,0,,88.38,61.96,riesgo bajo,False,False,False
+6cf7fe3272fc,HS-100175,Mid-Market,Partner,12805.00,False,2024-08,2024-06,11,62.74,88.55,69.57,40.23,1,0,4.00,76.58,62.17,riesgo bajo,False,False,False
+8a377898dd91,HS-100362,Mid-Market,Organic,11590.00,False,2024-08,2024-06,4,81.37,75.04,90.09,17.31,0,0,,83.25,62.19,riesgo bajo,False,False,False
+89d3af7bfbf6,HS-100479,Enterprise,Paid Search,69125.00,False,2024-08,2024-06,17,68.55,45.30,74.19,60.15,1,0,5.00,87.35,62.23,riesgo bajo,False,False,False
+f81f32be9b74,HS-100409,Enterprise,Paid Search,81671.00,False,2024-08,2024-06,21,62.91,65.13,37.61,71.92,0,0,,82.56,62.26,riesgo bajo,False,False,False
+ae22895bdbc5,HS-100278,Mid-Market,Outbound SDR,16757.00,False,2024-08,2024-06,21,71.11,25.04,72.65,71.92,2,0,2.00,80.68,62.37,riesgo bajo,False,False,False
+67e350db2ed9,HS-100391,Enterprise,Paid Search,50321.00,False,2024-08,2024-06,19,64.96,67.69,42.56,66.31,1,0,2.00,96.41,62.55,riesgo bajo,False,False,False
+54e0cdf8d6e2,HS-100308,SMB,Paid Search,53594.50,False,2024-08,2024-06,3,81.71,84.62,90.09,12.15,1,0,4.00,53.85,62.68,riesgo bajo,False,False,False
+ae32988dfca5,HS-100647,Mid-Market,Paid Search,282216.00,False,2024-08,2024-06,19,62.39,38.29,90.09,66.31,0,0,,59.06,62.90,riesgo bajo,False,False,False
+2046e13bb328,HS-100109,SMB,Partner,6764.00,False,2024-08,2024-06,22,63.59,29.06,75.81,78.54,0,0,,33.50,63.00,riesgo bajo,False,False,False
+7e3cff38400b,HS-100583,SMB,Evento,7196.00,False,2024-08,2024-06,5,79.83,76.24,90.09,21.62,0,0,,23.59,63.19,riesgo bajo,False,False,False
+a016ad959c90,HS-100396,Enterprise,Outbound SDR,51587.00,False,2024-08,2024-06,11,84.62,74.02,44.79,40.23,0,0,,94.02,63.21,riesgo bajo,False,False,False
+89c4b5ff4a9f,HS-100445,Mid-Market,Referral,13442.00,False,2024-08,2024-06,19,71.28,34.10,77.09,66.31,2,0,5.00,58.63,63.22,riesgo bajo,False,False,False
+eff19c144690,HS-100275,SMB,Evento,7843.00,False,2024-08,2024-06,22,56.07,70.60,39.40,78.54,0,0,,50.34,63.22,riesgo bajo,False,False,False
+f08e91043b03,HS-100285,Mid-Market,Partner,17993.00,False,2024-08,2024-06,15,83.59,42.22,62.14,54.00,0,0,,75.04,63.22,riesgo bajo,False,False,False
+57c8aca8703d,HS-100551,SMB,Partner,6557.00,False,2024-08,2024-06,22,67.01,14.79,58.97,93.31,1,0,1.00,38.63,63.25,riesgo bajo,False,False,False
+51a517c1a25b,HS-100309,Mid-Market,Referral,27955.00,False,2024-08,2024-06,7,80.34,64.62,90.09,29.08,0,0,,65.47,63.28,riesgo bajo,False,False,False
+c95e7040378c,HS-100346,Mid-Market,Outbound SDR,24468.00,False,2024-08,2024-06,22,51.97,65.81,30.94,91.08,0,0,,68.89,63.32,riesgo bajo,False,False,False
+b6227ca140ae,HS-100514,Mid-Market,Webinar,16902.00,False,2024-08,2024-06,22,61.88,36.92,78.97,75.15,0,0,,82.74,63.43,riesgo bajo,False,False,False
+840d8a53bce8,HS-100043,SMB,Outbound SDR,6666.00,False,2024-08,2024-06,22,58.46,16.92,67.26,98.54,1,0,5.00,18.12,63.50,riesgo bajo,False,False,False
+00fe53692ca1,HS-100454,Enterprise,Partner,73127.00,False,2024-08,2024-06,6,76.41,78.97,90.09,25.31,0,0,,95.21,63.64,riesgo bajo,False,False,False
+605a3500df16,HS-100303,SMB,Organic,4995.00,False,2024-08,2024-06,15,61.37,96.50,44.44,54.00,0,0,,31.37,63.65,riesgo bajo,False,False,False
+e75f33c9ed23,HS-100105,Enterprise,Referral,59952.00,False,2024-08,2024-06,15,67.18,71.28,65.64,54.00,1,0,,97.09,63.82,riesgo bajo,False,False,False
+5945ffa79bf5,HS-100441,SMB,Partner,2961.00,False,2024-08,2024-06,3,78.46,96.15,90.09,12.15,0,0,,30.17,63.85,riesgo bajo,False,False,False
+ee1a76c497e4,HS-100394,Mid-Market,Partner,18678.00,False,2024-08,2024-06,22,67.86,31.20,60.68,82.54,2,0,3.50,73.68,63.86,riesgo bajo,False,False,False
+338f32670f98,HS-100399,Mid-Market,Referral,22559.00,False,2024-08,2024-06,15,69.57,76.24,54.53,54.00,2,0,3.00,69.57,63.98,riesgo bajo,False,False,False
+78dd22e22aac,HS-100528,SMB,Referral,4617.00,False,2024-08,2024-06,12,89.91,28.03,90.09,44.69,1,0,,20.94,63.99,riesgo bajo,False,False,False
+d6c94dcf68f9,HS-100274,Enterprise,Webinar,41118.00,False,2024-08,2024-06,8,77.95,91.28,58.63,32.46,0,0,,88.72,64.07,riesgo bajo,False,False,False
+c488ec042e89,HS-100347,Mid-Market,Partner,22774.00,False,2024-08,2024-06,17,69.91,40.85,90.09,60.15,0,0,,62.39,64.20,riesgo bajo,False,False,False
+5205e01e1434,HS-100027,SMB,Paid Search,5268.00,False,2024-08,2024-06,3,85.30,87.44,90.09,12.15,1,0,2.00,41.11,64.50,riesgo bajo,False,False,False
+800f2eb56933,HS-100030,SMB,Referral,3949.00,False,2024-08,2024-06,5,82.56,78.12,90.09,21.62,0,0,,24.36,64.52,riesgo bajo,False,False,False
+64dcc8776b32,HS-100279,Mid-Market,Referral,27076.00,False,2024-08,2024-06,22,55.73,66.92,46.84,82.54,1,0,1.00,85.13,64.68,riesgo bajo,False,False,False
+618a87bd9809,HS-100636,SMB,Partner,5381.00,False,2024-08,2024-06,22,52.99,87.44,34.87,78.54,1,0,3.00,28.29,64.83,riesgo bajo,False,False,False
+0f42092743f1,HS-100626,SMB,Referral,8220.00,False,2024-08,2024-06,22,38.46,98.46,15.90,98.54,0,0,,3.16,65.10,riesgo bajo,False,False,False
+78d1aed426c1,HS-100211,SMB,Evento,117697.00,False,2024-08,2024-06,12,73.16,87.44,57.95,44.69,0,0,,9.66,65.19,riesgo bajo,False,False,False
+8fd23f99086a,HS-100292,SMB,Evento,6969.00,False,2024-08,2024-06,4,85.13,83.50,90.09,17.31,0,0,,12.56,65.20,riesgo bajo,False,False,False
+8dfb642a97d7,HS-100329,SMB,Organic,3099.00,False,2024-08,2024-06,21,63.08,85.21,30.09,71.92,0,0,,32.74,65.21,riesgo bajo,False,False,False
+22b962d9afed,HS-100620,Mid-Market,Outbound SDR,21407.00,False,2024-08,2024-06,10,94.53,38.46,90.09,37.23,0,0,,74.27,65.46,riesgo bajo,False,False,False
+167708133e90,HS-100482,Mid-Market,Webinar,452473.00,False,2024-08,2024-06,11,95.04,33.25,90.09,40.23,1,0,3.00,67.86,65.50,riesgo bajo,False,False,False
+9bf0ba4ae3b0,HS-100054,Enterprise,Partner,28633.00,False,2024-08,2024-06,22,49.40,84.27,18.12,95.85,3,0,3.00,88.89,65.62,riesgo bajo,False,False,False
+811e0b829afa,HS-100166,Mid-Market,Outbound SDR,11953.00,False,2024-08,2024-06,4,82.39,91.62,90.09,17.31,0,0,,63.59,65.87,riesgo bajo,False,False,False
+068871d26770,HS-100209,SMB,Paid Search,2448.00,False,2024-08,2024-06,22,64.27,82.05,15.04,82.54,3,1,3.33,49.91,65.92,riesgo bajo,False,False,False
+25de70f28a81,HS-100354,SMB,Evento,2362.00,False,2024-08,2024-06,14,70.43,83.50,62.14,51.08,0,0,,12.56,66.00,riesgo bajo,False,False,False
+67da30b569af,HS-100418,SMB,Referral,5407.00,False,2024-08,2024-06,21,63.25,96.84,19.66,71.92,0,0,,31.37,66.03,riesgo bajo,False,False,False
+2e313ecc9f06,HS-100610,Mid-Market,Organic,17907.00,False,2024-08,2024-06,15,73.33,79.40,55.30,54.00,1,0,3.00,64.96,66.04,riesgo bajo,False,False,False
+b4e6ad0d057a,HS-100604,SMB,Outbound SDR,6703.00,False,2024-08,2024-06,13,82.74,70.60,56.41,48.54,1,0,2.00,39.06,66.10,riesgo bajo,False,False,False
+eda37dec809b,HS-100491,SMB,Organic,2762.00,False,2024-08,2024-06,4,79.32,98.46,90.09,17.31,0,0,,26.92,66.16,riesgo bajo,False,False,False
+cc612f12a5f3,HS-100576,Enterprise,Partner,70952.00,False,2024-08,2024-06,22,50.60,63.93,41.88,98.54,3,0,4.50,94.87,66.34,riesgo bajo,False,False,False
+e5bcc1fbee61,HS-100049,SMB,Paid Search,7357.00,False,2024-08,2024-06,22,55.38,81.03,48.29,78.54,0,0,,47.01,66.39,riesgo bajo,False,False,False
+5d3997bae226,HS-100165,SMB,Evento,7140.00,False,2024-08,2024-06,16,81.20,56.07,64.27,57.31,2,0,2.50,17.61,66.47,riesgo bajo,False,False,False
+a1baa2e417d2,HS-100250,Mid-Market,Partner,16813.00,False,2024-08,2024-06,18,60.68,94.87,49.23,63.23,0,0,,85.81,66.57,riesgo bajo,False,False,False
+179d97e50dff,HS-100135,Enterprise,Referral,58276.00,False,2024-08,2024-06,7,90.09,64.96,90.09,29.08,1,0,1.00,87.69,66.76,riesgo bajo,False,False,False
+5f6fe04e3c0d,HS-100530,Mid-Market,Partner,10577.00,False,2024-08,2024-06,22,53.16,56.07,60.43,93.31,2,0,4.50,72.82,66.88,riesgo bajo,False,False,False
+0f9a82123cbe,HS-100202,SMB,Partner,4238.00,False,2024-08,2024-06,13,96.92,41.79,67.26,48.54,1,0,3.00,44.36,66.93,riesgo bajo,False,False,False
+eb11583a635e,HS-100345,SMB,Evento,6737.00,False,2024-08,2024-06,22,65.98,87.44,19.06,78.54,1,0,2.00,12.99,67.00,riesgo bajo,False,False,False
+e31d2d4a48e2,HS-100513,Enterprise,Partner,51424.00,False,2024-08,2024-06,14,73.68,69.91,79.83,51.08,0,0,,89.91,67.07,riesgo bajo,False,False,False
+1b589de854cd,HS-100298,SMB,Partner,2414.00,False,2024-08,2024-06,14,85.81,56.07,70.43,51.08,0,0,,19.15,67.14,riesgo bajo,False,False,False
+19e40842726a,HS-100282,SMB,Evento,8791.00,False,2024-08,2024-06,22,67.35,16.92,90.09,88.92,0,0,,28.97,67.15,riesgo bajo,False,False,False
+79adf7e6a753,HS-100395,SMB,Webinar,5112.00,False,2024-08,2024-06,18,89.57,16.92,90.09,63.23,1,0,,26.32,67.22,riesgo bajo,False,False,False
+fb8b03e9c21b,HS-100254,SMB,Evento,6309.00,False,2024-08,2024-06,22,78.97,31.20,50.68,86.15,0,0,,41.54,67.33,riesgo bajo,False,False,False
+8ee34a42dee7,HS-100374,Mid-Market,Partner,20540.00,False,2024-08,2024-06,8,86.32,69.40,90.09,32.46,0,0,,77.26,67.34,riesgo bajo,False,False,False
+1e6e8393975f,HS-100587,SMB,Partner,8235.00,False,2024-08,2024-06,7,75.56,93.33,90.09,29.08,1,0,4.00,5.56,67.35,riesgo bajo,False,False,False
+d12b484f1480,HS-100350,Mid-Market,Paid Search,26840.00,False,2024-08,2024-06,19,67.52,78.12,54.70,66.31,0,0,,86.15,67.35,riesgo bajo,False,False,False
+9de59d515b9f,HS-100649,Mid-Market,Evento,211640.00,False,2024-08,2024-06,22,84.10,20.51,68.38,78.54,0,0,,84.27,67.36,riesgo bajo,False,False,False
+d54c9d70035a,HS-100293,Mid-Market,Webinar,21141.00,False,2024-08,2024-06,22,46.50,66.67,70.09,91.08,1,0,5.00,87.52,67.45,riesgo bajo,False,False,False
+17ad157b6ec9,HS-100239,Mid-Market,Evento,19140.00,False,2024-08,2024-06,22,55.90,56.07,66.75,88.92,0,0,,60.34,67.47,riesgo bajo,False,False,False
+1598cd0f4138,HS-100287,SMB,Referral,7903.00,False,2024-08,2024-06,22,57.78,76.24,42.39,86.15,0,0,,30.51,67.67,riesgo bajo,False,False,False
+7a2060655ae1,HS-100367,Enterprise,Webinar,53993.00,False,2024-08,2024-06,20,77.09,63.59,49.06,68.92,0,0,,92.31,67.73,riesgo bajo,False,False,False
+35f7ee11ef6a,HS-100286,SMB,Evento,7250.00,False,2024-08,2024-06,16,80.68,56.07,74.87,57.31,0,0,,51.79,67.88,riesgo bajo,False,False,False
+ab72e3445be1,HS-100592,Mid-Market,Partner,23939.00,False,2024-08,2024-06,11,78.63,83.50,77.26,40.23,1,0,2.00,41.54,67.88,riesgo bajo,False,False,False
+e382b0077d44,HS-100013,Mid-Market,Evento,19336.00,False,2024-08,2024-06,22,70.60,39.49,70.43,82.54,2,0,3.50,70.94,67.93,riesgo bajo,False,False,False
+29c00e13c4e6,HS-100219,Mid-Market,Referral,11469.00,False,2024-08,2024-06,13,87.35,67.95,61.71,48.54,0,0,,81.54,67.98,riesgo bajo,False,False,False
+20eb324cdfc6,HS-100220,Mid-Market,Webinar,27988.00,False,2024-08,2024-06,22,71.79,48.21,71.45,75.15,2,0,2.00,78.63,68.03,riesgo bajo,False,False,False
+755809755e6a,HS-100343,SMB,Evento,45417.50,False,2024-08,2024-06,20,74.70,93.33,17.61,68.92,1,0,,43.25,68.13,riesgo bajo,False,False,False
+75e57a3efe0c,HS-100145,SMB,Organic,6412.00,False,2024-08,2024-06,7,89.74,73.16,90.09,29.08,0,0,,22.82,68.28,riesgo bajo,False,False,False
+98aa01742131,HS-100565,SMB,Evento,6004.00,False,2024-08,2024-06,22,64.62,78.12,53.33,75.15,0,0,,35.04,68.79,riesgo bajo,False,False,False
+850c889b188c,HS-100563,SMB,Partner,2472.00,False,2024-08,2024-06,11,91.45,56.07,90.09,40.23,1,0,4.00,28.55,68.80,riesgo bajo,False,False,False
+6cfc2bb220b5,HS-100031,Mid-Market,Evento,27881.00,False,2024-08,2024-06,20,84.27,41.79,68.55,68.92,1,0,3.00,72.65,68.81,riesgo bajo,False,False,False
+c9cd0bb0cc08,HS-100427,SMB,Evento,6890.00,False,2024-08,2024-06,13,84.79,56.07,90.09,48.54,0,0,,47.35,68.97,riesgo bajo,False,False,False
+f189adcdf97f,HS-100376,SMB,Outbound SDR,3126.00,False,2024-08,2024-06,13,86.84,70.60,66.15,48.54,0,0,,32.74,69.00,riesgo bajo,False,False,False
+c4a02f8c12cd,HS-100501,Mid-Market,Outbound SDR,27217.00,False,2024-08,2024-06,3,93.33,97.09,90.09,12.15,1,0,3.00,88.55,69.24,riesgo bajo,False,False,False
+935a1d29de57,HS-100314,Enterprise,Paid Search,58124.00,False,2024-08,2024-06,22,46.67,74.19,71.79,91.08,0,0,,93.33,69.26,riesgo bajo,False,False,False
+4196ef66325f,HS-100086,SMB,Organic,8846.00,False,2024-08,2024-06,19,78.12,98.46,15.90,66.31,0,0,,4.10,69.31,riesgo bajo,False,False,False
+0aa90d008a95,HS-100068,Mid-Market,Paid Search,25617.00,False,2024-08,2024-06,18,77.44,93.33,30.68,63.23,0,0,,61.37,69.34,riesgo bajo,False,False,False
+c5350fab0bb4,HS-100063,Mid-Market,Partner,12779.00,False,2024-08,2024-06,22,84.44,31.20,45.98,88.92,2,0,2.00,60.00,69.37,riesgo bajo,False,False,False
+b6f7ec4c7c1a,HS-100413,Enterprise,Webinar,78394.00,False,2024-08,2024-06,7,91.79,86.32,75.21,29.08,0,0,,84.62,69.40,riesgo bajo,False,False,False
+fb754cb6ae6b,HS-100025,SMB,Evento,3030.00,False,2024-08,2024-06,20,96.07,56.07,26.75,68.92,1,0,3.00,5.56,69.53,riesgo bajo,False,False,False
+8d7b0e3ccc06,HS-100181,SMB,Partner,6891.00,False,2024-08,2024-06,22,54.19,96.15,17.44,95.85,0,0,,43.68,69.57,riesgo bajo,False,False,False
+c7ae629f0670,HS-100459,SMB,Evento,3082.00,False,2024-08,2024-06,22,79.15,28.03,50.68,95.85,0,0,,25.64,69.67,riesgo bajo,False,False,False
+ecd54f585087,HS-100599,SMB,Webinar,7420.00,False,2024-08,2024-06,14,80.85,87.44,57.95,51.08,0,0,,15.98,69.80,riesgo bajo,False,False,False
+869eab90ae45,HS-100241,Enterprise,Evento,81535.00,False,2024-08,2024-06,22,69.40,75.73,37.95,82.54,0,0,,93.85,69.89,riesgo bajo,False,False,False
+0a2107e049f9,HS-100159,SMB,Outbound SDR,4830.00,False,2024-08,2024-06,20,83.08,56.07,59.74,68.92,0,0,,4.53,69.93,riesgo bajo,False,False,False
+6010a6c2645a,HS-100378,SMB,Evento,2128.00,False,2024-08,2024-06,22,59.32,83.50,24.87,95.85,0,0,,14.19,69.95,riesgo bajo,False,False,False
+76352359fd43,HS-100121,Mid-Market,Evento,15808.00,False,2024-08,2024-06,22,71.45,48.03,71.11,82.54,0,0,,71.79,70.04,riesgo bajo,False,False,False
+d16deb81827f,HS-100073,SMB,Organic,8704.00,False,2024-08,2024-06,22,64.10,81.03,32.14,88.92,1,0,5.00,30.17,70.14,riesgo bajo,False,False,False
+e4190b8c9edb,HS-100603,SMB,Referral,3701.00,False,2024-08,2024-06,21,87.52,56.07,45.21,71.92,1,0,,26.32,70.20,riesgo bajo,False,False,False
+5df58f1cd011,HS-100006,SMB,Partner,4940.00,False,2024-08,2024-06,22,50.77,81.03,50.68,95.85,1,0,,24.70,70.33,riesgo bajo,False,False,False
+41d822af890b,HS-100056,Enterprise,Partner,86911.00,False,2024-08,2024-06,22,68.03,66.41,50.09,86.15,0,0,,91.79,70.45,riesgo bajo,False,False,False
+93d4f5b861a3,HS-100478,Mid-Market,Organic,9961.00,False,2024-08,2024-06,22,71.97,34.70,69.74,93.31,1,0,1.00,82.39,70.58,riesgo bajo,False,False,False
+190a2d8a76a2,HS-100385,Mid-Market,Webinar,27541.00,False,2024-08,2024-06,12,90.26,82.39,60.85,44.69,0,0,,77.95,70.60,riesgo bajo,False,False,False
+08513678e63b,HS-100643,SMB,Evento,6433.00,False,2024-08,2024-06,17,80.17,82.05,54.19,60.15,0,0,,38.80,70.64,riesgo bajo,False,False,False
+79dd57fbb9d2,HS-100104,SMB,Partner,5806.00,False,2024-08,2024-06,20,82.22,85.81,27.69,68.92,0,0,,52.99,70.77,riesgo bajo,False,False,False
+8425a0e965c5,HS-100556,SMB,Referral,5290.00,False,2024-08,2024-06,4,97.09,90.94,90.09,17.31,0,0,,23.76,70.88,riesgo bajo,False,False,False
+e5c032b1ac0b,HS-100014,SMB,Outbound SDR,3741.00,False,2024-08,2024-06,18,77.78,56.07,90.09,63.23,1,0,4.00,23.08,70.92,riesgo bajo,False,False,False
+ad2278a4a6c6,HS-100596,SMB,Partner,7245.00,False,2024-08,2024-06,7,90.60,85.21,90.09,29.08,0,0,,31.71,70.99,riesgo bajo,False,False,False
+61c8003722fd,HS-100053,Enterprise,Paid Search,69753.00,False,2024-08,2024-06,22,77.26,28.55,90.09,82.54,1,0,4.00,90.43,71.03,riesgo bajo,False,False,False
+e88a6a9945b0,HS-100338,Mid-Market,Evento,21242.00,False,2024-08,2024-06,22,75.38,44.79,73.16,82.54,2,0,3.00,65.81,71.08,riesgo bajo,False,False,False
+b2bb026d825d,HS-100363,SMB,Webinar,8794.00,False,2024-08,2024-06,15,87.69,69.40,69.06,54.00,0,0,,35.90,71.13,riesgo bajo,False,False,False
+f8ef2a0febfc,HS-100341,SMB,Evento,6140.00,False,2024-08,2024-06,22,70.94,69.40,51.97,82.54,0,0,,56.41,71.27,riesgo bajo,False,False,False
+d7e2debcb1e4,HS-100007,SMB,Organic,5100.00,False,2024-08,2024-06,22,72.99,56.07,57.95,86.15,0,0,,8.03,71.30,riesgo bajo,False,False,False
+f8253f98cbef,HS-100276,SMB,Partner,7812.00,False,2024-08,2024-06,5,94.36,93.33,90.09,21.62,0,0,,19.15,71.69,riesgo bajo,False,False,False
+3f52261ca656,HS-100188,Mid-Market,Evento,26086.00,False,2024-08,2024-06,17,87.18,67.44,66.75,60.15,0,0,,59.32,72.06,riesgo bajo,False,False,False
+f16517f6876a,HS-100417,SMB,Webinar,7656.00,False,2024-08,2024-06,18,88.72,93.33,23.25,63.23,1,0,,6.84,72.17,riesgo bajo,False,False,False
+4cdf5b9fe3a4,HS-100534,Mid-Market,Referral,26925.00,False,2024-08,2024-06,22,66.32,43.50,72.31,98.54,0,0,,60.17,72.32,riesgo bajo,False,False,False
+29972f42dfdd,HS-100342,SMB,Paid Search,2952.00,False,2024-08,2024-06,22,81.54,74.62,36.24,78.54,0,0,,30.94,72.46,riesgo bajo,False,False,False
+67934042a230,HS-100243,Enterprise,Outbound SDR,45877.00,False,2024-08,2024-06,22,60.17,68.89,59.32,95.85,1,0,5.00,87.01,72.49,riesgo bajo,False,False,False
+f3488af55845,HS-100519,Enterprise,Partner,28044.00,False,2024-08,2024-06,12,92.14,75.38,79.15,44.69,0,0,,99.49,72.60,riesgo bajo,False,False,False
+49ecd60b845c,HS-100079,SMB,Paid Search,8187.00,False,2024-08,2024-06,4,97.78,98.46,90.09,17.31,0,0,,1.62,72.62,riesgo bajo,False,False,False
+2b4be83e1c60,HS-100116,Mid-Market,Partner,20164.00,False,2024-08,2024-06,22,84.96,33.59,56.07,93.31,0,0,,64.79,72.86,riesgo bajo,False,False,False
+07834c81ea07,HS-100161,SMB,Organic,4940.00,False,2024-08,2024-06,22,52.82,89.40,46.84,98.54,0,0,,21.79,72.96,riesgo bajo,False,False,False
+c0e6f6e5493b,HS-100335,SMB,Paid Search,6693.00,False,2024-08,2024-06,22,86.67,56.07,52.56,78.54,0,0,,3.16,72.99,riesgo bajo,False,False,False
+63a717661ec6,HS-100102,Mid-Market,Webinar,26634.00,False,2024-08,2024-06,17,98.80,35.38,90.09,60.15,0,0,,70.26,73.21,riesgo bajo,False,False,False
+945c463e27f5,HS-100567,SMB,Referral,5166.00,False,2024-08,2024-06,16,98.12,93.33,21.54,57.31,1,0,5.00,50.94,73.43,riesgo bajo,False,False,False
+d7f7a6231274,HS-100264,SMB,Evento,2676.00,False,2024-08,2024-06,22,75.73,56.07,90.09,75.15,0,0,,48.89,73.78,riesgo bajo,False,False,False
+8e811d2dc5a1,HS-100039,Mid-Market,Referral,27211.00,False,2024-08,2024-06,22,74.36,46.24,59.74,98.54,0,0,,67.52,73.80,riesgo bajo,False,False,False
+5c7bb90cf33d,HS-100124,SMB,Organic,5719.00,False,2024-08,2024-06,11,90.77,98.46,69.06,40.23,1,0,4.00,16.24,73.89,riesgo bajo,False,False,False
+c7c91bce755e,HS-100355,SMB,Organic,4369.00,False,2024-08,2024-06,8,89.06,98.46,90.09,32.46,1,0,,3.42,74.11,riesgo bajo,False,False,False
+8018f473b454,HS-100512,SMB,Evento,3473.00,False,2024-08,2024-06,22,65.47,87.44,33.59,95.85,2,0,3.00,15.56,74.20,riesgo bajo,False,False,False
+0c9833234628,HS-100252,SMB,Outbound SDR,7886.00,False,2024-08,2024-06,22,72.14,81.03,32.14,93.31,0,0,,17.18,74.27,riesgo bajo,False,False,False
+e49077a75737,HS-100645,SMB,Outbound SDR,8527.00,False,2024-08,2024-06,21,80.00,56.07,90.09,71.92,0,0,,48.72,74.30,riesgo bajo,False,False,False
+714a72f5154c,HS-100552,Mid-Market,Referral,26123.00,False,2024-08,2024-06,14,82.91,82.91,90.09,51.08,1,0,,75.47,74.44,riesgo bajo,False,False,False
+774336269cfb,HS-100061,SMB,Webinar,7406.00,False,2024-08,2024-06,16,91.97,98.46,36.24,57.31,0,0,,1.97,74.51,riesgo bajo,False,False,False
+6f8a65d8e369,HS-100244,SMB,Organic,3818.00,False,2024-08,2024-06,22,75.21,81.03,48.29,82.54,0,0,,15.21,74.54,riesgo bajo,False,False,False
+41c9fae6089e,HS-100307,SMB,Partner,7805.00,False,2024-08,2024-06,22,66.15,99.83,44.44,82.54,0,0,,52.22,74.55,riesgo bajo,False,False,False
+a54889f58f60,HS-100412,Enterprise,Organic,73982.00,False,2024-08,2024-06,7,96.58,95.38,90.09,29.08,5,1,2.50,92.82,75.12,riesgo bajo,False,False,False
+375bde6ba88f,HS-100483,SMB,Referral,8579.00,False,2024-08,2024-06,18,86.50,90.17,53.33,63.23,1,1,1.00,36.50,75.28,riesgo bajo,False,False,False
+78e777fdb583,HS-100546,SMB,Organic,6386.00,False,2024-08,2024-06,17,76.75,85.21,90.09,60.15,0,0,,26.67,75.46,riesgo bajo,False,False,False
+8a087810c878,HS-100224,SMB,Webinar,6153.00,False,2024-08,2024-06,11,99.32,76.24,90.09,40.23,0,0,,46.15,75.59,riesgo bajo,False,False,False
+12bb70998c29,HS-100648,Mid-Market,Organic,15437.00,False,2024-08,2024-06,15,93.85,65.47,90.09,54.00,0,0,,65.64,75.66,riesgo bajo,False,False,False
+454a653ec9a9,HS-100560,Mid-Market,Referral,15158.00,False,2024-08,2024-06,17,88.03,83.50,69.40,60.15,2,0,3.00,56.58,75.97,riesgo bajo,False,False,False
+a50bd28fa87f,HS-100050,SMB,Outbound SDR,3100.00,False,2024-08,2024-06,13,92.82,78.12,90.09,48.54,0,0,,17.18,76.19,riesgo bajo,False,False,False
+bcdb022bc305,HS-100600,SMB,Referral,5431.00,False,2024-08,2024-06,22,78.29,73.68,62.65,82.54,0,0,,23.42,76.30,riesgo bajo,False,False,False
+3d3cf29f1b67,HS-100095,Mid-Market,Webinar,21087.00,False,2024-08,2024-06,22,83.42,75.21,36.92,88.92,1,1,3.00,76.75,76.45,riesgo bajo,False,False,False
+b909b1288f6f,HS-100295,SMB,Partner,4033.00,False,2024-08,2024-06,22,75.90,81.03,28.29,98.54,0,0,,55.21,76.58,riesgo bajo,False,False,False
+ef9605d5a1d4,HS-100464,Mid-Market,Referral,19305.00,False,2024-08,2024-06,16,97.26,78.12,65.81,57.31,0,0,,81.37,76.73,riesgo bajo,False,False,False
+cf932e3d82d8,HS-100571,SMB,Organic,5084.00,False,2024-08,2024-06,22,81.03,56.07,50.68,98.54,1,0,3.00,19.91,76.74,riesgo bajo,False,False,False
+68f66e743a15,HS-100223,SMB,Referral,2308.00,False,2024-08,2024-06,22,76.07,70.60,90.09,75.15,0,0,,39.06,76.80,riesgo bajo,False,False,False
+dc2ff4bd4800,HS-100048,SMB,Evento,4334.00,False,2024-08,2024-06,18,95.56,56.07,90.09,63.23,0,0,,2.22,77.14,riesgo bajo,False,False,False
+c326e9fdf2b2,HS-100386,Mid-Market,Referral,27572.00,False,2024-08,2024-06,22,82.05,72.56,45.81,91.08,0,0,,84.44,77.42,riesgo bajo,False,False,False
+69e452cb7a98,HS-100474,Enterprise,Organic,31794.00,False,2024-08,2024-06,17,99.66,86.15,49.40,60.15,1,0,1.00,96.75,77.57,riesgo bajo,False,False,False
+48fddc0a1679,HS-100315,Mid-Market,Webinar,17662.00,False,2024-08,2024-06,17,91.11,71.45,90.09,60.15,1,0,3.00,73.85,77.74,riesgo bajo,False,False,False
+82b3be1a7259,HS-100019,SMB,Organic,2094.00,False,2024-08,2024-06,20,92.65,56.07,90.09,68.92,0,0,,1.03,77.83,riesgo bajo,False,False,False
+56cc5e17ca7e,HS-100390,Mid-Market,Webinar,11569.00,False,2024-08,2024-06,22,77.61,77.44,57.26,88.92,0,0,,76.92,77.92,riesgo bajo,False,False,False
+034cefcecc7f,HS-100253,Mid-Market,Organic,15137.00,False,2024-08,2024-06,12,94.02,90.60,90.09,44.69,0,0,,85.30,77.95,riesgo bajo,False,False,False
+1cf6a4e18b6f,HS-100410,SMB,Evento,3140.00,False,2024-08,2024-06,22,81.88,31.20,90.09,98.54,1,0,1.00,27.44,77.97,riesgo bajo,False,False,False
+f6c34b74fdf2,HS-100428,Enterprise,Evento,81329.00,False,2024-08,2024-06,12,97.61,84.44,90.09,44.69,1,0,2.00,96.58,77.97,riesgo bajo,False,False,False
+b71038723b34,HS-100437,SMB,Organic,8274.00,False,2024-08,2024-06,19,89.40,78.12,75.81,66.31,0,0,,49.57,78.18,riesgo bajo,False,False,False
+7700c04b25c9,HS-100213,Mid-Market,Outbound SDR,22252.00,False,2024-08,2024-06,21,91.62,97.26,34.70,71.92,0,0,,68.21,78.30,riesgo bajo,False,False,False
+5c5dbbe39468,HS-100216,SMB,Evento,4541.00,False,2024-08,2024-06,14,98.63,100.00,57.01,51.08,0,0,,12.05,78.40,riesgo bajo,False,False,False
+b5e018ec0013,HS-100001,SMB,Webinar,2204.00,False,2024-08,2024-06,22,76.58,87.44,36.24,95.85,0,0,,10.77,78.48,riesgo bajo,False,False,False
+37d67f0e2f52,HS-100057,SMB,Referral,4897.00,False,2024-08,2024-06,18,88.38,93.33,67.26,63.23,0,0,,24.36,78.66,riesgo bajo,False,False,False
+108f213736fb,HS-100204,Enterprise,Outbound SDR,50340.00,False,2024-08,2024-06,22,91.28,38.63,78.29,91.08,0,0,,90.09,78.74,riesgo bajo,False,False,False
+9e27ccf7896b,HS-100108,Mid-Market,Outbound SDR,12049.00,False,2024-08,2024-06,22,88.89,72.82,34.53,93.31,3,0,3.00,70.09,78.85,riesgo bajo,False,False,False
+30c2f0ba4f9f,HS-100400,Mid-Market,Referral,14556.00,False,2024-08,2024-06,22,74.87,80.17,72.14,86.15,0,0,,66.32,78.90,riesgo bajo,False,False,False
+d375384bf8bc,HS-100112,SMB,Referral,8050.00,False,2024-08,2024-06,16,93.68,77.09,90.09,57.31,0,0,,44.70,78.91,riesgo bajo,False,False,False
+50de7a632ea8,HS-100288,SMB,Outbound SDR,7254.00,False,2024-08,2024-06,22,90.94,56.07,90.09,75.15,0,0,,2.91,79.10,riesgo bajo,False,False,False
+7a37e35fc015,HS-100404,Mid-Market,Paid Search,19798.00,False,2024-08,2024-06,22,78.80,96.50,32.74,91.08,0,0,,60.77,79.11,riesgo bajo,False,False,False
+e102e7f3e17f,HS-100416,SMB,Outbound SDR,6571.00,False,2024-08,2024-06,22,83.93,90.17,55.30,78.54,1,0,5.00,19.91,79.27,riesgo bajo,False,False,False
+887b2c1a1380,HS-100539,SMB,Evento,5502.00,False,2024-08,2024-06,20,92.48,81.03,67.26,68.92,0,0,,25.90,79.34,riesgo bajo,False,False,False
+5aabb4abe963,HS-100331,SMB,Referral,8477.00,False,2024-08,2024-06,22,85.64,56.07,90.09,82.54,0,0,,26.92,79.46,riesgo bajo,False,False,False
+1e79ff8dda47,HS-100357,SMB,Evento,4461.00,False,2024-08,2024-06,22,79.66,93.33,52.56,86.15,0,0,,11.54,80.28,riesgo bajo,False,False,False
+a24f4d4bb486,HS-100543,SMB,Organic,2365.00,False,2024-08,2024-06,21,85.98,90.17,71.28,71.92,0,0,,22.82,80.40,riesgo bajo,False,False,False
+be921c1e148e,HS-100262,Enterprise,Referral,80385.00,False,2024-08,2024-06,22,88.55,75.56,79.32,75.15,0,0,,92.48,80.55,riesgo bajo,False,False,False
+a323d4abf458,HS-100085,SMB,Organic,8271.00,False,2024-08,2024-06,22,95.38,34.10,90.09,91.08,0,0,,57.95,81.04,riesgo bajo,False,False,False
+e57b67711c10,HS-100296,SMB,Organic,3305.00,False,2024-08,2024-06,22,87.86,98.46,40.85,82.54,0,0,,6.15,81.33,riesgo bajo,False,False,False
+7efd4b9f1c59,HS-100310,SMB,Referral,6294.00,False,2024-08,2024-06,22,86.15,89.40,65.30,78.54,0,0,,44.02,81.39,riesgo bajo,False,False,False
+dcf6784c3f48,HS-100586,SMB,Paid Search,4724.00,False,2024-08,2024-06,22,96.75,98.46,13.42,86.15,1,0,3.00,2.39,81.41,riesgo bajo,False,False,False
+2472eb83ec96,HS-100640,SMB,Outbound SDR,8892.00,False,2024-08,2024-06,22,79.49,95.81,52.99,88.92,0,0,,54.70,81.61,riesgo bajo,False,False,False
+3e0310fe6b93,HS-100555,Mid-Market,Evento,14642.00,False,2024-08,2024-06,22,92.31,85.21,59.15,78.54,2,0,3.00,61.71,81.78,riesgo bajo,False,False,False
+183da402db0f,HS-100246,Enterprise,Organic,82996.00,False,2024-08,2024-06,22,89.23,77.26,61.20,88.92,1,0,4.00,94.36,82.54,riesgo bajo,False,False,False
+779b9041ca93,HS-100271,Mid-Market,Evento,27806.00,False,2024-08,2024-06,22,85.47,82.74,63.42,88.92,1,0,,75.21,82.65,riesgo bajo,False,False,False
+91406719f00e,HS-100612,Mid-Market,Outbound SDR,24816.00,False,2024-08,2024-06,22,94.70,78.80,61.03,82.54,0,0,,87.86,82.82,riesgo bajo,False,False,False
+10e7e55b829d,HS-100538,SMB,Paid Search,5218.00,False,2024-08,2024-06,17,100.00,82.05,90.09,60.15,0,0,,35.47,82.97,riesgo bajo,False,False,False
+d708a60010d8,HS-100471,SMB,Organic,7149.00,False,2024-08,2024-06,18,97.95,96.84,74.53,63.23,0,0,,45.30,83.80,riesgo bajo,False,False,False
+572855d81626,HS-100210,SMB,Evento,4687.00,False,2024-08,2024-06,22,97.44,78.12,52.56,88.92,0,0,,17.78,84.29,riesgo bajo,False,False,False
+9690176b3350,HS-100110,SMB,Paid Search,4709.00,False,2024-08,2024-06,22,94.87,90.94,62.99,78.54,0,0,,28.97,84.40,riesgo bajo,False,False,False
+a321e5e40776,HS-100475,SMB,Partner,129259.50,False,2024-08,2024-06,22,88.21,93.33,68.12,82.54,1,0,3.00,18.12,84.52,riesgo bajo,False,False,False
+6d6157f05d37,HS-100046,Mid-Market,Referral,11377.00,False,2024-08,2024-06,16,99.49,95.21,90.09,57.31,1,0,1.00,80.51,84.57,riesgo bajo,False,False,False
+143d4fc0dd50,HS-100289,SMB,Evento,7234.00,False,2024-08,2024-06,22,93.16,71.97,73.76,88.92,1,0,5.00,37.18,84.74,riesgo bajo,False,False,False
+3b4b11aa5621,HS-100291,SMB,Referral,2597.00,False,2024-08,2024-06,22,98.46,90.17,38.21,88.92,2,0,5.00,35.73,84.90,riesgo bajo,False,False,False
+565904aa901f,HS-100128,Mid-Market,Outbound SDR,23344.00,False,2024-08,2024-06,22,95.90,84.79,79.66,75.15,1,0,4.00,77.44,85.02,riesgo bajo,False,False,False
+09a2a58e60b9,HS-100103,SMB,Evento,8977.00,False,2024-08,2024-06,22,98.97,56.07,90.09,86.15,0,0,,0.51,85.21,riesgo bajo,False,False,False
+c0d5050c1786,HS-100034,Enterprise,Referral,57400.00,False,2024-08,2024-06,22,96.41,76.75,72.48,86.15,1,0,1.00,90.77,85.81,riesgo bajo,False,False,False
+9a903bd17a09,HS-100051,Enterprise,Webinar,75029.00,False,2024-08,2024-06,22,90.43,80.00,66.32,98.54,1,0,,95.56,87.16,riesgo bajo,False,False,False
+7a3a0e83d9f6,HS-100504,Mid-Market,Referral,11457.00,False,2024-08,2024-06,22,94.19,91.45,90.09,75.15,1,0,3.00,70.51,87.32,riesgo bajo,False,False,False
+25f129ce4fc4,HS-100442,Enterprise,Organic,38877.00,False,2024-08,2024-06,22,99.15,79.15,90.09,78.54,1,0,1.00,99.32,87.61,riesgo bajo,False,False,False
+bfcbb37719b9,HS-100330,SMB,Referral,7989.00,False,2024-08,2024-06,22,96.24,71.97,73.42,98.54,0,0,,48.46,88.65,riesgo bajo,False,False,False
+e19569d925d2,HS-100606,SMB,Webinar,5803.00,False,2024-08,2024-06,22,99.83,93.33,76.58,78.54,0,0,,39.91,88.66,riesgo bajo,False,False,False
+95d506c2c301,HS-100366,SMB,Webinar,8074.00,False,2024-08,2024-06,22,92.99,93.33,90.09,82.54,1,0,5.00,20.26,89.49,riesgo bajo,False,False,False
+6de6d67a878e,HS-100098,SMB,Paid Search,7138.00,False,2024-08,2024-06,22,95.73,89.40,73.42,93.31,0,0,,44.02,90.39,riesgo bajo,False,False,False
+2c29d4cb2989,HS-100520,SMB,Evento,7873.00,False,2024-08,2024-06,22,93.50,95.81,60.17,98.54,0,0,,52.22,90.47,riesgo bajo,False,False,False
+5ff51d984ff6,HS-100541,Enterprise,Partner,58863.00,False,2024-08,2024-06,22,95.21,76.92,90.09,95.85,0,0,,95.38,90.98,riesgo bajo,False,False,False
+c906fcd56eec,HS-100125,SMB,Evento,3620.00,False,2024-08,2024-06,22,98.29,95.04,73.76,98.54,0,0,,39.32,94.04,riesgo bajo,False,False,False
+0044b4ee820c,HS-100017,SMB,Outbound SDR,2385.00,False,2024-08,2024-06,2,,,,6.69,0,0,,,,sin historia,False,False,False
+00a8d71c23f4,HS-100064,SMB,Referral,2888.00,False,2024-08,2024-06,1,,,,2.08,0,0,,,,sin historia,False,False,False
+05f6a68d13dc,HS-100294,SMB,Evento,4191.00,True,2023-03,2023-01,2,,,,6.69,0,0,,,,sin historia,False,False,False
+0cba696d8c85,HS-100251,SMB,Paid Search,8854.00,False,2024-08,2024-06,2,,,,6.69,2,0,2.00,,,sin historia,False,False,False
+1d87384d7c5c,HS-100118,SMB,Evento,8644.00,True,2022-11,2022-09,1,,,,35.00,0,0,,,,sin historia,False,False,False
+201dacb5b332,HS-100122,Enterprise,Outbound SDR,32919.00,False,2024-08,2024-06,1,,,,2.08,2,0,3.00,,,sin historia,False,False,False
+216e100a95ab,HS-100261,Mid-Market,Webinar,15262.00,False,2024-08,2024-06,1,,,,2.08,0,0,,,,sin historia,False,False,False
+289073814fdb,HS-100469,SMB,Outbound SDR,119787.50,False,2024-08,2024-06,2,,,,6.69,0,0,,,,sin historia,False,False,False
+2f2fd459ddca,HS-100375,SMB,Paid Search,6441.00,True,2024-03,2024-01,2,,,,6.69,0,0,,,,sin historia,False,False,False
+368a3f9d6514,HS-100525,Mid-Market,Paid Search,18650.00,False,2024-08,2024-06,2,,,,6.69,1,0,5.00,,,sin historia,False,False,False
+3a6d440d0d78,HS-100203,SMB,Paid Search,7384.00,True,2024-04,2024-02,1,,,,2.08,1,0,2.00,,,sin historia,False,False,False
+3d464b2bd5fe,HS-100518,Mid-Market,Evento,14752.00,True,2022-10,2022-08,0,,,,12.15,0,0,,,,sin historia,False,False,False
+4036aa344034,HS-100149,SMB,Paid Search,2822.00,False,2024-08,2024-06,1,,,,2.08,1,0,3.00,,,sin historia,False,False,False
+4241a3ce2f40,HS-100003,Mid-Market,Organic,9869.00,False,2024-08,2024-06,2,,,,6.69,1,1,,,,sin historia,False,False,False
+4b4752da4a83,HS-100096,SMB,Evento,4548.00,False,2024-08,2024-06,2,,,,6.69,0,0,,,,sin historia,False,False,False
+4bf97be2706d,HS-100369,SMB,Organic,6073.00,False,2024-08,2024-06,2,,,,6.69,1,0,,,,sin historia,False,False,False
+523ef10f815e,HS-100077,Mid-Market,Partner,25972.00,True,2024-04,2024-02,2,,,,6.69,1,0,2.00,,,sin historia,False,False,False
+53f68810a2c7,HS-100533,Enterprise,Webinar,644965.50,False,2024-08,2024-06,1,,,,2.08,1,0,5.00,,,sin historia,False,False,False
+548b90cb0018,HS-100508,Mid-Market,Outbound SDR,17053.00,False,2024-08,2024-06,1,,,,2.08,0,0,,,,sin historia,False,False,False
+5d3a54fbe090,HS-100509,Enterprise,Outbound SDR,53101.00,False,2024-08,2024-06,1,,,,2.08,0,0,,,,sin historia,False,False,False
+61797f4fd29d,HS-100457,SMB,Outbound SDR,2747.00,True,2023-04,2023-02,2,,,,6.69,0,0,,,,sin historia,False,False,False
+644cd69de81c,HS-100266,Mid-Market,Organic,22962.00,False,2024-08,2024-06,1,,,,2.08,1,0,2.00,,,sin historia,False,False,False
+651fe741fa3d,HS-100196,SMB,Referral,8099.00,True,2022-07,2022-05,0,,,,12.15,0,0,,,,sin historia,False,False,False
+69901e51bc3c,HS-100420,Mid-Market,Outbound SDR,440762.50,True,2024-05,2024-03,2,,,,6.69,0,0,,,,sin historia,False,False,False
+6d621ac6bce1,HS-100004,Mid-Market,Outbound SDR,18115.00,False,2024-08,2024-06,2,,,,6.69,1,0,5.00,,,sin historia,False,False,False
+6fbc308a9ed5,HS-100476,Enterprise,Evento,73973.00,False,2024-08,2024-06,1,,,,2.08,0,0,,,,sin historia,False,False,False
+742b497d49d8,HS-100193,Enterprise,Referral,57593.00,False,2024-08,2024-06,1,,,,2.08,1,0,1.00,,,sin historia,False,False,False
+79d3b0680edc,HS-100059,SMB,Organic,7487.00,True,2022-12,2022-10,2,,,,21.62,0,0,,,,sin historia,False,False,False
+7c49bd17517b,HS-100021,Mid-Market,Outbound SDR,25635.00,False,2024-08,2024-06,2,,,,6.69,2,0,2.00,,,sin historia,False,False,False
+7cf052e41458,HS-100227,Enterprise,Outbound SDR,62345.00,False,2024-08,2024-06,1,,,,2.08,1,0,4.00,,,sin historia,False,False,False
+7d7c2ceb2e92,HS-100229,Enterprise,Outbound SDR,387828.00,False,2024-08,2024-06,2,,,,6.69,1,0,5.00,,,sin historia,False,False,False
+7df9e48b2cc4,HS-100353,Mid-Market,Referral,186850.00,False,2024-08,2024-06,2,,,,6.69,0,0,,,,sin historia,False,False,False
+7ed9ffed0ce9,HS-100020,SMB,Evento,2913.00,True,2022-04,2022-02,0,,,,2.08,0,0,,,,sin historia,False,False,False
+7fb38f9e61ff,HS-100562,SMB,Partner,4548.00,True,2023-10,2023-08,1,,,,2.08,2,1,3.00,,,sin historia,False,False,False
+809d0342d4ed,HS-100641,SMB,Outbound SDR,40829.50,True,2023-08,2023-06,2,,,,6.69,0,0,,,,sin historia,False,False,False
+82912c9a4458,HS-100368,Enterprise,Partner,70514.00,False,2024-08,2024-06,1,,,,2.08,1,0,2.00,,,sin historia,False,False,False
+8740e47ba5df,HS-100299,Mid-Market,Referral,12522.00,False,2024-08,2024-06,1,,,,2.08,0,0,,,,sin historia,False,False,False
+8aace75b998d,HS-100642,SMB,Organic,7598.00,False,2024-08,2024-06,2,,,,6.69,0,0,,,,sin historia,False,False,False
+8dc56996e31a,HS-100029,Mid-Market,Webinar,10929.00,True,2024-01,2023-11,1,,,,2.08,0,0,,,,sin historia,False,False,False
+9f0aac78fb2f,HS-100379,Mid-Market,Referral,26555.00,False,2024-08,2024-06,2,,,,6.69,2,0,,,,sin historia,False,False,False
+a18e4270c86b,HS-100257,Enterprise,Partner,36743.00,False,2024-08,2024-06,2,,,,6.69,0,0,,,,sin historia,False,False,False
+a2b85136e7b2,HS-100195,SMB,Evento,3250.00,False,2024-08,2024-06,2,,,,6.69,0,0,,,,sin historia,False,False,False
+a6444ea5d4ad,HS-100452,Mid-Market,Partner,27551.00,False,2024-08,2024-06,2,,,,6.69,1,0,4.00,,,sin historia,False,False,False
+a99b55b3b218,HS-100114,Mid-Market,Partner,13147.00,True,2023-10,2023-08,2,,,,6.69,1,0,3.00,,,sin historia,False,False,False
+af6b45260c23,HS-100388,SMB,Organic,3181.00,True,2024-05,2024-03,1,,,,2.08,1,0,5.00,,,sin historia,False,False,False
+b2f4d7709dc0,HS-100074,Mid-Market,Paid Search,17023.00,False,2024-08,2024-06,2,,,,6.69,0,0,,,,sin historia,False,False,False
+b743d34f10a8,HS-100182,SMB,Partner,2562.00,False,2024-08,2024-06,2,,,,6.69,0,0,,,,sin historia,False,False,False
+bb332bfd6480,HS-100129,SMB,Paid Search,2211.00,False,2024-08,2024-06,2,,,,6.69,0,0,,,,sin historia,False,False,False
+c434d20674b5,HS-100487,SMB,Evento,7101.00,False,2024-08,2024-06,1,,,,2.08,0,0,,,,sin historia,False,False,False
+c6699f5bce6f,HS-100212,Mid-Market,Organic,10386.00,True,2022-05,2022-03,0,,,,12.15,0,0,,,,sin historia,False,False,False
+c6ddaadf8a3c,HS-100380,SMB,Webinar,2789.00,False,2024-08,2024-06,2,,,,6.69,0,0,,,,sin historia,False,False,False
+ccb9abe7b224,HS-100232,SMB,Partner,7271.00,True,2024-06,2024-04,2,,,,6.69,1,0,,,,sin historia,False,False,False
+cce4e07ce38c,HS-100438,Mid-Market,Referral,21021.00,False,2024-08,2024-06,2,,,,6.69,2,0,4.00,,,sin historia,False,False,False
+d17a1cb67764,HS-100625,Mid-Market,Referral,24503.00,False,2024-08,2024-06,2,,,,6.69,3,0,2.67,,,sin historia,False,False,False
+d8222a570c5e,HS-100218,Mid-Market,Organic,13839.00,True,2024-04,2024-02,2,,,,6.69,0,0,,,,sin historia,False,False,False
+dbad5cfaab50,HS-100142,SMB,Outbound SDR,6910.00,False,2024-08,2024-06,1,,,,2.08,0,0,,,,sin historia,False,False,False
+dc7546038f51,HS-100022,SMB,Evento,6988.00,False,2024-08,2024-06,1,,,,2.08,0,0,,,,sin historia,False,False,False
+de0488775bd0,HS-100502,SMB,Paid Search,8502.00,True,2024-06,2024-04,2,,,,6.69,0,0,,,,sin historia,False,False,False
+e044425f0f1a,HS-100403,SMB,Organic,3601.00,True,2022-11,2022-09,1,,,,2.08,0,0,,,,sin historia,False,False,False
+e9214ee5bf0b,HS-100627,SMB,Partner,5062.00,False,2024-08,2024-06,1,,,,2.08,1,0,,,,sin historia,False,False,False
+e9e407e1731c,HS-100511,Mid-Market,Partner,24881.00,False,2024-08,2024-06,2,,,,6.69,2,0,1.50,,,sin historia,False,False,False
+ea8725dcabb1,HS-100071,Mid-Market,Paid Search,19559.00,False,2024-08,2024-06,1,,,,2.08,0,0,,,,sin historia,False,False,False
+f2f553d01764,HS-100033,SMB,Outbound SDR,7293.00,False,2024-08,2024-06,1,,,,2.08,0,0,,,,sin historia,False,False,False
+f53160415402,HS-100553,Mid-Market,Paid Search,12283.00,True,2024-06,2024-04,2,,,,6.69,1,0,,,,sin historia,False,False,False
+f750af5db82c,HS-100044,Enterprise,Outbound SDR,62261.00,False,2024-08,2024-06,1,,,,2.08,1,0,5.00,,,sin historia,False,False,False

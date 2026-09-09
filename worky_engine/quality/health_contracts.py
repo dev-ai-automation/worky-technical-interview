@@ -1,11 +1,13 @@
 """Contratos de forma y banda del health score (ADR-005), calculables en memoria.
 
 Mismo patron que `worky_engine.quality.contracts` y
-`analysis_contracts`: cada `assert_*` valida una sola regla sobre el
-DataFrame que ya produce `compute_scores`, sin abrir DuckDB. Los tres
-contratos que necesitan el archivo materializado o la sabana, y
-`run_health_contracts`, llegan en el PR 2 con `runner.py` (brecha
-documentada en tasks.md).
+`analysis_contracts`: cada `assert_*` valida una sola regla. Los nueve
+contratos de forma y banda del PR 1 corren sobre el DataFrame numerico
+que ya produce `compute_scores`; los tres del PR 2
+(`assert_health_asof_before_reference`, `assert_health_recall_denominator`,
+`assert_health_row_order`) necesitan la sabana o la version ya
+formateada a texto que se escribe en `health_scores.csv`.
+`run_health_contracts` corre los doce en orden fijo.
 """
 
 from __future__ import annotations
@@ -134,3 +136,57 @@ def assert_health_support_non_negative(scores: pd.DataFrame) -> None:
         raise ContractViolation("contrato assert_health_support_non_negative: activation_score negativo")
     if (scores["tickets_window_urgent"] > scores["tickets_window_total"]).any():
         raise ContractViolation("contrato assert_health_support_non_negative: urgentes > total en alguna fila")
+
+
+def assert_health_asof_before_reference(scores: pd.DataFrame) -> None:
+    """`asof_month <= reference_month` en toda fila (h1_company_asof.sql resta un desplazamiento no negativo)."""
+    invalid = scores["asof_month"] > scores["reference_month"]
+    if invalid.any():
+        raise ContractViolation(
+            f"contrato assert_health_asof_before_reference: {int(invalid.sum())} filas con asof_month posterior a reference_month"
+        )
+
+
+def assert_health_recall_denominator(scores: pd.DataFrame, master_dataset: pd.DataFrame) -> None:
+    """El conteo de `churned = True` en health_scores iguala el de `churn_status = 'churned'` en la sabana (D17)."""
+    churned_scores = int(scores["churned"].astype(bool).sum())
+    churned_master = int((master_dataset["churn_status"] == "churned").sum())
+    if churned_scores != churned_master:
+        raise ContractViolation(
+            f"contrato assert_health_recall_denominator: {churned_scores} filas churned en health_scores, "
+            f"{churned_master} en master_dataset"
+        )
+
+
+def assert_health_row_order(formatted: pd.DataFrame) -> None:
+    """El archivo ya formateado a texto respeta `health_score` ascendente, vacios al final, `master_id` de desempate.
+
+    Convierte la columna de texto con `pd.to_numeric` (la misma guarda
+    que A1 aplica a `drop_relative` con `CAST ... AS DOUBLE`) antes de
+    comparar: un texto formateado se ordena distinto si nadie lo
+    convierte primero, y `'100.00'` quedaria antes de `'9.50'`.
+    """
+    numeric = pd.to_numeric(formatted["health_score"], errors="coerce")
+    expected = formatted.assign(_sort_key=numeric).sort_values(
+        ["_sort_key", "master_id"], na_position="last", kind="mergesort"
+    )
+    if list(formatted["master_id"]) != list(expected["master_id"]):
+        raise ContractViolation(
+            "contrato assert_health_row_order: el archivo no respeta health_score ascendente con master_id de desempate"
+        )
+
+
+def run_health_contracts(scores: pd.DataFrame, formatted: pd.DataFrame, master_dataset: pd.DataFrame) -> None:
+    """Corre los doce contratos de health, en orden fijo; `cmd_health` decide el codigo de salida del proceso."""
+    assert_health_one_row_per_company(scores)
+    assert_health_score_within_range(scores)
+    assert_health_band_domain(scores)
+    assert_health_band_matches_score(scores)
+    assert_health_subscores_match_history(scores)
+    assert_health_score_matches_weights(scores)
+    assert_health_flags_match_rates(scores)
+    assert_health_bands_match_thresholds(scores)
+    assert_health_support_non_negative(scores)
+    assert_health_asof_before_reference(scores)
+    assert_health_recall_denominator(scores, master_dataset)
+    assert_health_row_order(formatted)
