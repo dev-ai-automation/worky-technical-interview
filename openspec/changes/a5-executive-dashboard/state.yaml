@@ -22,8 +22,8 @@ phases:
   research: not_selected (el usuario eligio todas las recomendaciones el 2026-09-09)
   proposal: done (gate inline del orquestador: capacidad nueva declarada, sin modificadas, cifras verificadas)
   specs: done (executive-dashboard nuevo: 9 requisitos, 22 escenarios; marcadores nativos verificados)
-  design: in_progress (D1 a D14 escritos; validador de contrato en contexto fresco en curso)
-  tasks: blocked
+  design: done (D1 a D14; validador en contexto fresco: 2 bloqueos y 3 advertencias corregidos por el orquestador: prueba sin marca dataset, 22 columnas, etiqueta sobre capacidad, Cuenta = hubspot_id, HTML cuenta como autoria; grafia Carla Nuñez alineada en ADR-007 y spec)
+  tasks: in_progress
   apply: blocked
   verify: blocked
   archive: blocked

@@ -16,12 +16,12 @@ A5 solo lee. No toca `worky_engine/`, `outputs/`, ningún golden de A0, A1, A3 y
 | D6 | Codificación visual | El color codifica solo el nivel de riesgo, con tres pasos; el tramo de MRR se codifica con una insignia de texto y un tamaño de tipografía, nunca con color | Color para riesgo y para MRR a la vez, o burbujas de tamaño variable | Es el principio preatencional de la sección 5 de la investigación: dos escalas de color en la misma tabla compiten y ninguna gana. Con insignia de texto la tabla sigue siendo legible en blanco y negro y para daltonismo |
 | D7 | Contraste | Todo texto contra su fondo cumple 4.5:1 en los dos temas, y ningún dato se comunica solo por color: cada celda coloreada lleva además su etiqueta escrita | Confiar en la paleta del diagrama 05 sin verificar | El entregable se imprime y se proyecta. Una etiqueta escrita junto al color es la única versión que sobrevive a una fotocopia |
 | D8 | Tramos de MRR | `mrr_mxn < 5000`, `5000 <= mrr_mxn < 20000`, `mrr_mxn >= 20000`, sobre las 561 cuentas activas: 131, 250 y 180 | Cortes por percentil calculados en el momento | Los umbrales redondos se explican solos frente a un VP. La prueba recalcula los tres conteos con este predicado exacto, así que la convención queda verificada y no supuesta |
-| D9 | De dónde sale el nombre del CSM | `master_dataset.csv` unido a `health_scores.csv` por `master_id` | Leer `csm_owner` de `health_scores.csv`, o de `dim_company.csv` | `health_scores.csv` no tiene `csm_owner`: sus 23 columnas terminan en las tres marcas. `dim_company.csv` sí lo tiene, pero ataría A5 a haber corrido `warehouse`, y el ADR-007 ya eligió los CSV de A1 y A3 como fuente |
-| D10 | Ortografía de los nombres | Tal como vienen en `master_dataset.csv`: Jorge Ibarra, Ana Ruiz, Diego Ortega, Luis Peña, Carla Nuñez, Fernanda Solís, Marta Díaz | La grafía corregida "Carla Núñez" que usa el ADR-007 | La prueba compara contra los valores del CSV. Corregir la ortografía en el documento rompe la coincidencia literal y, peor, inventa un dato que el sistema origen no tiene. La divergencia queda anotada en el apéndice del documento |
+| D9 | De dónde sale el nombre del CSM | `master_dataset.csv` unido a `health_scores.csv` por `master_id` | Leer `csm_owner` de `health_scores.csv`, o de `dim_company.csv` | `health_scores.csv` no tiene `csm_owner`: sus 22 columnas terminan en las tres marcas. `dim_company.csv` sí lo tiene, pero ataría A5 a haber corrido `warehouse`, y el ADR-007 ya eligió los CSV de A1 y A3 como fuente |
+| D10 | Ortografía de los nombres | Tal como vienen en `master_dataset.csv`: Jorge Ibarra, Ana Ruiz, Diego Ortega, Luis Peña, Carla Nuñez, Fernanda Solís, Marta Díaz | La grafía con acento "Carla Núñez" que traía el ADR-007 (corregida ahí a la del dato) | La prueba compara contra los valores del CSV. Corregir la ortografía en el documento rompe la coincidencia literal y, peor, inventa un dato que el sistema origen no tiene. La divergencia queda anotada en el apéndice del documento |
 | D11 | Formato literal de las cifras | Cadenas exactas, sin `&nbsp;` ni variantes: `$2,216,115`, `13.7 %`, `$16,223,225.50`, `92.9 %`, `$2,947`, `$46,340`, `35.56`, `27.68` | Formato libre por archivo, o `&nbsp;` antes del signo de porcentaje | La prueba busca estas cadenas dentro del Markdown y del HTML. Un espacio duro se ve igual y falla la comparación, así que queda prohibido dentro de una cifra anclada |
 | D12 | Línea de capacidad por CSM | 12 cuentas por CSM, declarada en el documento como línea de referencia operativa, no como dato medido | Presentar 12 como si saliera del dataset | `validation.md` mide 11.1 cuentas por CSM al 15 % y 14.9 al 20 %, nunca 12. La barra de referencia es una decisión de operación; el documento lo dice con esas palabras y la prueba no la ancla contra ningún CSV |
 | D13 | Vista de tendencia | Un bloque ASCII vacío con la explicación escrita de qué la llenará (`fact_health_score_monthly` con dos o más corridas) | Dibujar una serie de ejemplo | `fact_health_score_monthly` hoy tiene una sola fecha de corrida. Una serie inventada en un entregable que presume de cifras reales es exactamente el error que este proyecto evita |
-| D14 | Marca de la prueba | `@pytest.mark.dataset`, igual que `test_health_idempotency.py` | Sin marca, para que corra en el camino rápido | Las aserciones son sobre el dataset del caso, no sobre lógica pura. La marca las agrupa con las demás pruebas ancladas a datos reales y mantiene verde el camino `-m "not dataset"` en un clon sin las tres bases |
+| D14 | Marca de la prueba | Sin marca `dataset`: la prueba solo lee los dos goldens versionados (`outputs/health/health_scores.csv` y `outputs/master_dataset.csv`), nunca las bases crudas | `@pytest.mark.dataset`, igual que `test_health_idempotency.py` | `tests/conftest.py` salta toda prueba marcada `dataset` cuando faltan las tres bases bajo `data/raw/sistemas/` (carpeta ignorada por git); con la marca, la prueba se saltaría en un clon limpio y daría un verde falso justo donde el spec exige que falle ante una cifra desfasada. Sin marca corre siempre, porque sus insumos están versionados |
 
 ## 1. Secciones del documento y su fuente
 
@@ -74,7 +74,7 @@ La prueba no genera nada: recalcula desde los dos CSV y compara contra el texto 
 | Cola de prioridad | 20 filas de las 78, con cuenta, segmento, responsable, MRR, tramo, nivel y cuatro mini barras SVG de los subpuntajes | `health_scores.csv` unido a `master_dataset.csv` |
 | Matriz de tramo por nivel de riesgo | nueve celdas con número de cuentas y MRR por celda | cola completa, cruzada por tramo y banda |
 | Cohorte de onboarding | 43 cuentas activas sin tres meses de uso, con meses de uso y fecha de alta | `risk_band = 'sin historia' AND churned = False` |
-| Carga por CSM | 7 barras SVG contra la línea de referencia de 12 | conteo por `csm_owner` sobre la cola |
+| Carga por CSM | 7 barras SVG contra la línea de referencia de 12, con la etiqueta de texto "sobre capacidad" en cada fila que la rebasa (hoy Jorge Ibarra 21 y Ana Ruiz 15); la distinción es por texto, no por color, que se reserva al nivel de riesgo (D6) | conteo por `csm_owner` sobre la cola |
 | Evidencia del modelo | 67 cuentas ya dadas de baja que el modelo había marcado, más el 92.9 % a k = 3 | `risk_band = 'riesgo alto' AND churned = True`, `validation.md` |
 | Pie de procedencia | los dos CSV, `dataset_asof` 2024-08-31, `ruleset_version` 1.0.0 y la fecha en que se calcularon las cifras | encabezado de `validation.md` |
 
@@ -86,6 +86,7 @@ Esta tabla vive completa en el Markdown y ninguna de sus columnas de la izquierd
 |---|---|
 | `flagged_15 = True` | En la lista de esta semana |
 | `churned = False` | Cuenta viva |
+| `hubspot_id` | Cuenta (el identificador que el VP y el CSM reconocen; `master_id` es un hash interno y nunca se muestra) |
 | `risk_band` | Nivel de riesgo |
 | `health_score` | Puntaje de salud (0 a 100, más alto es mejor) |
 | `score_momentum` | Tendencia de uso |
@@ -154,7 +155,7 @@ Dos límites quedan fijados como restricción de diseño:
 
 No hay migración. Revertir es borrar los tres archivos nuevos y devolver el renglón del README a su estado anterior, o `git revert` del merge del PR. No queda ningún artefacto generado que limpiar a mano.
 
-Presupuesto estimado de autoría: unas 230 líneas de Markdown, unas 100 de prueba y un renglón del README, más entre 300 y 400 líneas de marcado HTML repetitivo (renglones de tabla y `<rect>` de SVG) que se cuentan como dato generado a mano, con el mismo criterio con que A3 y A4 dejaron los renglones de golden fuera del conteo. Un solo PR.
+Presupuesto estimado de autoría: unas 230 líneas de Markdown, unas 100 de prueba, un renglón del README y entre 300 y 400 líneas de marcado HTML escrito a mano, que sí cuentan como autoría (no son un golden generado): total estimado de 630 a 730 líneas, dentro del presupuesto de 800 por PR. Como las estimaciones de este repositorio suelen medir el doble, el corte de reserva es reducir la cola del mockup de 20 a 10 renglones antes de partir el PR. Un solo PR.
 
 ## 10. Riesgos residuales
 

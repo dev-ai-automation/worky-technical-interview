@@ -42,7 +42,7 @@ Cada cifra de abajo viene de leer `health_scores.csv` y `master_dataset.csv` dir
 | Concentración en una cuenta | Una Enterprise de $952,602 es el 43 % del MRR en riesgo | `health_scores.csv` |
 | "Sin historia" | 65 filas: 22 bajas reales sin tres meses de uso + 43 activas nuevas | `health_scores.csv`, ADR-005 Adenda 1 |
 | Tramos de MRR entre activas | Menos de $5k: 131; de $5k a $20k: 250; más de $20k: 180 | `preproposal.yaml`, verified_counts |
-| Carga por CSM (marcadas) | Jorge Ibarra 21, Ana Ruiz 15, Diego Ortega 10, Luis Peña 10, Carla Núñez 9, Fernanda Solís 8, Marta Díaz 5 | `preproposal.yaml`, verified_counts |
+| Carga por CSM (marcadas) | Jorge Ibarra 21, Ana Ruiz 15, Diego Ortega 10, Luis Peña 10, Carla Nuñez 9, Fernanda Solís 8, Marta Díaz 5 | `preproposal.yaml`, verified_counts |
 | Detección temprana a k = 3 | 92.9 % (52 de 56 cuentas evaluables) ya estaban marcadas un mes antes | `outputs/health/validation.md` |
 | Ejemplo vivo | HS-100065 (SMB, $2,947, score 35.56) y HS-100507 (Enterprise, $46,340, score 27.68), misma banda | `exploration.md` |
 

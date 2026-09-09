@@ -123,7 +123,7 @@ La sección de carga por CSM MUST cruzar la cola de prioridad con `csm_owner` y 
 
 - Dado la cola de prioridad de 78 cuentas
 - Cuando alguien agrupa por `csm_owner`
-- Entonces los conteos son Jorge Ibarra 21, Ana Ruiz 15, Diego Ortega 10, Luis Peña 10, Carla Núñez 9, Fernanda Solís 8 y Marta Díaz 5
+- Entonces los conteos son Jorge Ibarra 21, Ana Ruiz 15, Diego Ortega 10, Luis Peña 10, Carla Nuñez 9, Fernanda Solís 8 y Marta Díaz 5
 
 #### Scenario: un CSM por encima de su capacidad queda señalado
 
