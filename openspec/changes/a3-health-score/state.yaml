@@ -23,7 +23,15 @@ phases:
   specs: done (dominio nuevo health-score: 12 requisitos, 25 escenarios; Engram #1894)
   design: done (D1 a D21; Engram #1900; spec alineado en mes de cierre derivado de los datos y dominio de risk_band)
   tasks: done (28 tareas en 3 PR apilados; forecast: decision needed No, chained Yes, riesgo medio; PR1 ~600, PR2 ~560, PR3 ~470 lineas)
-  apply: pending
+  apply: in_progress (PR 1 hecho: vistas as-of, scoring, contratos, alias auc; 193 pruebas; pendientes PR 2 y PR 3)
   verify: pending
   archive: pending
-next_recommended: sdd-apply PR 1 (feat/a3-pr1-health-scoring) con RDD, luego PR 2 y PR 3 apilados
+next_recommended: sdd-apply PR 2 (feat/a3-pr2-health-metrics) apilado sobre el PR 1, luego PR 3
+review_receipts:
+  mode: receipt-driven development activado (global)
+  pr1:
+    branch: feat/a3-pr1-health-scoring
+    commit: 4954cea (597e6d9 codigo, c45ce45 docs, 4954cea correccion R3-risk-band-thresholds-unproved)
+    lineage: review-36d34a05d433c9c4
+    lens: review-reliability
+    result: approved y acknowledged tras una correccion acotada (contrato de bandas contra umbrales y pruebas de pertenencia, orden y deteccion de umbrales invertidos)
