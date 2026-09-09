@@ -23,8 +23,8 @@ phases:
   research: not_selected (el usuario eligio todas las recomendaciones el 2026-09-09)
   proposal: done (gate inline del orquestador: capacidad nueva declarada, sin modificadas, cifras verificadas)
   specs: done (data-cleaning nuevo: 11 requisitos, 26 escenarios; deals.csv obligatorio; marcadores nativos verificados)
-  design: in_progress
-  tasks: blocked
+  design: done (D1 a D12; validador en contexto fresco: bloqueo de esquema del log resuelto alineando spec y diseno en diez columnas con confidence y evidence_ref; escenario de dependencia reescrito; deals_in 997 y deals_matched 962; D8 con dueno en runner.py)
+  tasks: in_progress
   apply: blocked
   verify: blocked
   archive: blocked

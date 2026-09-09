@@ -24,7 +24,7 @@ El subcomando `python -m worky_engine clean` y el wrapper `python scripts/clean_
 
 #### Scenario: falta una dependencia
 
-- Dado que pandas no está instalado en el entorno
+- Dado que el módulo del comando (`worky_engine.cleaning`) no se puede importar por una instalación incompleta
 - Cuando alguien corre clean
 - Entonces el comando termina con código 2 y un mensaje en español que nombra la dependencia faltante
 
@@ -138,7 +138,7 @@ Para cada empresa real con mrr nulo, el comando MUST buscar sus deals en deals.c
 
 ### Requirement: contrato del log de limpieza
 
-El comando MUST escribir cleaning_log.json con el conteo exacto por regla y por columna, incluidos mrr nulo, clones excluidos, USD, fechas normalizadas, fechas ambiguas y deals anualizados, MUST escribir cleaning_log.md con un resumen en español de esos mismos conteos, y MUST escribir cleaning_exceptions.csv con una fila por corrección, con las columnas exception_id, exception_code, source_id, field_name, original_value y applied_value, más confidence y deal_id cuando la corrección es una imputación. El orden de las filas MUST ser determinista entre corridas.
+El comando MUST escribir cleaning_log.json con el conteo exacto por regla y por columna, incluidos mrr nulo, clones excluidos, USD, fechas normalizadas, fechas ambiguas y deals anualizados, MUST escribir cleaning_log.md con un resumen en español de esos mismos conteos, y MUST escribir cleaning_exceptions.csv con una fila por corrección, con las columnas exception_id, exception_code, source_system, source_id, field_name, original_value, applied_value, evidence_ref, confidence y ruleset_version; en una imputación, evidence_ref MUST traer el deal_id de origen y confidence el nivel high o medium, y en las demás correcciones confidence queda vacío. El orden de las filas MUST ser determinista entre corridas.
 
 #### Scenario: conteos exactos en json y en md
 
@@ -150,7 +150,7 @@ El comando MUST escribir cleaning_log.json con el conteo exacto por regla y por 
 
 - Dado una corrección de imputación sobre una empresa
 - Cuando el comando escribe cleaning_exceptions.csv
-- Entonces esa fila trae exception_id, exception_code, source_id, field_name, original_value, applied_value, confidence y el deal_id de origen
+- Entonces esa fila trae exception_id, exception_code, source_system, source_id, field_name, original_value, applied_value, confidence con high o medium, evidence_ref con el deal_id de origen y ruleset_version
 
 #### Scenario: orden determinista
 
