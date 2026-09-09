@@ -19,11 +19,11 @@ inputs:
 phases:
   explore: done
   research: not_selected
-  proposal: in_progress
+  proposal: done (propuesta escrita; Engram #1820; pendiente aprobacion del usuario para lanzar specs y diseno)
   specs: pending
   design: pending
   tasks: pending
   apply: pending
   verify: pending
   archive: pending
-next_recommended: sdd-propose con las decisiones confirmadas del ADR-004
+next_recommended: aprobar la propuesta y lanzar sdd-spec y sdd-design en paralelo
