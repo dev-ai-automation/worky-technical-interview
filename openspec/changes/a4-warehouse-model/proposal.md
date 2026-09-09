@@ -32,11 +32,11 @@ A4 pide el modelo de warehouse: hechos y dimensiones, dónde viven las llaves de
 
 ### Modificadas
 
-- `identity-resolution`: requisito agregado de precedencia de overrides. Una fila de `identity_overrides` fija el `master_id` de un registro de origen después de la cascada, lo saca de la revisión manual y deja evidencia en `match_audit`; una fila que apunta a un `master_id` inexistente se rechaza y se registra en `exceptions_log`. Los requisitos existentes sobre cascada, revisión manual, crosswalk y `match_audit` siguen vigentes; sin archivo de overrides, sus goldens no cambian.
+- `identity-resolution`: requisito agregado de precedencia de overrides. Una fila de `identity_overrides` fija el `master_id` de un registro de origen después de la cascada, lo saca de la revisión manual y deja evidencia en `match_audit`; una fila que apunta a un `master_id` inexistente, un `source_id` repetido o un `source_id` que no existe en su tabla de origen detiene la corrida con un error visible que nombra la fila y el motivo, sin escribir ninguna salida (`exceptions_log` es una vista de `mart_mrr.sql`, que este cambio no toca). Los requisitos existentes sobre cascada, revisión manual, crosswalk y `match_audit` siguen vigentes; sin archivo de overrides, sus goldens no cambian.
 
 ## Enfoque
 
-`worky_engine/sql/warehouse/` define las vistas sobre los marts y el DDL de las tres tablas persistidas. `worky_engine/warehouse/` corre el comando, cierra y abre las bandas SCD2 y lee los overrides ya aplicados en el crosswalk. `worky_engine/identity_resolution/overrides.py` (archivo nuevo) aplica las filas de override sobre el crosswalk y la auditoría; `cli.py` lo llama en `resolve` y `build` cuando el archivo existe. Cada hecho histórico se une contra la fila de `dim_company` vigente en su fecha (ADR-003).
+`worky_engine/sql/warehouse/` define las vistas sobre los marts y el DDL de las tres tablas persistidas. `worky_engine/warehouse/` corre el comando, resuelve identidad en memoria con la misma cascada y los mismos overrides que `build`, cierra y abre las bandas SCD2 y llena `identity_overrides` y `map_source_identity`. `worky_engine/identity_resolution/overrides.py` (archivo nuevo) aplica las filas de override sobre el crosswalk y la auditoría; `cli.py` lo llama en `resolve` y `build` cuando el archivo existe. Cada hecho histórico se une contra la fila de `dim_company` vigente en su fecha (ADR-003).
 
 ## Áreas afectadas
 
@@ -52,7 +52,7 @@ A4 pide el modelo de warehouse: hechos y dimensiones, dónde viven las llaves de
 
 | Riesgo | Probabilidad | Mitigación |
 |---|---|---|
-| Un override apunta a un `master_id` que no existe o repite un `source_id` | Media | Validación al cargar: la fila se rechaza, queda en `exceptions_log` y `build` termina con error visible, no en silencio |
+| Un override apunta a un `master_id` que no existe o repite un `source_id` | Media | Validación al cargar: la corrida se detiene con un error en `stderr` que nombra la fila y el motivo, código de salida 1 y ninguna escritura parcial |
 | No hay historial real que mostrar | Alta | La prueba de dos corridas, declarada sintética |
 | El `.duckdb` persistido contradice la decisión D6 de A0 | Media | Excepción documentada en el diseño |
 | Rebasar las 800 líneas de autoría | Media | La marca de agua va al final; PRs encadenados |
