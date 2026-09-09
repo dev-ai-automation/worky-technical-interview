@@ -16,8 +16,10 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
+from worky_engine import harness
 from worky_engine.cli import main as cli_main
 from worky_engine.harness import run_backtest
+from worky_engine.harness.backtest import _auc
 from worky_engine.sources import load_raw_tables
 
 AUC_TOLERANCE = 0.01
@@ -36,6 +38,11 @@ ADR003_TABLE = {
     "E_ewma_momentum": {"auc_k2": 1.000, "auc_k3": 0.894},
     "F_last_vs_prev1": {"auc_k2": 0.978, "auc_k3": 0.903},
 }
+
+
+def test_el_alias_publico_auc_es_el_mismo_objeto_que_backtest_auc() -> None:
+    """El alias del PR 1 de A3 (decision D4) no copia el calculo: es el mismo objeto en memoria."""
+    assert harness.auc is _auc
 
 
 @pytest.fixture(scope="module")

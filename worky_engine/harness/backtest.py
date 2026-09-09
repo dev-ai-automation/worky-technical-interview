@@ -124,6 +124,11 @@ def _auc(positive: pd.Series, negative: pd.Series) -> float:
     return float(wins + 0.5 * ties)
 
 
+# Alias publico de `_auc` para `worky_engine.health.metrics` (D4 del
+# diseno de A3): mismo objeto, verificado en test_harness_regression.py.
+auc = _auc
+
+
 def run_backtest(
     raw_tables: dict[str, pd.DataFrame],
     k_values: tuple[int, ...] = DEFAULT_K_VALUES,
