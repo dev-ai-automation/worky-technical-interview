@@ -23,10 +23,10 @@ phases:
   specs: done (dominio nuevo health-score: 12 requisitos, 25 escenarios; Engram #1894)
   design: done (D1 a D21; Engram #1900; spec alineado en mes de cierre derivado de los datos y dominio de risk_band)
   tasks: done (28 tareas en 3 PR apilados; forecast: decision needed No, chained Yes, riesgo medio; PR1 ~600, PR2 ~560, PR3 ~470 lineas)
-  apply: in_progress (PR 1 y PR 2 hechos: vistas as-of, scoring, metricas, comando health, golden; 199 pruebas; pendiente PR 3)
+  apply: done (PR 1, 2 y 3: vistas as-of, scoring, metricas, comando health, health_scores.csv y validation.md; 209 pruebas; 28/28 tareas)
   verify: pending
   archive: pending
-next_recommended: sdd-apply PR 3 (feat/a3-pr3-health-validation) apilado sobre el PR 2, luego sdd-verify y archive
+next_recommended: sdd-verify del cambio completo sobre feat/a3-pr3-health-validation, luego sdd-archive y merge apilado a main
 review_receipts:
   mode: receipt-driven development activado (global)
   pr1:
@@ -41,3 +41,9 @@ review_receipts:
     lineage: review-59a55bcf91116c86
     lens: review-reliability
     result: approved y acknowledged en primera pasada (la primera captura fallo con invalid_request del proveedor; el mismo slot reofrecido se admitio al relanzar)
+  pr3:
+    branch: feat/a3-pr3-health-validation
+    commit: 30484ba (5114656 codigo, 8c1250a docs, 30484ba correccion R3-undetectable-zero-division)
+    lineage: review-450cc7fb355c16c7
+    lens: review-reliability
+    result: approved y acknowledged tras una correccion acotada (guardia para un dataset sin bajas en la seccion de no detectables)
