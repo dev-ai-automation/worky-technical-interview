@@ -1,0 +1,52 @@
+schema: gentle-ai.sdd-preproposal/v1
+revision: 1
+change: a1-sql-queries
+artifact_store: hybrid
+exploration:
+  outcome: done
+  reference:
+    openspec: openspec/changes/a1-sql-queries/exploration.md
+    engram: sdd/a1-sql-queries/explore
+research:
+  selected: null
+  request: null
+  classes: []
+  admission: pending_user_choice
+  outcome: pending
+  note: el explorador no la considera necesaria (trabajo interno al repositorio); se ofrece al usuario junto con las decisiones de producto
+evidence:
+  openspec:
+    - openspec/specs/master-dataset-assembly/spec.md
+    - openspec/specs/identity-resolution/spec.md
+    - docs/decisions/ADR-002-mrr-imputation-and-normalization.md
+    - docs/decisions/ADR-003-usage-trend-and-leakage-guard.md
+    - docs/data-model/00-as-is-schema-profile.md
+  engram:
+    - sdd/a1-sql-queries/explore
+    - worky/a0/decision-mrr-imputation
+    - worky/a0/decision-usage-trend
+product_decisions: pending
+pending_decisions:
+  - id: A1.1
+    question: forma del desglose de MRR activo y cual total es "el" MRR activo
+    options: [a, b]
+  - id: A1.2
+    question: ventana previa al churn y tratamiento de cuentas con menos de seis meses
+    options: [a, b, c]
+  - id: A1.3
+    question: fecha de cohorte, definicion de activa y cohortes censuradas
+    options: [a, b, c]
+  - id: A1.4
+    question: grano de la conversion a closedwon para la atribucion
+    options: [a, b, c]
+  - id: A1.6
+    question: tratamiento de los 48 tickets con resolution_hours negativo
+    options: [a, b, c]
+  - id: research
+    question: seleccionar o no la fase sdd-research
+    options: [si, no]
+assumptions_stated:
+  - A1.5 reporta el SQL equivalente y el monto crudo de 667,251.00 en unidades mezcladas, con la limitacion declarada (no hay forma rigurosa de llevarlo a mensual)
+  - A1.7 es una respuesta de diseno (narrativa con DDL ilustrativo), no una consulta ejecutable
+  - el entregable sigue la opcion A de la exploracion (sql/analysis + subcomando analyze + goldens en outputs/analysis) salvo que el usuario diga lo contrario en la propuesta
+proposal_ready: false
