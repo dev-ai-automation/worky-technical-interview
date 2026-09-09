@@ -128,4 +128,81 @@ AUC del `health_score`: 0.997. No detectables: 22 de 89 (4 con cero meses de uso
 
 ## Estado (PR 2)
 
-8/8 tareas de PR 2 completas. Listo para `sdd-verify`.
+8/8 tareas de PR 2 completas.
+
+---
+
+# Progreso de aplicacion: PR 3
+
+## Hecho
+
+Tareas 3.1 a 3.8 completas y marcadas `[x]` en `tasks.md`.
+
+- `worky_engine/health/report.py` (399 lineas, nuevo): `format_validation(result)`, sin abrir conexion ni leer archivos (D13). Doce secciones fijas del diseno (encabezado, formula y pesos, AUC por senal, metricas a las tres tasas mas el corte fijo, matriz de confusion al 15 %, no detectables, deteccion temprana en k=3, sensibilidades, capacidad por 7 CSM, narrativa de A3.4, contexto comercial, referencias) mas un apendice con el SQL de las seis vistas de `sql/health/` insertado tal como esta en cada archivo (ver "Brecha del diseno" abajo). Cada cifra dice "en este dataset"; sin hora de reloj, sin em dash.
+- `worky_engine/health/metrics.py` (+68 lineas): `EQUAL_WEIGHTS`, `_recompute_weighted_score`, `equal_weights_sensitivity` y `harness_convention_sensitivity`, las dos sensibilidades que la seccion 8 de `validation.md` necesita y que las corridas de `SENSITIVITY_RUNS` del PR 2 no cubrian (esas son k=3 y lectura literal; pesos iguales y la convencion del harness se recalculan sobre la corrida principal, sin correr SQL de nuevo).
+- `worky_engine/health/runner.py` (+26/-2 lineas): `HealthResult` gana `dataset_asof` y `ruleset_version`, leidos de `mart_master_dataset` con `_dataset_metadata(con)`, mismo patron que `AnalysisResult` de A1 (extension menor sobre el diseno, igual que hizo A1 en su propio PR de reporte).
+- `worky_engine/health/__init__.py` (+5/-3 lineas): expone `format_validation` junto con `run_health`.
+- `worky_engine/cli.py` (+18/-14 lineas): `cmd_health` agrega `write_markdown(format_validation(result), out_dir / "validation.md")` y el mensaje final pasa a `health: <n> empresas puntuadas en <out-dir>` (sin la nota de "validation.md llega en el PR 3"). El docstring del modulo y el help del subcomando `health` se actualizaron para nombrar las dos salidas.
+- `tests/test_health_report.py` (202 lineas, nuevo, 9 pruebas): fixture propio de cuatro empresas (dos bajas, una detectable y una "sin historia"; dos activas; dos segmentos y dos canales de adquisicion), distinto del de `test_health_rules.py` porque ese solo tiene tres empresas y nunca produce un no detectable ni mas de un valor por canal/segmento. Verifica las doce secciones en orden, el SQL de las seis vistas insertado tal cual, "en este dataset" en cada seccion con cifras, soporte con AUC y peso 0.00, el conteo de no detectables dentro de la matriz de confusion, la narrativa de A3.4 y la ausencia de hora de reloj y de em dash.
+- `tests/test_health_idempotency.py` (+13/-13 lineas, marca `dataset`): la comparacion byte a byte se extiende a `validation.md`, ademas de `health_scores.csv`.
+- `README.md` (+8 lineas): una linea nueva en "Ruta rapida" con el comando `health`, y dos filas en "Que produce" para `health_scores.csv` y `validation.md`.
+- `outputs/health/validation.md` (generado, fuera del conteo de autoria): golden nuevo.
+
+## Brecha del diseno: apendice de SQL fuera de las doce secciones
+
+La seccion 7 del diseno lista doce secciones fijas para `validation.md` y ninguna es un apendice de SQL; la tarea 3.1 tampoco lo menciona. El encargo de esta sesion (que retoma el patron de `analysis/report.py` de A1, "insertar el SQL verbatim de los archivos que el corredor leyo") y el requisito de auditar cada cifra contra el SQL que la produjo si lo piden. Se agrego una decimotercera seccion, "Apendice: SQL de las vistas de health", con las seis vistas de `sql/health/` insertadas tal como estan en su archivo (`result.sql_text`, ya leido por `runner.run_health`, sin abrir conexion ni releer disco). No es una desviacion de una regla del ADR-005: es un hueco del diseno, resuelto igual que las brechas ya documentadas de PR 1 y PR 2.
+
+## Otras desviaciones
+
+- **Sensibilidades nuevas en `metrics.py`, no solo en `report.py`**: la tarea 3.1 describe el contenido de `report.py`, pero "pesos iguales" y "convencion del harness" (seccion 6 y 8 del diseno) no tenian ninguna funcion que las calculara: `runner.py` solo corre `SENSITIVITY_RUNS` (primaria, k3, literal), y esas dos sensibilidades son otro calculo sobre la misma corrida principal (otro juego de pesos, u otro criterio de umbral), no otra corrida de SQL. Se agregaron a `metrics.py` porque esa es la responsabilidad que la tabla de modulos de la seccion 1 del diseno ya le asigna ("tablas de sensibilidad"), no a `report.py`, que sigue sin abrir conexion ni calcular nada (D13).
+- **`dataset_asof` y `ruleset_version` en `HealthResult`**: el diseno no los menciona en la seccion 1 (tabla de `HealthResult`), pero la seccion 7 exige que el encabezado de `validation.md` los muestre y `report.py` no puede leerlos por su cuenta (D13). Se agregaron a `runner.py` con el mismo patron que `AnalysisResult` de A1, que resolvio exactamente esta misma brecha en su propio PR de reporte.
+
+## Verificacion (verbatim)
+
+```
+$ python -m pytest -q -m "not dataset"
+170 passed, 38 deselected in 28.24s
+
+$ python -m worky_engine health --data-dir data/raw/sistemas --out-dir outputs/health
+health: 650 empresas puntuadas en outputs\health
+$ sha256sum outputs/health/health_scores.csv outputs/health/validation.md
+7b56e0478bf19ed4dd4ec3e069c891a62e52f88a5780b502f318208a7c332bda outputs/health/health_scores.csv
+4da5eaea30de3797022c70658b621fa6998cbb6b5a5f260d436a6e9c6e1d5d70 outputs/health/validation.md
+
+$ python -m worky_engine health --data-dir data/raw/sistemas --out-dir outputs/health
+health: 650 empresas puntuadas en outputs\health
+$ sha256sum outputs/health/health_scores.csv outputs/health/validation.md
+7b56e0478bf19ed4dd4ec3e069c891a62e52f88a5780b502f318208a7c332bda outputs/health/health_scores.csv
+4da5eaea30de3797022c70658b621fa6998cbb6b5a5f260d436a6e9c6e1d5d70 outputs/health/validation.md
+(identicos entre las dos corridas)
+
+$ python -m pytest -q
+208 passed in 115.55s
+
+$ git status --short outputs
+?? outputs/health/validation.md
+(sin cambios en los goldens de A0 ni A1; health_scores.csv del PR 2 sigue con el mismo hash)
+
+$ python -m worky_engine build --data-dir data/raw/sistemas --out-dir outputs
+build: 650 empresas ensambladas en outputs
+
+$ python -m worky_engine analyze --data-dir data/raw/sistemas --out-dir outputs/analysis
+analyze: 6 consultas escritas en outputs\analysis
+
+$ git status --short outputs
+?? outputs/health/validation.md
+
+$ grep -rn "—" outputs/health README.md worky_engine/health
+(vacio)
+```
+
+## Presupuesto de revision
+
+- Archivos modificados (`git diff --numstat`, adiciones + eliminaciones): `README.md` 8, `tests/test_health_idempotency.py` 26, `worky_engine/cli.py` 32, `worky_engine/health/__init__.py` 8, `worky_engine/health/metrics.py` 68, `worky_engine/health/runner.py` 28. Subtotal: 170.
+- Archivos nuevos (`wc -l`): `tests/test_health_report.py` 202, `worky_engine/health/report.py` 399. Subtotal: 601.
+- Total de autoria: 771 lineas, bajo el presupuesto de 800 (96 %). No hizo falta pedir `size:exception`.
+- `outputs/health/validation.md` (generado) queda fuera del conteo de autoria, como golden generado.
+
+## Estado (PR 3)
+
+8/8 tareas de PR 3 completas. Las tres PR de `a3-health-score` (PR 1, PR 2, PR 3) quedan completas: 28/28 tareas. Listo para `sdd-verify`.
