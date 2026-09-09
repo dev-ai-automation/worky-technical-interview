@@ -1,0 +1,32 @@
+# Estado del DAG para el cambio de SDD. Es propiedad del orquestador; se actualiza despues de cada transicion de fase.
+change: a4-warehouse-model
+title: Modelo de warehouse de A4 (esquema en estrella sobre el crosswalk de A0, historial SCD2, overrides de revision manual)
+created: 2026-09-09
+artifact_store: hybrid
+engram_project: 21-worky
+preflight:
+  execution_mode: interactive
+  delivery_strategy: auto-chain
+  chain_strategy: pending (stacked-to-main en A3; se confirma en tasks si el pronostico pide PR encadenados)
+  review_budget_lines: 800
+  rdd: apagado (global); se enciende antes del primer PR con codigo ejecutable, si la decision 1 elige DDL
+inputs:
+  case_section: A4 (fundation-docs, evaluada por Head of Data)
+  decisions:
+    - docs/decisions/ADR-001-identity-resolution-scorecard.md
+    - docs/decisions/ADR-002-mrr-imputation-and-normalization.md
+    - docs/decisions/ADR-003-usage-trend-and-leakage-guard.md
+    - docs/decisions/ADR-005-health-score-model.md
+  research_existing: docs/research/01-bi-revops-data-architecture.md (seccion 2)
+  specs_base: openspec/specs/
+phases:
+  explore: done (Engram #1966; el sub-agente no tiene herramienta de escritura, el orquestador materializo exploration.md con el mismo contenido y reescribio el topic para que ambos almacenes coincidan)
+  research: offered (pendiente de respuesta del usuario)
+  proposal: blocked (cinco decisiones de producto pendientes en preproposal.yaml)
+  specs: blocked
+  design: blocked
+  tasks: blocked
+  apply: blocked
+  verify: blocked
+  archive: blocked
+next_recommended: confirmar research y las cinco decisiones de producto; despues sdd-propose
