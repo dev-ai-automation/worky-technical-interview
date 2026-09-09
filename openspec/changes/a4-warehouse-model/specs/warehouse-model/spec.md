@@ -120,6 +120,12 @@ Cualquier hecho histórico (uso, soporte, deals) MUST unirse contra la fila de `
 - Cuando el sistema resuelve ambas uniones
 - Entonces cada hecho queda asociado al CSM vigente en su propia fecha
 
+#### Scenario: hecho anterior a la primera fila conocida de la empresa
+
+- Dado una empresa cuya primera fila de `dim_company` abre en la fecha de la primera corrida del warehouse, y un hecho con fecha anterior a esa corrida
+- Cuando el sistema une ese hecho contra `dim_company`
+- Entonces el hecho queda asociado a esa primera fila, porque el warehouse no conoce ninguna versión anterior; solo las filas abiertas por un cambio posterior se limitan a su propia vigencia
+
 ### Requirement: `identity_overrides` como tabla persistida leída por el warehouse
 
 `identity_overrides` MUST existir como tabla persistida con las columnas `source_system`, `source_id`, `master_id`, `decided_by`, `decided_at` y `reason`. El warehouse MUST leer los overrides ya aplicados al crosswalk y reflejarlos en `map_source_identity`.

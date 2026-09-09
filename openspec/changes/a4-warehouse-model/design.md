@@ -202,6 +202,10 @@ JOIN dim_company d
 
 `map_source_identity` publica siete columnas: `source_system`, `source_id`, `master_id`, `confidence_tier`, `link_source` (`cascade` u `override`), `decided_by` y `matched_at`. Una empresa aporta siempre su fila de `crm_hubspot` y, cuando el vínculo existe, una de `product_db` y una de `vitally`.
 
+### Ajuste del PR 3: la primera banda de cada empresa se abre hacia atrás
+
+El dataset del caso es una sola foto y la fecha de corrida por omisión es `dataset_asof` (2024-08-31), así que la primera banda de cada empresa abre ese día y una unión literal `fecha_del_hecho >= effective_from` dejaba fuera todo el historial de uso, tickets, deals y touches. La vista `dim_company_open_bands` (en `w5_facts.sql`) trata la banda más antigua de cada `master_id` como vigente hacia atrás, sin piso, y conserva el `effective_from` real de las bandas que abre un cambio posterior. Así los hechos históricos se unen contra la única versión conocida de la empresa, y los hechos posteriores a un cambio de plan o CSM siguen viendo la banda correcta (D13 se mantiene para toda banda que no sea la primera). El spec lo recoge en el escenario "hecho anterior a la primera fila conocida de la empresa". `fact_health_score_monthly` resuelve `company_sk` contra la fila `is_current`, que es la recién actualizada en la misma corrida.
+
 ## 6. Marca de agua incremental
 
 Contrato exacto, documentado ahora e implementado al final solo si queda presupuesto:
