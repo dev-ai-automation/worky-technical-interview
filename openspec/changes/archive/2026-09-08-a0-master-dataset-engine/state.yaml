@@ -25,8 +25,8 @@ phases:
   apply: done (PR 1, 2, 3a, 3b, 4a y 4b implementados; motor A0 completo con 35 columnas, 128 pruebas y 8 goldens; pendiente sdd-verify)
   verify: done (PASS: 41/41 requisitos, 60/60 escenarios, 146 pruebas; builds y backtest byte-identicos; envelope validado por sdd-verify-validate sobre f9e7542)
   judgment_day: done (APPROVED en ronda 2 sobre 00e31b6; ledger judgment-ledger.md, veredicto en 8d063e4)
-  archive: pending
-next_recommended: sdd-archive, luego merge apilado a main
+  archive: done (sincronizadas 6 especificaciones a openspec/specs; cambio archivado con git mv; archivo-report.md y observaciones Engram registradas; 2026-09-08 19:52)
+next_recommended: merge apilado a main
 review_receipts:
   mode: receipt-driven development activado (global) el 2026-09-08 por el usuario
   pr1:
