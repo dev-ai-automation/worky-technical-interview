@@ -21,12 +21,12 @@ inputs:
   specs_base: openspec/specs/
 phases:
   explore: done (Engram #1966; el sub-agente no tiene herramienta de escritura, el orquestador materializo exploration.md con el mismo contenido y reescribio el topic para que ambos almacenes coincidan)
-  research: offered (pendiente de respuesta del usuario)
-  proposal: blocked (cinco decisiones de producto pendientes en preproposal.yaml)
+  research: not_selected (ofrecida el 2026-09-09; el usuario eligio todas las recomendaciones)
+  proposal: in_progress (decisiones confirmadas en preproposal.yaml revision 2; ADR-006 en redaccion)
   specs: blocked
   design: blocked
   tasks: blocked
   apply: blocked
   verify: blocked
   archive: blocked
-next_recommended: confirmar research y las cinco decisiones de producto; despues sdd-propose
+next_recommended: sdd-propose con el handoff confirmado

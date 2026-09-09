@@ -1,5 +1,5 @@
 schema: gentle-ai.sdd-preproposal/v1
-revision: 1
+revision: 2
 change: a4-warehouse-model
 artifact_store: hybrid
 exploration:
@@ -8,15 +8,16 @@ exploration:
     openspec: openspec/changes/a4-warehouse-model/exploration.md
     engram: sdd/a4-warehouse-model/explore
 research:
-  selected: null
+  selected: false
   request: null
   classes: []
   admission: not_applicable
-  outcome: pending_offer
-  note: ofrecida el 2026-09-09 junto con las decisiones de producto; docs/research/01 seccion 2 ya cubre Kimball, SCD2, map_source_identity e incremental con marca de agua
+  outcome: unselected
+  note: ofrecida y no seleccionada por el usuario el 2026-09-09; docs/research/01 seccion 2 ya cubre Kimball, SCD2, map_source_identity e incremental con marca de agua
 evidence:
   openspec:
     - openspec/changes/a4-warehouse-model/exploration.md
+    - docs/decisions/ADR-006-warehouse-model.md
     - docs/decisions/ADR-001-identity-resolution-scorecard.md
     - docs/decisions/ADR-002-mrr-imputation-and-normalization.md
     - docs/decisions/ADR-003-usage-trend-and-leakage-guard.md
@@ -24,41 +25,24 @@ evidence:
     - docs/data-model/00-as-is-schema-profile.md
     - openspec/specs/identity-resolution/spec.md
     - openspec/specs/master-dataset-assembly/spec.md
+    - openspec/specs/health-score/spec.md
   engram:
     - sdd/a4-warehouse-model/explore
+    - worky/a4/decision-warehouse-model
     - worky/rdd/policy-block-a-b
-product_decisions: pending
-pending_decisions:
-  - id: A4.shape
-    question: forma del entregable
-    options:
-      a: solo documento de diseno + ERD (lo literal del caso)
-      b: documento + ERD + DDL ejecutable acotado (comando warehouse sobre DuckDB, ~400-650 lineas) [recomendada]
-      c: b + capa Data Vault ligera ejecutada (+600-900 lineas, riesgo de presupuesto)
-  - id: A4.persist
-    question: persistir el .duckdb del comando warehouse entre corridas (build sigue borrandolo, D6 de A0)
-    options:
-      a: si, solo para warehouse [recomendada]
-      b: no, se regenera como los demas comandos (SCD2 solo demostrable en prueba)
-  - id: A4.overrides
-    question: tabla identity_overrides para decisiones de revision manual
-    options:
-      a: agregarla en A4 como extension aditiva sobre identity_resolution [recomendada]
-      b: solo documentarla como hueco para una revision futura de A0
-  - id: A4.watermark
-    question: marca de agua incremental por sistema origen
-    options:
-      a: documentar el contrato e implementar solo si sobra presupuesto tras SCD2 y overrides [recomendada]
-      b: implementarla desde el inicio
-      c: solo documentarla
-  - id: A4.health_history
-    question: fact_health_score_monthly (historial del health score por fecha de corrida)
-    options:
-      a: incluirla si se elige b en A4.shape, con el mismo mecanismo de snapshot [recomendada]
-      b: dejarla fuera de A4
-confirmed_decisions: []
+product_decisions: confirmed
+confirmed_decisions:
+  - A4.shape opcion b: documento de diseno + ERD + DDL ejecutable acotado; comando `warehouse` que materializa el esquema en estrella sobre DuckDB envolviendo los marts existentes sin modificarlos (ADR-006)
+  - A4.persist opcion a: el .duckdb del comando warehouse se persiste entre corridas; build, analyze y health siguen regenerando el suyo (excepcion documentada a la decision D6 de A0)
+  - A4.overrides opcion a: tabla identity_overrides agregada en A4 como extension aditiva sobre identity_resolution, sin modificar archivos existentes de ese modulo
+  - A4.watermark opcion a: la marca de agua incremental por sistema origen se documenta con su contrato exacto y solo se implementa si sobra presupuesto tras dim_company/SCD2/overrides
+  - A4.health_history opcion a: fact_health_score_monthly entra en A4 con el mismo mecanismo de snapshot por fecha de corrida que dim_company
+  - research: no seleccionada
+  - decision del usuario el 2026-09-09: "Vamos con las recomendaciones"
 assumptions_stated:
   - los marts y el modulo identity_resolution de A0 no se modifican; A4 los envuelve y agrega tablas nuevas
   - ninguna fuente trae historial de plan, CSM o MRR; el SCD2 se captura hacia adelante y se demuestra con una prueba de dos corridas
   - fact_revenue_monthly se construye agregando deals por fecha de cierre, no como serie de mrr_mxn
-proposal_ready: false
+  - la capa Data Vault ligera queda como trabajo futuro documentado, sin codigo
+  - las llaves surrogate se generan de forma determinista para conservar la idempotencia byte a byte
+proposal_ready: true
