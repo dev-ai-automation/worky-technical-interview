@@ -7,7 +7,7 @@ engram_project: 21-worky
 preflight:
   execution_mode: interactive
   delivery_strategy: auto-chain
-  chain_strategy: pending (stacked-to-main en A3; se confirma en tasks si el pronostico pide PR encadenados)
+  chain_strategy: stacked-to-main (confirmado por el usuario el 2026-09-09 al aprobar la fase de tareas)
   review_budget_lines: 800
   rdd: apagado (global); se enciende antes del primer PR con codigo ejecutable, si la decision 1 elige DDL
 inputs:
@@ -25,7 +25,7 @@ phases:
   proposal: done (Engram #1979; ajustada por el orquestador tras el gate: build y resolve tambien aplican overrides, identity-resolution como capacidad modificada; aprobada por el usuario: "Si, build tambien")
   specs: done (warehouse-model nuevo: 12 requisitos, 26 escenarios; delta identity-resolution: 1 requisito agregado, 5 escenarios tras sincronizar la falla cerrada de D17 y el source_id desconocido; Engram #1986 reescrito; marcadores nativos en ingles verificados)
   design: done (D1 a D21; Engram #1991; validador de contrato en contexto fresco: sin referencias inventadas; el orquestador corrigio el presupuesto a 800 por PR, agrego la seccion 12 de cambios por archivo y sincronizo ADR-006, spec delta y propuesta con D15/D17; el archivo design.md es la version autoritativa)
-  tasks: blocked
+  tasks: in_progress
   apply: blocked
   verify: blocked
   archive: blocked
