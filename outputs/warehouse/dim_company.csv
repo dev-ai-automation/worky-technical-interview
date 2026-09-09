@@ -1,0 +1,651 @@
+company_sk,master_id,hubspot_id,account_id,vitally_id,company_name,domain_label,segment,industry,plan,csm_owner,state,signup_date,churn_date,churn_status,attributes_hash,effective_from,effective_to,is_current,ruleset_version
+fb81c37f0e0a,0014df720942,HS-100421,ACC-2420,cus_100420,Club Mascareñas-Moya,club870,Mid-Market,Manufactura,Pro,Fernanda Solís,Puebla,2023-04-10,,active,4fa0276c7767,2024-08-31,,True,1.0.0
+090717636142,0044b4ee820c,HS-100017,ACC-2016,cus_100016,"Club Badillo, Ruelas y Almonte",club774,SMB,Retail,Basico,Diego Ortega,Estado de México,2024-05-18,,active,b91952ad0533,2024-08-31,,True,1.0.0
+0d9dc181a89e,00902f986641,HS-100325,ACC-2324,cus_100324,"Zayas, Guajardo y García",zayas588,Enterprise,Automotriz,Premium,Ana Ruiz,Nuevo León,2022-07-07,,active,109ecb009392,2024-08-31,,True,1.0.0
+328f92a7ba49,00a8d71c23f4,HS-100064,ACC-2063,cus_100063,Ybarra y Alcaraz S.C.,ybarra40,SMB,Logística,Basico,Marta Díaz,Estado de México,2024-06-09,,active,58b139e9510f,2024-08-31,,True,1.0.0
+04d8938b27ef,00fd17d94d91,HS-100010,ACC-2009,cus_100009,"Proyectos Zamora, Amaya y Rosales",proyectos380,Mid-Market,Tecnología,Pro,Fernanda Solís,Jalisco,2023-06-23,,active,4fa0276c7767,2024-08-31,,True,1.0.0
+80f2069e74d3,00fe53692ca1,HS-100454,ACC-2453,cus_100453,Despacho Gamboa y Espinoza,despacho982,Enterprise,Manufactura,Premium,Fernanda Solís,Querétaro,2024-01-22,,active,e4075c4fb552,2024-08-31,,True,1.0.0
+f8de6a139838,0196867379d8,HS-100062,ACC-2061,cus_100061,"Proyectos Olvera, Llamas y Huerta",proyectos360,SMB,Logística,Basico,Diego Ortega,Chihuahua,2024-04-21,,active,b91952ad0533,2024-08-31,,True,1.0.0
+790368749722,02382e1b34e3,HS-100407,ACC-2406,cus_100406,Marroquín y Mercado A.C.,marroquin837,SMB,Logística,Basico,Luis Peña,Sonora,2023-10-19,2024-05-10,churned,b1d5ba07b065,2024-08-31,,True,1.0.0
+8ee19efcc61b,034cefcecc7f,HS-100253,ACC-2252,cus_100252,Proyectos Mateo y Tejeda,proyectos585,Mid-Market,Construcción,Pro,Carla Nuñez,Guanajuato,2023-07-16,,active,49d8861015c4,2024-08-31,,True,1.0.0
+4d8b033ddfed,03ba89cf14b9,HS-100273,ACC-2272,cus_100272,Zepeda-Partida,zepedapartid936,Mid-Market,Educación,Pro,Fernanda Solís,Yucatán,2022-07-15,,active,4fa0276c7767,2024-08-31,,True,1.0.0
+25df7e280772,03e9e800144c,HS-100545,ACC-2544,cus_100544,"Cervántez, Esparza y Oquendo",cervantez995,Mid-Market,Educación,Pro,Diego Ortega,Chihuahua,2023-03-08,2023-11-21,churned,79494cbaf8f7,2024-08-31,,True,1.0.0
+11e7cf2af654,04887d0f3f7c,HS-100607,ACC-2606,cus_100606,Alcala-Magaña,alcalamagana369,SMB,Logística,Basico,Ana Ruiz,CDMX,2022-10-10,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+c3286d7f6add,05f6a68d13dc,HS-100294,ACC-2293,cus_100293,Serrato-Lomeli,serratolomel126,SMB,Alimentos,Basico,Marta Díaz,Estado de México,2022-12-15,2023-03-10,churned,58b139e9510f,2024-08-31,,True,1.0.0
+3652a90060aa,062df55dccb8,HS-100126,ACC-2125,cus_100125,"Grupo Alva, Linares y Mendoza",grupo847,SMB,Logística,Basico,Carla Nuñez,Sonora,2022-12-20,2023-07-25,churned,54379cde7967,2024-08-31,,True,1.0.0
+c4d313b2dfb7,068871d26770,HS-100209,ACC-2208,cus_100208,Laboratorios Valdivia-Ornelas,laboratorios614,SMB,Educación,Basico,Luis Peña,Nuevo León,2022-07-07,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+17b52d5a46e1,07834c81ea07,HS-100161,ACC-2160,cus_100160,Covarrubias-Rosario S.A. de C.V.,covarrubiasr586,SMB,Educación,Basico,Marta Díaz,CDMX,2022-01-06,,active,58b139e9510f,2024-08-31,,True,1.0.0
+b6b940187c57,078d848b2f9f,HS-100042,ACC-2041,cus_100041,Maldonado-Bueno,maldonadobue984,SMB,Manufactura,Basico,Fernanda Solís,Puebla,2022-11-23,2023-04-01,churned,05c44af64c13,2024-08-31,,True,1.0.0
+fd052890dcdd,08513678e63b,HS-100643,ACC-2642,cus_100642,"Prado, Ozuna y Orellana",prado772,SMB,Construcción,Basico,Ana Ruiz,Sonora,2023-02-10,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+08b36f9bcb4c,093598bb9373,HS-100490,ACC-2489,cus_100489,Manzanares y Zapata y Asociados,manzanares211,Enterprise,Retail,Premium,Ana Ruiz,Nuevo León,2022-01-11,,active,109ecb009392,2024-08-31,,True,1.0.0
+1095c723df68,0950a3eaca02,HS-100340,ACC-2339,cus_100339,Prado-Castillo A.C.,pradocastill458,SMB,Servicios Financieros,Basico,Ana Ruiz,CDMX,2023-01-24,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+66d6e2295895,09a2a58e60b9,HS-100103,ACC-2102,cus_100102,Industrias Ramos-Tejeda,industrias331,SMB,Logística,Basico,Marta Díaz,Yucatán,2022-06-20,,active,58b139e9510f,2024-08-31,,True,1.0.0
+4cb9cbad36d5,0a2107e049f9,HS-100159,ACC-2158,cus_100158,Chapa S.C.,chapa453,SMB,Retail,Basico,Fernanda Solís,Querétaro,2022-11-27,,active,05c44af64c13,2024-08-31,,True,1.0.0
+cfeed9375aea,0aa90d008a95,HS-100068,ACC-2067,cus_100067,Club Montemayor-Godoy,club922,Mid-Market,Agroindustria,Pro,Marta Díaz,Estado de México,2023-01-24,,active,991478174dff,2024-08-31,,True,1.0.0
+158a2e50245e,0b0baf334770,HS-100402,ACC-2401,cus_100401,Flores-Reyes S. R.L. de C.V.,floresreyes802,Enterprise,Alimentos,Premium,Fernanda Solís,Yucatán,2022-06-10,,active,e4075c4fb552,2024-08-31,,True,1.0.0
+6fb6d6e6dc60,0b0c556bec93,HS-100348,ACC-2347,cus_100347,Zelaya y Marrero S. R.L. de C.V.,zelaya385,SMB,Educación,Basico,Marta Díaz,Jalisco,2022-10-19,,active,58b139e9510f,2024-08-31,,True,1.0.0
+6f6ecda841a5,0b42fd3d0ae2,HS-100167,ACC-2166,cus_100166,Collazo-Prieto,collazopriet206,SMB,Tecnología,Basico,Carla Nuñez,Chihuahua,2022-07-11,,active,54379cde7967,2024-08-31,,True,1.0.0
+2d6d7a3bb4d8,0b632556c614,HS-100134,ACC-2133,cus_100133,Pizarro S.A.,pizarro466,SMB,Manufactura,Basico,Diego Ortega,Estado de México,2024-04-02,,active,b91952ad0533,2024-08-31,,True,1.0.0
+a6dbe2ddb0b9,0c0316a141aa,HS-100628,ACC-2627,cus_100627,Santillán S.C.,santillan761,Mid-Market,Agroindustria,Pro,Luis Peña,Puebla,2022-08-16,,active,1e61b2a314d4,2024-08-31,,True,1.0.0
+0694362d2fc2,0c092b55cb21,HS-100637,ACC-2636,cus_100636,Cavazos y Quiroz S.A. de C.V.,cavazos755,SMB,Agroindustria,Basico,Marta Díaz,Guanajuato,2023-01-21,2024-03-21,churned,58b139e9510f,2024-08-31,,True,1.0.0
+b9d1e25c2cfd,0c9833234628,HS-100252,ACC-2251,cus_100251,Casárez-Granado,casarezgrana248,SMB,Hospitalidad,Basico,Carla Nuñez,Guanajuato,2022-03-04,,active,54379cde7967,2024-08-31,,True,1.0.0
+d62d3b04ba35,0cba696d8c85,HS-100251,ACC-2250,cus_100250,Carrillo-Ceja,carrilloceja114,SMB,Retail,Basico,Fernanda Solís,Chihuahua,2024-05-27,,active,05c44af64c13,2024-08-31,,True,1.0.0
+72f58174896e,0d4cd09dfa99,HS-100221,ACC-2220,cus_100220,Negrete-Acosta,negreteacost885,Mid-Market,Salud,Pro,Jorge Ibarra,Yucatán,2022-09-04,,active,f20fd128e16f,2024-08-31,,True,1.0.0
+04a4b36d18e0,0d6202950750,HS-100152,ACC-2151,cus_100151,Narváez-Casillas S. R.L. de C.V.,narvaezcasil978,SMB,Educación,Basico,Carla Nuñez,Jalisco,2023-10-12,,active,54379cde7967,2024-08-31,,True,1.0.0
+dac4584295f7,0df07dc09d21,HS-100456,ACC-2455,cus_100455,Verdugo y Esquibel S.C.,verdugo926,SMB,Automotriz,Basico,Marta Díaz,Puebla,2022-01-02,,active,58b139e9510f,2024-08-31,,True,1.0.0
+38c1b26b9607,0e7b9d22a314,HS-100306,ACC-2305,cus_100305,Borrego y Arenas S.C.,borrego403,Enterprise,Tecnología,Premium,Diego Ortega,Chihuahua,2023-03-01,,active,6c2887815d0e,2024-08-31,,True,1.0.0
+f64269b37f6d,0f42092743f1,HS-100626,ACC-2625,cus_100625,Almaraz y Sanches S.A.,almaraz100,SMB,Retail,Basico,Diego Ortega,Querétaro,2022-01-12,,active,b91952ad0533,2024-08-31,,True,1.0.0
+b01ddbad2b96,0f853c61d098,HS-100300,ACC-2299,cus_100299,Laboratorios Villalpando y Limón,laboratorios375,SMB,Educación,Basico,Luis Peña,Guanajuato,2023-07-20,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+9ffb1b5c2dd8,0f9a82123cbe,HS-100202,ACC-2201,cus_100201,Elizondo-Vergara S.A.,elizondoverg185,SMB,Manufactura,Basico,Ana Ruiz,Nuevo León,2023-06-09,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+78c81ec006ea,0fda0433e133,HS-100472,ACC-2471,cus_100471,Industrias Delgadillo-Vaca,industrias656,Enterprise,Retail,Premium,Ana Ruiz,Querétaro,2024-04-04,,active,109ecb009392,2024-08-31,,True,1.0.0
+af29d67881b7,108f213736fb,HS-100204,ACC-2203,cus_100203,Proyectos Amaya y Osorio,proyectos386,Enterprise,Construcción,Premium,Marta Díaz,Guanajuato,2022-04-05,,active,80ca9c6c79de,2024-08-31,,True,1.0.0
+e904ea1eea2c,10e7e55b829d,HS-100538,ACC-2537,cus_100537,Alvarez y Salcido S.A. de C.V.,alvarez51,SMB,Retail,Basico,Luis Peña,CDMX,2023-02-03,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+3396f600a7be,118a77d9045d,HS-100559,ACC-2558,cus_100558,"Corporacin Valdez, Samaniego y Sotelo",corporacin308,Mid-Market,Tecnología,Pro,Marta Díaz,Estado de México,2023-07-15,,active,991478174dff,2024-08-31,,True,1.0.0
+8017e853820f,1197d211e7e1,HS-100127,ACC-2126,cus_100126,Club Anaya-Valencia,club450,Mid-Market,Logística,Pro,Jorge Ibarra,Querétaro,2023-07-04,,active,f20fd128e16f,2024-08-31,,True,1.0.0
+027cde3dbe98,12031a79d1d3,HS-100460,ACC-2459,cus_100459,Rojas y Marrero e Hijos,rojas321,SMB,Retail,Basico,Diego Ortega,Nuevo León,2023-03-29,,active,b91952ad0533,2024-08-31,,True,1.0.0
+1d680f6442c7,1288cafbc1fe,HS-100439,ACC-2438,cus_100438,"Prieto, Alejandro y Tamayo",prieto224,Mid-Market,Servicios Financieros,Pro,Diego Ortega,Puebla,2024-04-21,,active,79494cbaf8f7,2024-08-31,,True,1.0.0
+044e4e7b51a1,12bb70998c29,HS-100648,ACC-2647,cus_100647,Gallardo-Bustamante S.A.,gallardobust560,Mid-Market,Hospitalidad,Pro,Luis Peña,Querétaro,2023-04-30,,active,1e61b2a314d4,2024-08-31,,True,1.0.0
+1fca6d29be99,1344cdebacd2,HS-100498,ACC-2497,cus_100497,"Club Saldaña, Lira y Heredia",club162,SMB,Retail,Basico,Carla Nuñez,CDMX,2023-04-13,,active,54379cde7967,2024-08-31,,True,1.0.0
+a8a1abf90cb3,13d2b5cf6ea2,HS-100228,ACC-2227,cus_100227,"Tórrez, Sotelo y Muñoz",torrez940,SMB,Salud,Basico,Fernanda Solís,Sonora,2022-06-08,,active,05c44af64c13,2024-08-31,,True,1.0.0
+43ba9b035471,143d4fc0dd50,HS-100289,ACC-2288,cus_100288,Quintanilla-Hernádez,quintanillah633,SMB,Educación,Basico,Carla Nuñez,Querétaro,2022-05-23,,active,54379cde7967,2024-08-31,,True,1.0.0
+565635d8bd36,14c82590fbd2,HS-100324,ACC-2323,cus_100323,"Proyectos Orozco, Rivera y Abreu",proyectos205,SMB,Automotriz,Basico,Ana Ruiz,Jalisco,2022-11-20,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+20b45697f19e,14e457b52fab,HS-100358,ACC-2357,cus_100357,Zapata-Moreno,zapatamoreno696,Mid-Market,Automotriz,Pro,Fernanda Solís,Estado de México,2022-04-03,2023-05-20,churned,4fa0276c7767,2024-08-31,,True,1.0.0
+edc3dfc87183,1598cd0f4138,HS-100287,ACC-2286,cus_100286,Burgos y Rosales S.C.,burgos640,SMB,Automotriz,Basico,Ana Ruiz,CDMX,2022-06-04,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+bf577a8d22a5,16541ff794fd,HS-100088,ACC-2087,cus_100087,Raya e Hijos,raya696,Mid-Market,Automotriz,Pro,Jorge Ibarra,Nuevo León,2022-03-13,,active,f20fd128e16f,2024-08-31,,True,1.0.0
+2121b4cfb678,1657dbc3746e,HS-100093,ACC-2092,cus_100092,"Laboratorios Briseño, Toledo y Salgado",laboratorios666,Mid-Market,Construcción,Pro,Luis Peña,CDMX,2023-05-10,2023-11-12,churned,1e61b2a314d4,2024-08-31,,True,1.0.0
+828a4e011d17,167708133e90,HS-100482,ACC-2481,cus_100481,Solorio y Cisneros A.C.,solorio251,Mid-Market,Manufactura,Pro,Luis Peña,Nuevo León,2023-08-02,,active,1e61b2a314d4,2024-08-31,,True,1.0.0
+48fe8a4bd597,16b237fd6c05,HS-100344,ACC-2343,cus_100343,Caraballo S. R.L. de C.V.,caraballo573,SMB,Manufactura,Basico,Diego Ortega,CDMX,2022-10-03,2023-08-19,churned,b91952ad0533,2024-08-31,,True,1.0.0
+d5c3aeff2c94,16c951b00315,HS-100060,ACC-2059,cus_100059,"Corporacin Verduzco, Caraballo y Raya",corporacin228,SMB,Alimentos,Basico,Diego Ortega,Puebla,2023-12-24,,active,b91952ad0533,2024-08-31,,True,1.0.0
+4b05f4d08dca,179d97e50dff,HS-100135,ACC-2134,cus_100134,Muñiz-Guardado,munizguardad845,Enterprise,Servicios Financieros,Premium,Luis Peña,Chihuahua,2023-12-29,,active,a06dca9fd7ac,2024-08-31,,True,1.0.0
+0ea9ded1b020,17ad157b6ec9,HS-100239,ACC-2238,cus_100238,Villaseñor y Palomino S.A.,villasenor547,Mid-Market,Construcción,Pro,Diego Ortega,Puebla,2022-05-29,,active,79494cbaf8f7,2024-08-31,,True,1.0.0
+5e1a21eee857,183da402db0f,HS-100246,ACC-2245,cus_100245,Arellano y Armas S.C.,arellano29,Enterprise,Construcción,Premium,Marta Díaz,Nuevo León,2022-05-21,,active,80ca9c6c79de,2024-08-31,,True,1.0.0
+92d1529356d0,190a2d8a76a2,HS-100385,ACC-2384,cus_100384,"Club Zarate, Peña y Gaona",club804,Mid-Market,Automotriz,Pro,Carla Nuñez,CDMX,2023-07-08,,active,49d8861015c4,2024-08-31,,True,1.0.0
+e6908faa5364,19e40842726a,HS-100282,ACC-2281,cus_100281,Luevano-Mota e Hijos,luevanomota900,SMB,Tecnología,Basico,Diego Ortega,Nuevo León,2022-05-02,,active,b91952ad0533,2024-08-31,,True,1.0.0
+1fb8ca70e644,1a1192e17404,HS-100510,ACC-2509,cus_100509,"Escobedo, Guzmán y Montaño",escobedo646,Mid-Market,Construcción,Pro,Diego Ortega,Guanajuato,2022-12-27,2023-09-08,churned,79494cbaf8f7,2024-08-31,,True,1.0.0
+c02520b9e906,1a38af8fa679,HS-100446,ACC-2445,cus_100445,Despacho Flórez-Hernandes,despacho130,Enterprise,Automotriz,Premium,Marta Díaz,Puebla,2022-03-28,,active,80ca9c6c79de,2024-08-31,,True,1.0.0
+dac027d1e80e,1b589de854cd,HS-100298,ACC-2297,cus_100297,Corporacin Casárez y Fuentes,corporacin50,SMB,Salud,Basico,Diego Ortega,Yucatán,2023-05-30,,active,b91952ad0533,2024-08-31,,True,1.0.0
+32b1cb3907fd,1c09f8474886,HS-100465,ACC-2464,cus_100464,Bravo-Terán,bravoteran567,Enterprise,Construcción,Premium,Ana Ruiz,Querétaro,2022-02-07,,active,109ecb009392,2024-08-31,,True,1.0.0
+66582b324a47,1cf6a4e18b6f,HS-100410,ACC-2409,cus_100409,Laboratorios Garrido-Quiñónez,laboratorios512,SMB,Automotriz,Basico,Luis Peña,Estado de México,2022-01-08,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+8e9970139066,1d87384d7c5c,HS-100118,ACC-2117,cus_100117,Despacho Ochoa y Vega,despacho153,SMB,Tecnología,Basico,Ana Ruiz,Chihuahua,2022-01-17,2022-11-27,churned,3006ea73b76b,2024-08-31,,True,1.0.0
+13215ec3a1e3,1db97fc7c4a3,HS-100208,ACC-2207,cus_100207,Aguilera-Matos,aguileramato695,Mid-Market,Automotriz,Pro,Ana Ruiz,Puebla,2023-01-29,,active,b10d0bb0f81c,2024-08-31,,True,1.0.0
+5cd00d42f3d6,1e08214c6d84,HS-100397,ACC-2396,cus_100396,Saldivar-Rangel,saldivarrang192,Mid-Market,Retail,Pro,Jorge Ibarra,Jalisco,2022-09-10,,active,f20fd128e16f,2024-08-31,,True,1.0.0
+e5adffc88f6b,1e6e8393975f,HS-100587,ACC-2586,cus_100586,"Club Pizarro, Bernal y Díaz",club215,SMB,Logística,Basico,Jorge Ibarra,Jalisco,2023-12-02,,active,178fe802cd43,2024-08-31,,True,1.0.0
+c5aca975321c,1e79ff8dda47,HS-100357,ACC-2356,cus_100356,Club Vera-Pelayo,club424,SMB,Construcción,Basico,Carla Nuñez,Nuevo León,2022-06-09,,active,54379cde7967,2024-08-31,,True,1.0.0
+09d0e2b1cec2,1ece7b99e449,HS-100120,ACC-2119,cus_100119,Miramontes-Madera,miramontesma881,SMB,Logística,Basico,Ana Ruiz,Sonora,2023-09-05,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+dfcc43c01250,1f5adba0a272,HS-100564,ACC-2563,cus_100563,Urbina y Cedillo S.A.,urbina378,SMB,Logística,Basico,Ana Ruiz,CDMX,2022-09-28,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+9e42e17cd9c2,1fca191b2c4a,HS-100496,ACC-2495,cus_100495,Grupo Salcedo-Valles,grupo160,SMB,Retail,Basico,Jorge Ibarra,Jalisco,2024-03-06,,active,178fe802cd43,2024-08-31,,True,1.0.0
+27205d652e9a,201dacb5b332,HS-100122,ACC-2121,cus_100121,"Ojeda, Carbajal y Venegas",ojeda246,Enterprise,Tecnología,Premium,Jorge Ibarra,Yucatán,2024-06-21,,active,9cf3d8b0a4e9,2024-08-31,,True,1.0.0
+dda768a4093d,2046e13bb328,HS-100109,ACC-2108,cus_100108,Collazo-Frías e Hijos,collazofrias680,SMB,Logística,Basico,Marta Díaz,Estado de México,2022-08-03,,active,58b139e9510f,2024-08-31,,True,1.0.0
+45e96d7c042f,20e77f6284f1,HS-100312,ACC-2311,cus_100311,Molina y Asociados,molina708,SMB,Educación,Basico,Jorge Ibarra,CDMX,2023-05-18,,active,178fe802cd43,2024-08-31,,True,1.0.0
+66d3e7f172c2,20eb324cdfc6,HS-100220,ACC-2219,cus_100219,"Industrias Cotto, Rentería y de la Garza",industrias773,Mid-Market,Alimentos,Pro,Carla Nuñez,Sonora,2022-09-05,,active,49d8861015c4,2024-08-31,,True,1.0.0
+b3fe264b9e64,216e100a95ab,HS-100261,ACC-2260,cus_100260,Rodarte y Madrigal S.C.,rodarte38,Mid-Market,Logística,Pro,Diego Ortega,CDMX,2024-06-29,,active,79494cbaf8f7,2024-08-31,,True,1.0.0
+6dec4731b6ff,21a76877b923,HS-100611,ACC-2610,cus_100610,Granados A.C.,granados665,SMB,Educación,Basico,Ana Ruiz,Nuevo León,2023-10-27,2024-06-28,churned,3006ea73b76b,2024-08-31,,True,1.0.0
+719d34eba78b,21f411028416,HS-100169,ACC-2168,cus_100168,Proyectos Garibay-Espinosa,proyectos892,SMB,Agroindustria,Basico,Luis Peña,Puebla,2024-02-04,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+7986adf62580,22b962d9afed,HS-100620,ACC-2619,cus_100619,"Estrada, Rincón y Zavala",estrada229,Mid-Market,Servicios Financieros,Pro,Ana Ruiz,Yucatán,2023-09-15,,active,b10d0bb0f81c,2024-08-31,,True,1.0.0
+62d58de806ed,237b3e09b789,HS-100349,ACC-2348,cus_100348,"Cabán, Olivárez y Tamayo",caban551,SMB,Tecnología,Basico,Luis Peña,CDMX,2023-06-24,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+19d2e8cfbae6,2472eb83ec96,HS-100640,ACC-2639,cus_100639,Bañuelos-Gallegos,banuelosgall766,SMB,Automotriz,Basico,Jorge Ibarra,CDMX,2022-05-10,,active,178fe802cd43,2024-08-31,,True,1.0.0
+d76d102491b8,247338856c13,HS-100138,ACC-2137,cus_100137,Industrias Arellano-Cedillo,industrias997,Mid-Market,Manufactura,Pro,Carla Nuñez,CDMX,2023-10-03,,active,49d8861015c4,2024-08-31,,True,1.0.0
+d786d138614c,25de70f28a81,HS-100354,ACC-2353,cus_100353,"Proyectos Loera, Vergara y Torres",proyectos759,SMB,Construcción,Basico,Luis Peña,CDMX,2023-05-28,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+2085d99dee87,25f129ce4fc4,HS-100442,ACC-2441,cus_100441,"Toro, Paredes y Montenegro",toro625,Enterprise,Agroindustria,Premium,Diego Ortega,Puebla,2022-08-21,,active,6c2887815d0e,2024-08-31,,True,1.0.0
+94fb50613d82,267f7ba8567b,HS-100155,ACC-2154,cus_100154,"Rivero, Arroyo y Guevara",rivero816,Enterprise,Salud,Premium,Luis Peña,Puebla,2023-10-31,,active,a06dca9fd7ac,2024-08-31,,True,1.0.0
+3c659ae5df2b,26ff7d714cea,HS-100270,ACC-2269,cus_100269,"Rangel, Arellano y Carreón",rangel393,SMB,Salud,Basico,Marta Díaz,Guanajuato,2022-05-09,2023-10-11,churned,58b139e9510f,2024-08-31,,True,1.0.0
+dbdb9ffffa1e,279ab800ac35,HS-100550,ACC-2549,cus_100549,Ledesma-Rolón S.A.,ledesmarolon152,Mid-Market,Automotriz,Pro,Diego Ortega,Jalisco,2024-04-09,,active,79494cbaf8f7,2024-08-31,,True,1.0.0
+8200c3d67a84,2856f6708652,HS-100387,ACC-2386,cus_100386,Laboratorios Herrera-Fuentes,laboratorios578,SMB,Servicios Financieros,Basico,Marta Díaz,CDMX,2023-11-19,,active,58b139e9510f,2024-08-31,,True,1.0.0
+555c12a2e0ae,289073814fdb,HS-100469,ACC-2468,cus_100468,Calderón S.A.,calderon375,SMB,Educación,Basico,Diego Ortega,Jalisco,2024-05-08,,active,b91952ad0533,2024-08-31,,True,1.0.0
+915ebceb6048,28e7c24cd4cb,HS-100629,ACC-2628,cus_100628,Amaya-Prado,amayaprado953,SMB,Retail,Basico,Diego Ortega,Puebla,2023-06-25,,active,b91952ad0533,2024-08-31,,True,1.0.0
+ed3beb9e4ed1,295d85bd00ea,HS-100405,ACC-2404,cus_100404,Industrias Fajardo y Patiño,industrias308,SMB,Tecnología,Basico,Jorge Ibarra,Guanajuato,2023-04-22,,active,178fe802cd43,2024-08-31,,True,1.0.0
+d1cb5d59f8d0,29972f42dfdd,HS-100342,ACC-2341,cus_100341,"Ceja, Longoria y Alonso",ceja453,SMB,Servicios Financieros,Basico,Ana Ruiz,Chihuahua,2022-08-31,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+6070383f5596,29c00e13c4e6,HS-100219,ACC-2218,cus_100218,"Grupo Tijerina, Ponce y Mares",grupo157,Mid-Market,Hospitalidad,Pro,Fernanda Solís,Yucatán,2023-06-03,,active,4fa0276c7767,2024-08-31,,True,1.0.0
+dc2a662a479c,2abb19d06446,HS-100012,ACC-2011,cus_100011,Zaragoza y Asociados,zaragoza948,Enterprise,Logística,Premium,Diego Ortega,CDMX,2023-07-29,,active,6c2887815d0e,2024-08-31,,True,1.0.0
+13abfbb82870,2b4be83e1c60,HS-100116,ACC-2115,cus_100115,Laboratorios Rocha-Casas,laboratorios491,Mid-Market,Alimentos,Pro,Marta Díaz,Yucatán,2022-03-20,,active,991478174dff,2024-08-31,,True,1.0.0
+d84871c81ae2,2c29d4cb2989,HS-100520,ACC-2519,cus_100519,Peralta-Cabán,peraltacaban349,SMB,Tecnología,Basico,Diego Ortega,Guanajuato,2022-01-24,,active,b91952ad0533,2024-08-31,,True,1.0.0
+913611535dfc,2c678f4bf9d9,HS-100451,ACC-2450,cus_100450,Rentería-Contreras,renteriacont845,Mid-Market,Educación,Pro,Marta Díaz,Guanajuato,2024-02-06,,active,991478174dff,2024-08-31,,True,1.0.0
+473e51968399,2cc32419a667,HS-100009,ACC-2008,cus_100008,González-Serrano A.C.,gonzalezserr876,Mid-Market,Retail,Pro,Fernanda Solís,Guanajuato,2022-11-03,,active,4fa0276c7767,2024-08-31,,True,1.0.0
+bd4bea27e15c,2cd7d67219cc,HS-100521,ACC-2520,cus_100520,Rosas-Rojas e Hijos,rosasrojas23,Mid-Market,Manufactura,Pro,Diego Ortega,Guanajuato,2022-06-17,2024-02-05,churned,79494cbaf8f7,2024-08-31,,True,1.0.0
+670c14c9327e,2d38af661686,HS-100123,ACC-2122,cus_100122,Aragón y Monroy A.C.,aragon609,SMB,Agroindustria,Basico,Fernanda Solís,Querétaro,2023-11-26,,active,05c44af64c13,2024-08-31,,True,1.0.0
+2c3c3fae4471,2dee62dca080,HS-100226,ACC-2225,cus_100225,Serna y Anaya e Hijos,serna462,SMB,Manufactura,Basico,Luis Peña,CDMX,2023-05-29,2024-06-22,churned,b1d5ba07b065,2024-08-31,,True,1.0.0
+c42b486dd93e,2e1dc645f108,HS-100240,ACC-2239,cus_100239,Chacón-Jaimes,chaconjaimes695,SMB,Salud,Basico,Diego Ortega,Estado de México,2023-07-10,,active,b91952ad0533,2024-08-31,,True,1.0.0
+20bf16f56e4d,2e313ecc9f06,HS-100610,ACC-2609,cus_100609,Batista-Briseño S.A.,batistabrise410,Mid-Market,Educación,Pro,Diego Ortega,Yucatán,2023-04-12,,active,79494cbaf8f7,2024-08-31,,True,1.0.0
+2b1dcc9e895d,2f23ed120ca5,HS-100352,ACC-2351,cus_100351,"Estévez, Covarrubias y Ramírez",estevez829,Mid-Market,Manufactura,Pro,Ana Ruiz,Puebla,2023-08-01,,active,b10d0bb0f81c,2024-08-31,,True,1.0.0
+f65b8125b5bf,2f26a0da0310,HS-100572,ACC-2571,cus_100571,Industrias Centeno y Rosario,industrias534,Mid-Market,Automotriz,Pro,Fernanda Solís,Guanajuato,2022-02-13,2023-09-19,churned,4fa0276c7767,2024-08-31,,True,1.0.0
+548f9e86aa54,2f2fd459ddca,HS-100375,ACC-2374,cus_100374,Grupo Benavides-Henríquez,grupo939,SMB,Tecnología,Basico,Diego Ortega,CDMX,2023-12-16,2024-03-04,churned,b91952ad0533,2024-08-31,,True,1.0.0
+cfb2ad076a93,2f9a572a5bab,HS-100573,ACC-2572,cus_100572,Ulibarri-Pacheco e Hijos,ulibarripach663,SMB,Servicios Financieros,Basico,Jorge Ibarra,Jalisco,2023-09-15,,active,178fe802cd43,2024-08-31,,True,1.0.0
+f23483b58343,30c2f0ba4f9f,HS-100400,ACC-2399,cus_100399,Guevara S.A. de C.V.,guevara586,Mid-Market,Construcción,Pro,Luis Peña,Querétaro,2022-06-08,,active,1e61b2a314d4,2024-08-31,,True,1.0.0
+482c53d78c48,3280fc910c85,HS-100144,ACC-2143,cus_100143,Club Guillen y Serrato,club290,SMB,Manufactura,Basico,Fernanda Solís,Yucatán,2022-10-04,,active,05c44af64c13,2024-08-31,,True,1.0.0
+63326e561e8b,32a352c90e42,HS-100319,ACC-2318,cus_100318,Flores-Zapata,floreszapata298,SMB,Tecnología,Basico,Fernanda Solís,Querétaro,2024-02-24,2024-06-19,churned,05c44af64c13,2024-08-31,,True,1.0.0
+beb9bcc57da4,32abb429e0d8,HS-100090,ACC-2089,cus_100089,Ríos-Tijerina,riostijerina439,SMB,Automotriz,Basico,Marta Díaz,Puebla,2023-02-09,2023-10-21,churned,58b139e9510f,2024-08-31,,True,1.0.0
+b2a89f54aab5,338f32670f98,HS-100399,ACC-2398,cus_100398,Chavarría y Santiago S.A.,chavarria13,Mid-Market,Educación,Pro,Fernanda Solís,Chihuahua,2023-04-02,,active,4fa0276c7767,2024-08-31,,True,1.0.0
+418662dcbb0e,3444de83dd85,HS-100327,ACC-2326,cus_100326,Proyectos Guzmán y Quintero,proyectos191,Mid-Market,Alimentos,Pro,Carla Nuñez,Sonora,2023-02-04,2023-09-04,churned,49d8861015c4,2024-08-31,,True,1.0.0
+b4b4598b878a,34932df15d7b,HS-100361,ACC-2360,cus_100360,Despacho Hernández-Aponte,despacho576,SMB,Manufactura,Basico,Jorge Ibarra,Puebla,2022-10-09,,active,178fe802cd43,2024-08-31,,True,1.0.0
+5cf833d96811,3499a7868775,HS-100148,ACC-2147,cus_100147,Corona y Gaytán S.C.,corona812,SMB,Automotriz,Basico,Luis Peña,Chihuahua,2024-03-17,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+61eb574c3861,34a9ffde0fc0,HS-100107,ACC-2106,cus_100106,Bermúdez-Sánchez S.C.,bermudezsanc417,SMB,Agroindustria,Basico,Jorge Ibarra,Yucatán,2023-01-25,,active,178fe802cd43,2024-08-31,,True,1.0.0
+cf58700f84e0,34c5037c1d22,HS-100198,ACC-2197,cus_100197,Industrias Arce-Rentería,industrias53,Enterprise,Agroindustria,Premium,Carla Nuñez,Puebla,2023-12-07,,active,3bfc4837532c,2024-08-31,,True,1.0.0
+0b0521af7630,34fc60602415,HS-100618,ACC-2617,cus_100617,Cornejo-Villareal,cornejovilla12,SMB,Manufactura,Basico,Diego Ortega,Yucatán,2022-05-23,,active,b91952ad0533,2024-08-31,,True,1.0.0
+7e43f19ac283,35f7ee11ef6a,HS-100286,ACC-2285,cus_100285,Club Zambrano y Terrazas,club515,SMB,Retail,Basico,Luis Peña,Nuevo León,2023-03-14,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+a87678988a74,368a3f9d6514,HS-100525,ACC-2524,cus_100524,Fernández S.C.,fernandez315,Mid-Market,Educación,Pro,Ana Ruiz,Sonora,2024-05-27,,active,b10d0bb0f81c,2024-08-31,,True,1.0.0
+03a1de5af8fd,36fd3dae4ce6,HS-100078,ACC-2077,cus_100077,López e Hijos,lopez137,SMB,Alimentos,Basico,Carla Nuñez,Sonora,2022-11-25,,active,54379cde7967,2024-08-31,,True,1.0.0
+51a730188e74,37211eeb762c,HS-100624,ACC-2623,cus_100623,"Laboratorios Pizarro, Tamez y Rosario",laboratorios576,SMB,Servicios Financieros,Basico,Ana Ruiz,Puebla,2024-02-11,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+ab9dd658dc0c,375bde6ba88f,HS-100483,ACC-2482,cus_100482,Gamez-Otero,gamezotero567,SMB,Manufactura,Basico,Jorge Ibarra,Guanajuato,2023-01-19,,active,178fe802cd43,2024-08-31,,True,1.0.0
+9079992c7c6e,3764f7701b9c,HS-100099,ACC-2098,cus_100098,Garibay-Tejeda S. R.L. de C.V.,garibaytejed816,SMB,Retail,Basico,Fernanda Solís,Guanajuato,2024-03-26,,active,05c44af64c13,2024-08-31,,True,1.0.0
+5d6e31b05e88,37d67f0e2f52,HS-100057,ACC-2056,cus_100056,"Proyectos Lara, Garica y Olmos",proyectos106,SMB,Automotriz,Basico,Carla Nuñez,Nuevo León,2023-01-17,,active,54379cde7967,2024-08-31,,True,1.0.0
+2de2618d0771,392bdeef86e1,HS-100360,ACC-2359,cus_100359,Chacón-Flores S.C.,chaconflores485,Mid-Market,Servicios Financieros,Pro,Luis Peña,Yucatán,2024-04-20,,active,1e61b2a314d4,2024-08-31,,True,1.0.0
+19d09f06fa81,396128940af3,HS-100174,ACC-2173,cus_100173,"Pacheco, Granados y Espinosa",pacheco844,SMB,Automotriz,Basico,Luis Peña,CDMX,2022-07-02,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+4ee7844dd5ca,3967f5213479,HS-100597,ACC-2596,cus_100596,"Quintero, Escobedo y Carrillo",quintero678,Mid-Market,Manufactura,Pro,Jorge Ibarra,Yucatán,2022-03-05,,active,f20fd128e16f,2024-08-31,,True,1.0.0
+aee14b1fa73c,3a6d440d0d78,HS-100203,ACC-2202,cus_100202,Corporacin Carrero-Durán,corporacin580,SMB,Tecnología,Basico,Ana Ruiz,Chihuahua,2024-02-14,2024-04-17,churned,3006ea73b76b,2024-08-31,,True,1.0.0
+45c63a1e8fc7,3af530a7679a,HS-100638,ACC-2637,cus_100637,Industrias Zaragoza-Lira,industrias136,SMB,Automotriz,Basico,Fernanda Solís,Guanajuato,2024-04-29,,active,05c44af64c13,2024-08-31,,True,1.0.0
+e793886f0400,3b117610596f,HS-100326,ACC-2325,cus_100325,Orta-Estévez,ortaestevez904,Mid-Market,Educación,Pro,Diego Ortega,Estado de México,2024-02-27,,active,79494cbaf8f7,2024-08-31,,True,1.0.0
+ec7520aec1f4,3b4b11aa5621,HS-100291,ACC-2290,cus_100290,Carreón-Garay e Hijos,carreongaray465,SMB,Logística,Basico,Jorge Ibarra,Yucatán,2022-05-02,,active,178fe802cd43,2024-08-31,,True,1.0.0
+9033d501a09e,3baa0f55645f,HS-100485,ACC-2484,cus_100484,"Segura, Zamudio y Baca",segura824,Mid-Market,Construcción,Pro,Diego Ortega,Querétaro,2023-03-02,2023-12-25,churned,79494cbaf8f7,2024-08-31,,True,1.0.0
+9c660cf322f9,3d3cf29f1b67,HS-100095,ACC-2094,cus_100094,Proyectos Escobar-Vigil,proyectos717,Mid-Market,Alimentos,Pro,Fernanda Solís,Jalisco,2022-05-28,,active,4fa0276c7767,2024-08-31,,True,1.0.0
+62cf1d8762d1,3d464b2bd5fe,HS-100518,ACC-2517,cus_100517,Gaitán-Delgadillo,gaitandelgad556,Mid-Market,Alimentos,Pro,Luis Peña,Sonora,2022-06-08,2022-10-03,churned,1e61b2a314d4,2024-08-31,,True,1.0.0
+c835cf953ab6,3d9c9189ef8b,HS-100423,ACC-2422,cus_100422,"Proyectos León, Salazar y Noriega",proyectos645,SMB,Educación,Basico,Jorge Ibarra,CDMX,2023-01-15,,active,178fe802cd43,2024-08-31,,True,1.0.0
+c6e3cf0bffdf,3dc38ff1f062,HS-100058,ACC-2057,cus_100057,"Laboratorios Téllez, Sanches y Abreu",laboratorios886,SMB,Construcción,Basico,Luis Peña,Guanajuato,2024-02-07,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+a3934ff1dd1c,3dec1c7194aa,HS-100117,ACC-2116,cus_100116,Cuellar-Fonseca,cuellarfonse842,Mid-Market,Retail,Pro,Fernanda Solís,CDMX,2023-04-30,2024-05-16,churned,4fa0276c7767,2024-08-31,,True,1.0.0
+8150ef2a607b,3e0310fe6b93,HS-100555,ACC-2554,cus_100554,"Proyectos González, Carrasco y Rivera",proyectos485,Mid-Market,Hospitalidad,Pro,Carla Nuñez,Sonora,2022-08-03,,active,49d8861015c4,2024-08-31,,True,1.0.0
+b2dd72582e92,3e0eaa7298aa,HS-100284,ACC-2283,cus_100283,Corporacin Caldera y Blanco,corporacin231,SMB,Agroindustria,Basico,Ana Ruiz,Querétaro,2023-04-04,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+07d5d50038fa,3ed1dd022bbe,HS-100503,ACC-2502,cus_100502,Zambrano-Cabán S.C.,zambranocaba844,SMB,Construcción,Basico,Fernanda Solís,Jalisco,2023-07-04,,active,05c44af64c13,2024-08-31,,True,1.0.0
+c69bf8a06071,3f41a4432bea,HS-100280,ACC-2279,cus_100279,Archuleta-Perea,archuletaper408,Mid-Market,Logística,Pro,Jorge Ibarra,Sonora,2023-03-21,,active,f20fd128e16f,2024-08-31,,True,1.0.0
+0330a573906a,3f52261ca656,HS-100188,ACC-2187,cus_100187,Crespo y Borrego S. R.L. de C.V.,crespo745,Mid-Market,Manufactura,Pro,Ana Ruiz,CDMX,2023-02-02,,active,b10d0bb0f81c,2024-08-31,,True,1.0.0
+c00f135d2383,3f8121a01f52,HS-100065,ACC-2064,cus_100064,Valladares S.C.,valladares524,SMB,Hospitalidad,Basico,Marta Díaz,CDMX,2023-08-19,,active,58b139e9510f,2024-08-31,,True,1.0.0
+31854685a1b0,3f9a1cc61de5,HS-100055,ACC-2054,cus_100054,León S.A.,leon37,Mid-Market,Servicios Financieros,Pro,Jorge Ibarra,Nuevo León,2024-03-17,,active,f20fd128e16f,2024-08-31,,True,1.0.0
+dac4455fdc5a,4036aa344034,HS-100149,ACC-2148,cus_100148,Corporacin Madrigal-Lozano,corporacin340,SMB,Hospitalidad,Basico,Jorge Ibarra,CDMX,2024-06-24,,active,178fe802cd43,2024-08-31,,True,1.0.0
+7080d400464d,40cbcd1a5e9b,HS-100524,ACC-2523,cus_100523,Industrias Reyna-Feliciano,industrias911,Mid-Market,Agroindustria,Pro,Diego Ortega,Nuevo León,2022-01-31,,active,79494cbaf8f7,2024-08-31,,True,1.0.0
+b30efbab8802,4140e64c6083,HS-100371,ACC-2370,cus_100370,Laboratorios Santacruz y Elizondo,laboratorios150,SMB,Agroindustria,Basico,Carla Nuñez,Estado de México,2023-05-27,,active,54379cde7967,2024-08-31,,True,1.0.0
+35b549b2a2da,4196ef66325f,HS-100086,ACC-2085,cus_100085,Laboratorios Herrera y Rodríguez,laboratorios874,SMB,Educación,Basico,Carla Nuñez,Sonora,2022-12-28,,active,54379cde7967,2024-08-31,,True,1.0.0
+f88c40062fee,419e91f90223,HS-100172,ACC-2171,cus_100171,Despacho Garrido-Quintana,despacho391,SMB,Hospitalidad,Basico,Jorge Ibarra,CDMX,2022-07-22,,active,178fe802cd43,2024-08-31,,True,1.0.0
+b6cae08c5046,41c9fae6089e,HS-100307,ACC-2306,cus_100306,Mayorga-Montemayor S.C.,mayorgamonte502,SMB,Servicios Financieros,Basico,Ana Ruiz,Guanajuato,2022-07-24,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+f8e10cf388c9,41d822af890b,HS-100056,ACC-2055,cus_100055,Industrias Balderas y Yáñez,industrias316,Enterprise,Manufactura,Premium,Fernanda Solís,Puebla,2022-06-18,,active,e4075c4fb552,2024-08-31,,True,1.0.0
+a72d36f146dc,4241a3ce2f40,HS-100003,ACC-2002,cus_100002,Granados y Solís e Hijos,granados239,Mid-Market,Construcción,Pro,Fernanda Solís,Chihuahua,2024-05-30,,active,4fa0276c7767,2024-08-31,,True,1.0.0
+8b84b441f485,43aa39bba634,HS-100163,ACC-2162,cus_100162,"Grupo Gastélum, Manzanares y Lira",grupo764,Mid-Market,Hospitalidad,Pro,Carla Nuñez,Guanajuato,2023-03-07,,active,49d8861015c4,2024-08-31,,True,1.0.0
+6c781f2d5373,446b01c1b10d,HS-100066,ACC-2065,cus_100065,Villareal S.A. de C.V.,villareal447,SMB,Agroindustria,Basico,Fernanda Solís,Puebla,2023-02-11,,active,05c44af64c13,2024-08-31,,True,1.0.0
+05509e0a1efd,454a653ec9a9,HS-100560,ACC-2559,cus_100559,Velásquez y Anaya S. R.L. de C.V.,velasquez662,Mid-Market,Hospitalidad,Pro,Diego Ortega,Estado de México,2023-02-22,,active,79494cbaf8f7,2024-08-31,,True,1.0.0
+f8ac5dbe4232,4566eb75d1d3,HS-100622,ACC-2621,cus_100621,Proyectos Gonzales-Lebrón,proyectos510,SMB,Retail,Basico,Ana Ruiz,Chihuahua,2024-04-26,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+3c081294ec0e,47165a293fc0,HS-100238,ACC-2237,cus_100237,Grupo Nieto-Ortiz,grupo737,SMB,Automotriz,Basico,Fernanda Solís,Yucatán,2023-12-01,,active,05c44af64c13,2024-08-31,,True,1.0.0
+4275b678f286,4748fb3a478f,HS-100542,ACC-2541,cus_100541,Sepúlveda y Cisneros y Asociados,sepulveda658,Mid-Market,Retail,Pro,Jorge Ibarra,Guanajuato,2023-03-24,,active,f20fd128e16f,2024-08-31,,True,1.0.0
+c2509ad88a34,4852e6665bc7,HS-100516,ACC-2515,cus_100515,Naranjo-Limón A.C.,naranjolimon243,SMB,Tecnología,Basico,Marta Díaz,Sonora,2022-03-11,,active,58b139e9510f,2024-08-31,,True,1.0.0
+6bd29afb2c1f,48633a3c243e,HS-100052,ACC-2051,cus_100051,Cordero S.A.,cordero501,Mid-Market,Servicios Financieros,Pro,Diego Ortega,Querétaro,2023-12-22,,active,79494cbaf8f7,2024-08-31,,True,1.0.0
+07b5cc05ca96,48c20dcf6fe4,HS-100619,ACC-2618,cus_100618,Grupo Sanches-Quiñónez,grupo77,Mid-Market,Tecnología,Pro,Marta Díaz,CDMX,2023-08-08,,active,991478174dff,2024-08-31,,True,1.0.0
+6b186819a45d,48fddc0a1679,HS-100315,ACC-2314,cus_100314,"Almanza, Dávila y Sanches",almanza693,Mid-Market,Salud,Pro,Luis Peña,Querétaro,2023-02-13,,active,1e61b2a314d4,2024-08-31,,True,1.0.0
+c6321c123488,49ce3285ee46,HS-100646,ACC-2645,cus_100645,Club Morales y Portillo,club980,Enterprise,Educación,Premium,Fernanda Solís,Querétaro,2022-02-01,,active,e4075c4fb552,2024-08-31,,True,1.0.0
+238a9024064b,49ecd60b845c,HS-100079,ACC-2078,cus_100078,Despacho Olivárez-Ruelas,despacho973,SMB,Salud,Basico,Carla Nuñez,Estado de México,2024-03-26,,active,54379cde7967,2024-08-31,,True,1.0.0
+8baae0fe32b8,4ad2695790da,HS-100381,ACC-2380,cus_100380,Gurule-Jurado,gurulejurado835,SMB,Logística,Basico,Marta Díaz,Estado de México,2022-08-12,,active,58b139e9510f,2024-08-31,,True,1.0.0
+8c1762f7cfcc,4b4752da4a83,HS-100096,ACC-2095,cus_100095,Flórez-Monroy e Hijos,florezmonroy988,SMB,Tecnología,Basico,Marta Díaz,Sonora,2024-05-07,,active,58b139e9510f,2024-08-31,,True,1.0.0
+5c726384ef0a,4b51faa01f35,HS-100016,ACC-2015,cus_100015,Cabrera y Galván S. R.L. de C.V.,cabrera920,SMB,Educación,Basico,Carla Nuñez,Yucatán,2023-07-28,2023-12-05,churned,54379cde7967,2024-08-31,,True,1.0.0
+94d7f40c08eb,4b99f2dd30ed,HS-100076,ACC-2075,cus_100075,"Parra, Ybarra y Menéndez",parra250,Mid-Market,Educación,Pro,Diego Ortega,Jalisco,2023-03-17,,active,79494cbaf8f7,2024-08-31,,True,1.0.0
+0e660c8f8286,4bf97be2706d,HS-100369,ACC-2368,cus_100368,Angulo y Asociados,angulo904,SMB,Servicios Financieros,Basico,Fernanda Solís,Yucatán,2024-05-25,,active,05c44af64c13,2024-08-31,,True,1.0.0
+e3a6173a0760,4bfe1795911a,HS-100075,ACC-2074,cus_100074,Carrera y Crespo y Asociados,carrera425,Mid-Market,Alimentos,Pro,Jorge Ibarra,Yucatán,2022-07-02,,active,f20fd128e16f,2024-08-31,,True,1.0.0
+7105f3b8a497,4cdf5b9fe3a4,HS-100534,ACC-2533,cus_100533,Saldivar y Rojo S.A.,saldivar750,Mid-Market,Tecnología,Pro,Ana Ruiz,Guanajuato,2022-01-24,,active,b10d0bb0f81c,2024-08-31,,True,1.0.0
+58e29305cf2d,4cfcbde1f51f,HS-100505,ACC-2504,cus_100504,Magaña-Sevilla,maganasevill95,Mid-Market,Tecnología,Pro,Ana Ruiz,Nuevo León,2022-11-06,2024-04-21,churned,b10d0bb0f81c,2024-08-31,,True,1.0.0
+ea9d96db0361,4deb4455b182,HS-100429,ACC-2428,cus_100428,Industrias Cazares-Navarro,industrias605,SMB,Hospitalidad,Basico,Ana Ruiz,Nuevo León,2023-12-27,2024-04-04,churned,3006ea73b76b,2024-08-31,,True,1.0.0
+c9ab74ce4efb,4dfb9ec0ce11,HS-100248,ACC-2247,cus_100247,"Arriaga, Navarrete y Rangel",arriaga631,Enterprise,Alimentos,Premium,Diego Ortega,Nuevo León,2024-01-09,,active,6c2887815d0e,2024-08-31,,True,1.0.0
+f95ece7a749e,5020089d9965,HS-100168,ACC-2167,cus_100167,"Corporacin Solorzano, Ramírez y Zavala",corporacin851,SMB,Logística,Basico,Jorge Ibarra,Querétaro,2024-02-01,,active,178fe802cd43,2024-08-31,,True,1.0.0
+d3a43af0809b,50de7a632ea8,HS-100288,ACC-2287,cus_100287,Fernández-de la Garza,fernandezde47,SMB,Retail,Basico,Diego Ortega,Sonora,2022-09-23,,active,b91952ad0533,2024-08-31,,True,1.0.0
+ddd71b4b16da,517840039522,HS-100160,ACC-2159,cus_100159,Corporacin Tejeda-Baeza,corporacin866,Mid-Market,Alimentos,Pro,Ana Ruiz,Puebla,2023-08-11,,active,b10d0bb0f81c,2024-08-31,,True,1.0.0
+40093288e561,51a517c1a25b,HS-100309,ACC-2308,cus_100308,"Grupo Beltrán, Garza y Bahena",grupo486,Mid-Market,Hospitalidad,Pro,Ana Ruiz,Sonora,2023-12-07,,active,b10d0bb0f81c,2024-08-31,,True,1.0.0
+89e6a1d779b0,51b8827af99f,HS-100002,ACC-2001,cus_100001,Guillen y Saucedo y Asociados,guillen759,Enterprise,Automotriz,Premium,Ana Ruiz,Jalisco,2024-01-01,,active,109ecb009392,2024-08-31,,True,1.0.0
+57725f35e60b,51e97a6e2d0f,HS-100484,ACC-2483,cus_100483,Ibarra e Hijos,ibarra846,Mid-Market,Logística,Pro,Ana Ruiz,Nuevo León,2022-12-27,2024-02-04,churned,b10d0bb0f81c,2024-08-31,,True,1.0.0
+e4c42890c027,5205e01e1434,HS-100027,ACC-2026,cus_100026,Laboratorios Godoy y Toledo,laboratorios320,SMB,Agroindustria,Basico,Jorge Ibarra,Jalisco,2024-04-12,,active,178fe802cd43,2024-08-31,,True,1.0.0
+2abe4d111059,5211255cc108,HS-100468,ACC-2467,cus_100467,Montalvo y Márquez y Asociados,montalvo911,Mid-Market,Servicios Financieros,Pro,Jorge Ibarra,Sonora,2022-05-25,,active,f20fd128e16f,2024-08-31,,True,1.0.0
+d4d90759807e,523ef10f815e,HS-100077,ACC-2076,cus_100076,"Menéndez, Figueroa y Corral",menendez225,Mid-Market,Educación,Pro,Diego Ortega,Jalisco,2024-01-20,2024-04-20,churned,79494cbaf8f7,2024-08-31,,True,1.0.0
+8ed487c1b112,52584d35f5ce,HS-100111,ACC-2110,cus_100110,Industrias Puente y Tello,industrias124,SMB,Construcción,Basico,Diego Ortega,Nuevo León,2023-04-01,2024-02-29,churned,b91952ad0533,2024-08-31,,True,1.0.0
+404685ffc4f9,5284a262a4a1,HS-100018,ACC-2017,cus_100017,Mateo-Rolón S. R.L. de C.V.,mateorolon66,SMB,Hospitalidad,Basico,Carla Nuñez,Querétaro,2022-03-20,,active,54379cde7967,2024-08-31,,True,1.0.0
+9873d227cb1d,531b08e15995,HS-100081,ACC-2080,cus_100080,"Ojeda, Rivas y Roybal",ojeda497,Mid-Market,Servicios Financieros,Pro,Fernanda Solís,Querétaro,2023-04-06,,active,4fa0276c7767,2024-08-31,,True,1.0.0
+707c6035adf8,5382574560dc,HS-100535,ACC-2534,cus_100534,Valle-Valencia S.C.,vallevalenci629,Mid-Market,Hospitalidad,Pro,Luis Peña,Sonora,2022-08-04,,active,1e61b2a314d4,2024-08-31,,True,1.0.0
+867fc97db1ee,538f62518bf7,HS-100448,ACC-2447,cus_100447,Rentería-Madera,renteriamade463,Mid-Market,Educación,Pro,Marta Díaz,Guanajuato,2024-01-01,,active,991478174dff,2024-08-31,,True,1.0.0
+8b3d4085c8a2,53f68810a2c7,HS-100533,ACC-2532,cus_100532,"Rivero, Castellanos y Anaya",rivero21,Enterprise,Logística,Premium,Luis Peña,Estado de México,2024-06-10,,active,a06dca9fd7ac,2024-08-31,,True,1.0.0
+d8dfa993f9ed,5469ca09097a,HS-100467,ACC-2466,cus_100466,Olivas-Casas,olivascasas507,SMB,Construcción,Basico,Carla Nuñez,Jalisco,2023-07-02,,active,54379cde7967,2024-08-31,,True,1.0.0
+460eb4988213,548b90cb0018,HS-100508,ACC-2507,cus_100507,Porras-Arredondo S.A.,porrasarredo635,Mid-Market,Hospitalidad,Pro,Jorge Ibarra,Chihuahua,2024-06-19,,active,f20fd128e16f,2024-08-31,,True,1.0.0
+c41499e98dea,54e0cdf8d6e2,HS-100308,ACC-2307,cus_100307,Laboratorios Escobar-Gómez,laboratorios690,SMB,Salud,Basico,Fernanda Solís,CDMX,2024-04-10,,active,05c44af64c13,2024-08-31,,True,1.0.0
+614cafa29ca2,559a1afd0e44,HS-100444,ACC-2443,cus_100443,Robles S.A. de C.V.,robles332,SMB,Tecnología,Basico,Diego Ortega,Chihuahua,2022-05-23,,active,b91952ad0533,2024-08-31,,True,1.0.0
+5bc3c4e06047,55d38d912444,HS-100184,ACC-2183,cus_100183,"Club Cotto, Flores y Chavarría",club257,Mid-Market,Servicios Financieros,Pro,Ana Ruiz,Nuevo León,2022-11-10,,active,b10d0bb0f81c,2024-08-31,,True,1.0.0
+73880173c8aa,565904aa901f,HS-100128,ACC-2127,cus_100127,Valencia-Guardado e Hijos,valenciaguar553,Mid-Market,Servicios Financieros,Pro,Jorge Ibarra,Guanajuato,2022-09-01,,active,f20fd128e16f,2024-08-31,,True,1.0.0
+905ccf21983b,566ce673d067,HS-100115,ACC-2114,cus_100114,Valdez-Manzanares A.C.,valdezmanzan967,Mid-Market,Agroindustria,Pro,Carla Nuñez,Querétaro,2022-11-22,,active,49d8861015c4,2024-08-31,,True,1.0.0
+116355e619cb,567a1080b6c7,HS-100477,ACC-2476,cus_100476,Romero-Franco A.C.,romerofranco530,SMB,Servicios Financieros,Basico,Fernanda Solís,Querétaro,2023-04-25,,active,05c44af64c13,2024-08-31,,True,1.0.0
+b2b4701d4577,56cc5e17ca7e,HS-100390,ACC-2389,cus_100389,"Balderas, Galván y Espinal",balderas144,Mid-Market,Agroindustria,Pro,Marta Díaz,CDMX,2022-05-20,,active,991478174dff,2024-08-31,,True,1.0.0
+a1e3122339da,572855d81626,HS-100210,ACC-2209,cus_100209,Ceballos-Reyna S.C.,ceballosreyn297,SMB,Logística,Basico,Jorge Ibarra,Nuevo León,2022-05-23,,active,178fe802cd43,2024-08-31,,True,1.0.0
+05191b37a9e2,572d46de8d86,HS-100255,ACC-2254,cus_100254,Corporacin Becerra-Salas,corporacin400,SMB,Manufactura,Basico,Marta Díaz,Querétaro,2022-10-26,,active,58b139e9510f,2024-08-31,,True,1.0.0
+a753ff505b26,57430e054ca2,HS-100623,ACC-2622,cus_100622,Rangel y Asociados,rangel1,SMB,Servicios Financieros,Basico,Carla Nuñez,Querétaro,2022-08-14,,active,54379cde7967,2024-08-31,,True,1.0.0
+064c91a4e9da,5788d992991c,HS-100489,ACC-2488,cus_100488,"Laboratorios Cardona, Prado y Valverde",laboratorios355,Enterprise,Servicios Financieros,Premium,Diego Ortega,Querétaro,2024-02-23,2024-06-10,churned,6c2887815d0e,2024-08-31,,True,1.0.0
+3f4ea38c0d34,57c8aca8703d,HS-100551,ACC-2550,cus_100550,Club Cuellar-Leiva,club398,SMB,Retail,Basico,Marta Díaz,Chihuahua,2022-03-21,,active,58b139e9510f,2024-08-31,,True,1.0.0
+b57def8bd7ab,58660e0d4e6c,HS-100153,ACC-2152,cus_100152,Industrias Cedillo-Olvera,industrias647,SMB,Construcción,Basico,Jorge Ibarra,Jalisco,2024-02-09,,active,178fe802cd43,2024-08-31,,True,1.0.0
+d150f8c3d05b,58977cac09cc,HS-100425,ACC-2424,cus_100424,"Villareal, Mateo y Griego",villareal286,SMB,Construcción,Basico,Luis Peña,Guanajuato,2022-08-06,2024-04-06,churned,b1d5ba07b065,2024-08-31,,True,1.0.0
+4e0aa9fc5659,589f42a9c63a,HS-100488,ACC-2487,cus_100487,Mojica-Ruelas,mojicaruelas923,SMB,Agroindustria,Basico,Ana Ruiz,Puebla,2023-01-06,2023-10-02,churned,3006ea73b76b,2024-08-31,,True,1.0.0
+b410aa0aadf5,5945ffa79bf5,HS-100441,ACC-2440,cus_100440,"Grupo Jáquez, Pulido y Sánchez",grupo887,SMB,Alimentos,Basico,Carla Nuñez,Guanajuato,2024-04-11,,active,54379cde7967,2024-08-31,,True,1.0.0
+2f73856b4147,598275c8d1e3,HS-100230,ACC-2229,cus_100229,Cepeda-Arredondo y Asociados,cepedaarredo259,Mid-Market,Logística,Pro,Luis Peña,Guanajuato,2022-12-21,2024-01-24,churned,1e61b2a314d4,2024-08-31,,True,1.0.0
+063fe852152e,59a59dbb5c8d,HS-100548,ACC-2547,cus_100547,Balderas-Espinoza e Hijos,balderasespi636,Mid-Market,Automotriz,Pro,Luis Peña,Puebla,2024-02-16,,active,1e61b2a314d4,2024-08-31,,True,1.0.0
+6597cb382018,59a8da5bbd25,HS-100537,ACC-2536,cus_100536,Casanova S.A.,casanova568,Mid-Market,Agroindustria,Pro,Marta Díaz,Puebla,2022-03-07,,active,991478174dff,2024-08-31,,True,1.0.0
+abbbfbb04bf3,5aabb4abe963,HS-100331,ACC-2330,cus_100330,Corporacin Alcántar-Carranza,corporacin346,SMB,Agroindustria,Basico,Luis Peña,Nuevo León,2022-07-22,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+959acdf90f63,5aadc6d9beb8,HS-100140,ACC-2139,cus_100139,Grupo Bahena y Barragán,grupo853,Enterprise,Automotriz,Premium,Carla Nuñez,Querétaro,2023-07-30,,active,3bfc4837532c,2024-08-31,,True,1.0.0
+c5be0f15023c,5ad0321274f2,HS-100164,ACC-2163,cus_100163,Industrias Pacheco y Correa,industrias652,SMB,Construcción,Basico,Diego Ortega,Nuevo León,2023-10-17,,active,b91952ad0533,2024-08-31,,True,1.0.0
+be9e85f0c520,5ad6ce2d765a,HS-100036,ACC-2035,cus_100035,Navarrete-Berríos S.A.,navarreteber668,Mid-Market,Manufactura,Pro,Diego Ortega,Puebla,2023-12-05,,active,79494cbaf8f7,2024-08-31,,True,1.0.0
+765e6cca031d,5c5dbbe39468,HS-100216,ACC-2215,cus_100215,Trejo y Aparicio S.A. de C.V.,trejo406,SMB,Retail,Basico,Luis Peña,Jalisco,2023-05-13,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+e7eeb21cd805,5c7bb90cf33d,HS-100124,ACC-2123,cus_100123,"Meraz, Ordóñez y Anaya",meraz881,SMB,Agroindustria,Basico,Marta Díaz,Sonora,2023-08-17,,active,58b139e9510f,2024-08-31,,True,1.0.0
+96ebf7852221,5ca575bf5963,HS-100317,ACC-2316,cus_100316,Ocampo y Rocha S. R.L. de C.V.,ocampo492,SMB,Salud,Basico,Fernanda Solís,Querétaro,2023-08-10,,active,05c44af64c13,2024-08-31,,True,1.0.0
+bd218be67558,5cb37febc3b4,HS-100222,ACC-2221,cus_100221,Jasso-Rangel,jassorangel311,Mid-Market,Automotriz,Pro,Ana Ruiz,Querétaro,2022-10-02,2024-05-03,churned,b10d0bb0f81c,2024-08-31,,True,1.0.0
+7bc01c75dfa8,5ce69a34518d,HS-100351,ACC-2350,cus_100350,Delgadillo-López y Asociados,delgadillolo472,SMB,Construcción,Basico,Diego Ortega,Jalisco,2024-01-24,2024-06-24,churned,b91952ad0533,2024-08-31,,True,1.0.0
+45f4035026f3,5d3997bae226,HS-100165,ACC-2164,cus_100164,Dueñas S. R.L. de C.V.,duenas100,SMB,Automotriz,Basico,Ana Ruiz,Sonora,2023-03-31,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+2d3346debb6e,5d3a54fbe090,HS-100509,ACC-2508,cus_100508,Maestas-Bustos A.C.,maestasbusto63,Enterprise,Alimentos,Premium,Luis Peña,Chihuahua,2024-06-12,,active,a06dca9fd7ac,2024-08-31,,True,1.0.0
+44d3b1a92bec,5df58f1cd011,HS-100006,ACC-2005,cus_100005,Cuellar-Ceja e Hijos,cuellarceja100,SMB,Educación,Basico,Ana Ruiz,Yucatán,2022-02-20,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+df82f57e0d58,5f6fe04e3c0d,HS-100530,ACC-2529,cus_100529,"Despacho Montalvo, Garza y Salazar",despacho738,Mid-Market,Retail,Pro,Jorge Ibarra,Nuevo León,2022-03-27,,active,f20fd128e16f,2024-08-31,,True,1.0.0
+8b6fe23acad2,5ff51d984ff6,HS-100541,ACC-2540,cus_100540,Arevalo-Orta,arevaloorta316,Enterprise,Retail,Premium,Fernanda Solís,Querétaro,2022-02-23,,active,e4075c4fb552,2024-08-31,,True,1.0.0
+56828627cfeb,6010a6c2645a,HS-100378,ACC-2377,cus_100377,Proyectos Quezada-Fernández,proyectos500,SMB,Automotriz,Basico,Ana Ruiz,CDMX,2022-02-08,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+07528fb7ad89,605a3500df16,HS-100303,ACC-2302,cus_100302,Corporacin Aragón-Rivas,corporacin572,SMB,Salud,Basico,Jorge Ibarra,Chihuahua,2023-04-02,,active,178fe802cd43,2024-08-31,,True,1.0.0
+7f1c2ec53a83,61797f4fd29d,HS-100457,ACC-2456,cus_100456,Tórrez-Polanco,torrezpolanc672,SMB,Educación,Basico,Luis Peña,Sonora,2023-01-04,2023-04-13,churned,b1d5ba07b065,2024-08-31,,True,1.0.0
+0c5b2b5c55dd,618a87bd9809,HS-100636,ACC-2635,cus_100635,Aparicio y Asociados,aparicio142,SMB,Tecnología,Basico,Carla Nuñez,Guanajuato,2022-08-06,,active,54379cde7967,2024-08-31,,True,1.0.0
+eede719c1351,61c8003722fd,HS-100053,ACC-2052,cus_100052,"Sevilla, Prado y Gálvez",sevilla4,Enterprise,Manufactura,Premium,Luis Peña,Yucatán,2022-07-21,,active,a06dca9fd7ac,2024-08-31,,True,1.0.0
+f64d3c8216d7,621d856f0a4b,HS-100045,ACC-2044,cus_100044,"Industrias Soto, Luna y Llamas",industrias734,SMB,Automotriz,Basico,Fernanda Solís,Querétaro,2022-05-18,,active,05c44af64c13,2024-08-31,,True,1.0.0
+d5c802482dfd,62e862d0ba6b,HS-100526,ACC-2525,cus_100525,"Arellano, Abrego y Carrero",arellano872,SMB,Educación,Basico,Diego Ortega,Sonora,2023-09-05,2024-01-24,churned,b91952ad0533,2024-08-31,,True,1.0.0
+2715f9747d98,62f2df8d7d2e,HS-100180,ACC-2179,cus_100179,"Nazario, Almaraz y Sandoval",nazario283,SMB,Educación,Basico,Ana Ruiz,Puebla,2024-03-21,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+baffd1294eab,63a717661ec6,HS-100102,ACC-2101,cus_100101,"Venegas, Cantú y Munguía",venegas277,Mid-Market,Automotriz,Pro,Jorge Ibarra,Sonora,2023-02-14,,active,f20fd128e16f,2024-08-31,,True,1.0.0
+89aa232cff14,644cd69de81c,HS-100266,ACC-2265,cus_100265,Garica-Díaz,garicadiaz618,Mid-Market,Alimentos,Pro,Marta Díaz,Yucatán,2024-06-09,,active,991478174dff,2024-08-31,,True,1.0.0
+10d2a63c5558,64dcc8776b32,HS-100279,ACC-2278,cus_100278,Grupo Arevalo-Loera,grupo378,Mid-Market,Hospitalidad,Pro,Ana Ruiz,Jalisco,2022-07-29,,active,b10d0bb0f81c,2024-08-31,,True,1.0.0
+2f3ff4316b1b,651fe741fa3d,HS-100196,ACC-2195,cus_100195,Durán S.C.,duran99,SMB,Educación,Basico,Carla Nuñez,Chihuahua,2022-03-20,2022-07-19,churned,54379cde7967,2024-08-31,,True,1.0.0
+066a33b56bd7,652a84cfe5c1,HS-100631,ACC-2630,cus_100630,Grupo Cordero-Gaitán,grupo791,Mid-Market,Retail,Pro,Carla Nuñez,Nuevo León,2024-01-15,,active,49d8861015c4,2024-08-31,,True,1.0.0
+6564b5e36afb,659b8fb24c41,HS-100141,ACC-2140,cus_100140,Laboratorios Salas y Carrera,laboratorios855,Enterprise,Educación,Premium,Luis Peña,Estado de México,2022-10-12,,active,a06dca9fd7ac,2024-08-31,,True,1.0.0
+a67b4f51f3fe,664b9e778e26,HS-100377,ACC-2376,cus_100376,"Corporacin Fierro, Cardenas y Galván",corporacin467,Mid-Market,Servicios Financieros,Pro,Carla Nuñez,Yucatán,2023-01-02,,active,49d8861015c4,2024-08-31,,True,1.0.0
+2502120aa1a4,6709cae3efd1,HS-100570,ACC-2569,cus_100569,"Grupo Portillo, del Río y Valdivia",grupo259,SMB,Construcción,Basico,Fernanda Solís,Querétaro,2024-01-14,,active,05c44af64c13,2024-08-31,,True,1.0.0
+5dea7762114e,67298e35c7b4,HS-100481,ACC-2480,cus_100480,Ozuna y Castillo y Asociados,ozuna691,Mid-Market,Hospitalidad,Pro,Ana Ruiz,CDMX,2023-03-12,,active,b10d0bb0f81c,2024-08-31,,True,1.0.0
+e598f28c9ae0,67934042a230,HS-100243,ACC-2242,cus_100242,"Godoy, Santiago y Gollum",godoy292,Enterprise,Retail,Premium,Carla Nuñez,Nuevo León,2022-02-06,,active,3bfc4837532c,2024-08-31,,True,1.0.0
+ec74415dd97a,67da30b569af,HS-100418,ACC-2417,cus_100417,Luna-Burgos S. R.L. de C.V.,lunaburgos303,SMB,Retail,Basico,Fernanda Solís,Nuevo León,2022-10-13,,active,05c44af64c13,2024-08-31,,True,1.0.0
+b10d130c26e5,67e350db2ed9,HS-100391,ACC-2390,cus_100390,Rocha-Posada,rochaposada448,Enterprise,Retail,Premium,Carla Nuñez,Sonora,2022-12-20,,active,3bfc4837532c,2024-08-31,,True,1.0.0
+90a0dce49922,6853f3d6a4dc,HS-100259,ACC-2258,cus_100258,Mata-Gálvez S. R.L. de C.V.,matagalvez734,Mid-Market,Retail,Pro,Ana Ruiz,Puebla,2023-04-15,,active,b10d0bb0f81c,2024-08-31,,True,1.0.0
+8ba06f204775,68f66e743a15,HS-100223,ACC-2222,cus_100222,Pulido-Olivárez,pulidoolivar463,SMB,Alimentos,Basico,Ana Ruiz,Jalisco,2022-09-03,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+b4c95d6103dc,691d1dc17baa,HS-100302,ACC-2301,cus_100301,Alcaraz-Mayorga S.A.,alcarazmayor697,SMB,Hospitalidad,Basico,Jorge Ibarra,Guanajuato,2022-01-05,,active,178fe802cd43,2024-08-31,,True,1.0.0
+d9c29040e369,695d5be4f470,HS-100100,ACC-2099,cus_100099,Industrias Baca y Camarillo,industrias519,SMB,Retail,Basico,Diego Ortega,Yucatán,2022-12-01,,active,b91952ad0533,2024-08-31,,True,1.0.0
+e62c62551836,6978c5309efe,HS-100589,ACC-2588,cus_100588,Cadena-Cantú y Asociados,cadenacantu39,SMB,Manufactura,Basico,Ana Ruiz,Guanajuato,2023-11-09,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+e133ecc66e82,69901e51bc3c,HS-100420,ACC-2419,cus_100419,Viera S.C.,viera100,Mid-Market,Alimentos,Pro,Diego Ortega,Jalisco,2024-02-28,2024-05-03,churned,79494cbaf8f7,2024-08-31,,True,1.0.0
+d459c7c08fa9,699ff55001cc,HS-100097,ACC-2096,cus_100096,"Casárez, Carvajal y Laboy",casarez930,SMB,Automotriz,Basico,Ana Ruiz,Sonora,2022-12-24,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+deabaabcbaf4,69a9c5b9b867,HS-100183,ACC-2182,cus_100182,Laboratorios Briseño-Esparza,laboratorios793,Enterprise,Salud,Premium,Luis Peña,Nuevo León,2024-03-10,,active,a06dca9fd7ac,2024-08-31,,True,1.0.0
+ff530c650f87,69e452cb7a98,HS-100474,ACC-2473,cus_100473,"Barraza, Naranjo y Valdez",barraza716,Enterprise,Logística,Premium,Jorge Ibarra,Jalisco,2023-02-02,,active,9cf3d8b0a4e9,2024-08-31,,True,1.0.0
+31522d6f5a55,6b9938219d8f,HS-100608,ACC-2607,cus_100607,Club Solorzano y Mireles,club873,SMB,Manufactura,Basico,Jorge Ibarra,Sonora,2022-08-24,,active,178fe802cd43,2024-08-31,,True,1.0.0
+8437b93013e0,6bca486a099d,HS-100336,ACC-2335,cus_100335,Laureano-Ocasio,laureanoocas684,SMB,Manufactura,Basico,Carla Nuñez,Querétaro,2023-01-23,2024-03-09,churned,54379cde7967,2024-08-31,,True,1.0.0
+e1038b1a06d4,6c0b2c4e1901,HS-100632,ACC-2631,cus_100631,Club Perea y Salcido,club5,Enterprise,Alimentos,Premium,Diego Ortega,Sonora,2023-10-04,,active,6c2887815d0e,2024-08-31,,True,1.0.0
+d59ae5f2e07f,6cf7fe3272fc,HS-100175,ACC-2174,cus_100174,"Proyectos Miramontes, Santiago y Quesada",proyectos312,Mid-Market,Manufactura,Pro,Carla Nuñez,Nuevo León,2023-08-13,,active,49d8861015c4,2024-08-31,,True,1.0.0
+f1c72ad80d4d,6cfc2bb220b5,HS-100031,ACC-2030,cus_100030,Casas y Salinas y Asociados,casas958,Mid-Market,Agroindustria,Pro,Jorge Ibarra,Estado de México,2022-11-01,,active,f20fd128e16f,2024-08-31,,True,1.0.0
+fd15728958ae,6d6157f05d37,HS-100046,ACC-2045,cus_100045,"Figueroa, Villa y Rojo",figueroa324,Mid-Market,Alimentos,Pro,Carla Nuñez,Jalisco,2023-03-10,,active,49d8861015c4,2024-08-31,,True,1.0.0
+377aa6d9996f,6d621ac6bce1,HS-100004,ACC-2003,cus_100003,Club Medrano y Mercado,club226,Mid-Market,Educación,Pro,Diego Ortega,Nuevo León,2024-05-13,,active,79494cbaf8f7,2024-08-31,,True,1.0.0
+0b05f3c3e997,6d7170e9789b,HS-100024,ACC-2023,cus_100023,"Narváez, Madera y Roldán",narvaez60,SMB,Construcción,Basico,Diego Ortega,Jalisco,2022-12-13,2023-10-17,churned,b91952ad0533,2024-08-31,,True,1.0.0
+1ad7fc390ad5,6dd0a835084b,HS-100214,ACC-2213,cus_100213,"Cavazos, Zavala y Villareal",cavazos22,SMB,Educación,Basico,Jorge Ibarra,Guanajuato,2024-04-20,,active,178fe802cd43,2024-08-31,,True,1.0.0
+df0e8c398c14,6de6d67a878e,HS-100098,ACC-2097,cus_100097,Camacho-Perales,camachoperal851,SMB,Agroindustria,Basico,Marta Díaz,Sonora,2022-03-04,,active,58b139e9510f,2024-08-31,,True,1.0.0
+a38cd7e1c682,6e00c339a03e,HS-100332,ACC-2331,cus_100331,Corporacin Quintanilla-Macías,corporacin877,Mid-Market,Hospitalidad,Pro,Marta Díaz,Jalisco,2022-03-18,,active,991478174dff,2024-08-31,,True,1.0.0
+5413f600a757,6e9112a3a693,HS-100147,ACC-2146,cus_100146,Polanco-Terán e Hijos,polancoteran45,Mid-Market,Educación,Pro,Jorge Ibarra,Estado de México,2022-02-26,,active,f20fd128e16f,2024-08-31,,True,1.0.0
+840571772056,6ea450b057ac,HS-100206,ACC-2205,cus_100205,"Toro, Valentín y Villareal",toro84,SMB,Automotriz,Basico,Carla Nuñez,Yucatán,2024-04-21,,active,54379cde7967,2024-08-31,,True,1.0.0
+613e681ce4a4,6eabad2f9e44,HS-100373,ACC-2372,cus_100372,Soria y Quiroz e Hijos,soria564,SMB,Alimentos,Basico,Jorge Ibarra,Yucatán,2024-01-21,,active,178fe802cd43,2024-08-31,,True,1.0.0
+d48d309f4769,6f8a65d8e369,HS-100244,ACC-2243,cus_100243,Galindo S. R.L. de C.V.,galindo94,SMB,Educación,Basico,Ana Ruiz,Estado de México,2022-07-12,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+a38652efb921,6fbc308a9ed5,HS-100476,ACC-2475,cus_100475,Grupo Alba-Toledo,grupo13,Enterprise,Retail,Premium,Jorge Ibarra,Guanajuato,2024-06-11,,active,9cf3d8b0a4e9,2024-08-31,,True,1.0.0
+49cd34d434cc,701a7145499e,HS-100462,ACC-2461,cus_100461,Bahena-Dávila,bahenadavila360,Mid-Market,Alimentos,Pro,Jorge Ibarra,Sonora,2024-04-10,,active,f20fd128e16f,2024-08-31,,True,1.0.0
+afcd899e2837,705ac77b56d1,HS-100106,ACC-2105,cus_100105,Olmos y Lozano S.C.,olmos287,SMB,Salud,Basico,Ana Ruiz,Puebla,2022-05-04,2023-01-14,churned,3006ea73b76b,2024-08-31,,True,1.0.0
+7d71eebf5ccd,7098e946d95f,HS-100179,ACC-2178,cus_100178,Laboratorios Leyva y Ojeda,laboratorios703,Enterprise,Retail,Premium,Marta Díaz,CDMX,2022-11-13,,active,80ca9c6c79de,2024-08-31,,True,1.0.0
+6d4493d40376,70ea0c23bdb2,HS-100038,ACC-2037,cus_100037,Miramontes y Zambrano S.A. de C.V.,miramontes3,SMB,Educación,Basico,Jorge Ibarra,Querétaro,2022-07-11,,active,178fe802cd43,2024-08-31,,True,1.0.0
+86d89d3d57cc,714a72f5154c,HS-100552,ACC-2551,cus_100551,Laboratorios Ramírez y Villalpando,laboratorios940,Mid-Market,Alimentos,Pro,Jorge Ibarra,Nuevo León,2023-05-20,,active,f20fd128e16f,2024-08-31,,True,1.0.0
+482702329303,723875008eb9,HS-100578,ACC-2577,cus_100577,Villaseñor-Marrero e Hijos,villasenorma744,Enterprise,Salud,Premium,Diego Ortega,Yucatán,2023-02-04,,active,6c2887815d0e,2024-08-31,,True,1.0.0
+924c996cacaa,72c0afa9c950,HS-100411,ACC-2410,cus_100410,"Núñez, Laureano y Casillas",nunez76,SMB,Educación,Basico,Carla Nuñez,Estado de México,2023-07-13,,active,54379cde7967,2024-08-31,,True,1.0.0
+fdc5e74e92a8,73791fb3cf09,HS-100557,ACC-2556,cus_100556,"Ocampo, Osorio y Oquendo",ocampo764,SMB,Manufactura,Basico,Marta Díaz,Querétaro,2023-05-06,,active,58b139e9510f,2024-08-31,,True,1.0.0
+ba196fc286a6,73a7137f9426,HS-100536,ACC-2535,cus_100535,Guajardo y Chacón S.A.,guajardo161,Enterprise,Educación,Premium,Luis Peña,Estado de México,2022-10-03,,active,a06dca9fd7ac,2024-08-31,,True,1.0.0
+4d2040617ecb,742b497d49d8,HS-100193,ACC-2192,cus_100192,Batista-de León S. R.L. de C.V.,batistade887,Enterprise,Agroindustria,Premium,Jorge Ibarra,Guanajuato,2024-06-12,,active,9cf3d8b0a4e9,2024-08-31,,True,1.0.0
+5d0c37240222,755809755e6a,HS-100343,ACC-2342,cus_100342,"Amaya, Cadena y Prieto",amaya829,SMB,Alimentos,Basico,Jorge Ibarra,Sonora,2022-11-15,,active,178fe802cd43,2024-08-31,,True,1.0.0
+66e5e361f3f9,75e57a3efe0c,HS-100145,ACC-2144,cus_100144,Paredes-Angulo,paredesangul458,SMB,Tecnología,Basico,Diego Ortega,Chihuahua,2023-12-29,,active,b91952ad0533,2024-08-31,,True,1.0.0
+7f5293957655,762274061052,HS-100236,ACC-2235,cus_100235,"Despacho Quiñones, Chacón y Rosado",despacho678,Mid-Market,Manufactura,Pro,Luis Peña,Nuevo León,2023-08-26,,active,1e61b2a314d4,2024-08-31,,True,1.0.0
+08824be5365f,76352359fd43,HS-100121,ACC-2120,cus_100120,Laboratorios Velásquez-Aponte,laboratorios102,Mid-Market,Agroindustria,Pro,Fernanda Solís,Jalisco,2022-07-05,,active,4fa0276c7767,2024-08-31,,True,1.0.0
+5a501e081ea0,766e960f8f0e,HS-100146,ACC-2145,cus_100145,"Sotelo, Montemayor y Vásquez",sotelo467,SMB,Educación,Basico,Jorge Ibarra,Puebla,2023-09-10,,active,178fe802cd43,2024-08-31,,True,1.0.0
+201e133d6557,7673a68d1cc4,HS-100011,ACC-2010,cus_100010,"Aragón, Rodríguez y Carmona",aragon651,SMB,Hospitalidad,Basico,Jorge Ibarra,Estado de México,2023-01-20,,active,178fe802cd43,2024-08-31,,True,1.0.0
+a831254a36d5,76bafd451e9e,HS-100197,ACC-2196,cus_100196,"Ayala, Valle y Fuentes",ayala338,Mid-Market,Servicios Financieros,Pro,Fernanda Solís,Estado de México,2023-07-13,,active,4fa0276c7767,2024-08-31,,True,1.0.0
+87204e2ec0cf,7700c04b25c9,HS-100213,ACC-2212,cus_100212,Industrias Abreu y Granado,industrias440,Mid-Market,Hospitalidad,Pro,Marta Díaz,Jalisco,2022-10-04,,active,991478174dff,2024-08-31,,True,1.0.0
+1ed65726d8c9,772649d900e7,HS-100186,ACC-2185,cus_100185,Club Mejía-Carrera,club130,Mid-Market,Manufactura,Pro,Ana Ruiz,Yucatán,2024-04-09,,active,b10d0bb0f81c,2024-08-31,,True,1.0.0
+f705c05eda97,774336269cfb,HS-100061,ACC-2060,cus_100060,Grupo Valencia-Alva,grupo25,SMB,Construcción,Basico,Diego Ortega,Jalisco,2023-03-12,,active,b91952ad0533,2024-08-31,,True,1.0.0
+98996d823799,779b9041ca93,HS-100271,ACC-2270,cus_100270,Laboratorios Tafoya y Sanches,laboratorios782,Mid-Market,Alimentos,Pro,Jorge Ibarra,Guanajuato,2022-05-10,,active,f20fd128e16f,2024-08-31,,True,1.0.0
+a62566f2bd42,77af4118522b,HS-100547,ACC-2546,cus_100546,Godoy y Fierro y Asociados,godoy405,SMB,Retail,Basico,Carla Nuñez,Sonora,2022-03-27,,active,54379cde7967,2024-08-31,,True,1.0.0
+6ec7168ddb37,77c327404c72,HS-100613,ACC-2612,cus_100612,Proyectos Esquibel-Espinal,proyectos389,Mid-Market,Hospitalidad,Pro,Jorge Ibarra,Yucatán,2022-08-28,2023-03-09,churned,f20fd128e16f,2024-08-31,,True,1.0.0
+97ddb2bb2ecd,780a87c8c2a0,HS-100191,ACC-2190,cus_100190,"Proyectos Padrón, Saavedra y Solís",proyectos730,SMB,Servicios Financieros,Basico,Jorge Ibarra,Chihuahua,2023-01-24,,active,178fe802cd43,2024-08-31,,True,1.0.0
+23834275c706,785078eeba1d,HS-100320,ACC-2319,cus_100319,Corporacin Aguirre y Jaime,corporacin491,SMB,Agroindustria,Basico,Carla Nuñez,Querétaro,2023-12-12,,active,54379cde7967,2024-08-31,,True,1.0.0
+4726441243ba,789c81ac0120,HS-100356,ACC-2355,cus_100355,Jáquez S.A.,jaquez613,Mid-Market,Hospitalidad,Pro,Luis Peña,Chihuahua,2023-02-24,,active,1e61b2a314d4,2024-08-31,,True,1.0.0
+0db6530fb68a,78d1aed426c1,HS-100211,ACC-2210,cus_100210,Zambrano-Navarrete,zambranonava390,SMB,Tecnología,Basico,Fernanda Solís,Guanajuato,2023-07-03,,active,05c44af64c13,2024-08-31,,True,1.0.0
+1b9880dae9cc,78dd22e22aac,HS-100528,ACC-2527,cus_100527,"Club Segovia, Santana y Vela",club356,SMB,Construcción,Basico,Ana Ruiz,Guanajuato,2023-07-27,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+62fb26a594f6,78e777fdb583,HS-100546,ACC-2545,cus_100545,"Tejada, Cortez y León",tejada989,SMB,Educación,Basico,Jorge Ibarra,Querétaro,2023-02-19,,active,178fe802cd43,2024-08-31,,True,1.0.0
+d36c2472012c,78fc9da31292,HS-100323,ACC-2322,cus_100322,Olivares S.C.,olivares988,Mid-Market,Manufactura,Pro,Jorge Ibarra,Yucatán,2022-12-31,,active,f20fd128e16f,2024-08-31,,True,1.0.0
+29a79edeb5c5,790c661f3ba2,HS-100258,ACC-2257,cus_100257,Laboratorios Montaño y Carvajal,laboratorios180,Mid-Market,Automotriz,Pro,Luis Peña,Nuevo León,2024-01-23,,active,1e61b2a314d4,2024-08-31,,True,1.0.0
+48d6668ce97a,793be83a3632,HS-100005,ACC-2004,cus_100004,Club Jasso y Puente,club433,SMB,Agroindustria,Basico,Ana Ruiz,Jalisco,2022-09-11,2023-10-20,churned,3006ea73b76b,2024-08-31,,True,1.0.0
+505c3d1f05cc,794d03d90ea6,HS-100087,ACC-2086,cus_100086,Rosas-Varela,rosasvarela500,Mid-Market,Construcción,Pro,Jorge Ibarra,Guanajuato,2022-08-08,,active,f20fd128e16f,2024-08-31,,True,1.0.0
+a639a8e1874b,7964d8b4df3d,HS-100549,ACC-2548,cus_100548,Varela-Gallegos,varelagalleg130,SMB,Construcción,Basico,Jorge Ibarra,Puebla,2023-09-25,,active,178fe802cd43,2024-08-31,,True,1.0.0
+d191f59a74e8,79adf7e6a753,HS-100395,ACC-2394,cus_100394,Laboratorios Olivares-Castro,laboratorios158,SMB,Logística,Basico,Marta Díaz,Jalisco,2023-01-01,,active,58b139e9510f,2024-08-31,,True,1.0.0
+909c3e2dd931,79b0014ab30f,HS-100486,ACC-2485,cus_100485,Club Nieto-Gaona,club336,Enterprise,Logística,Premium,Marta Díaz,Sonora,2023-12-16,2024-04-05,churned,80ca9c6c79de,2024-08-31,,True,1.0.0
+46b1405b4d1d,79cd2764ab4f,HS-100455,ACC-2454,cus_100454,Proyectos Frías-Sánchez,proyectos896,SMB,Tecnología,Basico,Ana Ruiz,Guanajuato,2022-06-14,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+f8c8377b12b9,79d3b0680edc,HS-100059,ACC-2058,cus_100058,Despacho Escobar-Soto,despacho822,SMB,Educación,Basico,Jorge Ibarra,CDMX,2022-06-30,2022-12-17,churned,178fe802cd43,2024-08-31,,True,1.0.0
+1414ad7a50c6,79dd57fbb9d2,HS-100104,ACC-2103,cus_100103,"Club Villalobos, Rentería y Quintana",club769,SMB,Construcción,Basico,Marta Díaz,CDMX,2022-11-24,,active,58b139e9510f,2024-08-31,,True,1.0.0
+d44ea8ff143c,7a2060655ae1,HS-100367,ACC-2366,cus_100366,"Maestas, de la Garza y Aragón",maestas619,Enterprise,Agroindustria,Premium,Carla Nuñez,Guanajuato,2022-11-30,,active,3bfc4837532c,2024-08-31,,True,1.0.0
+260b78746f9d,7a37e35fc015,HS-100404,ACC-2403,cus_100403,"Márquez, Adame y Cepeda",marquez390,Mid-Market,Hospitalidad,Pro,Diego Ortega,Sonora,2022-04-26,,active,79494cbaf8f7,2024-08-31,,True,1.0.0
+0cac5a4687d4,7a3a0e83d9f6,HS-100504,ACC-2503,cus_100503,Baeza S.A. de C.V.,baeza601,Mid-Market,Hospitalidad,Pro,Luis Peña,Yucatán,2022-09-10,,active,1e61b2a314d4,2024-08-31,,True,1.0.0
+77e22dfd54d2,7a5802bb88f1,HS-100133,ACC-2132,cus_100132,"Serrato, Acosta y Granados",serrato422,SMB,Salud,Basico,Jorge Ibarra,Chihuahua,2023-07-11,,active,178fe802cd43,2024-08-31,,True,1.0.0
+912eaff5df16,7b530221112a,HS-100304,ACC-2303,cus_100303,Guzmán-Salcido,guzmansalcid47,Mid-Market,Manufactura,Pro,Jorge Ibarra,Chihuahua,2023-03-28,,active,f20fd128e16f,2024-08-31,,True,1.0.0
+e3aae63c815a,7c22a127f33f,HS-100176,ACC-2175,cus_100175,"Grupo Patiño, Huerta y Tafoya",grupo465,SMB,Educación,Basico,Fernanda Solís,Nuevo León,2022-02-23,,active,05c44af64c13,2024-08-31,,True,1.0.0
+4c0758351cef,7c49bd17517b,HS-100021,ACC-2020,cus_100020,Rivera y Frías y Asociados,rivera781,Mid-Market,Servicios Financieros,Pro,Fernanda Solís,Querétaro,2024-05-16,,active,4fa0276c7767,2024-08-31,,True,1.0.0
+8b43d108bc19,7c71e1e60120,HS-100594,ACC-2593,cus_100593,Grupo Urías-Romero,grupo169,SMB,Construcción,Basico,Fernanda Solís,Nuevo León,2022-05-23,,active,05c44af64c13,2024-08-31,,True,1.0.0
+09cf18460893,7c99b8a3ebf7,HS-100392,ACC-2391,cus_100391,"Corporacin Merino, Orosco y Jaimes",corporacin993,SMB,Educación,Basico,Diego Ortega,Yucatán,2024-04-15,,active,b91952ad0533,2024-08-31,,True,1.0.0
+78951bff2617,7c9b0514c9d6,HS-100132,ACC-2131,cus_100131,Lebrón-Alonso S.A.,lebronalonso482,SMB,Retail,Basico,Ana Ruiz,Nuevo León,2024-01-20,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+86e1ad8bbc4f,7cd86d7f8789,HS-100574,ACC-2573,cus_100573,Vera-Maya A.C.,veramaya284,Mid-Market,Salud,Pro,Fernanda Solís,Querétaro,2022-06-27,,active,4fa0276c7767,2024-08-31,,True,1.0.0
+ae1ffd86f433,7cf052e41458,HS-100227,ACC-2226,cus_100226,"Berríos, Carranza y Nazario",berrios725,Enterprise,Construcción,Premium,Luis Peña,Guanajuato,2024-06-05,,active,a06dca9fd7ac,2024-08-31,,True,1.0.0
+2b330aa5b043,7d5032d842ab,HS-100201,ACC-2200,cus_100200,Grupo Arellano-Luna,grupo629,Mid-Market,Hospitalidad,Pro,Fernanda Solís,Querétaro,2023-06-11,,active,4fa0276c7767,2024-08-31,,True,1.0.0
+b7efcb549d88,7d7c2ceb2e92,HS-100229,ACC-2228,cus_100228,"Industrias Ríos, Saucedo y Salcido",industrias809,Enterprise,Manufactura,Premium,Carla Nuñez,Estado de México,2024-05-17,,active,3bfc4837532c,2024-08-31,,True,1.0.0
+0ddd54ba8201,7df9e48b2cc4,HS-100353,ACC-2352,cus_100352,"Proyectos Saldivar, Tejeda y de la Torre",proyectos69,Mid-Market,Construcción,Pro,Fernanda Solís,CDMX,2024-05-12,,active,4fa0276c7767,2024-08-31,,True,1.0.0
+f1e85b80e825,7e3cff38400b,HS-100583,ACC-2582,cus_100582,Industrias Mares y López,industrias55,SMB,Alimentos,Basico,Carla Nuñez,Jalisco,2024-02-02,,active,54379cde7967,2024-08-31,,True,1.0.0
+d2e6b6112560,7ecb5a47e4a1,HS-100540,ACC-2539,cus_100539,Hernádez y Córdova S. R.L. de C.V.,hernadez205,SMB,Alimentos,Basico,Ana Ruiz,Yucatán,2023-09-20,2024-02-01,churned,3006ea73b76b,2024-08-31,,True,1.0.0
+9eca901ab50f,7ed9ffed0ce9,HS-100020,ACC-2019,cus_100019,"Espinosa, Valdez y Tamez",espinosa349,SMB,Automotriz,Basico,Fernanda Solís,Querétaro,2022-02-15,2022-04-19,churned,05c44af64c13,2024-08-31,,True,1.0.0
+ea03514cdb94,7efaa9165fad,HS-100265,ACC-2264,cus_100264,Ferrer-Vallejo,ferrervallej301,Mid-Market,Servicios Financieros,Pro,Marta Díaz,Querétaro,2023-11-07,,active,991478174dff,2024-08-31,,True,1.0.0
+93e78f429ce0,7efd4b9f1c59,HS-100310,ACC-2309,cus_100309,"Carreón, Alonso y Castellanos",carreon175,SMB,Alimentos,Basico,Luis Peña,CDMX,2022-08-23,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+91cbe79880a6,7fb38f9e61ff,HS-100562,ACC-2561,cus_100561,"Mejía, Paredes y Vargas",mejia68,SMB,Tecnología,Basico,Luis Peña,Puebla,2023-08-13,2023-10-26,churned,b1d5ba07b065,2024-08-31,,True,1.0.0
+6084f31983d9,800f2eb56933,HS-100030,ACC-2029,cus_100029,García S. R.L. de C.V.,garcia527,SMB,Retail,Basico,Carla Nuñez,Nuevo León,2024-02-08,,active,54379cde7967,2024-08-31,,True,1.0.0
+2b32696733dd,8018f473b454,HS-100512,ACC-2511,cus_100511,Despacho Olivárez y Toro,despacho277,SMB,Educación,Basico,Ana Ruiz,Querétaro,2022-02-11,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+6abb5edda40d,80297dea2bcb,HS-100260,ACC-2259,cus_100259,"Despacho de la Torre, Pichardo y Robledo",despacho324,SMB,Manufactura,Basico,Carla Nuñez,Yucatán,2023-08-01,,active,54379cde7967,2024-08-31,,True,1.0.0
+49abd6832ea9,809d0342d4ed,HS-100641,ACC-2640,cus_100640,Rolón S.A. de C.V.,rolon110,SMB,Servicios Financieros,Basico,Luis Peña,Querétaro,2023-05-25,2023-08-21,churned,b1d5ba07b065,2024-08-31,,True,1.0.0
+a850aa8fb54c,811e0b829afa,HS-100166,ACC-2165,cus_100165,Soto-Canales,sotocanales750,Mid-Market,Salud,Pro,Fernanda Solís,Estado de México,2024-03-31,,active,4fa0276c7767,2024-08-31,,True,1.0.0
+ec68d23b93b7,81215df16b9d,HS-100527,ACC-2526,cus_100526,"Grupo Lira, Maya y Vera",grupo655,SMB,Construcción,Basico,Marta Díaz,Jalisco,2022-09-14,,active,58b139e9510f,2024-08-31,,True,1.0.0
+341ae3a45b96,82912c9a4458,HS-100368,ACC-2367,cus_100367,Proyectos Soliz y Trejo,proyectos390,Enterprise,Logística,Premium,Marta Díaz,Guanajuato,2024-06-22,,active,80ca9c6c79de,2024-08-31,,True,1.0.0
+69a3383cd35d,82b3be1a7259,HS-100019,ACC-2018,cus_100018,Laboratorios Ulibarri-Duarte,laboratorios882,SMB,Servicios Financieros,Basico,Diego Ortega,Querétaro,2022-11-21,,active,b91952ad0533,2024-08-31,,True,1.0.0
+e5befbb34ff6,835f374d427c,HS-100569,ACC-2568,cus_100568,Batista-Hernádez S.A. de C.V.,batistaherna10,Enterprise,Automotriz,Premium,Diego Ortega,CDMX,2024-02-01,,active,6c2887815d0e,2024-08-31,,True,1.0.0
+770394ad13ec,838250379fa3,HS-100333,ACC-2332,cus_100332,Colón-Peña S.C.,colonpena686,SMB,Educación,Basico,Luis Peña,CDMX,2023-08-29,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+1b1c2efca5d4,840d8a53bce8,HS-100043,ACC-2042,cus_100042,Laboratorios Caldera-Arredondo,laboratorios123,SMB,Educación,Basico,Carla Nuñez,Jalisco,2022-01-11,,active,54379cde7967,2024-08-31,,True,1.0.0
+e84c7b961e3c,8425a0e965c5,HS-100556,ACC-2555,cus_100555,Corporacin Porras-Regalado,corporacin711,SMB,Automotriz,Basico,Marta Díaz,Puebla,2024-03-17,,active,58b139e9510f,2024-08-31,,True,1.0.0
+bc381fed0a2c,84b433c4b3b9,HS-100177,ACC-2176,cus_100176,Proyectos Ramos y Cazares,proyectos671,Mid-Market,Educación,Pro,Marta Díaz,CDMX,2023-07-13,,active,991478174dff,2024-08-31,,True,1.0.0
+dc827b20d1d9,850c889b188c,HS-100563,ACC-2562,cus_100562,Quintanilla y Soto S.A. de C.V.,quintanilla858,SMB,Construcción,Basico,Marta Díaz,Puebla,2023-08-09,,active,58b139e9510f,2024-08-31,,True,1.0.0
+e59fcff84db1,868d321ac39e,HS-100225,ACC-2224,cus_100224,de Jesús y Campos y Asociados,de931,SMB,Alimentos,Basico,Carla Nuñez,Nuevo León,2023-12-08,2024-06-06,churned,54379cde7967,2024-08-31,,True,1.0.0
+570be9b3d1d6,869eab90ae45,HS-100241,ACC-2240,cus_100240,Grupo Longoria-Velázquez,grupo541,Enterprise,Servicios Financieros,Premium,Carla Nuñez,Nuevo León,2022-07-30,,active,3bfc4837532c,2024-08-31,,True,1.0.0
+05d2394cf287,8740e47ba5df,HS-100299,ACC-2298,cus_100298,León y Becerra S.A. de C.V.,leon550,Mid-Market,Logística,Pro,Marta Díaz,Guanajuato,2024-06-17,,active,991478174dff,2024-08-31,,True,1.0.0
+cb272c223630,87418077620e,HS-100263,ACC-2262,cus_100262,Industrias Bétancourt y Sisneros,industrias348,SMB,Educación,Basico,Diego Ortega,Chihuahua,2022-11-04,,active,b91952ad0533,2024-08-31,,True,1.0.0
+482a5273ad03,87428c0f5a32,HS-100497,ACC-2496,cus_100496,Club Ávila y Trujillo,club367,Mid-Market,Servicios Financieros,Pro,Marta Díaz,Jalisco,2022-10-02,,active,991478174dff,2024-08-31,,True,1.0.0
+ddf0342ae8f8,87653c642368,HS-100089,ACC-2088,cus_100088,Muñiz y Cedillo y Asociados,muniz547,Enterprise,Hospitalidad,Premium,Ana Ruiz,Jalisco,2022-09-12,,active,109ecb009392,2024-08-31,,True,1.0.0
+854e8885854a,879a22cf656a,HS-100382,ACC-2381,cus_100381,Batista S.C.,batista579,Mid-Market,Alimentos,Pro,Diego Ortega,Jalisco,2024-02-16,,active,79494cbaf8f7,2024-08-31,,True,1.0.0
+f4278a5c5197,87ff09647766,HS-100463,ACC-2462,cus_100462,Club Toro y Tafoya,club454,Mid-Market,Automotriz,Pro,Carla Nuñez,Estado de México,2023-08-01,2023-12-02,churned,49d8861015c4,2024-08-31,,True,1.0.0
+d79010453bbf,887b2c1a1380,HS-100539,ACC-2538,cus_100538,Laboratorios Sandoval-Tijerina,laboratorios4,SMB,Salud,Basico,Fernanda Solís,Sonora,2022-11-24,,active,05c44af64c13,2024-08-31,,True,1.0.0
+a7fd73e0d8c3,88a8efcac170,HS-100047,ACC-2046,cus_100046,Despacho Fonseca-Toro,despacho551,SMB,Retail,Basico,Marta Díaz,Jalisco,2024-04-24,,active,58b139e9510f,2024-08-31,,True,1.0.0
+452f818cedef,88cf09ccad92,HS-100499,ACC-2498,cus_100498,"Industrias Juárez, Portillo y Serrano",industrias856,Enterprise,Construcción,Premium,Marta Díaz,Estado de México,2023-07-12,,active,80ca9c6c79de,2024-08-31,,True,1.0.0
+f516c55af4d1,890c3cae550f,HS-100035,ACC-2034,cus_100034,"Aponte, Bueno y Orosco",aponte256,Enterprise,Alimentos,Premium,Carla Nuñez,Jalisco,2024-01-13,,active,3bfc4837532c,2024-08-31,,True,1.0.0
+8bd31817e7d6,89399b82116c,HS-100170,ACC-2169,cus_100169,Valenzuela-Rodríquez,valenzuelaro742,Mid-Market,Automotriz,Pro,Marta Díaz,Jalisco,2023-01-19,,active,991478174dff,2024-08-31,,True,1.0.0
+bfc74ce7d7fb,89c4b5ff4a9f,HS-100445,ACC-2444,cus_100444,"Bueno, Dávila y Sáenz",bueno835,Mid-Market,Automotriz,Pro,Ana Ruiz,Querétaro,2022-12-06,,active,b10d0bb0f81c,2024-08-31,,True,1.0.0
+06de962e6a77,89d3af7bfbf6,HS-100479,ACC-2478,cus_100478,Industrias Gurule-Holguín,industrias270,Enterprise,Retail,Premium,Jorge Ibarra,Chihuahua,2023-02-11,,active,9cf3d8b0a4e9,2024-08-31,,True,1.0.0
+0c1e95637fa3,8a087810c878,HS-100224,ACC-2223,cus_100223,"Peres, Contreras y Valdez",peres609,SMB,Hospitalidad,Basico,Diego Ortega,CDMX,2023-08-14,,active,b91952ad0533,2024-08-31,,True,1.0.0
+49c580fba0e1,8a1b676db0e4,HS-100433,ACC-2432,cus_100432,"Duarte, Guillen y Gaona",duarte55,Mid-Market,Hospitalidad,Pro,Diego Ortega,Estado de México,2023-09-08,,active,79494cbaf8f7,2024-08-31,,True,1.0.0
+860184d43e79,8a377898dd91,HS-100362,ACC-2361,cus_100361,"Grupo Armas, Matías y Cruz",grupo209,Mid-Market,Logística,Pro,Marta Díaz,Jalisco,2024-03-15,,active,991478174dff,2024-08-31,,True,1.0.0
+ae20e54c655a,8aace75b998d,HS-100642,ACC-2641,cus_100641,Muñiz-Pelayo,munizpelayo294,SMB,Tecnología,Basico,Fernanda Solís,Querétaro,2024-05-16,,active,05c44af64c13,2024-08-31,,True,1.0.0
+31d415be50fc,8ab5e8824094,HS-100453,ACC-2452,cus_100452,Madrid S.A.,madrid102,SMB,Manufactura,Basico,Jorge Ibarra,Yucatán,2023-03-29,2023-08-16,churned,178fe802cd43,2024-08-31,,True,1.0.0
+21af4e892b1e,8c5f19b3b0d6,HS-100069,ACC-2068,cus_100068,"Despacho Amaya, Arevalo y Reyna",despacho303,SMB,Agroindustria,Basico,Jorge Ibarra,Nuevo León,2024-02-01,,active,178fe802cd43,2024-08-31,,True,1.0.0
+7e8c6edf1c31,8d5d932b0f9b,HS-100415,ACC-2414,cus_100414,"Paz, Aguirre y Velásquez",paz989,Mid-Market,Salud,Pro,Luis Peña,Chihuahua,2023-05-27,2023-12-05,churned,1e61b2a314d4,2024-08-31,,True,1.0.0
+b672fbebd34b,8d7b0e3ccc06,HS-100181,ACC-2180,cus_100180,Naranjo S.A. de C.V.,naranjo655,SMB,Automotriz,Basico,Luis Peña,Nuevo León,2022-02-10,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+332e991e1aec,8dc56996e31a,HS-100029,ACC-2028,cus_100028,Villagómez-de Jesús e Hijos,villagomezde8,Mid-Market,Construcción,Pro,Diego Ortega,Guanajuato,2023-11-11,2024-01-18,churned,79494cbaf8f7,2024-08-31,,True,1.0.0
+2928e7e2e082,8dfb642a97d7,HS-100329,ACC-2328,cus_100328,Delgado y Asociados,delgado911,SMB,Alimentos,Basico,Diego Ortega,Jalisco,2022-10-09,,active,b91952ad0533,2024-08-31,,True,1.0.0
+36d971a91f91,8e811d2dc5a1,HS-100039,ACC-2038,cus_100038,Enríquez-Olivárez,enriquezoliv714,Mid-Market,Educación,Pro,Luis Peña,Puebla,2022-01-08,,active,1e61b2a314d4,2024-08-31,,True,1.0.0
+e717db39502f,8ee34a42dee7,HS-100374,ACC-2373,cus_100373,Lira y Barrera S.A. de C.V.,lira173,Mid-Market,Alimentos,Pro,Carla Nuñez,Yucatán,2023-11-22,,active,49d8861015c4,2024-08-31,,True,1.0.0
+5487c767fc89,8fcd350ed2a1,HS-100151,ACC-2150,cus_100150,Muñoz A.C.,munoz710,Enterprise,Hospitalidad,Premium,Fernanda Solís,Chihuahua,2023-08-06,,active,e4075c4fb552,2024-08-31,,True,1.0.0
+b71e00d616f8,8fd0cb9bb127,HS-100136,ACC-2135,cus_100135,Marín-Pérez,marinperez638,SMB,Salud,Basico,Ana Ruiz,Puebla,2022-07-22,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+a051067eadc7,8fd23f99086a,HS-100292,ACC-2291,cus_100291,Laureano-Gil,laureanogil349,SMB,Construcción,Basico,Marta Díaz,Guanajuato,2024-03-25,,active,58b139e9510f,2024-08-31,,True,1.0.0
+e9d24147a679,91406719f00e,HS-100612,ACC-2611,cus_100611,Soria-Heredia,soriaheredia427,Mid-Market,Retail,Pro,Jorge Ibarra,Nuevo León,2022-07-27,,active,f20fd128e16f,2024-08-31,,True,1.0.0
+9f6f71018d5f,92b7a8a7cdc7,HS-100185,ACC-2184,cus_100184,"Grupo Castellanos, Loya y Tamayo",grupo367,SMB,Manufactura,Basico,Luis Peña,Querétaro,2023-07-25,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+a0ce9cad9e47,92f4e669bfdd,HS-100554,ACC-2553,cus_100553,Laboratorios Olivárez-Camarillo,laboratorios902,Mid-Market,Servicios Financieros,Pro,Jorge Ibarra,Sonora,2023-11-28,,active,f20fd128e16f,2024-08-31,,True,1.0.0
+78af72648960,935a1d29de57,HS-100314,ACC-2313,cus_100313,Centeno-Sandoval S.A. de C.V.,centenosando386,Enterprise,Servicios Financieros,Premium,Marta Díaz,Chihuahua,2022-04-09,,active,80ca9c6c79de,2024-08-31,,True,1.0.0
+b98efcf076a3,937eb80b0184,HS-100633,ACC-2632,cus_100632,Proyectos Carreón-Tijerina,proyectos947,SMB,Alimentos,Basico,Fernanda Solís,Nuevo León,2024-01-01,,active,05c44af64c13,2024-08-31,,True,1.0.0
+3e77742ed929,9382f00dc8c8,HS-100389,ACC-2388,cus_100388,Segovia y Esquivel S.A. de C.V.,segovia855,Mid-Market,Hospitalidad,Pro,Marta Díaz,Estado de México,2022-01-14,,active,991478174dff,2024-08-31,,True,1.0.0
+631197bb5231,93d4f5b861a3,HS-100478,ACC-2477,cus_100477,Luevano y Lucero S.A.,luevano908,Mid-Market,Agroindustria,Pro,Marta Díaz,Chihuahua,2022-03-12,,active,991478174dff,2024-08-31,,True,1.0.0
+2410298f4d0a,93f094f73363,HS-100365,ACC-2364,cus_100364,Ávalos S.C.,avalos491,Enterprise,Construcción,Premium,Ana Ruiz,Puebla,2023-03-16,,active,109ecb009392,2024-08-31,,True,1.0.0
+5ac415228a49,9407c3c1d5b4,HS-100231,ACC-2230,cus_100230,"Club Valdés, Oquendo y Alcántar",club991,Mid-Market,Logística,Pro,Ana Ruiz,Querétaro,2024-02-06,,active,b10d0bb0f81c,2024-08-31,,True,1.0.0
+dfb98c1c9347,945c463e27f5,HS-100567,ACC-2566,cus_100566,Laboratorios Solano-Corrales,laboratorios29,SMB,Logística,Basico,Diego Ortega,Puebla,2023-03-05,,active,b91952ad0533,2024-08-31,,True,1.0.0
+07c376fae5aa,94be9c45cdf6,HS-100267,ACC-2266,cus_100266,"Casanova, Portillo y Tamayo",casanova745,Mid-Market,Manufactura,Pro,Diego Ortega,CDMX,2023-09-13,,active,79494cbaf8f7,2024-08-31,,True,1.0.0
+a44e29898cab,953a1fa5f1e4,HS-100493,ACC-2492,cus_100492,Menchaca-Suárez S.C.,menchacasuar840,SMB,Automotriz,Basico,Jorge Ibarra,Nuevo León,2022-08-07,,active,178fe802cd43,2024-08-31,,True,1.0.0
+7b6032e6acdf,95b0e7ccdb63,HS-100281,ACC-2280,cus_100280,Granado y Ponce y Asociados,granado129,Enterprise,Retail,Premium,Carla Nuñez,Guanajuato,2024-03-01,,active,3bfc4837532c,2024-08-31,,True,1.0.0
+7e27fb9dbbb6,95d506c2c301,HS-100366,ACC-2365,cus_100365,Villarreal y Robles S. R.L. de C.V.,villarreal986,SMB,Construcción,Basico,Jorge Ibarra,Puebla,2022-07-03,,active,178fe802cd43,2024-08-31,,True,1.0.0
+8833f27a3a91,967e6f7023fc,HS-100523,ACC-2522,cus_100522,"Corporacin Borrego, Torres y Lomeli",corporacin750,Enterprise,Tecnología,Premium,Fernanda Solís,Chihuahua,2023-02-14,,active,e4075c4fb552,2024-08-31,,True,1.0.0
+d69c3e1e9977,9690176b3350,HS-100110,ACC-2109,cus_100109,Brito-Alvarado,britoalvarad564,SMB,Agroindustria,Basico,Marta Díaz,Querétaro,2022-08-26,,active,58b139e9510f,2024-08-31,,True,1.0.0
+2377b4fd173e,97081fd75d7e,HS-100436,ACC-2435,cus_100435,Laboy-Aguilar e Hijos,laboyaguilar282,Mid-Market,Manufactura,Pro,Jorge Ibarra,Sonora,2024-04-17,,active,f20fd128e16f,2024-08-31,,True,1.0.0
+c331e09ce72f,97ee9f62574c,HS-100581,ACC-2580,cus_100580,Collazo-Negrón S.C.,collazonegro970,SMB,Tecnología,Basico,Luis Peña,Querétaro,2022-04-01,2023-05-29,churned,b1d5ba07b065,2024-08-31,,True,1.0.0
+be63d715e729,98aa01742131,HS-100565,ACC-2564,cus_100564,Rubio y Saiz S.C.,rubio382,SMB,Construcción,Basico,Jorge Ibarra,Sonora,2022-09-30,,active,178fe802cd43,2024-08-31,,True,1.0.0
+d1e7ed95081f,98bbb9b1f4ec,HS-100634,ACC-2633,cus_100633,"Regalado, Valverde y Lugo",regalado397,SMB,Retail,Basico,Jorge Ibarra,Sonora,2023-08-21,,active,178fe802cd43,2024-08-31,,True,1.0.0
+972759dec9fd,99340d33f3fb,HS-100037,ACC-2036,cus_100036,Narváez-Rolón,narvaezrolon417,SMB,Tecnología,Basico,Ana Ruiz,Nuevo León,2022-07-19,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+13509b407475,99787ccefdee,HS-100233,ACC-2232,cus_100232,Club Aranda y Arroyo,club662,Mid-Market,Retail,Pro,Marta Díaz,Querétaro,2022-06-07,,active,991478174dff,2024-08-31,,True,1.0.0
+effa94be3337,99d92d07b60e,HS-100249,ACC-2248,cus_100248,Club Alvarez-Ferrer,club963,Enterprise,Servicios Financieros,Premium,Marta Díaz,Puebla,2024-03-16,,active,80ca9c6c79de,2024-08-31,,True,1.0.0
+a91fbdff108b,9a0d4f0c47f7,HS-100398,ACC-2397,cus_100397,Grupo Armenta-Ledesma,grupo92,SMB,Manufactura,Basico,Diego Ortega,Guanajuato,2022-02-28,,active,b91952ad0533,2024-08-31,,True,1.0.0
+b1bce28d7daa,9a903bd17a09,HS-100051,ACC-2050,cus_100050,Peña y Aguirre S.C.,pena279,Enterprise,Tecnología,Premium,Fernanda Solís,Querétaro,2022-01-09,,active,e4075c4fb552,2024-08-31,,True,1.0.0
+67b9febfff73,9aab1444c5d3,HS-100041,ACC-2040,cus_100040,Iglesias-Prado A.C.,iglesiasprad52,SMB,Manufactura,Basico,Carla Nuñez,Nuevo León,2023-04-12,,active,54379cde7967,2024-08-31,,True,1.0.0
+c101bcbf7a9d,9ae028b62042,HS-100277,ACC-2276,cus_100276,Club de la Torre-Olivas,club727,Mid-Market,Agroindustria,Pro,Luis Peña,Jalisco,2022-01-19,,active,1e61b2a314d4,2024-08-31,,True,1.0.0
+d57c2c361637,9b86c5d697a4,HS-100242,ACC-2241,cus_100241,Alemán-Palomino,alemanpalomi54,Enterprise,Logística,Premium,Ana Ruiz,Chihuahua,2023-08-12,,active,109ecb009392,2024-08-31,,True,1.0.0
+af613fa3de65,9bf0ba4ae3b0,HS-100054,ACC-2053,cus_100053,Club Soto-Solorio,club723,Enterprise,Servicios Financieros,Premium,Fernanda Solís,Nuevo León,2022-02-01,,active,e4075c4fb552,2024-08-31,,True,1.0.0
+cf75faca4a32,9c3ead02df0b,HS-100424,ACC-2423,cus_100423,Limón y Vanegas A.C.,limon629,SMB,Agroindustria,Basico,Ana Ruiz,Puebla,2022-07-27,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+84f4733ec9c9,9c83b29dabc8,HS-100588,ACC-2587,cus_100587,Despacho Urrutia y Gollum,despacho630,SMB,Tecnología,Basico,Jorge Ibarra,Estado de México,2023-07-28,,active,178fe802cd43,2024-08-31,,True,1.0.0
+70fccecdde8d,9ce98b1e53c8,HS-100422,ACC-2421,cus_100421,Alonso-Paredes S.C.,alonsoparede179,Mid-Market,Servicios Financieros,Pro,Jorge Ibarra,Puebla,2023-08-19,,active,f20fd128e16f,2024-08-31,,True,1.0.0
+f59448fbbc1b,9d663f9ec56a,HS-100408,ACC-2407,cus_100407,"Grupo Quintanilla, Trejo y Batista",grupo185,SMB,Servicios Financieros,Basico,Jorge Ibarra,Puebla,2022-12-18,,active,178fe802cd43,2024-08-31,,True,1.0.0
+cf1420a7e6ab,9d7de9537b7e,HS-100635,ACC-2634,cus_100634,Rincón y Jaimes S.A. de C.V.,rincon781,SMB,Agroindustria,Basico,Marta Díaz,Yucatán,2024-04-17,,active,58b139e9510f,2024-08-31,,True,1.0.0
+59f5f7833bbc,9d8fc5e5d801,HS-100207,ACC-2206,cus_100206,"Madrigal, Pacheco y Malave",madrigal280,SMB,Educación,Basico,Ana Ruiz,Querétaro,2024-01-12,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+ca1e00cfdbe3,9de59d515b9f,HS-100649,ACC-2648,cus_100648,Reséndez-Estévez S. R.L. de C.V.,resendezeste182,Mid-Market,Alimentos,Pro,Fernanda Solís,Chihuahua,2022-08-25,,active,4fa0276c7767,2024-08-31,,True,1.0.0
+c279725f634c,9e27ccf7896b,HS-100108,ACC-2107,cus_100107,Santana y Asociados,santana812,Mid-Market,Alimentos,Pro,Fernanda Solís,Puebla,2022-03-15,,active,4fa0276c7767,2024-08-31,,True,1.0.0
+5bc46d3736ee,9e718ad7d560,HS-100577,ACC-2576,cus_100576,Villanueva e Hijos,villanueva415,SMB,Educación,Basico,Carla Nuñez,Puebla,2022-10-03,,active,54379cde7967,2024-08-31,,True,1.0.0
+d622153137b6,9eb7a3a6657b,HS-100584,ACC-2583,cus_100583,Olivo-Parra,olivoparra391,SMB,Automotriz,Basico,Luis Peña,Puebla,2022-09-10,2023-04-12,churned,b1d5ba07b065,2024-08-31,,True,1.0.0
+f52a1c6e0a62,9f0aac78fb2f,HS-100379,ACC-2378,cus_100378,"Montoya, Cardona y Villanueva",montoya740,Mid-Market,Servicios Financieros,Pro,Diego Ortega,Estado de México,2024-05-31,,active,79494cbaf8f7,2024-08-31,,True,1.0.0
+8248812b77cb,a016ad959c90,HS-100396,ACC-2395,cus_100395,Cedillo-de la Torre y Asociados,cedillode6,Enterprise,Retail,Premium,Ana Ruiz,Nuevo León,2023-08-08,,active,109ecb009392,2024-08-31,,True,1.0.0
+5edc44efa009,a18e4270c86b,HS-100257,ACC-2256,cus_100256,"Canales, Guzmán y Gonzales",canales753,Enterprise,Hospitalidad,Premium,Carla Nuñez,Guanajuato,2024-05-22,,active,3bfc4837532c,2024-08-31,,True,1.0.0
+2388dbb6dcca,a1b6591a36c2,HS-100426,ACC-2425,cus_100425,Villarreal y Asociados,villarreal202,SMB,Salud,Basico,Jorge Ibarra,Chihuahua,2024-03-13,,active,178fe802cd43,2024-08-31,,True,1.0.0
+c207efcd2f88,a1baa2e417d2,HS-100250,ACC-2249,cus_100249,Correa-Garibay,correagariba125,Mid-Market,Logística,Pro,Carla Nuñez,Yucatán,2023-01-19,,active,49d8861015c4,2024-08-31,,True,1.0.0
+2ed5a1130b70,a24f4d4bb486,HS-100543,ACC-2542,cus_100542,Tijerina y Rangel A.C.,tijerina457,SMB,Tecnología,Basico,Luis Peña,Querétaro,2022-10-22,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+2d1a3ebbaa60,a2b85136e7b2,HS-100195,ACC-2194,cus_100194,"Ávila, Palomo y Pizarro",avila977,SMB,Salud,Basico,Ana Ruiz,Jalisco,2024-05-15,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+dd1354095ecb,a2f4b7cd7eb1,HS-100630,ACC-2629,cus_100629,Lovato-Montañez,lovatomontan347,SMB,Agroindustria,Basico,Diego Ortega,Sonora,2024-02-18,,active,b91952ad0533,2024-08-31,,True,1.0.0
+fa57bfdec2e5,a321e5e40776,HS-100475,ACC-2474,cus_100474,"Corporacin Moreno, Luevano y Burgos",corporacin627,SMB,Alimentos,Basico,Fernanda Solís,Nuevo León,2022-07-18,,active,05c44af64c13,2024-08-31,,True,1.0.0
+4eb866d17eb0,a323d4abf458,HS-100085,ACC-2084,cus_100084,Carrillo S.C.,carrillo21,SMB,Agroindustria,Basico,Marta Díaz,Querétaro,2022-04-08,,active,58b139e9510f,2024-08-31,,True,1.0.0
+8e1d8e293b0c,a50bd28fa87f,HS-100050,ACC-2049,cus_100049,"Arredondo, Mateo y Alcántar",arredondo107,SMB,Automotriz,Basico,Fernanda Solís,Chihuahua,2023-06-18,,active,05c44af64c13,2024-08-31,,True,1.0.0
+daf69078e175,a54889f58f60,HS-100412,ACC-2411,cus_100411,Industrias Robledo-Rivero,industrias38,Enterprise,Servicios Financieros,Premium,Carla Nuñez,Sonora,2023-12-29,,active,3bfc4837532c,2024-08-31,,True,1.0.0
+bb88bc67b8e3,a565c66b9bc6,HS-100517,ACC-2516,cus_100516,de la Torre-Rosas,de721,SMB,Manufactura,Basico,Carla Nuñez,Puebla,2023-10-04,,active,54379cde7967,2024-08-31,,True,1.0.0
+5dd3b1373700,a62f0320022a,HS-100414,ACC-2413,cus_100413,Carmona y Adame y Asociados,carmona663,Mid-Market,Tecnología,Pro,Fernanda Solís,Estado de México,2024-04-23,,active,4fa0276c7767,2024-08-31,,True,1.0.0
+b7fa52eddb94,a6444ea5d4ad,HS-100452,ACC-2451,cus_100451,"Corporacin Vanegas, Esparza y Villalpando",corporacin592,Mid-Market,Servicios Financieros,Pro,Marta Díaz,CDMX,2024-05-06,,active,991478174dff,2024-08-31,,True,1.0.0
+8bdcc0a6505a,a6735df00d27,HS-100131,ACC-2130,cus_100130,Apodaca-Puga S.A. de C.V.,apodacapuga453,SMB,Automotriz,Basico,Diego Ortega,Yucatán,2023-05-13,,active,b91952ad0533,2024-08-31,,True,1.0.0
+f17999a2cc30,a6d940689369,HS-100461,ACC-2460,cus_100460,Chavarría-Cedillo,chavarriaced694,SMB,Automotriz,Basico,Carla Nuñez,Nuevo León,2022-03-13,,active,54379cde7967,2024-08-31,,True,1.0.0
+29bd418bda20,a79430c11e48,HS-100595,ACC-2594,cus_100594,"Despacho Alvarado, Ceballos y Farías",despacho752,Enterprise,Construcción,Premium,Fernanda Solís,CDMX,2022-04-29,,active,e4075c4fb552,2024-08-31,,True,1.0.0
+aeafbae0625b,a888ac2fc626,HS-100190,ACC-2189,cus_100189,"Despacho Ontiveros, Montañez y Colón",despacho623,SMB,Salud,Basico,Fernanda Solís,Sonora,2023-08-23,,active,05c44af64c13,2024-08-31,,True,1.0.0
+35abf746c132,a93e31f7946a,HS-100579,ACC-2578,cus_100578,Grupo Almanza-Carrera,grupo368,SMB,Automotriz,Basico,Carla Nuñez,Nuevo León,2022-12-15,2024-01-15,churned,54379cde7967,2024-08-31,,True,1.0.0
+fe3096163e0d,a99b55b3b218,HS-100114,ACC-2113,cus_100113,Bermúdez-Lira,bermudezlira726,Mid-Market,Manufactura,Pro,Carla Nuñez,Querétaro,2023-07-09,2023-10-04,churned,49d8861015c4,2024-08-31,,True,1.0.0
+d1c9486f7375,aa00b58df5b0,HS-100621,ACC-2620,cus_100620,Proyectos Pineda y Villaseñor,proyectos821,SMB,Alimentos,Basico,Jorge Ibarra,Guanajuato,2024-01-11,,active,178fe802cd43,2024-08-31,,True,1.0.0
+37ba29282cfe,aa269e39c32a,HS-100272,ACC-2271,cus_100271,"Valdivia, Curiel y Ibarra",valdivia286,Mid-Market,Automotriz,Pro,Jorge Ibarra,Chihuahua,2023-10-22,,active,f20fd128e16f,2024-08-31,,True,1.0.0
+2db45c0a59d6,aa6b09af8aaf,HS-100189,ACC-2188,cus_100188,"Industrias Ceballos, Lozada y Nava",industrias868,SMB,Alimentos,Basico,Ana Ruiz,Jalisco,2023-07-20,2024-05-02,churned,3006ea73b76b,2024-08-31,,True,1.0.0
+c56829dccae1,aad8b8edc903,HS-100269,ACC-2268,cus_100268,"Club Duarte, Verdugo y Solorzano",club147,SMB,Manufactura,Basico,Diego Ortega,Guanajuato,2023-10-30,2024-02-27,churned,b91952ad0533,2024-08-31,,True,1.0.0
+3f4f3e8646ad,ab72e3445be1,HS-100592,ACC-2591,cus_100591,Laboratorios Zepeda y Domínguez,laboratorios306,Mid-Market,Manufactura,Pro,Carla Nuñez,Guanajuato,2023-08-17,,active,49d8861015c4,2024-08-31,,True,1.0.0
+53b9cbe148f9,ab838c4c08e3,HS-100305,ACC-2304,cus_100304,"Club Quiroz, Aranda y Cardenas",club153,Mid-Market,Alimentos,Pro,Carla Nuñez,Guanajuato,2022-06-13,,active,49d8861015c4,2024-08-31,,True,1.0.0
+d080d417a167,acef081a80f0,HS-100217,ACC-2216,cus_100216,Cornejo-Navarrete S.A.,cornejonavar649,SMB,Servicios Financieros,Basico,Marta Díaz,Guanajuato,2023-09-06,2024-05-21,churned,58b139e9510f,2024-08-31,,True,1.0.0
+e883368b1caf,ad2278a4a6c6,HS-100596,ACC-2595,cus_100595,"Despacho Terán, Orta y Páez",despacho898,SMB,Educación,Basico,Ana Ruiz,Sonora,2023-12-21,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+7855a4a239ee,ae22895bdbc5,HS-100278,ACC-2277,cus_100277,Arias-Rosales,ariasrosales812,Mid-Market,Construcción,Pro,Marta Díaz,Chihuahua,2022-10-29,,active,991478174dff,2024-08-31,,True,1.0.0
+1755149238b9,ae32988dfca5,HS-100647,ACC-2646,cus_100646,Industrias Arce-Iglesias,industrias636,Mid-Market,Construcción,Pro,Fernanda Solís,Guanajuato,2022-12-14,,active,4fa0276c7767,2024-08-31,,True,1.0.0
+4404947c0e56,af6b45260c23,HS-100388,ACC-2387,cus_100387,Palomino y Curiel S.A. de C.V.,palomino602,SMB,Construcción,Basico,Carla Nuñez,Puebla,2024-03-10,2024-05-19,churned,54379cde7967,2024-08-31,,True,1.0.0
+37e0716b3514,afea25b3f304,HS-100215,ACC-2214,cus_100214,Herrera-Delgadillo,herreradelga448,Mid-Market,Retail,Pro,Jorge Ibarra,Chihuahua,2023-12-28,,active,f20fd128e16f,2024-08-31,,True,1.0.0
+965fee208875,b11ab648f308,HS-100615,ACC-2614,cus_100614,Romo S.A.,romo591,Mid-Market,Agroindustria,Pro,Fernanda Solís,Guanajuato,2024-04-07,,active,4fa0276c7767,2024-08-31,,True,1.0.0
+b22972869352,b16fd3de8400,HS-100205,ACC-2204,cus_100204,"Corporacin Armendáriz, Sepúlveda y Villagómez",corporacin611,Mid-Market,Hospitalidad,Pro,Carla Nuñez,CDMX,2023-03-12,,active,49d8861015c4,2024-08-31,,True,1.0.0
+7fd8285cece3,b24de45006f0,HS-100192,ACC-2191,cus_100191,Corporacin Ruelas-Feliciano,corporacin441,Enterprise,Hospitalidad,Premium,Diego Ortega,Chihuahua,2023-04-15,,active,6c2887815d0e,2024-08-31,,True,1.0.0
+e3df2ec688f8,b2bb026d825d,HS-100363,ACC-2362,cus_100362,Mercado-Roldán S.A. de C.V.,mercadorolda742,SMB,Servicios Financieros,Basico,Fernanda Solís,Sonora,2023-04-26,,active,05c44af64c13,2024-08-31,,True,1.0.0
+68f1e5a5eafa,b2f4d7709dc0,HS-100074,ACC-2073,cus_100073,Grupo Fonseca y Galarza,grupo26,Mid-Market,Tecnología,Pro,Diego Ortega,Jalisco,2024-05-29,,active,79494cbaf8f7,2024-08-31,,True,1.0.0
+a2973224d797,b3a24e63f76b,HS-100173,ACC-2172,cus_100172,Apodaca-Saucedo S.A.,apodacasauce906,SMB,Hospitalidad,Basico,Fernanda Solís,Jalisco,2023-10-20,,active,05c44af64c13,2024-08-31,,True,1.0.0
+9bc72d4e9af7,b454b2f7bd1c,HS-100566,ACC-2565,cus_100565,"Cordero, Zamora y Salcido",cordero359,Mid-Market,Servicios Financieros,Pro,Fernanda Solís,Jalisco,2022-06-10,,active,4fa0276c7767,2024-08-31,,True,1.0.0
+be28fe20b00b,b4c838eb089c,HS-100602,ACC-2601,cus_100601,Grupo Tejada-Rivas,grupo997,SMB,Servicios Financieros,Basico,Luis Peña,CDMX,2022-10-29,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+a7bf1fcd1a12,b4e6ad0d057a,HS-100604,ACC-2603,cus_100603,"Calvillo, Burgos y Alemán",calvillo856,SMB,Retail,Basico,Diego Ortega,Chihuahua,2023-06-26,,active,b91952ad0533,2024-08-31,,True,1.0.0
+4501a214cc4b,b514dcb01651,HS-100154,ACC-2153,cus_100153,"Despacho Aranda, Corona y Guzmán",despacho721,SMB,Automotriz,Basico,Ana Ruiz,CDMX,2022-09-08,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+eacf4223ba61,b585e4ebcc98,HS-100316,ACC-2315,cus_100315,Club de Jesús-Verduzco,club306,Mid-Market,Servicios Financieros,Pro,Luis Peña,Yucatán,2022-06-14,,active,1e61b2a314d4,2024-08-31,,True,1.0.0
+10d522538c7d,b5e018ec0013,HS-100001,ACC-2000,cus_100000,"Gaitán, Olmos y Paredes",gaitan115,SMB,Automotriz,Basico,Fernanda Solís,Jalisco,2022-02-28,,active,05c44af64c13,2024-08-31,,True,1.0.0
+efa5ea38cd27,b60f62d4c3c4,HS-100328,ACC-2327,cus_100327,Arriaga-Armenta,arriagaarmen951,Mid-Market,Retail,Pro,Carla Nuñez,Chihuahua,2022-12-27,,active,49d8861015c4,2024-08-31,,True,1.0.0
+330f1ed15ed1,b6227ca140ae,HS-100514,ACC-2513,cus_100513,"Club Samaniego, Rosado y Arias",club254,Mid-Market,Retail,Pro,Diego Ortega,CDMX,2022-09-01,,active,79494cbaf8f7,2024-08-31,,True,1.0.0
+e5bb368c3c90,b6f7ec4c7c1a,HS-100413,ACC-2412,cus_100412,Quiroz-Aponte,quirozaponte937,Enterprise,Automotriz,Premium,Fernanda Solís,Guanajuato,2023-12-11,,active,e4075c4fb552,2024-08-31,,True,1.0.0
+e40a37412da9,b71038723b34,HS-100437,ACC-2436,cus_100436,Meléndez S.A. de C.V.,melendez792,SMB,Agroindustria,Basico,Carla Nuñez,Jalisco,2022-12-06,,active,54379cde7967,2024-08-31,,True,1.0.0
+213016ceaf9b,b7214f7de0d2,HS-100515,ACC-2514,cus_100514,de la Fuente y Olivárez A.C.,de590,SMB,Construcción,Basico,Diego Ortega,Nuevo León,2023-06-30,,active,b91952ad0533,2024-08-31,,True,1.0.0
+85016d341a03,b743d34f10a8,HS-100182,ACC-2181,cus_100181,Otero y Ontiveros y Asociados,otero211,SMB,Hospitalidad,Basico,Diego Ortega,Puebla,2024-05-29,,active,b91952ad0533,2024-08-31,,True,1.0.0
+ca0494038c39,b898e16bae56,HS-100434,ACC-2433,cus_100433,Santillán y Abreu e Hijos,santillan518,SMB,Servicios Financieros,Basico,Jorge Ibarra,Yucatán,2023-01-18,,active,178fe802cd43,2024-08-31,,True,1.0.0
+46bb8db26e0a,b8a43530cf08,HS-100616,ACC-2615,cus_100615,Colón y Muñiz S.C.,colon536,Enterprise,Servicios Financieros,Premium,Luis Peña,Yucatán,2023-07-05,,active,a06dca9fd7ac,2024-08-31,,True,1.0.0
+de1f165342a7,b8ff0ac62b88,HS-100473,ACC-2472,cus_100472,Medina-Mena,medinamena524,SMB,Retail,Basico,Carla Nuñez,Jalisco,2023-11-19,,active,54379cde7967,2024-08-31,,True,1.0.0
+cd2b3110b560,b909b1288f6f,HS-100295,ACC-2294,cus_100294,"Despacho Posada, Saldivar y Alcántar",despacho429,SMB,Hospitalidad,Basico,Carla Nuñez,Guanajuato,2022-01-06,,active,54379cde7967,2024-08-31,,True,1.0.0
+eb8e5578903e,ba0e4a372968,HS-100591,ACC-2590,cus_100590,Vela y Carranza e Hijos,vela133,SMB,Logística,Basico,Luis Peña,Jalisco,2023-07-21,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+e55a4f1b977b,bad845ea6ecb,HS-100443,ACC-2442,cus_100442,Corporacin Menéndez-Castañeda,corporacin825,SMB,Construcción,Basico,Carla Nuñez,Chihuahua,2024-02-01,,active,54379cde7967,2024-08-31,,True,1.0.0
+0a78473a156f,baf649016fa9,HS-100500,ACC-2499,cus_100499,Arenas e Hijos,arenas51,Enterprise,Servicios Financieros,Premium,Luis Peña,CDMX,2022-02-09,,active,a06dca9fd7ac,2024-08-31,,True,1.0.0
+713f475fc738,bb332bfd6480,HS-100129,ACC-2128,cus_100128,Reséndez S.A. de C.V.,resendez257,SMB,Hospitalidad,Basico,Diego Ortega,Sonora,2024-05-10,,active,b91952ad0533,2024-08-31,,True,1.0.0
+aae73e938207,bcbbeb996730,HS-100495,ACC-2494,cus_100494,Meza y Riojas y Asociados,meza464,SMB,Salud,Basico,Luis Peña,Sonora,2022-10-19,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+b87193b39cb8,bcdb022bc305,HS-100600,ACC-2599,cus_100599,Club Meza y Madera,club141,SMB,Agroindustria,Basico,Ana Ruiz,Querétaro,2022-07-18,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+884ab3f8db05,be921c1e148e,HS-100262,ACC-2261,cus_100261,"Proyectos Franco, Gálvez y Valenzuela",proyectos340,Enterprise,Automotriz,Premium,Jorge Ibarra,Yucatán,2022-09-12,,active,9cf3d8b0a4e9,2024-08-31,,True,1.0.0
+cea91525c97e,bee384ef88de,HS-100158,ACC-2157,cus_100157,Barajas-Regalado e Hijos,barajasregal683,Mid-Market,Logística,Pro,Carla Nuñez,Nuevo León,2024-03-19,,active,49d8861015c4,2024-08-31,,True,1.0.0
+76d396e3fcb0,bfcbb37719b9,HS-100330,ACC-2329,cus_100329,Terán-Negrete,terannegrete167,SMB,Salud,Basico,Luis Peña,CDMX,2022-01-31,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+5cc649285cbe,bfcc93c1234c,HS-100008,ACC-2007,cus_100007,"Frías, Briseño y Molina",frias592,Mid-Market,Salud,Pro,Diego Ortega,Querétaro,2023-01-21,,active,79494cbaf8f7,2024-08-31,,True,1.0.0
+6ffd702229b3,c0d5050c1786,HS-100034,ACC-2033,cus_100033,Proyectos Barraza-Mata,proyectos197,Enterprise,Construcción,Premium,Luis Peña,Querétaro,2022-06-28,,active,a06dca9fd7ac,2024-08-31,,True,1.0.0
+2b7b66a62db4,c0e6f6e5493b,HS-100335,ACC-2334,cus_100334,Laboratorios Murillo y Castañeda,laboratorios741,SMB,Hospitalidad,Basico,Fernanda Solís,Puebla,2022-08-16,,active,05c44af64c13,2024-08-31,,True,1.0.0
+a4df60203d8a,c12476e908d2,HS-100091,ACC-2090,cus_100090,Club Gil-Razo,club335,SMB,Alimentos,Basico,Diego Ortega,Estado de México,2023-06-23,,active,b91952ad0533,2024-08-31,,True,1.0.0
+3b0ef9a190d2,c14e78b458d1,HS-100072,ACC-2071,cus_100071,"Proyectos Jaramillo, Santillán y Solís",proyectos485,SMB,Servicios Financieros,Basico,Fernanda Solís,Sonora,2023-10-23,2024-05-01,churned,05c44af64c13,2024-08-31,,True,1.0.0
+23d0a12a3fb4,c173e9322576,HS-100234,ACC-2233,cus_100233,Valles-Nazario,vallesnazari974,SMB,Tecnología,Basico,Luis Peña,Nuevo León,2023-08-05,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+49ba9013e6ca,c194e3bdfad5,HS-100311,ACC-2310,cus_100310,Tovar A.C.,tovar971,SMB,Hospitalidad,Basico,Jorge Ibarra,Nuevo León,2022-10-13,2023-10-29,churned,178fe802cd43,2024-08-31,,True,1.0.0
+3457e9580bfb,c22a9a5e32c4,HS-100370,ACC-2369,cus_100369,Industrias Zamora-Vera,industrias937,SMB,Salud,Basico,Carla Nuñez,Puebla,2022-01-08,,active,54379cde7967,2024-08-31,,True,1.0.0
+2cefe38f082f,c259030f0a56,HS-100321,ACC-2320,cus_100320,Galindo S. R.L. de C.V.,galindo112,SMB,Tecnología,Basico,Luis Peña,Puebla,2022-02-18,2023-10-14,churned,b1d5ba07b065,2024-08-31,,True,1.0.0
+197aaa955e63,c29e32af3d21,HS-100609,ACC-2608,cus_100608,Corporacin Urías-Lerma,corporacin900,SMB,Logística,Basico,Luis Peña,Jalisco,2023-10-03,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+c77f00239655,c326e9fdf2b2,HS-100386,ACC-2385,cus_100385,"Ordóñez, Limón y Arias",ordonez217,Mid-Market,Construcción,Pro,Ana Ruiz,Querétaro,2022-04-13,,active,b10d0bb0f81c,2024-08-31,,True,1.0.0
+e67697864439,c434d20674b5,HS-100487,ACC-2486,cus_100486,Jurado-Aguilar,juradoaguila758,SMB,Logística,Basico,Jorge Ibarra,Puebla,2024-06-29,,active,178fe802cd43,2024-08-31,,True,1.0.0
+ea59746db6b2,c488ec042e89,HS-100347,ACC-2346,cus_100346,"Proyectos Carranza, Ramón y Olmos",proyectos747,Mid-Market,Automotriz,Pro,Jorge Ibarra,Yucatán,2023-02-13,,active,f20fd128e16f,2024-08-31,,True,1.0.0
+1ce1b7a3c919,c4a02f8c12cd,HS-100501,ACC-2500,cus_100500,Villalpando A.C.,villalpando876,Mid-Market,Educación,Pro,Ana Ruiz,Yucatán,2024-04-27,,active,b10d0bb0f81c,2024-08-31,,True,1.0.0
+bb3fa979a364,c518f6a1dc57,HS-100419,ACC-2418,cus_100418,Ruelas S.A.,ruelas320,Mid-Market,Salud,Pro,Jorge Ibarra,Guanajuato,2023-08-05,,active,f20fd128e16f,2024-08-31,,True,1.0.0
+0e6fa5fb1b65,c5350fab0bb4,HS-100063,ACC-2062,cus_100062,Cordero y Durán S. R.L. de C.V.,cordero962,Mid-Market,Salud,Pro,Luis Peña,Sonora,2022-05-12,,active,1e61b2a314d4,2024-08-31,,True,1.0.0
+5cabdb26553b,c564e6bc20a2,HS-100080,ACC-2079,cus_100079,"Grupo Carrasco, Toro y Mora",grupo457,SMB,Servicios Financieros,Basico,Luis Peña,Querétaro,2023-04-05,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+cfde1f237b3d,c6699f5bce6f,HS-100212,ACC-2211,cus_100211,Proyectos Acevedo y Rendón,proyectos407,Mid-Market,Retail,Pro,Diego Ortega,Guanajuato,2022-01-09,2022-05-28,churned,79494cbaf8f7,2024-08-31,,True,1.0.0
+1a3c5ce29c0d,c6ddaadf8a3c,HS-100380,ACC-2379,cus_100379,Mata S.C.,mata110,SMB,Tecnología,Basico,Carla Nuñez,Chihuahua,2024-05-19,,active,54379cde7967,2024-08-31,,True,1.0.0
+2b03e271d025,c722bd70bb6d,HS-100580,ACC-2579,cus_100579,Alarcón A.C.,alarcon100,SMB,Logística,Basico,Diego Ortega,Chihuahua,2023-05-21,,active,b91952ad0533,2024-08-31,,True,1.0.0
+114ad423a0a0,c7ae629f0670,HS-100459,ACC-2458,cus_100458,Magaña y Peres y Asociados,magana711,SMB,Educación,Basico,Ana Ruiz,Jalisco,2022-02-28,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+bee33cb5b71e,c7b8e3dd3d9e,HS-100466,ACC-2465,cus_100465,"Industrias Esquivel, Olivares y Casárez",industrias531,SMB,Construcción,Basico,Marta Díaz,CDMX,2022-10-21,,active,58b139e9510f,2024-08-31,,True,1.0.0
+457109617421,c7c91bce755e,HS-100355,ACC-2354,cus_100354,"Bétancourt, Macías y Terán",betancourt516,SMB,Tecnología,Basico,Carla Nuñez,Guanajuato,2023-11-23,,active,54379cde7967,2024-08-31,,True,1.0.0
+acccef452c98,c7e410d860dd,HS-100532,ACC-2531,cus_100531,Industrias Calderón y Casares,industrias667,Enterprise,Hospitalidad,Premium,Diego Ortega,CDMX,2024-02-23,,active,6c2887815d0e,2024-08-31,,True,1.0.0
+c9fa37fc3917,c80df26f0cb2,HS-100119,ACC-2118,cus_100118,Campos y Solano S.A.,campos621,Enterprise,Educación,Premium,Jorge Ibarra,Yucatán,2022-09-13,,active,9cf3d8b0a4e9,2024-08-31,,True,1.0.0
+59826dd10e62,c82c8b5945bb,HS-100598,ACC-2597,cus_100597,Vera S. R.L. de C.V.,vera127,SMB,Educación,Basico,Luis Peña,CDMX,2023-12-05,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+e6bc67472a01,c87b1eef63b3,HS-100431,ACC-2430,cus_100430,Márquez-Coronado,marquezcoron434,SMB,Educación,Basico,Fernanda Solís,Nuevo León,2022-03-08,,active,05c44af64c13,2024-08-31,,True,1.0.0
+6a8906483b55,c8d1b8b01b16,HS-100582,ACC-2581,cus_100581,"Tejeda, Rivera y Abrego",tejeda808,Enterprise,Educación,Premium,Jorge Ibarra,Jalisco,2022-04-28,,active,9cf3d8b0a4e9,2024-08-31,,True,1.0.0
+d0af4aa4f81d,c906fcd56eec,HS-100125,ACC-2124,cus_100124,Durán y Carrillo S. R.L. de C.V.,duran824,SMB,Automotriz,Basico,Fernanda Solís,Nuevo León,2022-01-13,,active,05c44af64c13,2024-08-31,,True,1.0.0
+9810debf1a43,c92187f76a50,HS-100092,ACC-2091,cus_100091,Club Maya-Vergara,club855,Mid-Market,Logística,Pro,Ana Ruiz,Guanajuato,2022-08-14,,active,b10d0bb0f81c,2024-08-31,,True,1.0.0
+140b7e80cf91,c95e7040378c,HS-100346,ACC-2345,cus_100345,Grijalva-Regalado,grijalvarega62,Mid-Market,Servicios Financieros,Pro,Luis Peña,Nuevo León,2022-04-17,,active,1e61b2a314d4,2024-08-31,,True,1.0.0
+7b52c0fea864,c9cd0bb0cc08,HS-100427,ACC-2426,cus_100426,Nieves S.A. de C.V.,nieves321,SMB,Automotriz,Basico,Ana Ruiz,Guanajuato,2023-06-11,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+c2adb16cffed,ca4b97d0cb79,HS-100026,ACC-2025,cus_100025,"Corporacin Sosa, Mora y Villareal",corporacin541,Mid-Market,Logística,Pro,Diego Ortega,Puebla,2024-04-30,,active,79494cbaf8f7,2024-08-31,,True,1.0.0
+c3ef7a9269d3,cba7ec6afd2e,HS-100492,ACC-2491,cus_100491,Medrano-Coronado,medranocoron718,Mid-Market,Educación,Pro,Carla Nuñez,Nuevo León,2022-08-18,2023-01-22,churned,49d8861015c4,2024-08-31,,True,1.0.0
+300226921b73,cbf0d50a86e7,HS-100256,ACC-2255,cus_100255,"Despacho Montalvo, Carrera y Pedraza",despacho17,Mid-Market,Agroindustria,Pro,Fernanda Solís,Jalisco,2022-04-07,,active,4fa0276c7767,2024-08-31,,True,1.0.0
+2d6a492115aa,cc612f12a5f3,HS-100576,ACC-2575,cus_100575,Nieto-Briones,nietobriones144,Enterprise,Automotriz,Premium,Marta Díaz,Querétaro,2022-01-07,,active,80ca9c6c79de,2024-08-31,,True,1.0.0
+90430f172a97,cc7284c118af,HS-100199,ACC-2198,cus_100198,Menchaca-Estrada S.A.,menchacaestr673,Enterprise,Tecnología,Premium,Diego Ortega,Chihuahua,2023-11-05,,active,6c2887815d0e,2024-08-31,,True,1.0.0
+3f759cb9a529,ccb9abe7b224,HS-100232,ACC-2231,cus_100231,Club Briones y Serrano,club386,SMB,Servicios Financieros,Basico,Diego Ortega,Chihuahua,2024-03-15,2024-06-27,churned,b91952ad0533,2024-08-31,,True,1.0.0
+b392aab9ae0d,cce4e07ce38c,HS-100438,ACC-2437,cus_100437,Aparicio S. R.L. de C.V.,aparicio794,Mid-Market,Logística,Pro,Ana Ruiz,Yucatán,2024-05-02,,active,b10d0bb0f81c,2024-08-31,,True,1.0.0
+c0f6379f8d99,cced8c3d305b,HS-100137,ACC-2136,cus_100136,"Ruelas, Lugo y Camacho",ruelas563,SMB,Logística,Basico,Jorge Ibarra,Jalisco,2024-01-16,,active,178fe802cd43,2024-08-31,,True,1.0.0
+064abdb174d2,cd022db07256,HS-100617,ACC-2616,cus_100616,Laboratorios Armendáriz y Páez,laboratorios680,SMB,Salud,Basico,Carla Nuñez,Sonora,2023-12-24,,active,54379cde7967,2024-08-31,,True,1.0.0
+cace507fec00,cdd0fe341983,HS-100575,ACC-2574,cus_100574,"Club Pabón, Serna y Caraballo",club154,Mid-Market,Construcción,Pro,Jorge Ibarra,Guanajuato,2022-05-07,2024-03-11,churned,f20fd128e16f,2024-08-31,,True,1.0.0
+353f261ce017,cde501cb7a7d,HS-100082,ACC-2081,cus_100081,Miramontes y Zarate A.C.,miramontes279,Mid-Market,Construcción,Pro,Luis Peña,Nuevo León,2023-05-06,,active,1e61b2a314d4,2024-08-31,,True,1.0.0
+3af9a7f382ec,cf932e3d82d8,HS-100571,ACC-2570,cus_100570,Corporacin Toledo y Anguiano,corporacin917,SMB,Educación,Basico,Jorge Ibarra,Querétaro,2022-01-25,,active,178fe802cd43,2024-08-31,,True,1.0.0
+782acde082a0,cfa499631566,HS-100094,ACC-2093,cus_100093,Cervantes-Esquibel,cervantesesq157,Mid-Market,Hospitalidad,Pro,Carla Nuñez,Puebla,2022-09-05,,active,49d8861015c4,2024-08-31,,True,1.0.0
+11f2ef9010e7,d003a5126727,HS-100067,ACC-2066,cus_100066,"Club Santacruz, Valencia y Casas",club442,SMB,Salud,Basico,Diego Ortega,Jalisco,2024-02-05,,active,b91952ad0533,2024-08-31,,True,1.0.0
+bea61e71df24,d0cc2b9c1ce9,HS-100507,ACC-2506,cus_100506,"Escamilla, Malave y Garrido",escamilla220,Enterprise,Salud,Premium,Luis Peña,CDMX,2024-03-04,,active,a06dca9fd7ac,2024-08-31,,True,1.0.0
+3a07dec32ff5,d0d1124d8f9a,HS-100359,ACC-2358,cus_100358,Urrutia y Trejo S.A. de C.V.,urrutia327,Enterprise,Servicios Financieros,Premium,Jorge Ibarra,Nuevo León,2023-02-17,,active,9cf3d8b0a4e9,2024-08-31,,True,1.0.0
+7cf8b71e0a9e,d12b484f1480,HS-100350,ACC-2349,cus_100349,Marín-Bernal,marinbernal306,Mid-Market,Manufactura,Pro,Diego Ortega,Puebla,2022-12-13,,active,79494cbaf8f7,2024-08-31,,True,1.0.0
+df44e00f6248,d16deb81827f,HS-100073,ACC-2072,cus_100072,Rangel S.A. de C.V.,rangel96,SMB,Salud,Basico,Diego Ortega,Puebla,2022-05-30,,active,b91952ad0533,2024-08-31,,True,1.0.0
+4edbf0314d9c,d17a1cb67764,HS-100625,ACC-2624,cus_100624,Sevilla-Rocha S.C.,sevillarocha340,Mid-Market,Alimentos,Pro,Fernanda Solís,Yucatán,2024-05-15,,active,4fa0276c7767,2024-08-31,,True,1.0.0
+7bc62a22b1ea,d23090c83713,HS-100450,ACC-2449,cus_100449,"Lerma, Juárez y Bonilla",lerma681,SMB,Automotriz,Basico,Jorge Ibarra,Puebla,2023-03-27,2024-02-23,churned,178fe802cd43,2024-08-31,,True,1.0.0
+cb47af31ef1b,d3325cc67acf,HS-100156,ACC-2155,cus_100155,"Laboratorios Marín, del Río y Garrido",laboratorios422,SMB,Servicios Financieros,Basico,Carla Nuñez,Puebla,2022-11-24,2024-02-18,churned,54379cde7967,2024-08-31,,True,1.0.0
+c65a86ea8ec8,d34f4904aa84,HS-100178,ACC-2177,cus_100177,Aparicio-Garica,apariciogari380,SMB,Agroindustria,Basico,Diego Ortega,Guanajuato,2023-09-10,,active,b91952ad0533,2024-08-31,,True,1.0.0
+32cf2b2d3a98,d375384bf8bc,HS-100112,ACC-2111,cus_100111,Prieto y Guardado S.A. de C.V.,prieto222,SMB,Construcción,Basico,Diego Ortega,Chihuahua,2023-03-10,,active,b91952ad0533,2024-08-31,,True,1.0.0
+5ee911ad24a5,d3d6430ce9c4,HS-100028,ACC-2027,cus_100027,Sanches y Asociados,sanches231,SMB,Construcción,Basico,Luis Peña,Sonora,2024-02-15,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+93e09ea83fad,d54c9d70035a,HS-100293,ACC-2292,cus_100292,Enríquez e Hijos,enriquez134,Mid-Market,Educación,Pro,Marta Díaz,Puebla,2022-04-24,,active,991478174dff,2024-08-31,,True,1.0.0
+a59944895c75,d57e35ff96ea,HS-100150,ACC-2149,cus_100149,Véliz-Matías,velizmatias148,SMB,Agroindustria,Basico,Marta Díaz,Guanajuato,2022-09-02,,active,58b139e9510f,2024-08-31,,True,1.0.0
+25256f6861dd,d591a4e10426,HS-100568,ACC-2567,cus_100567,Corporacin Saavedra-García,corporacin663,SMB,Construcción,Basico,Carla Nuñez,CDMX,2023-10-05,,active,54379cde7967,2024-08-31,,True,1.0.0
+b37bfb00bb4b,d60d16238ec6,HS-100235,ACC-2234,cus_100234,Montenegro-Nieto A.C.,montenegroni80,SMB,Tecnología,Basico,Diego Ortega,Chihuahua,2023-05-16,,active,b91952ad0533,2024-08-31,,True,1.0.0
+007400219911,d6c94dcf68f9,HS-100274,ACC-2273,cus_100273,Grupo Arias-Valle,grupo627,Enterprise,Construcción,Premium,Diego Ortega,Jalisco,2023-11-15,,active,6c2887815d0e,2024-08-31,,True,1.0.0
+fde67bf2b10c,d6e7796e9cfc,HS-100334,ACC-2333,cus_100333,Grupo Guzmán-de Anda,grupo393,SMB,Logística,Basico,Marta Díaz,Querétaro,2023-09-01,,active,58b139e9510f,2024-08-31,,True,1.0.0
+a73fc15b24ae,d6eff0593968,HS-100101,ACC-2100,cus_100100,Grupo Hinojosa y Mojica,grupo444,SMB,Retail,Basico,Fernanda Solís,Chihuahua,2023-01-14,2023-06-13,churned,05c44af64c13,2024-08-31,,True,1.0.0
+fc8b08532c52,d708a60010d8,HS-100471,ACC-2470,cus_100470,"Corporacin Villalpando, Parra y Barajas",corporacin294,SMB,Servicios Financieros,Basico,Fernanda Solís,Estado de México,2023-01-26,,active,05c44af64c13,2024-08-31,,True,1.0.0
+4685da66c0df,d7e2debcb1e4,HS-100007,ACC-2006,cus_100006,Cabrera S.C.,cabrera128,SMB,Servicios Financieros,Basico,Fernanda Solís,Sonora,2022-06-30,,active,05c44af64c13,2024-08-31,,True,1.0.0
+992655d33e56,d7f2491cbf17,HS-100480,ACC-2479,cus_100479,"Ceja, Sanches y Berríos",ceja57,SMB,Salud,Basico,Marta Díaz,Jalisco,2023-12-19,,active,58b139e9510f,2024-08-31,,True,1.0.0
+5990a38f88fb,d7f7a6231274,HS-100264,ACC-2263,cus_100263,Pacheco y Marroquín y Asociados,pacheco821,SMB,Logística,Basico,Diego Ortega,Nuevo León,2022-09-26,,active,b91952ad0533,2024-08-31,,True,1.0.0
+c2146441d04b,d81850081a01,HS-100384,ACC-2383,cus_100383,Garza-Arriaga S.A. de C.V.,garzaarriaga58,Mid-Market,Alimentos,Pro,Jorge Ibarra,Estado de México,2023-12-05,,active,f20fd128e16f,2024-08-31,,True,1.0.0
+182f4c0cd061,d8222a570c5e,HS-100218,ACC-2217,cus_100217,Grupo Burgos y Alba,grupo982,Mid-Market,Agroindustria,Pro,Luis Peña,Nuevo León,2024-01-06,2024-04-07,churned,1e61b2a314d4,2024-08-31,,True,1.0.0
+cbf4300e3629,d8cba4a1d43d,HS-100522,ACC-2521,cus_100521,"Viera, Griego y Vásquez",viera383,SMB,Retail,Basico,Marta Díaz,Nuevo León,2022-01-22,2023-01-26,churned,58b139e9510f,2024-08-31,,True,1.0.0
+0c0f358edb90,d996f9b6f1f8,HS-100171,ACC-2170,cus_100170,"Proyectos Armenta, Holguín y Rubio",proyectos15,Mid-Market,Educación,Pro,Fernanda Solís,Querétaro,2023-04-23,,active,4fa0276c7767,2024-08-31,,True,1.0.0
+341e377b2889,da2408f43334,HS-100040,ACC-2039,cus_100039,"Proyectos Quezada, Hernandes y Arce",proyectos223,SMB,Logística,Basico,Fernanda Solís,Guanajuato,2022-03-24,,active,05c44af64c13,2024-08-31,,True,1.0.0
+9e463dda0a04,da3f37a71944,HS-100432,ACC-2431,cus_100431,Cavazos-Figueroa,cavazosfigue171,Mid-Market,Servicios Financieros,Pro,Diego Ortega,Yucatán,2023-07-17,,active,79494cbaf8f7,2024-08-31,,True,1.0.0
+b5511d51f79a,daa4aa7c8cad,HS-100393,ACC-2392,cus_100392,Chávez-Colón,chavezcolon234,SMB,Alimentos,Basico,Luis Peña,Sonora,2023-02-07,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+f551a6e7498b,db6aaecba31f,HS-100083,ACC-2082,cus_100082,Ferrer-Bernal e Hijos,ferrerbernal393,SMB,Construcción,Basico,Jorge Ibarra,Guanajuato,2023-03-12,2023-12-09,churned,178fe802cd43,2024-08-31,,True,1.0.0
+1a195c0e04ad,db9bc2d200e6,HS-100601,ACC-2600,cus_100600,Echeverría-Valdez,echeverriava804,SMB,Retail,Basico,Diego Ortega,Querétaro,2022-09-17,,active,b91952ad0533,2024-08-31,,True,1.0.0
+f0475de082ba,dbad5cfaab50,HS-100142,ACC-2141,cus_100141,"Proyectos Leal, Casares y Galván",proyectos944,SMB,Construcción,Basico,Diego Ortega,Jalisco,2024-06-05,,active,b91952ad0533,2024-08-31,,True,1.0.0
+8e171e05ebe6,dbb9781b47c5,HS-100447,ACC-2446,cus_100446,Amaya y Razo e Hijos,amaya403,Enterprise,Automotriz,Premium,Fernanda Solís,Estado de México,2023-05-09,,active,e4075c4fb552,2024-08-31,,True,1.0.0
+b639eb28686f,dbef19a6cece,HS-100290,ACC-2289,cus_100289,Despacho Campos y Gamez,despacho980,Mid-Market,Automotriz,Pro,Fernanda Solís,Estado de México,2023-11-19,,active,4fa0276c7767,2024-08-31,,True,1.0.0
+eea230711c33,dc2ff4bd4800,HS-100048,ACC-2047,cus_100047,Corporacin Enríquez y Romero,corporacin379,SMB,Construcción,Basico,Fernanda Solís,Querétaro,2023-01-24,,active,05c44af64c13,2024-08-31,,True,1.0.0
+2d82d3394de0,dc7546038f51,HS-100022,ACC-2021,cus_100021,Castro y Saldaña e Hijos,castro520,SMB,Automotriz,Basico,Luis Peña,Chihuahua,2024-06-20,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+433564bd8b96,dc75715a3853,HS-100529,ACC-2528,cus_100528,Vaca y Borrego S. R.L. de C.V.,vaca12,SMB,Alimentos,Basico,Marta Díaz,Querétaro,2023-11-20,,active,58b139e9510f,2024-08-31,,True,1.0.0
+2c4642082e9f,dcbec6838ba3,HS-100585,ACC-2584,cus_100584,"Sosa, Sosa y Acuña",sosa420,Mid-Market,Salud,Pro,Fernanda Solís,Nuevo León,2023-01-19,,active,4fa0276c7767,2024-08-31,,True,1.0.0
+bc34a3177303,dcf4823a4d63,HS-100614,ACC-2613,cus_100613,Tijerina y Laboy S.C.,tijerina909,SMB,Retail,Basico,Ana Ruiz,Chihuahua,2022-07-04,2023-07-20,churned,3006ea73b76b,2024-08-31,,True,1.0.0
+327e2e53bc1f,dcf6784c3f48,HS-100586,ACC-2585,cus_100585,Bahena-Collado,bahenacollad500,SMB,Retail,Basico,Ana Ruiz,Yucatán,2022-06-21,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+fedd1fa91dfa,dd8109cf375b,HS-100070,ACC-2069,cus_100069,Mendoza A.C.,mendoza583,Enterprise,Hospitalidad,Premium,Marta Díaz,Querétaro,2023-09-28,,active,80ca9c6c79de,2024-08-31,,True,1.0.0
+93202973a72d,dde4a2325dc6,HS-100506,ACC-2505,cus_100505,Robles y Saldivar S.A.,robles444,SMB,Hospitalidad,Basico,Jorge Ibarra,Nuevo León,2022-03-15,2024-04-12,churned,178fe802cd43,2024-08-31,,True,1.0.0
+8dcbfe62ff5d,de0488775bd0,HS-100502,ACC-2501,cus_100501,Baeza y Segovia S.A. de C.V.,baeza824,SMB,Retail,Basico,Luis Peña,Nuevo León,2024-03-13,2024-06-30,churned,b1d5ba07b065,2024-08-31,,True,1.0.0
+9229b2b296c8,de3394369082,HS-100430,ACC-2429,cus_100429,"Alonso, Bañuelos y Paredes",alonso711,SMB,Salud,Basico,Luis Peña,Sonora,2023-06-26,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+cb204af337a0,de3af92df17a,HS-100313,ACC-2312,cus_100312,"Carrión, Mejía y Aparicio",carrion142,SMB,Agroindustria,Basico,Fernanda Solís,Yucatán,2022-06-15,,active,05c44af64c13,2024-08-31,,True,1.0.0
+6634b1bb29a8,de73c32fa777,HS-100364,ACC-2363,cus_100363,Laboratorios Mejía y Bustos,laboratorios41,SMB,Hospitalidad,Basico,Fernanda Solís,Chihuahua,2023-04-16,,active,05c44af64c13,2024-08-31,,True,1.0.0
+595bd5d9e0b5,dfdbf0b4c7e0,HS-100406,ACC-2405,cus_100405,"Castro, Collado y Villalpando",castro753,Enterprise,Logística,Premium,Marta Díaz,Estado de México,2023-11-17,,active,80ca9c6c79de,2024-08-31,,True,1.0.0
+037c4644ab0c,e044425f0f1a,HS-100403,ACC-2402,cus_100402,Heredia y Ávila S.C.,heredia632,SMB,Hospitalidad,Basico,Jorge Ibarra,Guanajuato,2022-09-07,2022-11-12,churned,178fe802cd43,2024-08-31,,True,1.0.0
+a34ca1ccad14,e0ed9bc3304b,HS-100494,ACC-2493,cus_100493,Rosario-Delgado,rosariodelga299,SMB,Construcción,Basico,Fernanda Solís,Guanajuato,2024-03-01,,active,05c44af64c13,2024-08-31,,True,1.0.0
+6b6075f3b658,e102e7f3e17f,HS-100416,ACC-2415,cus_100415,"Club Henríquez, Lara y Aragón",club532,SMB,Agroindustria,Basico,Jorge Ibarra,Yucatán,2022-08-16,,active,178fe802cd43,2024-08-31,,True,1.0.0
+ec93a93107c0,e19569d925d2,HS-100606,ACC-2605,cus_100605,Club González-Jasso,club271,SMB,Logística,Basico,Diego Ortega,CDMX,2022-08-20,,active,b91952ad0533,2024-08-31,,True,1.0.0
+26285a8d4763,e31d2d4a48e2,HS-100513,ACC-2512,cus_100512,Proyectos Carrasco-Cabrera,proyectos829,Enterprise,Manufactura,Premium,Luis Peña,Nuevo León,2023-05-10,,active,a06dca9fd7ac,2024-08-31,,True,1.0.0
+77409b293a49,e37c074286d9,HS-100339,ACC-2338,cus_100338,Zedillo S.C.,zedillo846,SMB,Automotriz,Basico,Diego Ortega,Jalisco,2023-01-23,,active,b91952ad0533,2024-08-31,,True,1.0.0
+57607eae0d4a,e382b0077d44,HS-100013,ACC-2012,cus_100012,Aguilar-Tejeda,aguilartejed842,Mid-Market,Construcción,Pro,Luis Peña,Sonora,2022-07-01,,active,1e61b2a314d4,2024-08-31,,True,1.0.0
+9e77c2f7b7f5,e4190b8c9edb,HS-100603,ACC-2602,cus_100602,Casárez-Murillo,casarezmuril509,SMB,Servicios Financieros,Basico,Ana Ruiz,Jalisco,2022-10-04,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+ea1c3d4d2012,e43a3fafab38,HS-100372,ACC-2371,cus_100371,"Grupo Casanova, Franco y Jurado",grupo157,SMB,Logística,Basico,Diego Ortega,Puebla,2023-07-02,,active,b91952ad0533,2024-08-31,,True,1.0.0
+6e0416e1ed1c,e48d5b78a86a,HS-100337,ACC-2336,cus_100336,Rivero-Ortiz,riveroortiz121,Mid-Market,Agroindustria,Pro,Luis Peña,Nuevo León,2024-04-10,,active,1e61b2a314d4,2024-08-31,,True,1.0.0
+6b57c43fb2ee,e49077a75737,HS-100645,ACC-2644,cus_100644,Jimínez e Hijos,jiminez804,SMB,Servicios Financieros,Basico,Jorge Ibarra,Estado de México,2022-10-13,,active,178fe802cd43,2024-08-31,,True,1.0.0
+d81f90e59d17,e552d9325009,HS-100383,ACC-2382,cus_100382,Garay y Garay S. R.L. de C.V.,garay879,Mid-Market,Automotriz,Pro,Jorge Ibarra,Chihuahua,2024-03-19,,active,f20fd128e16f,2024-08-31,,True,1.0.0
+dceb57db9af2,e57b67711c10,HS-100296,ACC-2295,cus_100295,Industrias Jaramillo-Jaime,industrias782,SMB,Construcción,Basico,Marta Díaz,Yucatán,2022-07-09,,active,58b139e9510f,2024-08-31,,True,1.0.0
+a5fba324590f,e5bcc1fbee61,HS-100049,ACC-2048,cus_100048,Arellano-Robles S. R.L. de C.V.,arellanorobl827,SMB,Hospitalidad,Basico,Carla Nuñez,Querétaro,2022-08-09,,active,54379cde7967,2024-08-31,,True,1.0.0
+7ca42eb5a288,e5c032b1ac0b,HS-100014,ACC-2013,cus_100013,"Zayas, Limón y Tejada",zayas323,SMB,Agroindustria,Basico,Fernanda Solís,Yucatán,2023-01-12,,active,05c44af64c13,2024-08-31,,True,1.0.0
+3457c36afead,e622c23e2951,HS-100435,ACC-2434,cus_100434,Corporacin Galindo-Niño,corporacin172,SMB,Alimentos,Basico,Luis Peña,Querétaro,2022-12-17,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+508b5399af84,e7259d79b184,HS-100139,ACC-2138,cus_100138,Curiel-Valentín e Hijos,curielvalent418,SMB,Servicios Financieros,Basico,Jorge Ibarra,Jalisco,2024-02-15,,active,178fe802cd43,2024-08-31,,True,1.0.0
+d16ec223e6dc,e75f33c9ed23,HS-100105,ACC-2104,cus_100104,Grupo Covarrubias y Cruz,grupo872,Enterprise,Alimentos,Premium,Diego Ortega,Querétaro,2023-04-16,,active,6c2887815d0e,2024-08-31,,True,1.0.0
+45e32e66ebf7,e79544859377,HS-100162,ACC-2161,cus_100161,Malave-Delgado,malavedelgad406,Mid-Market,Automotriz,Pro,Diego Ortega,CDMX,2023-09-28,,active,79494cbaf8f7,2024-08-31,,True,1.0.0
+5a288fd67e3f,e883c54c8ca8,HS-100084,ACC-2083,cus_100083,"de la Crúz, García y Carrillo",de478,SMB,Servicios Financieros,Basico,Jorge Ibarra,Sonora,2023-04-16,,active,178fe802cd43,2024-08-31,,True,1.0.0
+847c78cab1ce,e88a6a9945b0,HS-100338,ACC-2337,cus_100337,"Grupo Vallejo, Arriaga y Tejada",grupo157,Mid-Market,Alimentos,Pro,Jorge Ibarra,Chihuahua,2022-07-02,,active,f20fd128e16f,2024-08-31,,True,1.0.0
+5c44526834ee,e8f392fbcfbd,HS-100322,ACC-2321,cus_100321,Montez-Peres,montezperes103,Mid-Market,Manufactura,Pro,Fernanda Solís,Nuevo León,2023-10-04,,active,4fa0276c7767,2024-08-31,,True,1.0.0
+3ecb2bcfc902,e9214ee5bf0b,HS-100627,ACC-2626,cus_100626,"Aguayo, Arellano y Treviño",aguayo535,SMB,Servicios Financieros,Basico,Jorge Ibarra,Nuevo León,2024-06-26,,active,178fe802cd43,2024-08-31,,True,1.0.0
+57d540dd4070,e96833e2c6bb,HS-100449,ACC-2448,cus_100448,Escalante y Aguilera A.C.,escalante974,SMB,Alimentos,Basico,Fernanda Solís,Yucatán,2022-10-06,2023-03-10,churned,05c44af64c13,2024-08-31,,True,1.0.0
+568042586fde,e9e407e1731c,HS-100511,ACC-2510,cus_100510,Saldaña y Munguía e Hijos,saldana558,Mid-Market,Alimentos,Pro,Carla Nuñez,Guanajuato,2024-05-03,,active,49d8861015c4,2024-08-31,,True,1.0.0
+a792ce895b7b,ea8725dcabb1,HS-100071,ACC-2070,cus_100070,"Haro, Bahena y Alva",haro441,Mid-Market,Construcción,Pro,Fernanda Solís,Puebla,2024-06-19,,active,4fa0276c7767,2024-08-31,,True,1.0.0
+b2747d0fa523,eab9d5094af3,HS-100318,ACC-2317,cus_100317,"Espinal, de la Rosa y Guerra",espinal125,SMB,Logística,Basico,Jorge Ibarra,Guanajuato,2022-08-13,,active,178fe802cd43,2024-08-31,,True,1.0.0
+d78c9c758d63,eb0b897c470a,HS-100639,ACC-2638,cus_100638,Club Baeza-Jaramillo,club119,SMB,Agroindustria,Basico,Carla Nuñez,Estado de México,2022-04-20,,active,54379cde7967,2024-08-31,,True,1.0.0
+569b4b2a1c36,eb11583a635e,HS-100345,ACC-2344,cus_100344,"Lebrón, Vallejo y Polanco",lebron224,SMB,Agroindustria,Basico,Fernanda Solís,Jalisco,2022-08-27,,active,05c44af64c13,2024-08-31,,True,1.0.0
+8469bceff50c,eb6e17931ac2,HS-100605,ACC-2604,cus_100604,Guardado-Chapa,guardadochap741,SMB,Retail,Basico,Luis Peña,Yucatán,2023-02-09,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+de9f530ed29c,eb78824cdc91,HS-100187,ACC-2186,cus_100186,"Marroquín, Leiva y Maya",marroquin797,Mid-Market,Alimentos,Pro,Luis Peña,Sonora,2023-03-28,2024-02-08,churned,1e61b2a314d4,2024-08-31,,True,1.0.0
+c0e2cb4f87d4,ebaae71bb69b,HS-100650,ACC-2649,cus_100649,"Laboratorios Acevedo, Roldán y Quezada",laboratorios387,SMB,Retail,Basico,Luis Peña,Nuevo León,2024-03-23,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+a5e542ff557f,ecd54f585087,HS-100599,ACC-2598,cus_100598,Industrias Rosado-Gaona,industrias431,SMB,Logística,Basico,Carla Nuñez,Sonora,2023-05-10,,active,54379cde7967,2024-08-31,,True,1.0.0
+6ba39e0c7e6d,ed0225bd89c5,HS-100593,ACC-2592,cus_100592,Gil S.A.,gil910,SMB,Educación,Basico,Jorge Ibarra,Guanajuato,2023-04-10,,active,178fe802cd43,2024-08-31,,True,1.0.0
+1b44f86b0d8b,ed5931954b72,HS-100531,ACC-2530,cus_100530,Zelaya S. R.L. de C.V.,zelaya505,Mid-Market,Educación,Pro,Diego Ortega,Yucatán,2024-04-11,,active,79494cbaf8f7,2024-08-31,,True,1.0.0
+d22d39159f1a,eda37dec809b,HS-100491,ACC-2490,cus_100490,Espinal-Coronado,espinalcoron287,SMB,Agroindustria,Basico,Diego Ortega,Chihuahua,2024-03-29,,active,b91952ad0533,2024-08-31,,True,1.0.0
+954dfd369086,ee1a76c497e4,HS-100394,ACC-2393,cus_100393,Proyectos Baca y Becerra,proyectos390,Mid-Market,Automotriz,Pro,Ana Ruiz,Jalisco,2022-07-24,,active,b10d0bb0f81c,2024-08-31,,True,1.0.0
+355064f80c93,ef0e67d8ffaf,HS-100297,ACC-2296,cus_100296,Despacho Sánchez-Carmona,despacho93,Mid-Market,Manufactura,Pro,Luis Peña,Sonora,2022-11-18,,active,1e61b2a314d4,2024-08-31,,True,1.0.0
+08f74e6a9914,ef28de0cbaf4,HS-100247,ACC-2246,cus_100246,Abrego S.C.,abrego40,SMB,Tecnología,Basico,Diego Ortega,Yucatán,2022-10-01,,active,b91952ad0533,2024-08-31,,True,1.0.0
+e8ffafa92567,ef9605d5a1d4,HS-100464,ACC-2463,cus_100463,"Lovato, Cortés y Abreu",lovato987,Mid-Market,Salud,Pro,Marta Díaz,Jalisco,2023-03-25,,active,991478174dff,2024-08-31,,True,1.0.0
+69f0a20eac42,efdc46580159,HS-100268,ACC-2267,cus_100267,Grupo Ceja y Galván,grupo688,Mid-Market,Retail,Pro,Fernanda Solís,Nuevo León,2023-12-16,,active,4fa0276c7767,2024-08-31,,True,1.0.0
+aa297fc10d82,efe6dcc1eacd,HS-100470,ACC-2469,cus_100469,Bétancourt-Sánchez y Asociados,betancourtsa602,Enterprise,Manufactura,Premium,Ana Ruiz,Estado de México,2022-12-11,,active,109ecb009392,2024-08-31,,True,1.0.0
+69a2efdf1675,eff19c144690,HS-100275,ACC-2274,cus_100274,"Proyectos Muñiz, Benavídez y Rivero",proyectos177,SMB,Alimentos,Basico,Diego Ortega,Guanajuato,2022-08-10,,active,b91952ad0533,2024-08-31,,True,1.0.0
+775d9625eb10,f08e91043b03,HS-100285,ACC-2284,cus_100284,de la O-Niño,de651,Mid-Market,Construcción,Pro,Carla Nuñez,Chihuahua,2023-04-28,,active,49d8861015c4,2024-08-31,,True,1.0.0
+aa000e4acba3,f08eb23cc0db,HS-100143,ACC-2142,cus_100142,Puente e Hijos,puente792,SMB,Logística,Basico,Carla Nuñez,Querétaro,2023-08-16,,active,54379cde7967,2024-08-31,,True,1.0.0
+2852c5f0982e,f16517f6876a,HS-100417,ACC-2416,cus_100416,"Grupo Macías, Canales y Rolón",grupo603,SMB,Automotriz,Basico,Ana Ruiz,Yucatán,2023-01-22,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+a7e07b7aa4a2,f189adcdf97f,HS-100376,ACC-2375,cus_100375,"Club Marrero, Guzmán y Vela",club423,SMB,Manufactura,Basico,Ana Ruiz,Puebla,2023-06-22,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+fa04c6a7b8f5,f1a6ca1331db,HS-100032,ACC-2031,cus_100031,Meraz-Cintrón,merazcintron97,SMB,Construcción,Basico,Jorge Ibarra,CDMX,2022-06-03,,active,178fe802cd43,2024-08-31,,True,1.0.0
+2fb99df50ba8,f268910f164f,HS-100015,ACC-2014,cus_100014,"Perea, Vanegas y Mayorga",perea272,SMB,Tecnología,Basico,Marta Díaz,Sonora,2023-04-29,,active,58b139e9510f,2024-08-31,,True,1.0.0
+901f897cde7b,f278c285db4a,HS-100113,ACC-2112,cus_100112,Club Espinoza y Magaña,club290,Enterprise,Hospitalidad,Premium,Luis Peña,Querétaro,2024-04-29,,active,a06dca9fd7ac,2024-08-31,,True,1.0.0
+60556744c0bf,f2bfbed8aeda,HS-100200,ACC-2199,cus_100199,Club Torres-Trujillo,club118,Mid-Market,Salud,Pro,Jorge Ibarra,Chihuahua,2023-06-29,,active,f20fd128e16f,2024-08-31,,True,1.0.0
+019dfdcdb0e4,f2f553d01764,HS-100033,ACC-2032,cus_100032,Heredia-Carrión,herediacarri670,SMB,Automotriz,Basico,Marta Díaz,Jalisco,2024-06-29,,active,58b139e9510f,2024-08-31,,True,1.0.0
+8ad808f158ba,f3488af55845,HS-100519,ACC-2518,cus_100518,Amaya y Vázquez y Asociados,amaya21,Enterprise,Construcción,Premium,Carla Nuñez,Puebla,2023-07-01,,active,3bfc4837532c,2024-08-31,,True,1.0.0
+6ce8cb2c1e4e,f34cb98c7172,HS-100561,ACC-2560,cus_100560,"Corporacin Almanza, Vargas y Benavides",corporacin497,Mid-Market,Agroindustria,Pro,Ana Ruiz,Chihuahua,2024-02-23,,active,b10d0bb0f81c,2024-08-31,,True,1.0.0
+29695483f0dd,f4369dc52865,HS-100644,ACC-2643,cus_100643,Corporacin Nieto-Pantoja,corporacin758,SMB,Automotriz,Basico,Jorge Ibarra,Puebla,2022-12-23,,active,178fe802cd43,2024-08-31,,True,1.0.0
+ad720fbb9267,f43c5b31b192,HS-100194,ACC-2193,cus_100193,Acosta A.C.,acosta409,Mid-Market,Alimentos,Pro,Fernanda Solís,Querétaro,2023-03-27,,active,4fa0276c7767,2024-08-31,,True,1.0.0
+1d1b920cadef,f4738f0dd8aa,HS-100237,ACC-2236,cus_100236,"Proyectos Perales, Narváez y Nazario",proyectos790,SMB,Agroindustria,Basico,Jorge Ibarra,Guanajuato,2024-03-01,,active,178fe802cd43,2024-08-31,,True,1.0.0
+e1685d75b28c,f51f42af8a26,HS-100130,ACC-2129,cus_100129,Mayorga-Corona,mayorgacoron974,SMB,Hospitalidad,Basico,Jorge Ibarra,Chihuahua,2022-08-16,2023-04-12,churned,178fe802cd43,2024-08-31,,True,1.0.0
+02079f12dc2c,f53160415402,HS-100553,ACC-2552,cus_100552,Nava S.C.,nava581,Mid-Market,Tecnología,Pro,Diego Ortega,Querétaro,2024-03-31,2024-06-05,churned,79494cbaf8f7,2024-08-31,,True,1.0.0
+31aae60d2ea0,f5dc072a79ed,HS-100440,ACC-2439,cus_100439,Montoya S.A.,montoya896,SMB,Logística,Basico,Diego Ortega,Jalisco,2022-08-11,,active,b91952ad0533,2024-08-31,,True,1.0.0
+a52131879519,f60394aa4454,HS-100245,ACC-2244,cus_100244,Leyva-Aponte,leyvaaponte406,SMB,Manufactura,Basico,Ana Ruiz,Guanajuato,2024-01-20,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+3f70d233392a,f618418fca35,HS-100157,ACC-2156,cus_100156,Grupo Montoya-Canales,grupo935,Mid-Market,Alimentos,Pro,Marta Díaz,Yucatán,2022-09-10,,active,991478174dff,2024-08-31,,True,1.0.0
+c9ea0497af28,f6c34b74fdf2,HS-100428,ACC-2427,cus_100427,Industrias Delgadillo-Zapata,industrias866,Enterprise,Salud,Premium,Diego Ortega,Querétaro,2023-07-02,,active,6c2887815d0e,2024-08-31,,True,1.0.0
+8079a3f5bee7,f750af5db82c,HS-100044,ACC-2043,cus_100043,Acosta S.A.,acosta674,Enterprise,Educación,Premium,Marta Díaz,Puebla,2024-06-17,,active,80ca9c6c79de,2024-08-31,,True,1.0.0
+b84a51d81c58,f7b188c45db9,HS-100023,ACC-2022,cus_100022,Proyectos Piña-Patiño,proyectos941,SMB,Servicios Financieros,Basico,Diego Ortega,Querétaro,2023-05-10,2024-01-10,churned,b91952ad0533,2024-08-31,,True,1.0.0
+4418579c9124,f7c843dcd62a,HS-100301,ACC-2300,cus_100300,Nava-Mondragón S.A. de C.V.,navamondrago296,SMB,Servicios Financieros,Basico,Carla Nuñez,Querétaro,2023-04-13,,active,54379cde7967,2024-08-31,,True,1.0.0
+f93689c8bc4a,f81f32be9b74,HS-100409,ACC-2408,cus_100408,Rangel y Alfaro e Hijos,rangel817,Enterprise,Alimentos,Premium,Diego Ortega,Estado de México,2022-10-12,,active,6c2887815d0e,2024-08-31,,True,1.0.0
+6d5c53288785,f8253f98cbef,HS-100276,ACC-2275,cus_100275,"Grupo Estévez, Tamayo y Raya",grupo356,SMB,Automotriz,Basico,Marta Díaz,Nuevo León,2024-02-13,,active,58b139e9510f,2024-08-31,,True,1.0.0
+690fc632c9be,f8ef2a0febfc,HS-100341,ACC-2340,cus_100340,Ureña S. R.L. de C.V.,urena925,SMB,Servicios Financieros,Basico,Luis Peña,Guanajuato,2022-07-09,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+56d37e9d82b2,f9258b3410f9,HS-100590,ACC-2589,cus_100589,Saldivar-Longoria,saldivarlong196,SMB,Servicios Financieros,Basico,Luis Peña,Guanajuato,2023-12-22,,active,b1d5ba07b065,2024-08-31,,True,1.0.0
+8e0d6ee04ecc,f9d56b104a2b,HS-100544,ACC-2543,cus_100543,Zamora-Luna,zamoraluna64,Mid-Market,Hospitalidad,Pro,Diego Ortega,Chihuahua,2023-06-16,,active,79494cbaf8f7,2024-08-31,,True,1.0.0
+cccb408c286f,fa78e5fd572a,HS-100401,ACC-2400,cus_100400,"Corporacin Varela, Mesa y Collazo",corporacin275,SMB,Logística,Basico,Jorge Ibarra,Querétaro,2023-02-08,2023-08-28,churned,178fe802cd43,2024-08-31,,True,1.0.0
+a03424fe307d,fa963456da9c,HS-100558,ACC-2557,cus_100557,de la Rosa-Molina,de288,SMB,Logística,Basico,Ana Ruiz,Puebla,2022-11-21,,active,3006ea73b76b,2024-08-31,,True,1.0.0
+df4910a1150c,fb754cb6ae6b,HS-100025,ACC-2024,cus_100024,Marrero-Prieto,marreropriet785,SMB,Servicios Financieros,Basico,Carla Nuñez,Nuevo León,2022-11-07,,active,54379cde7967,2024-08-31,,True,1.0.0
+025c55123b13,fb8b03e9c21b,HS-100254,ACC-2253,cus_100253,"Laboratorios Ulibarri, Delgadillo y Madrigal",laboratorios977,SMB,Retail,Basico,Carla Nuñez,Chihuahua,2022-06-16,,active,54379cde7967,2024-08-31,,True,1.0.0
+92e30397d6a0,fca6820379e6,HS-100283,ACC-2282,cus_100282,"Magaña, Soto y Alarcón",magana515,SMB,Educación,Basico,Luis Peña,Guanajuato,2023-02-14,2023-07-08,churned,b1d5ba07b065,2024-08-31,,True,1.0.0
+d67dab6b497c,fcb92db97bd8,HS-100458,ACC-2457,cus_100457,Laureano y Moreno S.A.,laureano532,SMB,Construcción,Basico,Diego Ortega,Jalisco,2023-12-27,2024-04-08,churned,b91952ad0533,2024-08-31,,True,1.0.0

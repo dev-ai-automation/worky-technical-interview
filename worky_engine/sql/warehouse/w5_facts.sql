@@ -3,10 +3,8 @@
 -- vigente en la fecha del propio hecho, nunca contra la fila actual
 -- (D13, ADR-003): el intervalo semiabierto de vigencia es
 -- effective_from inclusivo, effective_to exclusivo o nulo en la fila
--- vigente (D7). dim_company la puebla el algoritmo de SCD2 del PR3;
--- mientras esa tabla este vacia (como al terminar este PR, en una
--- corrida real), los cinco hechos quedan vacios tambien, porque
--- ninguno tiene con que empresa unirse todavia.
+-- vigente (D7). dim_company la puebla el algoritmo de SCD2 (PR3), a
+-- traves de la vista dim_company_open_bands que se explica mas abajo.
 --
 -- fact_usage_monthly y fact_revenue_monthly son mensuales y usan el
 -- ultimo dia del mes como fecha del hecho (D10); fact_deals,
@@ -28,6 +26,28 @@
 -- autoria, dejando estos dos hechos fuera. El usuario acepto
 -- size:exception para esta version y pidio revertir la palanca; ver
 -- apply-progress.md de este PR para el detalle de la decision.
+--
+-- dim_company_open_bands (PR3): la primera banda de cada empresa abre
+-- en su run_date (D7), que en el dataset del caso es dataset_asof, el
+-- ultimo dia del dataset (D3). Un hecho anterior a esa fecha no tiene
+-- ninguna banda mas vieja contra la cual compararse: no hay una foto
+-- anterior que perdimos, es simplemente la primera vez que se observo
+-- a la empresa. Tratar esa primera banda como vigente hacia atras (sin
+-- piso) es la unica lectura honesta de D13 ("la version vigente en la
+-- fecha del hecho"): para un hecho anterior a toda foto conocida, la
+-- version vigente en esa fecha es la unica que conocemos. Solo la
+-- banda mas antigua de cada empresa se abre hacia atras; una banda
+-- posterior (abierta por un cambio real de plan o csm_owner) conserva
+-- su effective_from tal cual.
+CREATE OR REPLACE VIEW dim_company_open_bands AS
+SELECT
+    d.*,
+    CASE
+        WHEN d.effective_from = MIN(d.effective_from) OVER (PARTITION BY d.master_id)
+            THEN DATE '0001-01-01'
+        ELSE d.effective_from
+    END AS join_effective_from
+FROM dim_company d;
 
 CREATE OR REPLACE VIEW fact_usage_monthly AS
 SELECT
@@ -43,9 +63,9 @@ SELECT
     u.api_calls
 FROM stg_product_usage u
 JOIN mart_company_core c ON c.account_id = u.account_id
-JOIN dim_company d
+JOIN dim_company_open_bands d
     ON d.master_id = c.master_id
-   AND last_day(CAST(u.month || '-01' AS DATE)) >= d.effective_from
+   AND last_day(CAST(u.month || '-01' AS DATE)) >= d.join_effective_from
    AND (d.effective_to IS NULL OR last_day(CAST(u.month || '-01' AS DATE)) < d.effective_to)
 ORDER BY c.master_id, u.month;
 
@@ -67,9 +87,9 @@ SELECT
     e.pipeline,
     e.lead_source
 FROM deal_events e
-JOIN dim_company d
+JOIN dim_company_open_bands d
     ON d.master_id = e.master_id
-   AND e.event_date >= d.effective_from
+   AND e.event_date >= d.join_effective_from
    AND (d.effective_to IS NULL OR e.event_date < d.effective_to)
 ORDER BY e.deal_id;
 
@@ -96,9 +116,9 @@ SELECT
     m.revenue_month,
     m.revenue_mxn
 FROM monthly m
-JOIN dim_company d
+JOIN dim_company_open_bands d
     ON d.master_id = m.master_id
-   AND last_day(CAST(m.revenue_month || '-01' AS DATE)) >= d.effective_from
+   AND last_day(CAST(m.revenue_month || '-01' AS DATE)) >= d.join_effective_from
    AND (d.effective_to IS NULL OR last_day(CAST(m.revenue_month || '-01' AS DATE)) < d.effective_to)
 ORDER BY m.master_id, m.revenue_month;
 
@@ -124,9 +144,9 @@ SELECT
     e.resolution_hours,
     e.csat_score
 FROM ticket_company e
-JOIN dim_company d
+JOIN dim_company_open_bands d
     ON d.master_id = e.master_id
-   AND e.created_date >= d.effective_from
+   AND e.created_date >= d.join_effective_from
    AND (d.effective_to IS NULL OR e.created_date < d.effective_to)
 ORDER BY e.ticket_id;
 
@@ -143,8 +163,8 @@ SELECT
     t.channel,
     t.campaign
 FROM stg_marketing_touches t
-JOIN dim_company d
+JOIN dim_company_open_bands d
     ON d.master_id = t.master_id
-   AND t.touch_date >= d.effective_from
+   AND t.touch_date >= d.join_effective_from
    AND (d.effective_to IS NULL OR t.touch_date < d.effective_to)
 ORDER BY t.touch_id;

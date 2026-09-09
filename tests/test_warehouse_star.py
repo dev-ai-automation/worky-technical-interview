@@ -12,11 +12,13 @@ version vigente en su fecha", "dos hechos de fechas distintas ven CSM
 distinto", "tabla con las columnas del contrato" y "override reflejado
 en map_source_identity".
 
-`dim_company` todavia no la puebla ningun algoritmo (el SCD2 llega en
-el PR3): las pruebas que necesitan una banda de vigencia la siembran a
-mano, directo sobre la tabla vacia que ya crea `run_warehouse`, para
-ejercitar el JOIN historico de `w5_facts.sql` sin depender de ese
-algoritmo todavia ausente.
+`dim_company` la puebla ahora el algoritmo real de SCD2 (PR3): la banda
+de vigencia que antes se sembraba a mano se construye corriendo
+`run_warehouse` dos veces sobre la misma conexion, con un cambio real
+de `csm_owner` para HS-8001 entre ambas corridas (2022-06-01, luego
+2024-06-01). Es el mismo corte de fecha que antes usaba
+`_seed_dim_company_bands`, asi que las pruebas que ya dependian de ese
+corte ('Ana' antes, 'Carla' despues) no cambian su aserto.
 
 `fact_support_tickets` y `fact_marketing_touches` se restauraron
 despues del cierre original de este PR (decision del usuario, con
@@ -140,32 +142,32 @@ def _open_assembled_connection(
     return con
 
 
-def _seed_dim_company_bands(con: duckdb.DuckDBPyConnection, master_id: str) -> None:
-    """Siembra a mano dos bandas de vigencia para `master_id`, simulando lo que hara el SCD2 del PR3.
-
-    Banda 1 ('Ana'): 2022-01-01 a 2024-06-01 (exclusivo). Banda 2
-    ('Carla'), vigente: desde 2024-06-01, sin cierre. `run_warehouse`
-    ya debe haber corrido antes (crea la tabla vacia); esta funcion solo
-    inserta filas encima, con las columnas que las pruebas necesitan.
-    """
-    con.execute(
-        "INSERT INTO dim_company (company_sk, master_id, csm_owner, effective_from, effective_to, is_current) "
-        "VALUES ('CSK-8001-B1', ?, 'Ana', DATE '2022-01-01', DATE '2024-06-01', false), "
-        "('CSK-8001-B2', ?, 'Carla', DATE '2024-06-01', NULL, true)",
-        [master_id, master_id],
-    )
+def _raw_tables_with_csm(raw_tables: dict[str, pd.DataFrame], hubspot_id: str, csm_owner: str) -> dict[str, pd.DataFrame]:
+    """Copia `raw_tables` cambiando el `csm_owner` de una empresa, para simular un cambio real entre corridas."""
+    tables = dict(raw_tables)
+    companies = tables["raw_companies"].copy()
+    companies.loc[companies["hubspot_id"] == hubspot_id, "csm_owner"] = csm_owner
+    tables["raw_companies"] = companies
+    return tables
 
 
 @pytest.fixture()
 def warehouse_setup(tmp_path: Path):
-    """Ensambla el fixture, corre `run_warehouse` y siembra las dos bandas de `dim_company`."""
+    """Corre `run_warehouse` dos veces con un cambio real de `csm_owner`, para que el propio algoritmo
+    de SCD2 (PR3) deje dos bandas de vigencia para HS-8001: 'Ana' antes de 2024-06-01, 'Carla' despues.
+    """
     raw_tables = _raw_tables()
     identity_outputs = _identity_outputs(raw_tables)
     con = _open_assembled_connection(tmp_path, raw_tables, identity_outputs)
     try:
-        result = run_warehouse(con, overrides=None)
+        run_warehouse(con, overrides=None, run_date="2022-06-01")
+
+        raw_tables_v2 = _raw_tables_with_csm(raw_tables, "HS-8001", "Carla")
+        identity_outputs_v2 = _identity_outputs(raw_tables_v2)
+        assemble_master_dataset(con, raw_tables_v2, identity_outputs_v2)
+        result = run_warehouse(con, overrides=None, run_date="2024-06-01")
+
         master_id_8001 = _master_id_for(identity_outputs["identity_crosswalk"], "HS-8001")
-        _seed_dim_company_bands(con, master_id_8001)
         yield con, identity_outputs, raw_tables, result, master_id_8001
     finally:
         con.close()
@@ -211,11 +213,13 @@ def test_falta_una_base_de_datos_termina_con_codigo_2(tmp_path: Path, capsys: py
 
 
 def test_dimensiones_derivadas_sin_duplicar_logica(warehouse_setup) -> None:
+    """`dim_csm` refleja el valor actual de `mart_company_core`, no el historico: tras la segunda
+    corrida de `warehouse_setup` (HS-8001 con csm_owner 'Carla'), hay tres CSM distintos, no dos."""
     con, *_ = warehouse_setup
     plans = con.execute("SELECT plan FROM dim_plan ORDER BY plan").df()["plan"].tolist()
     csms = con.execute("SELECT csm_owner FROM dim_csm ORDER BY csm_owner").df()["csm_owner"].tolist()
     assert plans == ["Basico", "Pro"]
-    assert csms == ["Ana", "Luis"]
+    assert csms == ["Ana", "Carla", "Luis"]
 
 
 def test_hechos_al_grano_correcto(warehouse_setup) -> None:

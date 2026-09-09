@@ -17,9 +17,10 @@ de mensajes claros de build-cli).
 salidas quedan identicas a las de antes de este cambio.
 `warehouse` (A4, ADR-006) tampoco depende de `build`: mismo orden que
 `analyze` y `health` (D1), con su propia conexion persistida entre
-corridas (D2, excepcion documentada a D6 de A0). Este PR solo escribe
-`map_source_identity.csv`; `dim_company.csv` llega con el algoritmo de
-SCD2 del PR3.
+corridas (D2, excepcion documentada a D6 de A0). Escribe
+`map_source_identity.csv` y `dim_company.csv`, poblada por el
+algoritmo de SCD2 (D4 a D8) y validada por `--run-date` contra el
+`effective_from` vigente mas reciente ya persistido.
 """
 
 from __future__ import annotations
@@ -27,6 +28,7 @@ from __future__ import annotations
 import argparse
 import sys
 import zipfile
+from datetime import date
 from pathlib import Path
 
 import pandas as pd
@@ -453,13 +455,15 @@ def cmd_warehouse(args: argparse.Namespace) -> int:
     diferida, `_resolve_data_dir`, `load_raw_tables`, `resolve_identity`
     en memoria, `apply_overrides` si `--overrides` existe (D15,
     reutiliza `overrides.py` del PR1), conexion propia que no borra su
-    archivo entre corridas (`open_warehouse_connection`, D2),
+    archivo entre corridas (`open_warehouse_connection`, D2), validacion
+    de `--run-date` (PR3, seccion 2 del diseno: formato ISO y nunca
+    anterior al `effective_from` vigente mas reciente ya persistido),
     `assemble_master_dataset`, `run_contracts` de A0 sobre el dataset
-    recien ensamblado, `run_warehouse`, `run_warehouse_contracts` y un
-    `write_csv`. Mismos codigos de salida que `build`, `analyze` y
-    `health`. Este PR solo escribe `map_source_identity.csv`; el golden
-    de `dim_company.csv` y el resto del mensaje final ("<n> empresas
-    vigentes") llegan con el algoritmo de SCD2 del PR3.
+    recien ensamblado, `run_warehouse` (que ahora corre el algoritmo de
+    SCD2 de `dim_company` y la foto de `fact_health_score_monthly`,
+    PR3), `run_warehouse_contracts` y dos `write_csv`. Mismos codigos
+    de salida que `build`, `analyze` y `health`; un `--run-date`
+    invalido tambien termina en 1.
     """
     (
         resolve_identity,
@@ -491,6 +495,29 @@ def cmd_warehouse(args: argparse.Namespace) -> int:
 
     con = open_warehouse_connection(args.db_path)
     try:
+        run_date = args.run_date
+        if run_date is not None:
+            try:
+                date.fromisoformat(run_date)
+            except ValueError:
+                print(f"warehouse: --run-date '{run_date}' no tiene formato ISO (YYYY-MM-DD)", file=sys.stderr)
+                return 1
+            dim_company_exists = con.execute(
+                "SELECT COUNT(*) FROM information_schema.tables WHERE table_name = 'dim_company'"
+            ).fetchone()[0]
+            max_effective_from = (
+                con.execute("SELECT MAX(effective_from) FROM dim_company WHERE is_current").fetchone()[0]
+                if dim_company_exists
+                else None
+            )
+            if max_effective_from is not None and run_date < str(max_effective_from):
+                print(
+                    f"warehouse: --run-date '{run_date}' es anterior al effective_from vigente mas "
+                    f"reciente ({max_effective_from})",
+                    file=sys.stderr,
+                )
+                return 1
+
         assembly_outputs = assemble_master_dataset(con, raw_tables, identity_outputs)
         try:
             run_contracts(
@@ -505,9 +532,14 @@ def cmd_warehouse(args: argparse.Namespace) -> int:
             print(f"warehouse: {error}", file=sys.stderr)
             return 1
 
-        result = run_warehouse(con, overrides_frame)
+        result = run_warehouse(con, overrides_frame, run_date)
         try:
-            run_warehouse_contracts(result.map_source_identity, result.overrides)
+            run_warehouse_contracts(
+                result.map_source_identity,
+                result.overrides,
+                result.dim_company,
+                result.fact_health_score_monthly,
+            )
         except ContractViolation as error:
             print(f"warehouse: {error}", file=sys.stderr)
             return 1
@@ -515,8 +547,13 @@ def cmd_warehouse(args: argparse.Namespace) -> int:
         con.close()
 
     write_csv(result.map_source_identity, out_dir / "map_source_identity.csv")
+    write_csv(result.dim_company, out_dir / "dim_company.csv")
 
-    print(f"warehouse: {len(result.map_source_identity)} vinculos en {out_dir}")
+    current_companies = int(result.dim_company["is_current"].sum())
+    print(
+        f"warehouse: {current_companies} empresas vigentes y {len(result.map_source_identity)} "
+        f"vinculos en {out_dir}"
+    )
     return 0
 
 
@@ -595,7 +632,10 @@ def build_parser() -> argparse.ArgumentParser:
     warehouse_subparser.add_argument(
         "--run-date",
         default=None,
-        help="Fecha de corrida en formato YYYY-MM-DD; por omision, dataset_asof (D3). Sin efecto hasta el PR3.",
+        help=(
+            "Fecha de corrida en formato YYYY-MM-DD; por omision, dataset_asof (D3). Nunca puede ser "
+            "anterior al effective_from vigente mas reciente ya persistido."
+        ),
     )
     warehouse_subparser.add_argument(
         "--overrides",
