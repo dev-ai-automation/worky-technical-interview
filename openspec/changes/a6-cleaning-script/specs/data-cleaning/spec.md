@@ -160,6 +160,12 @@ Para cada empresa real con mrr nulo, el comando MUST buscar sus deals en deals.c
 - Cuando el comando corre la imputación
 - Entonces usa el monto mensual, el menor de los dos, para imputar y registra la anualización como una corrección separada de la imputación en el log
 
+#### Scenario: deal con monto vacío o no numérico no detiene la corrida
+
+- Dado una empresa con mrr nulo cuyos deals incluyen uno con amount vacío o con texto no numérico
+- Cuando el comando corre la imputación
+- Entonces ese deal se descarta con la excepción deal_amount_not_numeric que nombra el deal_id, la imputación sigue con los deals válidos de la empresa (o queda unresolved si no hay ninguno) y el comando termina en 0
+
 ### Requirement: contrato del log de limpieza
 
 El comando MUST escribir cleaning_log.json con el conteo exacto por regla y por columna, incluidos mrr nulo, clones excluidos, USD, fechas normalizadas, fechas ambiguas y deals anualizados, MUST escribir cleaning_log.md con un resumen en español de esos mismos conteos, y MUST escribir cleaning_exceptions.csv con una fila por corrección, con las columnas exception_id, exception_code, source_system, source_id, field_name, original_value, applied_value, evidence_ref, confidence y ruleset_version; en una imputación, evidence_ref MUST traer el deal_id de origen y confidence el nivel high o medium, y en las demás correcciones confidence queda vacío. El orden de las filas MUST ser determinista entre corridas.
