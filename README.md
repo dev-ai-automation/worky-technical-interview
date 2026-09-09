@@ -27,6 +27,12 @@ Requiere Python 3.12 o superior. El dataset del caso (`fundation-docs/dataset_ca
 
    `git status` no debe mostrar cambios en `outputs/`. En Windows, ejecuta los comandos con `PYTHONIOENCODING=utf-8`.
 
+4. Corre las siete consultas de A1 sobre la sábana (ADR-004), sin haber corrido `build` antes:
+
+   ```bash
+   python -m worky_engine analyze --data-dir fundation-docs --out-dir outputs/analysis
+   ```
+
 ## Qué produce
 
 | Archivo en `outputs/` | Qué es |
@@ -39,6 +45,7 @@ Requiere Python 3.12 o superior. El dataset del caso (`fundation-docs/dataset_ca
 | `exceptions_log.csv` | Cada valor imputado o corregido, con su origen y su evidencia |
 | `coverage_report.md` | Qué porcentaje de cada sistema se reconcilió y con qué confianza |
 | `backtest_report.md` | Cómo se eligió la fórmula de tendencia de uso, medida contra el churn real |
+| `analysis/report.md` | Las siete respuestas de A1 sobre la sábana, cada una con su definición del ADR-004, el SQL y el resultado |
 
 ## Dónde está cada cosa
 

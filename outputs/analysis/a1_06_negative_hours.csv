@@ -1,0 +1,49 @@
+ticket_id,vitally_id,master_id,created_date,priority,status,category,resolution_hours,resolution_hours_abs,csat_score
+TK000013,cus_100003,6d621ac6bce1,2023-08-31,Medium,Closed,Duda funcional,-18.50,18.50,
+TK000017,cus_100005,5df58f1cd011,2024-04-11,Medium,Closed,Onboarding,-56.90,56.90,
+TK000025,cus_100007,bfcc93c1234c,2023-07-23,Low,Open,Duda funcional,-16.20,16.20,3.00
+TK000062,cus_100020,7c49bd17517b,2024-03-31,Medium,Open,Bug plataforma,-8.00,8.00,2.00
+TK000081,cus_100028,8dc56996e31a,2024-03-08,Medium,Closed,Bug plataforma,-2.40,2.40,3.00
+TK000099,cus_100033,c0d5050c1786,2023-01-31,Medium,Closed,Duda funcional,-8.50,8.50,5.00
+TK000123,cus_100043,f750af5db82c,2023-10-18,Urgent,Open,Onboarding,-3.50,3.50,1.00
+TK000131,cus_100048,e5bcc1fbee61,2023-05-06,High,Closed,Nómina errónea,-15.90,15.90,1.00
+TK000249,cus_100084,a323d4abf458,2023-03-15,Low,Open,Nómina errónea,-9.40,9.40,
+TK000262,cus_100089,32abb429e0d8,2023-02-02,Urgent,Closed,Bug plataforma,-58.20,58.20,
+TK000282,cus_100095,4b4752da4a83,2023-05-04,Low,Closed,Bug plataforma,-9.30,9.30,2.00
+TK000345,cus_100120,76352359fd43,2023-12-20,Medium,Closed,Billing,-6.50,6.50,1.00
+TK000347,cus_100120,76352359fd43,2023-12-30,High,Open,Bug plataforma,-1.40,1.40,5.00
+TK000365,cus_100126,1197d211e7e1,2023-08-29,High,Closed,Bug plataforma,-10.40,10.40,2.00
+TK000442,cus_100156,f618418fca35,2023-11-29,Medium,Open,Duda funcional,-4.00,4.00,
+TK000486,cus_100169,89399b82116c,2024-01-29,Low,Closed,Billing,-22.30,22.30,3.00
+TK000494,cus_100170,d996f9b6f1f8,2024-03-26,Low,Closed,Onboarding,-19.10,19.10,
+TK000498,cus_100173,396128940af3,2024-05-16,Low,Closed,Bug plataforma,-5.80,5.80,
+TK000526,cus_100184,92b7a8a7cdc7,2023-06-14,Medium,Closed,Billing,-1.70,1.70,1.00
+TK000578,cus_100201,0f9a82123cbe,2023-01-02,Medium,Open,Integración API,-12.80,12.80,1.00
+TK000613,cus_100212,7700c04b25c9,2023-01-15,Low,Closed,Onboarding,-60.50,60.50,3.00
+TK000733,cus_100256,a18e4270c86b,2023-11-26,Low,Closed,Bug plataforma,-43.70,43.70,4.00
+TK000736,cus_100257,790c661f3ba2,2023-08-05,Medium,Closed,Duda funcional,-4.10,4.10,3.00
+TK000809,cus_100279,3f41a4432bea,2023-06-25,High,Closed,Nómina errónea,-19.50,19.50,2.00
+TK000825,cus_100287,50de7a632ea8,2023-01-29,High,Closed,Integración API,-11.30,11.30,
+TK000845,cus_100298,8740e47ba5df,2023-12-12,Low,Closed,Onboarding,-4.90,4.90,
+TK000879,cus_100317,eab9d5094af3,2023-05-30,Medium,Closed,Nómina errónea,-22.60,22.60,5.00
+TK000885,cus_100319,785078eeba1d,2023-05-01,Medium,Closed,Integración API,-69.50,69.50,3.00
+TK000944,cus_100338,e37c074286d9,2023-12-01,Low,Closed,Nómina errónea,-5.40,5.40,3.00
+TK000999,cus_100355,789c81ac0120,2023-03-03,Low,Closed,Integración API,-61.50,61.50,4.00
+TK001056,cus_100374,2f2fd459ddca,2024-04-30,Low,Closed,Onboarding,-33.20,33.20,3.00
+TK001095,cus_100384,190a2d8a76a2,2023-11-12,Low,Closed,Onboarding,-3.70,3.70,1.00
+TK001199,cus_100413,a62f0320022a,2023-11-23,High,Closed,Duda funcional,-17.60,17.60,
+TK001262,cus_100435,97081fd75d7e,2023-04-15,Medium,Open,Integración API,-15.30,15.30,1.00
+TK001263,cus_100435,97081fd75d7e,2024-03-10,Low,Open,Billing,-6.30,6.30,1.00
+TK001268,cus_100438,1288cafbc1fe,2024-04-25,Low,Closed,Integración API,-15.40,15.40,3.00
+TK001272,cus_100441,25f129ce4fc4,2024-03-10,Low,Closed,Integración API,-24.80,24.80,
+TK001436,cus_100496,87428c0f5a32,2024-03-24,Low,Closed,Integración API,-50.50,50.50,1.00
+TK001467,cus_100508,5d3a54fbe090,2023-03-12,Medium,Closed,Billing,-1.60,1.60,5.00
+TK001526,cus_100524,368a3f9d6514,2024-02-16,High,Closed,Nómina errónea,-54.90,54.90,
+TK001533,cus_100526,81215df16b9d,2024-01-28,Medium,Closed,Duda funcional,-8.80,8.80,1.00
+TK001538,cus_100529,5f6fe04e3c0d,2024-04-23,Medium,Closed,Nómina errónea,-65.50,65.50,4.00
+TK001658,cus_100569,6709cae3efd1,2024-01-13,Medium,Closed,Duda funcional,-1.90,1.90,1.00
+TK001766,cus_100605,e19569d925d2,2023-04-17,High,Closed,Nómina errónea,-14.20,14.20,4.00
+TK001769,cus_100606,04887d0f3f7c,2024-06-27,Medium,Closed,Nómina errónea,-20.90,20.90,
+TK001798,cus_100614,b11ab648f308,2023-07-23,Low,Closed,Integración API,-6.50,6.50,
+TK001881,cus_100647,12bb70998c29,2023-11-25,Medium,Closed,Billing,-12.70,12.70,5.00
+TK001886,cus_100648,9de59d515b9f,2023-11-16,Medium,Open,Duda funcional,-34.50,34.50,1.00

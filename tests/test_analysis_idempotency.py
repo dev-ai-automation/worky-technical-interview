@@ -1,15 +1,14 @@
-"""Idempotencia byte a byte de `analyze` (PR 1 y PR 2: A1.1 a A1.5), marca `dataset`.
+"""Idempotencia byte a byte de las ocho salidas completas de `analyze`, marca `dataset`.
 
 Corre `python -m worky_engine analyze` dos veces en carpetas temporales
-distintas y compara las cinco salidas disponibles hasta este PR entre si
-y contra la copia commiteada en `outputs/analysis/`, y verifica que el
-hash de los ocho archivos de `outputs/` (A0, de solo lectura para este
-cambio) es el mismo antes y despues de correr `analyze` (decision D15
-del diseno). `a1_03_cohort_retention.csv` y `a1_04_attribution.csv` se
-agregan en el PR 2 (tarea 2.8; no listada en la tabla de lineas del PR 2
-del diseno, ver "Brechas encontradas en el diseno" en tasks.md). Las
-otras tres salidas (`a1_06_negative_hours.csv`, `analysis_exceptions.csv`
-y `report.md`) se agregan en el PR 3, cuando sus archivos existen.
+distintas y compara las ocho salidas entre si y contra la copia
+commiteada en `outputs/analysis/`, y verifica que el hash de los ocho
+archivos de `outputs/` (A0, de solo lectura para este cambio) es el
+mismo antes y despues de correr `analyze` (decision D15 del diseno).
+`a1_06_negative_hours.csv`, `analysis_exceptions.csv` y `report.md` se
+agregan en el PR 3 (tarea 3.9); `report.md` no lleva ninguna hora de
+reloj, asi que dos corridas sobre la misma entrada lo producen
+identico byte a byte, igual que los demas.
 """
 
 from __future__ import annotations
@@ -27,6 +26,9 @@ OUTPUT_NAMES = (
     "a1_03_cohort_retention.csv",
     "a1_04_attribution.csv",
     "a1_05_orphan_deals.csv",
+    "a1_06_negative_hours.csv",
+    "analysis_exceptions.csv",
+    "report.md",
 )
 GOLDEN_DIR = Path(__file__).resolve().parent.parent / "outputs" / "analysis"
 A0_OUTPUTS_DIR = Path(__file__).resolve().parent.parent / "outputs"

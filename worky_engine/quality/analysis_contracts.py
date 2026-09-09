@@ -9,8 +9,9 @@ pruebas marcadas `dataset`. `run_analysis_contracts` los corre en orden
 fijo; `cmd_analyze` decide el codigo de salida del proceso (1 para un
 contrato violado).
 
-PR 2 agrega los contratos de A1.3 (retencion por cohorte) y A1.4
-(atribucion). A1.6 y `analysis_exceptions` se agregan en el PR 3.
+PR 2 agrego los contratos de A1.3 (retencion por cohorte) y A1.4
+(atribucion). PR 3 agrega los de A1.6 (horas negativas) y de
+`analysis_exceptions`.
 """
 
 from __future__ import annotations
@@ -18,6 +19,11 @@ from __future__ import annotations
 import pandas as pd
 
 from worky_engine.quality.contracts import ContractViolation
+
+_EXCEPTIONS_LOG_COLUMNS = (
+    "exception_id", "exception_code", "source_system", "source_id", "master_id",
+    "field_name", "original_value", "applied_value", "evidence_ref", "ruleset_version", "decided_at",
+)
 
 
 def assert_a1_01_total_row_matches_segments(active_mrr: pd.DataFrame) -> None:
@@ -143,17 +149,44 @@ def assert_a1_05_matches_quarantine_deals(orphan_deals: pd.DataFrame, quarantine
         )
 
 
+def assert_a1_06_all_hours_negative(negative_hours: pd.DataFrame) -> None:
+    """Toda fila de la vista de detalle de A1.6 trae `resolution_hours` negativo."""
+    hours = negative_hours["resolution_hours"].astype(float)
+    if (hours >= 0).any():
+        raise ContractViolation("contrato a1_06_all_hours_negative: alguna fila trae resolution_hours >= 0")
+
+
+def assert_analysis_exceptions_shape(exceptions: pd.DataFrame, negative_hours: pd.DataFrame) -> None:
+    """`analysis_exceptions` trae las once columnas de `exceptions_log`, en orden, con una fila por ticket negativo."""
+    if tuple(exceptions.columns) != _EXCEPTIONS_LOG_COLUMNS:
+        raise ContractViolation(
+            f"contrato analysis_exceptions_shape: columnas {tuple(exceptions.columns)} "
+            f"no coinciden con exceptions_log {_EXCEPTIONS_LOG_COLUMNS}"
+        )
+    if exceptions["exception_id"].duplicated().any():
+        raise ContractViolation("contrato analysis_exceptions_shape: exception_id repetido")
+    if exceptions["exception_code"].nunique() > 1:
+        raise ContractViolation("contrato analysis_exceptions_shape: exception_code no es constante")
+    if len(exceptions) != len(negative_hours):
+        raise ContractViolation(
+            f"contrato analysis_exceptions_shape: {len(exceptions)} excepciones no iguala "
+            f"las {len(negative_hours)} filas de a1_06_negative_hours"
+        )
+
+
 def run_analysis_contracts(
     outputs: dict[str, pd.DataFrame],
     master_dataset: pd.DataFrame,
     quarantine_deals: pd.DataFrame,
 ) -> None:
-    """Corre los contratos de las consultas de A1 disponibles en este PR, en orden fijo."""
+    """Corre los contratos de las siete consultas de A1, en orden fijo."""
     active_mrr = outputs["analysis_a1_01_active_mrr"]
     usage_drop = outputs["analysis_a1_02_usage_drop"]
     cohort_retention = outputs["analysis_a1_03_cohort_retention"]
     attribution = outputs["analysis_a1_04_attribution"]
     orphan_deals = outputs["analysis_a1_05_orphan_deals"]
+    negative_hours = outputs["analysis_a1_06_negative_hours"]
+    exceptions = outputs["analysis_exceptions"]
 
     assert_a1_01_total_row_matches_segments(active_mrr)
     assert_a1_01_crm_within_total(active_mrr)
@@ -166,3 +199,5 @@ def run_analysis_contracts(
     assert_a1_04_rate_within_unit(attribution)
     assert_a1_04_models_cover_same_deals(attribution)
     assert_a1_05_matches_quarantine_deals(orphan_deals, quarantine_deals)
+    assert_a1_06_all_hours_negative(negative_hours)
+    assert_analysis_exceptions_shape(exceptions, negative_hours)

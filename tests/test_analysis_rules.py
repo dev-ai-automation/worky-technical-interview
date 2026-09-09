@@ -10,9 +10,11 @@ churn para A1.2 (mes de baja excluido, windows_overlap en una cuenta de
 tres meses, drop_status 'no_usage' y 'final_window_empty'); un deal
 huerfano mas un deal de un clon en cuarentena para A1.5; dos touches con
 la misma fecha (empate por touch_id en los dos extremos) y un deal
-creado antes del primer touch de su empresa para A1.4; y una cohorte de
+creado antes del primer touch de su empresa para A1.4; una cohorte de
 alta reciente que fuerza celdas censuradas mas el caso frontera de una
-empresa que hace churn exactamente en el mes k para A1.3.
+empresa que hace churn exactamente en el mes k para A1.3; y tres
+tickets para A1.6, con resolution_hours negativo, positivo y nulo, para
+comprobar que la vista de detalle solo lista el negativo.
 """
 
 from __future__ import annotations
@@ -26,9 +28,14 @@ from worky_engine.master_dataset import assemble_master_dataset, open_connection
 from worky_engine.quality.analysis_contracts import run_analysis_contracts
 
 _EMPTY_CUSTOMERS = pd.DataFrame(columns=["vitally_id", "domain", "company_name", "csm_email"])
-_EMPTY_TICKETS = pd.DataFrame(
-    columns=["ticket_id", "vitally_id", "created_date", "priority", "status", "category", "resolution_hours", "csat_score"]
-)
+
+
+def _ticket(ticket_id: str, vitally_id: str, resolution_hours, status: str, csat_score=3.0) -> dict:
+    return {
+        "ticket_id": ticket_id, "vitally_id": vitally_id, "created_date": "2024-01-15",
+        "priority": "medium", "status": status, "category": "billing",
+        "resolution_hours": resolution_hours, "csat_score": csat_score,
+    }
 
 
 def _company(hubspot_id: str, name: str, domain: str, segment: str, industry: str, mrr, churn_date=None) -> dict:
@@ -155,6 +162,16 @@ def _minimal_raw_tables() -> dict[str, pd.DataFrame]:
         _touch("T-8110302", "HS-810001", "Paid Search", "2022-01-05"),
         _touch("T-8110303", "HS-810002", "Webinar", "2022-06-01"),
     ]
+    tickets = [
+        # TK-8110601: resolution_hours negativo, el unico que debe aparecer
+        # en analysis_a1_06_negative_hours y en analysis_exceptions.
+        _ticket("TK-8110601", "cus_810601", -6.5, "Closed"),
+        # TK-8110602: positivo, no debe aparecer en la vista de A1.6.
+        _ticket("TK-8110602", "cus_810602", 6.5, "Closed"),
+        # TK-8110603: resolution_hours nulo (ticket sin resolver), tampoco
+        # debe aparecer; comprueba que el filtro es "< 0" y no "no positivo".
+        _ticket("TK-8110603", "cus_810603", None, "Open"),
+    ]
     return {
         "raw_companies": pd.DataFrame(companies),
         "raw_accounts": pd.DataFrame(accounts),
@@ -162,7 +179,7 @@ def _minimal_raw_tables() -> dict[str, pd.DataFrame]:
         "raw_deals": pd.DataFrame(deals),
         "raw_marketing_touches": pd.DataFrame(touches),
         "raw_customers": _EMPTY_CUSTOMERS,
-        "raw_tickets": _EMPTY_TICKETS,
+        "raw_tickets": pd.DataFrame(tickets),
     }
 
 
@@ -333,3 +350,24 @@ def test_a1_04_modelos_cubren_los_mismos_deals(analysis_fixture) -> None:
     attribution = result.outputs["analysis_a1_04_attribution"]
     totals = attribution.groupby("model")["deals_attributed"].sum()
     assert totals["first_touch"] == totals["last_touch"] == 3
+
+
+def test_a1_06_ticket_negativo_en_detalle_y_su_fila_de_excepcion(analysis_fixture) -> None:
+    # Solo TK-8110601 (resolution_hours = -6.5) debe listarse: el positivo
+    # y el nulo quedan fuera de la vista y de las excepciones.
+    result, _, _ = analysis_fixture
+    negative_hours = result.outputs["analysis_a1_06_negative_hours"]
+    assert set(negative_hours["ticket_id"]) == {"TK-8110601"}
+    row = negative_hours.set_index("ticket_id").loc["TK-8110601"]
+    assert row["resolution_hours"] == "-6.50"
+    assert row["resolution_hours_abs"] == "6.50"
+
+    exceptions = result.outputs["analysis_exceptions"]
+    assert len(exceptions) == 1
+    exception_row = exceptions.iloc[0]
+    assert exception_row["exception_code"] == "negative_resolution_hours"
+    assert exception_row["source_system"] == "vitally"
+    assert exception_row["source_id"] == "TK-8110601"
+    assert exception_row["field_name"] == "resolution_hours"
+    assert exception_row["original_value"] == "-6.50"
+    assert exception_row["applied_value"] == "null"

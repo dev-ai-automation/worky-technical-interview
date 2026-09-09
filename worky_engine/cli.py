@@ -71,8 +71,9 @@ def _import_backtest_dependencies():
 
 
 def _import_analyze_dependencies():
-    """Importa las piezas de `analyze` en el primer uso: DuckDB, el corredor de A1 y sus contratos."""
+    """Importa las piezas de `analyze` en el primer uso: DuckDB, el corredor de A1, `report.py` y sus contratos."""
     try:
+        from worky_engine.analysis.report import format_report
         from worky_engine.analysis.runner import ANALYSIS_OUTPUTS, run_analysis
         from worky_engine.identity_resolution import resolve_identity
         from worky_engine.master_dataset import assemble_master_dataset, open_connection
@@ -86,6 +87,7 @@ def _import_analyze_dependencies():
         run_analysis,
         run_analysis_contracts,
         ANALYSIS_OUTPUTS,
+        format_report,
     )
 
 
@@ -230,13 +232,15 @@ def cmd_backtest(args: argparse.Namespace) -> int:
 
 
 def cmd_analyze(args: argparse.Namespace) -> int:
-    """Corre identidad, ensamblaje y las consultas de A1 disponibles en este PR, sin `build` previo.
+    """Corre identidad, ensamblaje y las siete consultas de A1, sin `build` previo.
 
     Abre su propia conexion de DuckDB, corre `resolve_identity` en
     memoria y nunca lee `outputs/` (decisiones D1 y D3 del diseno de
     `sql-analysis`). Corre los contratos de A0 sobre el dataset que
     acaba de ensamblar antes de correr los propios de A1 (decision
-    D14), y termina con los mismos codigos de salida que `build`.
+    D14), escribe un CSV por salida de `ANALYSIS_OUTPUTS` (incluye
+    `analysis_exceptions.csv`) mas `report.md`, y termina con los
+    mismos codigos de salida que `build`.
     """
     (
         resolve_identity,
@@ -245,6 +249,7 @@ def cmd_analyze(args: argparse.Namespace) -> int:
         run_analysis,
         run_analysis_contracts,
         analysis_outputs,
+        format_report,
     ) = _import_analyze_dependencies()
     data_dir = _resolve_data_dir(Path(args.data_dir))
     out_dir = Path(args.out_dir)
@@ -283,7 +288,11 @@ def cmd_analyze(args: argparse.Namespace) -> int:
     for item in analysis_outputs:
         write_csv(result.outputs[item.view], out_dir / item.file_name)
 
-    print(f"analyze: {len(analysis_outputs)} consultas escritas en {out_dir}")
+    report_text = format_report(result)
+    write_markdown(report_text, out_dir / "report.md")
+
+    queries_written = sum(1 for item in analysis_outputs if item.view.startswith("analysis_a1_"))
+    print(f"analyze: {queries_written} consultas escritas en {out_dir}")
     return 0
 
 
@@ -326,7 +335,7 @@ def build_parser() -> argparse.ArgumentParser:
     backtest_subparser.set_defaults(func=cmd_backtest)
 
     analyze_subparser = subparsers.add_parser(
-        "analyze", help="Corre A1.1, A1.2 y A1.5 sobre la sabana (ADR-004), sin build previo."
+        "analyze", help="Corre A1.1 a A1.6 y escribe report.md sobre la sabana (ADR-004), sin build previo."
     )
     analyze_subparser.add_argument("--data-dir", required=True)
     analyze_subparser.add_argument("--out-dir", default=str(DEFAULT_ANALYSIS_OUT_DIR))

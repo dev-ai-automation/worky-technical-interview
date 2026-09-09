@@ -7,11 +7,18 @@ los numeros que el ADR-004 ya publico: 89 cuentas en A1.2 (30 con
 imputados de A1.1 igual a la suma de `mrr_mxn` de las empresas activas
 en `master_dataset`.
 
-PR 2 agrega los numeros reales de A1.3 y A1.4: los 962 deals atribuidos
+PR 2 agrego los numeros reales de A1.3 y A1.4: los 962 deals atribuidos
 (997 de HubSpot menos los 35 huerfanos de A1.5) son iguales en los dos
 modelos, la monotonia de A1.3 nunca sube de un k al siguiente dentro de
 una cohorte, y el canal ganador medido en cada modelo (que sobre este
 dataset resulta ser el mismo canal en los dos, sin cambio de ganador).
+
+PR 3 agrega el numero real de A1.6: 48 tickets con resolution_hours
+negativo, y las medianas que cita la justificacion del reporte, 13.5
+(valor absoluto de los negativos) contra 12.2 (los tickets positivos),
+con tolerancia 0.05, medidas directamente sobre `vitally_support.db`
+sin pasar por ninguna vista de analisis, para que la prueba no dependa
+de la funcion de mediana de DuckDB.
 """
 
 from __future__ import annotations
@@ -114,3 +121,30 @@ def test_a1_03_monotonia_no_creciente_sobre_dataset_real(real_analysis_result) -
     for cohort_month, group in computed.groupby("cohort_month"):
         values = group["retained"].astype(int).tolist()
         assert values == sorted(values, reverse=True), f"retained sube en la cohorte {cohort_month}"
+
+
+@pytest.mark.dataset
+def test_a1_06_48_tickets_negativos_y_su_excepcion(real_analysis_result) -> None:
+    result = real_analysis_result[0]
+    negative_hours = result.outputs["analysis_a1_06_negative_hours"]
+    exceptions = result.outputs["analysis_exceptions"]
+    assert len(negative_hours) == 48
+    assert len(exceptions) == 48
+    assert (negative_hours["resolution_hours"].astype(float) < 0).all()
+
+
+@pytest.mark.dataset
+def test_a1_06_medianas_13_5_contra_12_2(data_dir: Path) -> None:
+    """Medianas medidas directo sobre vitally_support.db, sin pasar por ninguna vista de DuckDB.
+
+    Mitigacion del riesgo del diseno ("las medianas... no se reproducen
+    con la convencion de mediana de DuckDB"): se calculan con pandas
+    sobre `raw_tickets` y se comparan con tolerancia 0.05 contra los
+    13.5 y 12.2 que cita la justificacion de A1.6 en el ADR-004.
+    """
+    raw_tables = load_raw_tables(data_dir)
+    hours = pd.to_numeric(raw_tables["raw_tickets"]["resolution_hours"], errors="coerce")
+    negative_abs_median = hours[hours < 0].abs().median()
+    positive_median = hours[hours > 0].median()
+    assert abs(negative_abs_median - 13.5) <= 0.05
+    assert abs(positive_median - 12.2) <= 0.05
