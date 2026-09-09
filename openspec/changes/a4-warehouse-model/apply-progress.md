@@ -155,6 +155,8 @@ Ninguno inesperado. La suite completa (236 pruebas) corrió en verde sin fallas 
 **Modo**: Standard (strict_tdd: false)
 **Rama**: `feat/a4-pr3-warehouse-scd2-health`, base `feat/a4-pr2-warehouse-star`
 
+**Corrección post-revisión (native review, un ciclo acotado):** la revisión nativa de PR3 exigió una corrección acotada, aplicada en el commit `e7e465f`: una prueba nueva que demuestra, con datos reales del dataset, que la primera banda de cada empresa se abre hacia atrás y que los cinco hechos traen filas contra el dataset completo (`fact_usage_monthly` 9,793, `fact_support_tickets` 1,888, `fact_deals` 962, `fact_revenue_monthly` 125, `fact_marketing_touches` 1,635), en vez de dejar esa evidencia solo en la narrativa de "Corrección necesaria..." de más abajo. PR3 cerró bajo `size:exception`, con 873 líneas de autoría medidas contra el presupuesto de 800 (ver Verification #5 y la sección "PR3 Workload / PR Boundary" más abajo).
+
 ### PR3 Completed Tasks
 
 - [x] 3.1 `worky_engine/warehouse/runner.py`: DDL de `dim_company` (sin cambio de forma, ya la tenía PR2 vacía) y las cuatro sentencias fijas del SCD2 (`_SCD2_REPLACE_SAME_DAY_SQL`, `_SCD2_CLOSE_SQL`, `_SCD2_OPEN_SQL`, `_SCD2_TYPE1_SQL`), parametrizadas por `run_date`, corridas en `_run_scd2` entre `w4` y `w5` de `WAREHOUSE_FILES`.
@@ -216,9 +218,108 @@ Ninguno inesperado, aparte de la corrección de `w5_facts.sql` ya documentada ar
 
 ## Remaining Tasks
 
-- [ ] 4.1 a 4.6 (PR4: documento del modelo, ERD 07, rutas rápidas)
+Ninguna. Las 32 tareas de las cuatro rebanadas (PR1 a PR4) están completas.
+
 - [x] Seguimiento resuelto: la desviación de `fact_support_tickets`/`fact_marketing_touches` (Deviations #1 de PR2) ya no aplica, los dos hechos se restauraron por decisión del usuario; no queda pendiente sincronizar la spec por este motivo
 - [x] Seguimiento resuelto: PR3 ya asegura que los cinco hechos traen filas sobre el dataset real (ver "Corrección necesaria..." arriba); no queda pendiente para PR4
+
+## PR4: documento del modelo, ERD 07 y rutas rápidas
+
+**Batch**: PR4, tareas 4.1 a 4.6
+**Modo**: Standard (strict_tdd: false), receipt-driven review apagado para esta rebanada de documentación (instrucción explícita del orquestador)
+**Rama**: `feat/a4-pr4-warehouse-docs`, base `feat/a4-pr3-warehouse-scd2-health`
+
+Este PR no toca código de producción: solo documentación y el diagrama 07, entregado con `archify` siguiendo el mismo flujo Node que los diagramas 02 y 03 (`erDiagram` de Mermaid, tipo `erd`).
+
+### PR4 Completed Tasks
+
+- [x] 4.1 `docs/data-model/01-warehouse-model.md` creado (153 líneas): responde las cuatro preguntas de A4 en secciones nombradas ("1. Qué hechos y dimensiones tiene el warehouse", "2. Dónde viven las llaves de reconciliación...", "3. Cómo se guarda el historial de cambios", "4. Cómo el trabajo manual de A0 nunca se repite"), declara el historial como hacia adelante, documenta el ejemplo de las seis columnas de `identity_overrides.csv` y el contrato exacto de la marca de agua incremental (D18).
+- [x] 4.2 `docs/diagrams/src/07-modelo-estrella-warehouse.mmd` (119 líneas) y `docs/diagrams/src/07-modelo-estrella-warehouse.erd.json` creados: catorce entidades (`dim_company`, `dim_date`, `dim_csm`, `dim_plan`, `map_source_identity`, `identity_overrides`, los cinco hechos, `fact_health_score_monthly`, `identity_crosswalk`, `match_audit`), con las llaves reales de cada tabla, extendiendo el diagrama 03 sin repetirlo.
+- [x] 4.3 `docs/diagrams/07-modelo-estrella-warehouse.html` entregado con `archify`: `validate erd` con 11/11 checks en verde y 0 errores de composición, luego `deliver erd` (artefacto de 67,307 bytes, sha256 `843501d9...`). `grep -c "https://"` da 0.
+- [x] 4.4 `docs/diagrams/README.md` modificado: fila 07 agregada a la tabla del índice con `docs/data-model/01-warehouse-model.md` como documento de origen, el conteo "Los siete diagramas" corregido a "Los ocho diagramas", y el comando de regeneración de 07 agregado a la sección "Cómo regenerar cada diagrama" para mantener la convención ya establecida por 00 a 06 en el mismo archivo.
+- [x] 4.5 `README.md` modificado: paso 6 de "Ruta rápida" con el comando de `warehouse`, y dos filas nuevas en "Qué produce" (`warehouse/dim_company.csv`, `warehouse/map_source_identity.csv`).
+- [x] 4.6 Cierre de PR4: ver Verification más abajo para los resultados exactos.
+
+### Qué satisface cada escenario de spec asignado a PR4
+
+| Escenario | Dónde queda satisfecho |
+|---|---|
+| "contrato documentado" (marca de agua incremental) | `docs/data-model/01-warehouse-model.md`, sección 2, subsección "Contrato de la marca de agua incremental (documentado, no implementado)"; también en `design.md` sección 6 |
+| "excepción documentada a D6" | `docs/data-model/01-warehouse-model.md`, sección 4, subsección "Excepción documentada a la decisión D6 de A0"; ya satisfecho también por `design.md` D2 y por `worky_engine/warehouse/db.py` (verificado por PR3, tarea 3.7) |
+| "no es una serie de mrr_mxn" | `docs/data-model/01-warehouse-model.md`, sección 1, párrafo sobre `fact_revenue_monthly`: agrega `fact_deals` por mes de `close_date`, nunca repite `mrr_mxn` |
+
+### PR4 Files Changed
+
+| File | Action | What Was Done |
+|------|--------|----------------|
+| `docs/data-model/01-warehouse-model.md` | Created | Documento de A4, 153 líneas |
+| `docs/diagrams/src/07-modelo-estrella-warehouse.mmd` | Created | Fuente Mermaid `erDiagram`, 119 líneas |
+| `docs/diagrams/src/07-modelo-estrella-warehouse.erd.json` | Created | Entrada de `archify`, 9 líneas |
+| `docs/diagrams/07-modelo-estrella-warehouse.html` | Created (generado por `archify deliver`) | 67,307 bytes, 0 referencias a `https://` |
+| `docs/diagrams/README.md` | Modified | Fila 07, conteo corregido, comando de regeneración |
+| `README.md` | Modified | Paso 6 de "Ruta rápida", dos filas en "Qué produce" |
+
+Ningún archivo de `worky_engine/`, `tests/` ni `outputs/` se tocó en este PR.
+
+### PR4 Work Unit Evidence
+
+| Evidence | Value |
+|---|---|
+| Focused test command and result | N/A: PR de documentación sin comportamiento ejecutable propio, según lo declarado en tasks.md. Se corrió la suite rápida como red de seguridad: `python -m pytest -q -m "not dataset"` → `211 passed, 41 deselected in 522.10s` |
+| Runtime harness command/scenario and result | `node bin/archify.mjs validate erd docs/diagrams/src/07-modelo-estrella-warehouse.erd.json --json` → `"ok": true`, 11 checks en verde, `composition.status: "pass"`, 0 errores y 0 advertencias; `node bin/archify.mjs deliver erd ... --json` → `"ok": true`, artefacto de 67,307 bytes |
+| Rollback boundary | Eliminar `docs/data-model/01-warehouse-model.md`, `docs/diagrams/07-modelo-estrella-warehouse.html` y su fuente en `docs/diagrams/src/`, revertir la fila 07 y el comando de regeneración en `docs/diagrams/README.md`, y revertir el paso 6 y las dos filas nuevas en `README.md` |
+
+### PR4 Verification (foreground, exact results)
+
+1. `python -m pytest -q -m "not dataset"` → `211 passed, 41 deselected in 522.10s (0:08:42)`. Sin cambios de código en este PR, la línea base se mantiene (211 = 251 de PR3 menos las pruebas marcadas `dataset`, que esta rebanada no reejecuta por no haber tocado ningún archivo bajo `worky_engine/` ni `tests/`)
+2. `git status --short` → `M README.md`, `M docs/diagrams/README.md`, `M openspec/changes/a4-warehouse-model/tasks.md`, `?? docs/data-model/01-warehouse-model.md`, `?? docs/diagrams/07-modelo-estrella-warehouse.html`, `?? docs/diagrams/src/07-modelo-estrella-warehouse.erd.json`, `?? docs/diagrams/src/07-modelo-estrella-warehouse.mmd`. Ningún archivo de `outputs/` cambió
+3. `docs/diagrams/07-modelo-estrella-warehouse.html` existe, 67,307 bytes. `grep -c "dim_company"`, `grep -c "fact_health_score_monthly"` y `grep -c "identity_overrides"` dan 1, 0 y 1 respectivamente porque el SVG queda incrustado en una sola línea larga; contados con `grep -o ... | wc -l` (conteo de ocurrencias, no de líneas) dan 13, 4 y 5 ocurrencias reales
+4. `grep -c "—" docs/data-model/01-warehouse-model.md` → `0`. `wc -l docs/data-model/01-warehouse-model.md` → `153`
+5. Conteo de líneas de autoría: `wc -l` del nuevo markdown (`docs/data-model/01-warehouse-model.md`) → **153 líneas**, dentro del rango objetivo de 150 a 220 y muy por debajo del presupuesto de 800 por PR. Los archivos de fuente del diagrama (`07-modelo-estrella-warehouse.mmd` 119 líneas, `07-modelo-estrella-warehouse.erd.json` 9 líneas) y el HTML generado (67,307 bytes) quedan fuera de este conteo, igual que los goldens de PR2 y PR3 quedaron fuera del suyo
+
+### Deviations from Design (PR4)
+
+Ninguna decisión de diseño se cambió. Dos ajustes de documentación no nombrados de forma literal en las tareas 4.1 a 4.6, hechos por transparencia con el lector del documento:
+
+1. `docs/data-model/01-warehouse-model.md` agrega una tabla de los ocho contratos de calidad de `worky_engine/quality/warehouse_contracts.py` (sección 3) y una tabla de las cinco banderas del comando más sus códigos de salida (sección "Cómo correrlo"). Ninguna de las dos tablas está pedida de forma literal por la tarea 4.1, pero ambas responden directamente la pregunta "cómo se guarda el historial" con la evidencia de que el motor lo protege, no solo lo declara.
+2. `docs/diagrams/README.md` corrige "Los siete diagramas" a "Los ocho diagramas" y agrega el comando de regeneración de 07 a la sección ya existente "Cómo regenerar cada diagrama". La tarea 4.4 solo pide agregar la fila 07 a la tabla del índice; se hicieron estos dos ajustes adicionales, acotados al mismo archivo ya asignado a esta tarea, para que el archivo no quede con un conteo desactualizado ni con un diagrama fuera de su propia guía de regeneración.
+
+### Issues Found (PR4)
+
+Ninguno. La suite `not dataset` corrió en verde (211 pruebas) sin fallas ambientales, y `archify validate`/`deliver` pasaron en el primer intento sin necesitar ninguna corrección de geometría.
+
+## PR4 Workload / PR Boundary
+
+- Mode: stacked PR slice (`auto-chain`, `stacked-to-main`), dentro del presupuesto de 800 líneas de autoría (153 medidas, ver Verification #5)
+- Current work unit: Unit 4 — documento del modelo, ERD 07 y rutas rápidas
+- Boundary: arranca en `feat/a4-pr3-warehouse-scd2-health` (sin `docs/data-model/01-warehouse-model.md`, sin diagrama 07, sin la corrida de `warehouse` documentada en `README.md`) y termina con las tareas 4.1 a 4.6 completas, PR4 listo para abrir contra `feat/a4-pr3-warehouse-scd2-health`
+- Estimated review budget impact: 153 líneas de autoría del documento nuevo, dentro del presupuesto; el revisor ve primero que el documento responde las cuatro preguntas de A4 en el orden que pide el caso y que la sección 3 dice sin rodeos que el historial es hacia adelante
+
+## PR4 Prepared Conventional Commit Message
+
+```
+docs(warehouse): add the A4 warehouse model document and its ERD
+
+Add docs/data-model/01-warehouse-model.md, answering the four A4
+questions in named sections: which fact and dimension tables exist,
+where the hubspot_id/account_id/vitally_id reconciliation keys live,
+how change history is captured, and how A0's manual identity review
+never repeats. States plainly that the dataset is a single snapshot
+and the SCD2 evidence is a two-run test, not reconstructed history.
+Documents the identity_overrides.csv example, the incremental
+watermark contract, the eight quality contracts, and real row counts
+from the case dataset.
+
+Add docs/diagrams/07-modelo-estrella-warehouse.html with archify
+(erd type), extending diagram 03 with the star schema: dim_company
+with its SCD2 keys, map_source_identity, identity_overrides, the five
+facts and fact_health_score_monthly. Register it in
+docs/diagrams/README.md alongside its regeneration command.
+
+Add the warehouse command to README.md's quick path and outputs
+table, matching the existing analyze and health sections. No
+production code changed in this PR.
+```
 
 ## PR3 Workload / PR Boundary
 
@@ -295,4 +396,6 @@ with the eighteen existing outputs/ files untouched.
 
 ## Status
 
-26/32 tasks complete (PR1, PR2 y PR3 hechos; PR4 pendiente). Ready for next batch (PR4). PR2 mide 967 líneas de autoría contra el presupuesto de 800 (`size:exception` ya aceptado por el usuario). PR3 mide 873 líneas de autoría contra el presupuesto de 800; la salvaguarda de la sección 10 del diseño ya no aplica (apunta a los dos hechos que PR2 restauró por decisión del usuario), así que se recomienda `size:exception` también para PR3, pendiente de confirmación del usuario antes de abrir el PR contra `feat/a4-pr2-warehouse-star`.
+32/32 tasks complete (PR1, PR2, PR3 y PR4 hechos). Ready for verify. PR1 mide 529 líneas de autoría, dentro del presupuesto de 800. PR2 mide 967 líneas de autoría contra el presupuesto de 800 (`size:exception` ya aceptado por el usuario). PR3 mide 873 líneas de autoría contra el presupuesto de 800, con la revisión nativa exigiendo una corrección acotada (commit `e7e465f`); se recomienda `size:exception` también para PR3, igual que se aceptó para PR2, pendiente de confirmación del usuario antes de abrir el PR contra `feat/a4-pr2-warehouse-star`. PR4 mide 153 líneas de autoría en su documento nuevo, dentro del presupuesto de 800, sin código de producción tocado.
+
+Ninguna tarea queda pendiente de las 32 originales. El único punto abierto es administrativo, no de implementación: confirmar `size:exception` para PR2 y PR3 antes de abrir esos dos PR contra GitHub (PR1 y PR4 no lo necesitan, ambos caben dentro del presupuesto de 800).
