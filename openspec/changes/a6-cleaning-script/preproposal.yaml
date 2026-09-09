@@ -1,5 +1,5 @@
 schema: gentle-ai.sdd-preproposal/v1
-revision: 1
+revision: 2
 change: a6-cleaning-script
 artifact_store: hybrid
 exploration:
@@ -8,12 +8,12 @@ exploration:
     openspec: openspec/changes/a6-cleaning-script/exploration.md
     engram: sdd/a6-cleaning-script/explore
 research:
-  selected: null
+  selected: false
   request: null
   classes: []
   admission: not_applicable
-  outcome: pending_offer
-  note: ofrecida el 2026-09-09 junto con las decisiones; docs/research/01 secciones 1 y 6 ya cubren calidad de datos
+  outcome: unselected
+  note: ofrecida y no seleccionada por el usuario el 2026-09-09; docs/research/01 secciones 1 y 6 ya cubren calidad de datos
 evidence:
   openspec:
     - openspec/changes/a6-cleaning-script/exploration.md
@@ -23,8 +23,16 @@ evidence:
     - worky_engine/sql/marts/mart_mrr.sql
   engram:
     - sdd/a6-cleaning-script/explore
-product_decisions: pending
-pending_decisions:
+product_decisions: confirmed
+confirmed_decisions:
+  - A6.shape b: subcomando clean en cli.py + wrapper scripts/clean_companies.py
+  - A6.null_mrr b: imputar desde deals.csv replicando la regla del ADR-002 en pandas (monto unico, anualizacion 12x, confianza high/medium), excluyendo los 28 clones HS-9000xx; cada deal anualizado se registra en el log
+  - A6.columns a: mrr_mxn / mrr_original / currency_original
+  - A6.row_log a: cleaning_exceptions.csv a grano fila con el shape de exceptions_log
+  - A6.golden a: outputs/clean/* versionado como golden
+  - research: no seleccionada
+  - pace: automatico (decision del usuario del 2026-09-09: "Vamos con las recomendaciones")
+resolved_options:
   - id: A6.shape
     options: {a: script standalone puro, b: subcomando clean en cli.py + wrapper scripts/clean_companies.py [recomendada], c: solo subcomando}
   - id: A6.null_mrr
@@ -42,4 +50,4 @@ verified_counts:
   signup_date_ddmm: 31
   signup_date_ddmm_ambiguous_day_le_12: 12
   churn_date_ddmm: 0
-proposal_ready: false
+proposal_ready: true

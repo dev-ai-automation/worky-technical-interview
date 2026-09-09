@@ -5,7 +5,7 @@ created: 2026-09-09
 artifact_store: hybrid
 engram_project: 21-worky
 preflight:
-  execution_mode: interactive (cacheado de la sesion; A5 y A6 corren en paralelo, planeacion en main y una rama de implementacion por cambio)
+  execution_mode: auto (elegido por el usuario para A5 y A6 el 2026-09-09; planeacion en main y una rama de implementacion por cambio; A5 en worktree aislado)
   delivery_strategy: auto-chain
   chain_strategy: stacked-to-main
   review_budget_lines: 800
@@ -20,8 +20,8 @@ inputs:
   research_existing: docs/research/01-bi-revops-data-architecture.md (secciones 1 y 6)
 phases:
   explore: done (el sub-agente no pudo guardar en Engram por ambiguedad de sesion; el orquestador materializo exploration.md, guardo el topic con la sesion manual y verifico las cifras contra los CSV reales)
-  research: offered (pendiente de respuesta del usuario)
-  proposal: blocked (decisiones de producto pendientes en preproposal.yaml)
+  research: not_selected (el usuario eligio todas las recomendaciones el 2026-09-09)
+  proposal: in_progress (decisiones confirmadas, preproposal.yaml revision 2; modo automatico)
   specs: blocked
   design: blocked
   tasks: blocked
