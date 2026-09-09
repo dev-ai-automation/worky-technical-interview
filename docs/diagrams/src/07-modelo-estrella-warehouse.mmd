@@ -1,0 +1,119 @@
+erDiagram
+    DIM_COMPANY {
+        VARCHAR(12) company_sk PK
+        VARCHAR(12) master_id
+        VARCHAR hubspot_id
+        VARCHAR account_id
+        VARCHAR vitally_id
+        VARCHAR plan
+        VARCHAR csm_owner
+        DATE effective_from
+        DATE effective_to
+        BOOLEAN is_current
+    }
+
+    DIM_DATE {
+        INTEGER date_key PK
+        DATE calendar_date
+        VARCHAR year_month
+    }
+
+    DIM_CSM {
+        VARCHAR csm_key PK
+        VARCHAR csm_owner
+    }
+
+    DIM_PLAN {
+        VARCHAR plan_key PK
+        VARCHAR plan
+    }
+
+    MAP_SOURCE_IDENTITY {
+        VARCHAR source_system PK
+        VARCHAR source_id PK
+        VARCHAR(12) master_id FK
+        VARCHAR confidence_tier
+        VARCHAR link_source
+        VARCHAR decided_by
+    }
+
+    IDENTITY_OVERRIDES {
+        VARCHAR source_system PK
+        VARCHAR source_id PK
+        VARCHAR master_id
+        VARCHAR decided_by
+        VARCHAR decided_at
+        VARCHAR reason
+    }
+
+    FACT_USAGE_MONTHLY {
+        VARCHAR(12) company_sk FK
+        INTEGER date_key FK
+        VARCHAR account_id
+        INTEGER active_users
+    }
+
+    FACT_SUPPORT_TICKETS {
+        VARCHAR(12) company_sk FK
+        VARCHAR ticket_id PK
+        VARCHAR priority
+        VARCHAR status
+    }
+
+    FACT_DEALS {
+        VARCHAR(12) company_sk FK
+        VARCHAR deal_id PK
+        VARCHAR stage
+        DECIMAL amount_mxn
+    }
+
+    FACT_REVENUE_MONTHLY {
+        VARCHAR(12) company_sk FK
+        INTEGER date_key FK
+        VARCHAR revenue_month
+        DECIMAL revenue_mxn
+    }
+
+    FACT_MARKETING_TOUCHES {
+        VARCHAR(12) company_sk FK
+        VARCHAR touch_id PK
+        VARCHAR channel
+        VARCHAR campaign
+    }
+
+    FACT_HEALTH_SCORE_MONTHLY {
+        VARCHAR(12) company_sk FK
+        VARCHAR(12) master_id
+        DATE run_date PK
+        DECIMAL health_score
+        VARCHAR risk_band
+    }
+
+    IDENTITY_CROSSWALK {
+        VARCHAR(12) master_id PK
+        VARCHAR hubspot_id
+        VARCHAR account_id
+        VARCHAR vitally_id
+    }
+
+    MATCH_AUDIT {
+        VARCHAR source_system
+        VARCHAR source_id
+        VARCHAR(12) master_id FK
+        VARCHAR tier
+    }
+
+    IDENTITY_CROSSWALK ||--o{ MAP_SOURCE_IDENTITY : "desdoblado, un vinculo por sistema"
+    IDENTITY_OVERRIDES |o--o{ MAP_SOURCE_IDENTITY : "link_source = override"
+    IDENTITY_CROSSWALK ||--|| MATCH_AUDIT : "master_id, evidencia de cada nivel"
+    IDENTITY_CROSSWALK ||--|| DIM_COMPANY : "master_id, entrada del SCD2"
+    DIM_COMPANY ||--o{ FACT_USAGE_MONTHLY : "banda vigente en la fecha del hecho"
+    DIM_COMPANY ||--o{ FACT_SUPPORT_TICKETS : "banda vigente en la fecha del hecho"
+    DIM_COMPANY ||--o{ FACT_DEALS : "banda vigente en la fecha del hecho"
+    DIM_COMPANY ||--o{ FACT_REVENUE_MONTHLY : "banda vigente en el mes de cierre"
+    DIM_COMPANY ||--o{ FACT_MARKETING_TOUCHES : "banda vigente en la fecha del hecho"
+    DIM_COMPANY ||--o{ FACT_HEALTH_SCORE_MONTHLY : "fila is_current en la corrida"
+    DIM_DATE ||--o{ FACT_USAGE_MONTHLY : "date_key"
+    DIM_DATE ||--o{ FACT_REVENUE_MONTHLY : "date_key"
+    DIM_CSM |o--o{ DIM_COMPANY : "csm_owner, soporte de filtro"
+    DIM_PLAN |o--o{ DIM_COMPANY : "plan, soporte de filtro"

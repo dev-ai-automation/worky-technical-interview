@@ -39,6 +39,12 @@ Requiere Python 3.12 o superior. El dataset del caso (`fundation-docs/dataset_ca
    python -m worky_engine health --data-dir fundation-docs --out-dir outputs/health
    ```
 
+6. Corre el esquema en estrella del warehouse de A4 (ADR-006), sin haber corrido `build` antes. A diferencia de los comandos anteriores, su base `.build/warehouse.duckdb` persiste entre corridas para poder observar el historial de SCD2:
+
+   ```bash
+   python -m worky_engine warehouse --data-dir fundation-docs --out-dir outputs/warehouse
+   ```
+
 ## Qué produce
 
 | Archivo en `outputs/` | Qué es |
@@ -54,6 +60,8 @@ Requiere Python 3.12 o superior. El dataset del caso (`fundation-docs/dataset_ca
 | `analysis/report.md` | Las siete respuestas de A1 sobre la sábana, cada una con su definición del ADR-004, el SQL y el resultado |
 | `health/health_scores.csv` | 650 empresas, el health score de A3 con sus cuatro subpuntajes, la banda de riesgo y las tres marcas por tasa de capacidad (ADR-005) |
 | `health/validation.md` | La validación medida del health score contra `churn_date`: AUC por señal, precisión, recall, recall ponderado por MRR, sensibilidades y la respuesta a A3.4 |
+| `warehouse/dim_company.csv` | 650 empresas vigentes, una fila por banda de SCD2 sobre `plan` y `csm_owner` (ADR-006) |
+| `warehouse/map_source_identity.csv` | Un vínculo por sistema origen a `master_id`, marcado `cascade` u `override` |
 
 ## Dónde está cada cosa
 

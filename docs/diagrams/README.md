@@ -5,7 +5,7 @@ servidor y sin ninguna llamada de red (verificado con `grep -c "https://"` en ca
 Cada uno trae su fuente Mermaid legible en `docs/diagrams/src/<nombre>.mmd` y su entrada de la skill
 `archify` en `docs/diagrams/src/<nombre>.<tipo>.json`, con el mismo nombre base.
 
-Los siete diagramas de este directorio salen ahora de la misma skill, `archify`, instalada en
+Los ocho diagramas de este directorio salen ahora de la misma skill, `archify`, instalada en
 `~/.agents/skills/archify` (symlink en `~/.claude/skills/archify`), para que todos compartan el mismo
 contrato de entrada, el mismo validador y el mismo comando de entrega.
 
@@ -18,6 +18,7 @@ contrato de entrada, el mismo validador y el mismo comando de entrega.
 | 04 | [`04-flujo-resolucion-identidad.html`](./04-flujo-resolucion-identidad.html) | Cascada de resolución de identidad del ADR-001: normalización, deduplicación de clones, niveles T0 a T3, veto y salidas, con la cobertura medida por nivel | `docs/decisions/ADR-001-identity-resolution-scorecard.md` y `openspec/changes/a0-master-dataset-engine/specs/identity-resolution/spec.md` | Mermaid `flowchart` (fidelidad Mermaid, Node) |
 | 05 | [`05-journeys-por-actor.html`](./05-journeys-por-actor.html) | Un solo journey con doce secciones (seis actores por dos escenarios: VP de Customer Success, CSM, Head of RevOps, Marketing, Sales y el especialista de Business Operations y Datos), comparando el mismo lunes de crisis antes y después del motor A0 y el Health Score | Caso de negocio (Parte B), `openspec/changes/a0-master-dataset-engine/proposal.md` y `docs/research/01-bi-revops-data-architecture.md` (carriles 4 y 5) | Mermaid `journey` (fidelidad Mermaid, navegador) |
 | 06 | [`06-estados-cuenta.html`](./06-estados-cuenta.html) | Ciclo de vida de una cuenta desde la óptica del motor de tendencia: alta, historia insuficiente, tendencia calculada, en riesgo, churn y sin uso | `docs/decisions/ADR-003-usage-trend-and-leakage-guard.md` | Mermaid `state` (fidelidad Mermaid, Node) |
+| 07 | [`07-modelo-estrella-warehouse.html`](./07-modelo-estrella-warehouse.html) | Esquema en estrella del comando `warehouse`: `dim_company` con SCD2 al centro, `map_source_identity` e `identity_overrides` a un lado, los cinco hechos y las tablas de A0 que envuelve como entrada | `docs/data-model/01-warehouse-model.md` | Mermaid `erd` (fidelidad Mermaid, Node) |
 
 ## Ajuste de contenido en el diagrama 05
 
@@ -62,6 +63,9 @@ node bin/archify.mjs deliver journey docs/diagrams/src/05-journeys-por-actor.jou
 
 node bin/archify.mjs validate state docs/diagrams/src/06-estados-cuenta.state.json --json
 node bin/archify.mjs deliver state docs/diagrams/src/06-estados-cuenta.state.json docs/diagrams/06-estados-cuenta.html --json
+
+node bin/archify.mjs validate erd docs/diagrams/src/07-modelo-estrella-warehouse.erd.json --json
+node bin/archify.mjs deliver erd docs/diagrams/src/07-modelo-estrella-warehouse.erd.json docs/diagrams/07-modelo-estrella-warehouse.html --json
 ```
 
 Si se edita el contenido de un diagrama, hay que editar primero su fuente legible en
