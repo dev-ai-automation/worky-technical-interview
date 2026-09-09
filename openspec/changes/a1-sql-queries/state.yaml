@@ -23,10 +23,10 @@ phases:
   specs: done (dominio nuevo sql-analysis: 10 requisitos, 22 escenarios; Engram sdd/a1-sql-queries/spec)
   design: done (D1 a D15; Engram #1832; spec alineado en --out-dir outputs/analysis y borde months_to_churn > k)
   tasks: done (32 tareas en 3 PR apilados; forecast: decision needed No, chained Yes, riesgo medio; PR1 ~630, PR2 ~405, PR3 ~440 lineas)
-  apply: done (PR 1, 2 y 3: analyze, las siete respuestas de A1, report.md y analysis_exceptions.csv; 179 pruebas; 33/33 tareas)
-  verify: pending
+  apply: done (PR 1, 2 y 3: analyze, las siete respuestas de A1, report.md y analysis_exceptions.csv; 179 pruebas; 32/32 tareas)
+  verify: done (PASS con advertencias: 10/10 requisitos, 22/22 escenarios, 179 pruebas; analyze idempotente; A0 sin cambios; envelope validado por sdd-verify-validate sobre 2593273; 3 advertencias y 1 sugerencia como seguimientos)
   archive: pending
-next_recommended: sdd-verify del cambio completo sobre feat/a1-pr3-exceptions-report, luego sdd-archive y merge apilado a main
+next_recommended: sdd-archive, luego merge apilado a main y push con confirmacion del usuario
 review_receipts:
   mode: receipt-driven development activado (global)
   pr1:
