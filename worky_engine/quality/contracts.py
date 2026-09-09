@@ -95,6 +95,25 @@ def assert_exceptions_master_id_in_dataset(exceptions_log: pd.DataFrame, master_
         )
 
 
+def assert_exceptions_log_unique_exception_id(exceptions_log: pd.DataFrame) -> None:
+    """`exception_id` nunca se repite en `exceptions_log`: cada fila es una excepcion distinta.
+
+    Cada rama del exceptions_log deriva su id de las columnas que hacen
+    unica a la excepcion; una repeticion significa que una rama emitio
+    la misma excepcion dos veces (por ejemplo, un enlace descartado que
+    aparece en mas de una fila de match_audit) y el registro dejaria de
+    ser contable.
+    """
+    if exceptions_log.empty:
+        return
+    duplicated = exceptions_log["exception_id"].duplicated()
+    if duplicated.any():
+        ids = sorted(set(exceptions_log.loc[duplicated, "exception_id"]))
+        raise ContractViolation(
+            f"contrato exceptions_log_unique_exception_id: exception_id repetido {ids}"
+        )
+
+
 def assert_value_domains(master_dataset: pd.DataFrame) -> None:
     _assert_domain(master_dataset, "mrr_source", MRR_SOURCE_VALUES)
     _assert_domain(master_dataset, "mrr_confidence", MRR_CONFIDENCE_VALUES)
@@ -270,6 +289,7 @@ def run_contracts(
     assert_required_columns_not_null(master_dataset)
     assert_master_id_in_crosswalk(master_dataset, crosswalk)
     assert_exceptions_master_id_in_dataset(exceptions_log, master_dataset)
+    assert_exceptions_log_unique_exception_id(exceptions_log)
     assert_value_domains(master_dataset)
     assert_mrr_confidence_matches_source(master_dataset)
     assert_trend_usage_matches_status(master_dataset)

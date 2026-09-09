@@ -129,8 +129,11 @@ UNION ALL
 -- abortan el build, se contienen. El crosswalk conserva el primero por
 -- orden de entrada; el segundo queda fuera del crosswalk, pero su
 -- match_audit trae needs_review = true y esta fila es la evidencia
--- auditable de cual id se conservo y cual se descarto.
-SELECT
+-- auditable de cual id se conservo y cual se descarto. DISTINCT porque
+-- el mismo source_id puede traer mas de una fila de match_audit (una
+-- entrada repetida, caso A, B, B): todas se marcan, pero el enlace
+-- descartado es uno solo y su exception_id debe ser unico.
+SELECT DISTINCT
     substr(
         sha256(
             'duplicate_source_link|' || a.source_system || '|' || a.source_id || '|' ||

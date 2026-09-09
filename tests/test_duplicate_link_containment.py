@@ -74,6 +74,29 @@ def con_duplicado(tmp_path_factory) -> dict[str, pd.DataFrame]:
 
 
 @pytest.fixture(scope="module")
+def con_triplicado(tmp_path_factory) -> dict[str, pd.DataFrame]:
+    """Accounts A, B, B: el segundo id aparece dos veces, pero el enlace descartado es uno solo."""
+    raw_tables = {
+        "raw_companies": pd.DataFrame(_company_row()),
+        "raw_accounts": pd.DataFrame(
+            [
+                {"account_id": "ACC-700001", "hubspot_id": "HS-700001", "account_name": "Duplicado Uno", "created_at": "2022-01-01"},
+                {"account_id": "ACC-700002", "hubspot_id": "HS-700001", "account_name": "Duplicado Dos", "created_at": "2022-02-01"},
+                {"account_id": "ACC-700002", "hubspot_id": "HS-700001", "account_name": "Duplicado Dos", "created_at": "2022-02-01"},
+            ]
+        ),
+        "raw_product_usage": _EMPTY_USAGE,
+        "raw_customers": _EMPTY_CUSTOMERS,
+        "raw_tickets": _EMPTY_TICKETS,
+        "raw_marketing_touches": _EMPTY_TOUCHES,
+        "raw_deals": _EMPTY_DEALS,
+    }
+    outputs, identity_outputs = _assemble(raw_tables, tmp_path_factory)
+    assert not set(identity_outputs) & set(outputs)
+    return {**identity_outputs, **outputs}
+
+
+@pytest.fixture(scope="module")
 def con_limpio(tmp_path_factory) -> dict[str, pd.DataFrame]:
     """La misma empresa, pero con una sola account: no debe generar ningun duplicado."""
     raw_tables = {
@@ -128,3 +151,17 @@ def test_build_sin_duplicados_no_genera_filas_ni_cola_manual(con_limpio: dict[st
 
     manual_queue = con_limpio["coverage_manual_queue"]
     assert int(manual_queue["manual_queue_size"].iloc[0]) == 0
+
+
+def test_un_source_id_repetido_deja_una_sola_fila_con_exception_id_unico(con_triplicado: dict[str, pd.DataFrame]) -> None:
+    # Las dos filas de match_audit de ACC-700002 quedan marcadas, pero el
+    # enlace descartado es uno y exceptions_log no puede repetir su id.
+    match_audit = con_triplicado["match_audit"]
+    marked = match_audit[(match_audit["source_id"] == "ACC-700002") & match_audit["needs_review"]]
+    assert len(marked) == 2
+
+    exceptions_log = con_triplicado["exceptions_log"]
+    dup_rows = exceptions_log[exceptions_log["exception_code"] == "duplicate_source_link"]
+    assert len(dup_rows) == 1
+    assert dup_rows.iloc[0]["source_id"] == "ACC-700002"
+    assert exceptions_log["exception_id"].is_unique

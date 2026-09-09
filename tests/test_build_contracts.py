@@ -23,7 +23,10 @@ from worky_engine.cli import main as cli_main
 from worky_engine.identity_resolution import resolve_identity
 from worky_engine.master_dataset import assemble_master_dataset, open_connection
 from worky_engine.quality import ContractViolation, run_contracts
-from worky_engine.quality.contracts import assert_quarantine_companies_unique_hubspot_id
+from worky_engine.quality.contracts import (
+    assert_exceptions_log_unique_exception_id,
+    assert_quarantine_companies_unique_hubspot_id,
+)
 from worky_engine.writers import write_csv
 
 
@@ -149,6 +152,23 @@ def test_quarantine_companies_con_hubspot_id_unico_pasa_el_contrato() -> None:
         ]
     )
     assert_quarantine_companies_unique_hubspot_id(unique)
+
+
+def test_exception_id_repetido_en_exceptions_log_viola_el_contrato() -> None:
+    broken = pd.DataFrame(
+        [
+            {"exception_id": "a1b2c3d4e5f6", "exception_code": "duplicate_source_link", "source_id": "ACC-1"},
+            {"exception_id": "a1b2c3d4e5f6", "exception_code": "duplicate_source_link", "source_id": "ACC-1"},
+            {"exception_id": "0f9e8d7c6b5a", "exception_code": "mrr_imputed_from_deal", "source_id": "D-1"},
+        ]
+    )
+    with pytest.raises(ContractViolation, match="exceptions_log_unique_exception_id") as exc_info:
+        assert_exceptions_log_unique_exception_id(broken)
+    assert "a1b2c3d4e5f6" in str(exc_info.value)
+
+
+def test_exceptions_log_ensamblado_tiene_exception_id_unico(assembled: dict[str, pd.DataFrame]) -> None:
+    assert_exceptions_log_unique_exception_id(assembled["exceptions_log"])
 
 
 def test_build_con_data_dir_inexistente_termina_con_codigo_2(tmp_path, capsys) -> None:
