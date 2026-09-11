@@ -26,9 +26,9 @@ phases:
   design: done (D1 a D12; validador en contexto fresco: bloqueo de esquema del log resuelto alineando spec y diseno en diez columnas con confidence y evidence_ref; escenario de dependencia reescrito; deals_in 997 y deals_matched 962; D8 con dueno en runner.py)
   tasks: done (21 tareas en dos PR apilados: PR1 feat/a6-pr1-clean-rules reglas, log y comando; PR2 feat/a6-pr2-clean-impute imputacion ADR-002, contratos, equivalencia, idempotencia y goldens; forecast ~500/~400, riesgo Medium)
   apply: done (21/21 tareas; PR1 1,190 lineas con size:exception; PR2 476 lineas + 79 de cierre de las tres advertencias del verificador independiente del PR1; 289 pruebas + 3 nuevas; goldens outputs/clean/*)
-  verify: rerun_in_progress (primera corrida 2026-09-11 pass_with_warnings sobre 9ca349c, 11/31; el verificador independiente del PR 2 dejo dos advertencias corregidas en 1572021 + a2b6bc5 (spec 11/33); sdd-verify se repite sobre a2b6bc5 antes del archive)
+  verify: done (2026-09-11, dos corridas: pass_with_warnings sobre 9ca349c (11/31, 295 pruebas) y rerun pass_with_warnings sobre a2b6bc5 (11/33, 304 pruebas, goldens byte a byte, dos advertencias del verificador independiente cerradas); evidence sha256:96791bd2...; ledgers verify y verify-rerun settled passed)
   archive: blocked
-next_recommended: esperar el rerun de sdd-verify; si PASS, sdd-archive (promover data-cleaning), integracion de A6 y A5 a main y push con confirmacion
+next_recommended: sdd-archive (promover data-cleaning); despues integracion de A6 y A5 a main y push con confirmacion
 review_receipts:
   pr1:
     branch: feat/a6-pr1-clean-rules
