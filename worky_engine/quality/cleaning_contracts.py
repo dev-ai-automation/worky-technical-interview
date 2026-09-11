@@ -47,6 +47,7 @@ _CODE_TO_COUNT_PATH = {
     "mrr_deal_annualized": ("missing_mrr", "annualized_deals"),
     "mrr_not_numeric": ("missing_mrr", "not_numeric"),
     "mrr_unresolved": ("missing_mrr", "unresolved"),
+    "deal_amount_not_numeric": ("missing_mrr", "deal_amount_not_numeric"),
 }
 
 

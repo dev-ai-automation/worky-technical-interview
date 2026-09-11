@@ -14,6 +14,7 @@ la unica que lee una segunda entrada (D6).
 
 from __future__ import annotations
 
+import math
 import re
 from dataclasses import dataclass
 
@@ -27,6 +28,20 @@ AUDIT_COLUMNS = ("mrr_mxn", "mrr_original", "currency_original", "mrr_source", "
 DATE_COLUMNS = ("signup_date", "churn_date")
 
 CLONE_ID_PATTERN = re.compile(r"^HS-9000\d{2}$")
+
+
+def parse_finite_amount(text: str) -> float:
+    """Convierte un monto en texto a float y rechaza lo que `float` acepta pero un monto no admite.
+
+    `float("nan")`, `float("inf")` y `float("-inf")` no lanzan `ValueError`,
+    asi que sin esta guardia esos textos entrarian como monto, dejarian
+    `mrr_mxn` vacio al formatearse y reventarian un contrato en vez de
+    reportarse como no numericos.
+    """
+    value = float(text)
+    if not math.isfinite(value):
+        raise ValueError(f"monto no finito: {text!r}")
+    return value
 _DMY_PATTERN = re.compile(r"^(\d{2})/(\d{2})/(\d{4})$")
 _SUPPORTED_CURRENCIES = frozenset({"MXN", "USD"})
 
@@ -161,7 +176,7 @@ def convert_currency(companies: pd.DataFrame) -> tuple[pd.DataFrame, list[Correc
             continue
 
         try:
-            amount = float(raw_amount)
+            amount = parse_finite_amount(raw_amount)
         except ValueError:
             corrections.append(
                 Correction(

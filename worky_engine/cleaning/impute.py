@@ -14,7 +14,7 @@ from __future__ import annotations
 
 import pandas as pd
 
-from worky_engine.cleaning.rules import Correction
+from worky_engine.cleaning.rules import Correction, parse_finite_amount
 from worky_engine.normalization.currency import to_mxn
 from worky_engine.writers import format_money
 
@@ -30,10 +30,15 @@ def impute_mrr_from_deals(companies: pd.DataFrame, deals: pd.DataFrame) -> tuple
     deals o con montos que no convergen a un unico valor queda
     `unresolved` y se reporta en cada corrida (reporte, no correccion).
 
-    Un deal con `amount` vacio o no numerico se salta y se reporta como
-    `deal_amount_not_numeric` (reporte, nunca correccion); la empresa
-    se imputa igual con sus deals restantes, o queda `unresolved` si
-    ninguno trae un monto numerico.
+    Un deal con `amount` vacio, no numerico o no finito (`nan`, `inf`)
+    se salta y se reporta como `deal_amount_not_numeric` (reporte,
+    nunca correccion); la empresa se imputa igual con sus deals
+    restantes, o queda `unresolved` si ninguno trae un monto valido.
+
+    Los montos se acumulan por fila de deal, no por `deal_id`, igual
+    que el `GROUP BY` de `mart_mrr.sql` sobre todas las filas: dos
+    filas con el mismo `deal_id` y montos distintos dejan a la empresa
+    `unresolved` en vez de colapsarse en silencio a la ultima.
     """
     result = companies.copy()
     corrections: list[Correction] = []
@@ -58,10 +63,12 @@ def impute_mrr_from_deals(companies: pd.DataFrame, deals: pd.DataFrame) -> tuple
             )
             continue
 
-        amounts_mxn: dict[str, float] = {}
-        for deal_id, amount in zip(company_deals["deal_id"], company_deals["amount"]):
+        amounts_mxn: list[tuple[str, float]] = []
+        valid_rows: list[int] = []
+        for position, (deal_id, amount) in enumerate(zip(company_deals["deal_id"], company_deals["amount"])):
             try:
-                amounts_mxn[deal_id] = round(to_mxn(float(amount), currency).mxn, 2)
+                amounts_mxn.append((deal_id, round(to_mxn(parse_finite_amount(amount), currency).mxn, 2)))
+                valid_rows.append(position)
             except ValueError:
                 corrections.append(
                     Correction(
@@ -89,17 +96,17 @@ def impute_mrr_from_deals(companies: pd.DataFrame, deals: pd.DataFrame) -> tuple
             )
             continue
 
-        min_amount = min(amounts_mxn.values())
-        normalized = {}
-        annualized_deal_ids = []
-        for deal_id, amount in amounts_mxn.items():
+        min_amount = min(amount for _deal_id, amount in amounts_mxn)
+        normalized: list[tuple[str, float]] = []
+        annualized: list[tuple[str, float]] = []
+        for deal_id, amount in amounts_mxn:
             if min_amount > 0 and round(amount, 2) == round(min_amount * 12, 2):
-                normalized[deal_id] = min_amount
-                annualized_deal_ids.append(deal_id)
+                normalized.append((deal_id, min_amount))
+                annualized.append((deal_id, amount))
             else:
-                normalized[deal_id] = amount
+                normalized.append((deal_id, amount))
 
-        if len({round(v, 2) for v in normalized.values()}) != 1:
+        if len({round(amount, 2) for _deal_id, amount in normalized}) != 1:
             corrections.append(
                 Correction(
                     exception_code="mrr_unresolved",
@@ -114,10 +121,10 @@ def impute_mrr_from_deals(companies: pd.DataFrame, deals: pd.DataFrame) -> tuple
             continue
 
         candidate_mrr = min_amount
-        valid_deals = company_deals[company_deals["deal_id"].isin(amounts_mxn)]
+        valid_deals = company_deals.iloc[valid_rows]
         has_closedwon = (valid_deals["stage"] == "closedwon").any()
         confidence = "high" if has_closedwon else "medium"
-        evidence_deal_id = min(normalized, key=lambda deal_id: (amounts_mxn[deal_id] != candidate_mrr, deal_id))
+        evidence_deal_id = min(amounts_mxn, key=lambda item: (item[1] != candidate_mrr, item[0]))[0]
 
         result.at[index, "mrr"] = format_money(candidate_mrr)
         result.at[index, "mrr_mxn"] = format_money(candidate_mrr)
@@ -136,14 +143,14 @@ def impute_mrr_from_deals(companies: pd.DataFrame, deals: pd.DataFrame) -> tuple
                 confidence=confidence,
             )
         )
-        for deal_id in annualized_deal_ids:
+        for deal_id, amount in annualized:
             corrections.append(
                 Correction(
                     exception_code="mrr_deal_annualized",
                     source_system="crm_hubspot",
                     source_id=deal_id,
                     field_name="amount",
-                    original_value=format_money(amounts_mxn[deal_id]),
+                    original_value=format_money(amount),
                     applied_value=format_money(min_amount),
                     evidence_ref=hubspot_id,
                 )

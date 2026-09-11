@@ -385,3 +385,20 @@ def test_companies_csv_no_utf8_termina_con_codigo_2_sin_salida(tmp_path: Path, c
     err = capsys.readouterr().err
     assert "companies.csv" in err and "UTF-8" in err
     assert list(out_dir.glob("*")) == []
+
+
+@pytest.mark.parametrize("raw_mrr", ["nan", "inf", "-inf"])
+def test_mrr_no_finito_se_reporta_como_no_numerico(raw_mrr: str) -> None:
+    """`float` acepta nan e inf sin error; para un monto cuentan como texto no numerico y nunca llegan a mrr_mxn."""
+    companies = pd.DataFrame([_company("HS-100009", mrr=raw_mrr, currency="USD")], columns=COMPANIES_COLUMNS)
+    deals = fixture_deals()
+    result = run_clean(companies, deals)
+
+    run_cleaning_contracts(result.clean, companies, result.exceptions, result.counts, run_clean, deals)
+
+    row = result.clean.iloc[0]
+    assert row["mrr"] == raw_mrr
+    assert row["mrr_mxn"] == ""
+    assert row["mrr_source"] == "unresolved"
+    exception = result.exceptions[result.exceptions["source_id"] == "HS-100009"]
+    assert len(exception) == 1 and exception.iloc[0]["exception_code"] == "mrr_not_numeric"

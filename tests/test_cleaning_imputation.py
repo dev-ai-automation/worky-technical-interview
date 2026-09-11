@@ -11,10 +11,12 @@ deteccion de mrr nulo sin duplicar fixtures.
 from __future__ import annotations
 
 import pandas as pd
+import pytest
 
 from tests.test_cleaning_rules import COMPANIES_COLUMNS, DEALS_COLUMNS, _company
 from worky_engine.cleaning import run_clean
 from worky_engine.cleaning.impute import impute_mrr_from_deals
+from worky_engine.quality.cleaning_contracts import run_cleaning_contracts
 
 
 def _deal(deal_id: str, hubspot_id: str, stage: str, amount: str) -> dict:
@@ -177,3 +179,64 @@ def test_clon_no_se_toca_por_impute() -> None:
     assert result.at[0, "mrr_source"] == "clone_excluded"
     assert result.at[0, "mrr_mxn"] == ""
     assert corrections == []
+
+
+@pytest.mark.parametrize("raw_amount", ["nan", "inf", "-inf", "NaN"])
+def test_deal_con_monto_no_finito_se_reporta_como_no_numerico(raw_amount: str) -> None:
+    """`float` acepta nan e inf sin error; el monto se rechaza igual que texto y la empresa se imputa con el deal valido."""
+    companies = pd.DataFrame([_company("HS-200008", mrr="")], columns=COMPANIES_COLUMNS)
+    deals = pd.DataFrame(
+        [
+            _deal("D90011", "HS-200008", "closedwon", "3000"),
+            _deal("D90012", "HS-200008", "qualifiedtobuy", raw_amount),
+        ],
+        columns=DEALS_COLUMNS,
+    )
+    result = run_clean(companies, deals)
+    run_cleaning_contracts(result.clean, companies, result.exceptions, result.counts, run_clean, deals)
+    row = result.clean.iloc[0]
+    assert row["mrr_mxn"] == "3000.00"
+    assert row["mrr_source"] == "imputed_from_deal"
+    bad_deal = result.exceptions[result.exceptions["source_id"] == "D90012"]
+    assert len(bad_deal) == 1
+    assert bad_deal.iloc[0]["exception_code"] == "deal_amount_not_numeric"
+    assert bad_deal.iloc[0]["original_value"] == raw_amount
+    assert result.counts["rules"][0]["deal_amount_not_numeric"] == 1
+
+
+def test_deal_id_duplicado_con_montos_distintos_queda_sin_resolver() -> None:
+    """Dos filas con el mismo deal_id y montos distintos son dos montos, como en mart_mrr: la empresa queda unresolved."""
+    companies = pd.DataFrame([_company("HS-200009", mrr="")], columns=COMPANIES_COLUMNS)
+    deals = pd.DataFrame(
+        [
+            _deal("D90013", "HS-200009", "closedwon", "1000"),
+            _deal("D90013", "HS-200009", "closedwon", "2000"),
+        ],
+        columns=DEALS_COLUMNS,
+    )
+    result = run_clean(companies, deals)
+    row = result.clean.iloc[0]
+    assert row["mrr_mxn"] == ""
+    assert row["mrr_source"] == "unresolved"
+    unresolved = result.exceptions[result.exceptions["exception_code"] == "mrr_unresolved"]
+    assert len(unresolved) == 1 and unresolved.iloc[0]["evidence_ref"] == "montos ambiguos"
+    assert (result.exceptions["exception_code"] == "mrr_imputed_from_deal").sum() == 0
+
+
+def test_deal_id_duplicado_con_el_mismo_monto_se_imputa() -> None:
+    """Dos filas con el mismo deal_id y el mismo monto convergen a un unico valor y se imputan con normalidad."""
+    companies = pd.DataFrame([_company("HS-200010", mrr="")], columns=COMPANIES_COLUMNS)
+    deals = pd.DataFrame(
+        [
+            _deal("D90014", "HS-200010", "qualifiedtobuy", "1500"),
+            _deal("D90014", "HS-200010", "closedwon", "1500"),
+        ],
+        columns=DEALS_COLUMNS,
+    )
+    result = run_clean(companies, deals)
+    row = result.clean.iloc[0]
+    assert row["mrr_mxn"] == "1500.00"
+    assert row["mrr_source"] == "imputed_from_deal"
+    assert row["mrr_confidence"] == "high"
+    imputed = result.exceptions[result.exceptions["exception_code"] == "mrr_imputed_from_deal"]
+    assert len(imputed) == 1 and imputed.iloc[0]["evidence_ref"] == "D90014"
