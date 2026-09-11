@@ -26,9 +26,9 @@ phases:
   design: done (D1 a D12; validador en contexto fresco: bloqueo de esquema del log resuelto alineando spec y diseno en diez columnas con confidence y evidence_ref; escenario de dependencia reescrito; deals_in 997 y deals_matched 962; D8 con dueno en runner.py)
   tasks: done (21 tareas en dos PR apilados: PR1 feat/a6-pr1-clean-rules reglas, log y comando; PR2 feat/a6-pr2-clean-impute imputacion ADR-002, contratos, equivalencia, idempotencia y goldens; forecast ~500/~400, riesgo Medium)
   apply: done (21/21 tareas; PR1 1,190 lineas con size:exception; PR2 476 lineas + 79 de cierre de las tres advertencias del verificador independiente del PR1; 289 pruebas + 3 nuevas; goldens outputs/clean/*)
-  verify: done (2026-09-11, pass_with_warnings sobre 9ca349c: 11/11 requisitos, 31/31 escenarios, 295 pruebas, goldens deterministas en tres corridas; evidence sha256:33e4c985...; ledger verify-a6-cleaning-script settled passed)
+  verify: rerun_in_progress (primera corrida 2026-09-11 pass_with_warnings sobre 9ca349c, 11/31; el verificador independiente del PR 2 dejo dos advertencias corregidas en 1572021 + a2b6bc5 (spec 11/33); sdd-verify se repite sobre a2b6bc5 antes del archive)
   archive: blocked
-next_recommended: sdd-archive (promover data-cleaning); despues integracion de A6 y A5 a main y push con confirmacion
+next_recommended: esperar el rerun de sdd-verify; si PASS, sdd-archive (promover data-cleaning), integracion de A6 y A5 a main y push con confirmacion
 review_receipts:
   pr1:
     branch: feat/a6-pr1-clean-rules
@@ -44,3 +44,7 @@ review_receipts:
     size_exception: no requerida (476 lineas de autoria + correcciones acotadas); el ledger se reseteo por goldens y docs bajo la autorizacion permanente
     lineage: review-0539e1f6aec41428 (riesgo alto, cuatro lentes): tres capturas admitidas y la cuarta con correction_required (R2-01, R3-deal-amount-unparseable, R4-deal-amount-float-unguarded), corregidos en 0fa82cb; al reingresar pidio recovery (scope_changed por deliverables/); sucesor review-a6pr2-recovered: doce capturas rechazadas por el proveedor del modelo
     result: sin recibo: lentes declarados no alcanzables (provider_safeguard_refusal); entrega por politica ordinaria (verificador independiente en contexto fresco + sdd-verify); RDD apagado global el 2026-09-11 al cerrar el codigo de A6
+  pr2_post_verify:
+    commits: 1572021 (guardia parse_finite_amount para nan/inf, montos por fila para deal_id duplicado, mapa de conteos), a2b6bc5 (spec 11/33, diseno D6, apply-progress)
+    source: verificador independiente del PR 2 (contexto fresco sobre f76b863): PASS WITH WARNINGS, 0 CRITICAL, 2 WARNING corregidos
+    ledger: apply-a6-post-verify-fix settled passed (evidence sha256:96791bd2...); verify-a6-cleaning-script-rerun acquired
