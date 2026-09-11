@@ -26,9 +26,9 @@ phases:
   design: done (D1 a D12; validador en contexto fresco: bloqueo de esquema del log resuelto alineando spec y diseno en diez columnas con confidence y evidence_ref; escenario de dependencia reescrito; deals_in 997 y deals_matched 962; D8 con dueno en runner.py)
   tasks: done (21 tareas en dos PR apilados: PR1 feat/a6-pr1-clean-rules reglas, log y comando; PR2 feat/a6-pr2-clean-impute imputacion ADR-002, contratos, equivalencia, idempotencia y goldens; forecast ~500/~400, riesgo Medium)
   apply: done (21/21 tareas; PR1 1,190 lineas con size:exception; PR2 476 lineas + 79 de cierre de las tres advertencias del verificador independiente del PR1; 289 pruebas + 3 nuevas; goldens outputs/clean/*)
-  verify: in_progress (sdd-verify lanzado el 2026-09-11 con 11 requisitos y 31 escenarios; verificador independiente del PR 2 en paralelo)
+  verify: done (2026-09-11, pass_with_warnings sobre 9ca349c: 11/11 requisitos, 31/31 escenarios, 295 pruebas, goldens deterministas en tres corridas; evidence sha256:33e4c985...; ledger verify-a6-cleaning-script settled passed)
   archive: blocked
-next_recommended: esperar verify-report; si PASS, archive, integracion de A6 y A5 a main y push con confirmacion
+next_recommended: sdd-archive (promover data-cleaning); despues integracion de A6 y A5 a main y push con confirmacion
 review_receipts:
   pr1:
     branch: feat/a6-pr1-clean-rules
