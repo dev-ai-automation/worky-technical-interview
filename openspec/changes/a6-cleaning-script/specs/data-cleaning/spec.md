@@ -132,6 +132,12 @@ El comando MUST convertir cada monto en USD a MXN usando el tipo de cambio fijo 
 - Cuando alguien corre clean sobre esa salida
 - Entonces la excepción mrr_not_numeric aparece otra vez para esa fila, como reporte y no como corrección, y el conteo de correcciones es cero
 
+#### Scenario: mrr con nan o infinito cuenta como no numérico
+
+- Dado una fila cuyo mrr trae "nan", "inf" o "-inf", textos que float acepta sin error
+- Cuando el comando corre
+- Entonces la fila recibe la excepción mrr_not_numeric igual que cualquier texto, mrr_mxn queda vacío y ningún contrato se dispara
+
 ### Requirement: imputación de mrr desde deals con anualización
 
 Para cada empresa real con mrr nulo, el comando MUST buscar sus deals en deals.csv, MUST normalizar a mensual cualquier monto que sea exactamente 12 veces otro monto de la misma empresa y MUST registrar esa normalización como una corrección propia en el log, MUST imputar el monto único resultante con mrr_confidence en high cuando la empresa tiene un deal closedwon y medium en cualquier otro caso, y MUST dejar la empresa sin imputar cuando los montos no se resuelven a un único valor o no existen deals. Cada imputación MUST registrar el deal_id de origen.
@@ -162,9 +168,15 @@ Para cada empresa real con mrr nulo, el comando MUST buscar sus deals en deals.c
 
 #### Scenario: deal con monto vacío o no numérico no detiene la corrida
 
-- Dado una empresa con mrr nulo cuyos deals incluyen uno con amount vacío o con texto no numérico
+- Dado una empresa con mrr nulo cuyos deals incluyen uno con amount vacío, con texto no numérico o con "nan" o "inf"
 - Cuando el comando corre la imputación
 - Entonces ese deal se descarta con la excepción deal_amount_not_numeric que nombra el deal_id, la imputación sigue con los deals válidos de la empresa (o queda unresolved si no hay ninguno) y el comando termina en 0
+
+#### Scenario: deal_id duplicado con montos distintos no se colapsa
+
+- Dado una empresa con mrr nulo cuyos deals traen dos filas con el mismo deal_id y montos distintos
+- Cuando el comando corre la imputación
+- Entonces cuenta las dos filas como dos montos, igual que mart_mrr, y la empresa queda unresolved por montos ambiguos; dos filas con el mismo deal_id y el mismo monto se imputan con normalidad
 
 ### Requirement: contrato del log de limpieza
 

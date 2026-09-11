@@ -147,3 +147,12 @@ dataset-number and idempotency suites for the completed pipeline, and
 commit the four outputs/clean/ goldens. Add the clean command's step
 to the README quick path and its four output rows.
 ```
+
+## Correcciones posteriores al verify (2026-09-11)
+
+El verificador independiente del PR 2 (contexto fresco sobre f76b863) dejó dos advertencias, ninguna con efecto sobre el dataset del caso, corregidas después del verify-report y antes del archive:
+
+1. `float("nan")`, `float("inf")` y `float("-inf")` no lanzan `ValueError`, así que un monto con ese texto esquivaba la tolerancia de `deal_amount_not_numeric` y `mrr_not_numeric` y terminaba disparando `assert_no_null_mrr_after_imputation`. Ahora `rules.parse_finite_amount` cubre `convert_currency` e `impute_mrr_from_deals`.
+2. Los montos de deals se acumulaban en un diccionario por `deal_id`, así que dos filas con el mismo `deal_id` y montos distintos se colapsaban a la última; `mart_mrr.sql` las cuenta como dos montos. Ahora se acumulan por fila y el caso queda `unresolved` por montos ambiguos.
+
+También se agregó `deal_amount_not_numeric` al mapa de `assert_counts_match_exceptions`. Pruebas nuevas: 4 parametrizadas de monto no finito en deals, 2 de `deal_id` duplicado (montos distintos y montos iguales) y 3 parametrizadas de `mrr` no finito. Spec: 11 requisitos, 33 escenarios. Los cuatro goldens de `outputs/clean/` no cambian.
