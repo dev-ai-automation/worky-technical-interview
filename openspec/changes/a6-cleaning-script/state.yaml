@@ -26,9 +26,9 @@ phases:
   design: done (D1 a D12; validador en contexto fresco: bloqueo de esquema del log resuelto alineando spec y diseno en diez columnas con confidence y evidence_ref; escenario de dependencia reescrito; deals_in 997 y deals_matched 962; D8 con dueno en runner.py)
   tasks: done (21 tareas en dos PR apilados: PR1 feat/a6-pr1-clean-rules reglas, log y comando; PR2 feat/a6-pr2-clean-impute imputacion ADR-002, contratos, equivalencia, idempotencia y goldens; forecast ~500/~400, riesgo Medium)
   apply: done (21/21 tareas; PR1 1,190 lineas con size:exception; PR2 476 lineas + 79 de cierre de las tres advertencias del verificador independiente del PR1; 289 pruebas + 3 nuevas; goldens outputs/clean/*)
-  verify: blocked
+  verify: in_progress (sdd-verify lanzado el 2026-09-11 con 11 requisitos y 31 escenarios; verificador independiente del PR 2 en paralelo)
   archive: blocked
-next_recommended: revision nativa del PR2 (linaje nuevo); despues sdd-verify (11/30) y archive
+next_recommended: esperar verify-report; si PASS, archive, integracion de A6 y A5 a main y push con confirmacion
 review_receipts:
   pr1:
     branch: feat/a6-pr1-clean-rules
@@ -37,3 +37,10 @@ review_receipts:
     size_exception: aceptada por el usuario (1,190 lineas de autoria)
     lineage: review-a1ac5a1a71fed293 (riesgo alto, cuatro lentes): correction_required con diez CRITICAL en tres causas raiz, corregidos; recuperado como review-a6pr1-recovered (scope_changed por un PDF ajeno sin versionar que aparecio en la raiz y se movio fuera con permiso del usuario)
     result: sin recibo: las cuatro capturas del linaje recuperado fallaron ocho veces por rechazo del proveedor del modelo (salvaguardas de Opus 5); los cuatro lentes se declararon no alcanzables (provider_safeguard_refusal) por decision del usuario; entrega por politica ordinaria (pruebas 275, verify independiente y verificador en contexto fresco por riesgo alto)
+  pr2:
+    branch: feat/a6-pr2-clean-impute
+    base: 059e12a (tip del PR1; committed-only; deliverables/ excluido)
+    commits: 932222b (imputacion, goldens, README), 50ac1a2 (docs), 7b23e6a (cierre de las tres advertencias del verificador del PR1), b6f1077 (docs y spec 11/30), 0fa82cb (correccion de la revision: tolerancia de amount y guardia simetrica), f76b863 (docs, spec 11/31, diseno D6)
+    size_exception: no requerida (476 lineas de autoria + correcciones acotadas); el ledger se reseteo por goldens y docs bajo la autorizacion permanente
+    lineage: review-0539e1f6aec41428 (riesgo alto, cuatro lentes): tres capturas admitidas y la cuarta con correction_required (R2-01, R3-deal-amount-unparseable, R4-deal-amount-float-unguarded), corregidos en 0fa82cb; al reingresar pidio recovery (scope_changed por deliverables/); sucesor review-a6pr2-recovered: doce capturas rechazadas por el proveedor del modelo
+    result: sin recibo: lentes declarados no alcanzables (provider_safeguard_refusal); entrega por politica ordinaria (verificador independiente en contexto fresco + sdd-verify); RDD apagado global el 2026-09-11 al cerrar el codigo de A6
